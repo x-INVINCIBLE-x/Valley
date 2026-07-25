@@ -1,0 +1,34 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "b3a1e2c4-1111-4a2b-9c3d-000000000001",
+            "actions": [
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "b3a1e2c4-1111-4a2b-9c3d-000000000002",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b3a1e2c4-1111-4a2b-9c3d-000000000003",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
