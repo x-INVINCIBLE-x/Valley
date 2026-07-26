@@ -246,8 +246,8 @@ MonoBehaviour:
     y: 0
     width: 381
     height: 463
-  m_MinSize: {x: 202, y: 226}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -1479,9 +1479,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 63.604294, y: 16.375948, z: -0.024618205}
+    m_Target: {x: 48.129578, y: -18.113365, z: 27.621618}
     speed: 2
-    m_Value: {x: 63.604294, y: 16.375948, z: -0.024618205}
+    m_Value: {x: 48.129578, y: -18.113365, z: 27.621618}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1527,13 +1527,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0, y: 0, z: 0, w: 1}
+    m_Target: {x: 0.136027, y: 0.026745621, z: -0.0036736152, w: 0.9903382}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: 0.13602686, y: 0.026745595, z: -0.0036736117, w: 0.99033725}
   m_Size:
-    m_Target: 36.51087
+    m_Target: 50.9686
     speed: 2
-    m_Value: 36.51087
+    m_Value: 50.9686
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1664,24 +1664,17 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-      - m_Data: -63936
+      - m_Data: 46352
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -56194
-      - m_Data: -56032
-      - m_Data: -55670
-      - m_Data: -55624
-      - m_Data: -55576
-      - m_Data: -55530
-      - m_Data: -55406
-      - m_Data: -55292
-      - m_Data: -55106
-      - m_Data: -44892
+      - m_Data: -1328
+      - m_Data: 45606
+      - m_Data: 45712
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Platform Generator
+        m_OriginalName: Platform Generator
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
@@ -1689,13 +1682,13 @@ MonoBehaviour:
           width: 0
           height: 0
         m_UserData:
-          m_Data: 0
+          m_Data: -8450
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 10}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1752,7 +1745,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Data
+    - Assets/Prefabs
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1773,7 +1766,22 @@ MonoBehaviour:
     - m_Data: 108980
     m_LastClickedID:
       m_Data: 108980
-    m_ExpandedIDs: []
+    m_ExpandedIDs:
+    - m_Data: 0
+    - m_Data: 45864
+    - m_Data: 45866
+    - m_Data: 45868
+    - m_Data: 45870
+    - m_Data: 45872
+    - m_Data: 45874
+    - m_Data: 45876
+    - m_Data: 45878
+    - m_Data: 45880
+    - m_Data: 45882
+    - m_Data: 45884
+    - m_Data: 45886
+    - m_Data: 45888
+    - m_Data: 45890
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1802,24 +1810,30 @@ MonoBehaviour:
   m_AssetTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: -63936
+    - m_Data: 46352
     m_LastClickedID:
-      m_Data: -63936
+      m_Data: 46352
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 61302
-    - m_Data: 61412
-    - m_Data: 61438
-    - m_Data: 61462
-    - m_Data: 61466
-    - m_Data: 61470
-    - m_Data: 61474
-    - m_Data: 61642
-    - m_Data: 67030
+    - m_Data: 45864
+    - m_Data: 45866
+    - m_Data: 45868
+    - m_Data: 45870
+    - m_Data: 45872
+    - m_Data: 45874
+    - m_Data: 45876
+    - m_Data: 45878
+    - m_Data: 45880
+    - m_Data: 45882
+    - m_Data: 45884
+    - m_Data: 45886
+    - m_Data: 45888
+    - m_Data: 45890
+    - m_Data: 46242
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: PlatformEffectProfile
-      m_OriginalName: PlatformEffectProfile
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1827,13 +1841,13 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 61356
+        m_Data: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 0}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -1843,8 +1857,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: -63936
-    m_LastClickedInstanceID: -63936
+    - m_Data: 46352
+    m_LastClickedInstanceID: 46352
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
@@ -1917,7 +1931,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: 302
+    m_CachedPref: -302
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
