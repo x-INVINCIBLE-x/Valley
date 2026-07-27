@@ -4,6 +4,14 @@ using Valley.Core;
 
 namespace Valley.Level.Generation
 {
+    /// <summary>
+    /// Procedurally spawns PlatformBlock instances ahead of the player across 5 parallel layers: the
+    /// mid layer (the actual traversal path, using the full launch-reachability logic) plus up to 4
+    /// side layers configured in <see cref="sideLayers"/> - typically 2 above and 2 below. Side layers
+    /// re-center on the mid layer's current edge height every spawn, and trend sparser going up /
+    /// denser-and-more-likely-to-attach going down via each PlatformLayer's gapMultiplier and
+    /// stickChanceBonus. Despawning is distance-driven per layer, and all layers share the same pool.
+    /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
         [Header("References")]
@@ -24,25 +32,30 @@ namespace Valley.Level.Generation
         public float spawnAheadDistance = 30f;
         public float despawnBehindDistance = 15f;
 
-        [Header("Vertical Band")]
+        [Header("Vertical Band (Mid Layer)")]
         [Tooltip("Platforms never generate above (player's current Y + this offset). Re-evaluated on every spawn, so it tracks the player instead of trapping them under a fixed ceiling.")]
         public float upperBoundOffset = 6f;
-        [Tooltip("Max |change in edge height| allowed between two consecutive platforms. There is deliberately no matching lower clamp.")]
+        [Tooltip("Max |change in edge height| allowed between two consecutive mid-layer platforms. There is deliberately no matching lower clamp.")]
         public float maxVerticalStep = 3f;
 
-        [Header("Gap Control")]
+        [Header("Gap Control (base values, scaled per layer)")]
         public float minGapX = 0.5f;
-        [Tooltip("Authored ceiling on gap size; still further clamped by reachability.")]
+        [Tooltip("Authored ceiling on mid-layer gap size; still further clamped by reachability.")]
         public float maxGapX = 4f;
         [Range(0f, 1f)] public float gapChance = 0.65f;
 
-        [Header("Anti-Runaway Safety")]
+        [Header("Anti-Runaway Safety (Mid Layer)")]
         [Tooltip("Hard cap on flush attaches in a row, so blocks that allow sticking can't chain into an endless floor.")]
         public int maxConsecutiveSticks = 3;
         [Tooltip("After this many near-max-difficulty gaps in a row, the next gap eases off.")]
         public int maxConsecutiveHardGaps = 2;
         [Tooltip("Every N spawns, force a flat, unrotated, easy gap as a guaranteed-reachable checkpoint.")]
         public int guaranteedSafetyInterval = 8;
+
+        [Header("Side Layers (2 up, 2 down)")]
+        [Tooltip("Vertical spacing used by 'Build Default Side Layers' to auto-populate the array below.")]
+        public float layerSpacing = 4f;
+        public PlatformLayer[] sideLayers = new PlatformLayer[0];
 
         [Header("Debug Gizmos")]
         public bool showDebugGizmos = true;
@@ -67,10 +80,28 @@ namespace Valley.Level.Generation
         readonly Dictionary<PlatformBlock, Queue<PlatformBlock>> pools = new Dictionary<PlatformBlock, Queue<PlatformBlock>>();
         readonly Dictionary<PlatformBlock, PlatformBlock> instanceSource = new Dictionary<PlatformBlock, PlatformBlock>();
 
+        [ContextMenu("Build Default Side Layers (2 Up / 2 Down)")]
+        void BuildDefaultSideLayers()
+        {
+            sideLayers = new[]
+            {
+                new PlatformLayer { label = "Up 2",   verticalOffset =  2f * layerSpacing, verticalJitter = 1.5f, gapMultiplier = 2.2f,  stickChanceBonus = 0f,   maxConsecutiveSticks = 1,   clampToReachability = false, gizmoColor = new Color(1f, 0.4f, 0.1f) },
+                new PlatformLayer { label = "Up 1",   verticalOffset =  1f * layerSpacing, verticalJitter = 1.2f, gapMultiplier = 1.5f,  stickChanceBonus = 0f,   maxConsecutiveSticks = 2,   clampToReachability = false, gizmoColor = new Color(1f, 0.8f, 0.2f) },
+                new PlatformLayer { label = "Down 1", verticalOffset = -1f * layerSpacing, verticalJitter = 0.8f, gapMultiplier = 0.65f, stickChanceBonus = 0.3f, maxConsecutiveSticks = 6,   clampToReachability = false, gizmoColor = new Color(0.2f, 0.8f, 1f) },
+                new PlatformLayer { label = "Down 2", verticalOffset = -2f * layerSpacing, verticalJitter = 0.5f, gapMultiplier = 0.35f, stickChanceBonus = 0.6f, maxConsecutiveSticks = 999, clampToReachability = false, gizmoColor = new Color(0.2f, 0.3f, 1f) },
+            };
+        }
+
         void Start()
         {
             envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
             SpawnInitial();
+
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null) continue;
+                SpawnInitialSideLayer(layer);
+            }
         }
 
         void Update()
@@ -79,9 +110,21 @@ namespace Valley.Level.Generation
 
             while (player.position.x + spawnAheadDistance > lastRightEdgeX)
                 SpawnNext();
-
             DespawnBehind();
+
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null) continue;
+
+                while (player.position.x + spawnAheadDistance > layer.lastRightEdgeX)
+                    SpawnNextSideLayer(layer);
+                DespawnBehindLayer(layer);
+            }
         }
+
+        // ---------------------------------------------------------------
+        // Mid layer (the traversal path) - unchanged reachability-aware logic
+        // ---------------------------------------------------------------
 
         void SpawnInitial()
         {
@@ -102,7 +145,7 @@ namespace Valley.Level.Generation
             spawnsSinceSafety++;
             bool forceSafe = spawnsSinceSafety >= guaranteedSafetyInterval;
 
-            PlatformBlock prefab = ChoosePrefab();
+            PlatformBlock prefab = ChoosePrefab(platformPrefabs);
 
             bool wantsGap = forceSafe || Random.value < gapChance;
             bool canStick = !wantsGap && lastPlatform != null
@@ -115,7 +158,6 @@ namespace Valley.Level.Generation
 
             if (stick)
             {
-                // flush attach: continue exactly at the previous block's edge height, zero gap
                 targetLeftEdgeY = lastEdgeY;
                 gapX = 0f;
                 consecutiveSticks++;
@@ -126,13 +168,12 @@ namespace Valley.Level.Generation
                 consecutiveSticks = 0;
 
                 float dynamicCeiling = player.position.y + upperBoundOffset;
-                float minY = lastEdgeY - maxVerticalStep;              // no global lower bound, only a local step cap
+                float minY = lastEdgeY - maxVerticalStep;
                 float maxY = Mathf.Min(lastEdgeY + maxVerticalStep, dynamicCeiling);
                 if (maxY < minY) maxY = minY;
 
                 float rawTarget = forceSafe ? lastEdgeY : Random.Range(minY, maxY);
 
-                // never ask for more height than the launches can actually deliver, minus the forgiveness margin
                 float maxReachableY = lastEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
                 targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
 
@@ -176,6 +217,108 @@ namespace Valley.Level.Generation
             return Mathf.Lerp(envelope.maxForwardDistance, envelope.maxForwardAtMaxHeight, t);
         }
 
+        void DespawnBehind()
+        {
+            float cutoff = player.position.x - despawnBehindDistance;
+            while (active.Count > 0 && active.Peek().GetRightEdgeWorld().x < cutoff)
+                ReturnToPool(active.Dequeue());
+        }
+
+        // ---------------------------------------------------------------
+        // Side layers - simpler logic, re-centered on the mid layer each spawn
+        // ---------------------------------------------------------------
+
+        void SpawnInitialSideLayer(PlatformLayer layer)
+        {
+            PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
+            PlatformBlock prefab = pool[0];
+            PlatformBlock instance = GetFromPool(prefab);
+
+            float startLeftX = player.position.x - prefab.Width * 0.5f;
+            float startLeftY = lastEdgeY + layer.verticalOffset;
+            PositionPlatform(instance, startLeftX, startLeftY, 0f);
+
+            layer.lastPlatform = instance;
+            layer.lastRightEdgeX = instance.GetRightEdgeWorld().x;
+            layer.lastEdgeY = instance.GetRightEdgeWorld().y;
+            layer.active.Enqueue(instance);
+        }
+
+        void SpawnNextSideLayer(PlatformLayer layer)
+        {
+            PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
+            PlatformBlock prefab = ChoosePrefab(pool);
+
+            bool canStick = layer.lastPlatform != null
+                             && layer.lastPlatform.rightAttach.allowed && prefab.leftAttach.allowed
+                             && layer.consecutiveSticks < layer.maxConsecutiveSticks;
+            float stickRoll = canStick
+                ? Mathf.Min(layer.lastPlatform.rightAttach.successRate, prefab.leftAttach.successRate) + layer.stickChanceBonus
+                : 0f;
+            bool stick = canStick && Random.value <= Mathf.Clamp01(stickRoll);
+
+            float targetLeftEdgeY;
+            float gapX;
+
+            if (stick)
+            {
+                targetLeftEdgeY = layer.lastEdgeY;
+                gapX = 0f;
+                layer.consecutiveSticks++;
+            }
+            else
+            {
+                layer.consecutiveSticks = 0;
+
+                float baselineY = lastEdgeY + layer.verticalOffset; // rides along the mid layer's current path height
+                float rawTarget = Random.Range(baselineY - layer.verticalJitter, baselineY + layer.verticalJitter);
+
+                float scaledMin = Mathf.Max(0.05f, minGapX * layer.gapMultiplier);
+                float scaledMax;
+
+                if (layer.clampToReachability)
+                {
+                    float maxReachableY = layer.lastEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
+                    targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
+
+                    float heightDelta = targetLeftEdgeY - layer.lastEdgeY;
+                    float safeGap = Mathf.Max(minGapX, ComputeSafeGap(heightDelta) - reachabilitySafetyMargin);
+                    scaledMax = Mathf.Max(scaledMin, Mathf.Min(maxGapX, safeGap) * layer.gapMultiplier);
+                }
+                else
+                {
+                    targetLeftEdgeY = rawTarget;
+                    scaledMax = Mathf.Max(scaledMin, maxGapX * layer.gapMultiplier);
+                }
+
+                gapX = Random.Range(scaledMin, scaledMax);
+            }
+
+            float spawnLeftEdgeX = layer.lastRightEdgeX + gapX;
+            float rotationZ = prefab.rotation.allowRotation
+                ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
+                : 0f;
+
+            PlatformBlock instance = GetFromPool(prefab);
+            PositionPlatform(instance, spawnLeftEdgeX, targetLeftEdgeY, rotationZ);
+
+            layer.lastPlatform = instance;
+            layer.lastRightEdgeX = instance.GetRightEdgeWorld().x;
+            layer.lastEdgeY = instance.GetRightEdgeWorld().y;
+            layer.active.Enqueue(instance);
+        }
+
+        void DespawnBehindLayer(PlatformLayer layer)
+        {
+            float cutoff = player.position.x - despawnBehindDistance;
+            while (layer.active.Count > 0 && layer.active.Peek().GetRightEdgeWorld().x < cutoff)
+                ReturnToPool(layer.active.Dequeue());
+        }
+
+        // ---------------------------------------------------------------
+        // Shared helpers
+        // ---------------------------------------------------------------
+
         void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float rotationZ)
         {
             block.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, 0f, rotationZ));
@@ -185,26 +328,19 @@ namespace Valley.Level.Generation
             block.transform.position += delta;
         }
 
-        void DespawnBehind()
-        {
-            float cutoff = player.position.x - despawnBehindDistance;
-            while (active.Count > 0 && active.Peek().GetRightEdgeWorld().x < cutoff)
-                ReturnToPool(active.Dequeue());
-        }
-
-        PlatformBlock ChoosePrefab()
+        PlatformBlock ChoosePrefab(PlatformBlock[] pool)
         {
             float total = 0f;
-            foreach (var p in platformPrefabs) total += p.spawnWeight;
+            foreach (var p in pool) total += p.spawnWeight;
 
             float roll = Random.Range(0f, total);
             float accum = 0f;
-            foreach (var p in platformPrefabs)
+            foreach (var p in pool)
             {
                 accum += p.spawnWeight;
                 if (roll <= accum) return p;
             }
-            return platformPrefabs[platformPrefabs.Length - 1];
+            return pool[pool.Length - 1];
         }
 
         PlatformBlock GetFromPool(PlatformBlock prefab)
@@ -234,7 +370,7 @@ namespace Valley.Level.Generation
             pools[prefab].Enqueue(instance);
         }
 
-        void OnDrawGizmosSelected()
+        void OnDrawGizmos()
         {
             if (!showDebugGizmos || player == null) return;
 
@@ -242,39 +378,57 @@ namespace Valley.Level.Generation
             float py = player.position.y;
             float h = gizmoLineHalfHeight;
 
-            // spawn-trigger edge, ahead of the player
             Gizmos.color = spawnAheadColor;
             Gizmos.DrawLine(new Vector3(px + spawnAheadDistance, py - h, 0f), new Vector3(px + spawnAheadDistance, py + h, 0f));
 
-            // despawn cutoff, behind the player
             Gizmos.color = despawnBehindColor;
             Gizmos.DrawLine(new Vector3(px - despawnBehindDistance, py - h, 0f), new Vector3(px - despawnBehindDistance, py + h, 0f));
 
-            // dynamic ceiling - platforms never spawn above this line, and it always tracks the player's current Y
             Gizmos.color = ceilingColor;
             Gizmos.DrawLine(new Vector3(px, py + upperBoundOffset, 0f), new Vector3(px + spawnAheadDistance, py + upperBoundOffset, 0f));
 
-            if (lastPlatform == null) return;
-
-            Vector3 edge = new Vector3(lastRightEdgeX, lastEdgeY, 0f);
-
-            // last spawned edge, and the vertical step band the next platform is allowed to pick from
-            Gizmos.color = lastEdgeColor;
-            Gizmos.DrawSphere(edge, 0.12f);
-            Color band = lastEdgeColor;
-            band.a = 0.35f;
-            Gizmos.color = band;
-            Gizmos.DrawLine(edge + Vector3.down * maxVerticalStep, edge + Vector3.up * maxVerticalStep);
-
-            // reachability envelope from the last edge (only meaningful once the launch simulation has run)
-            if (Application.isPlaying)
+            if (lastPlatform != null)
             {
-                Gizmos.color = reachEnvelopeColor;
-                Vector3 flatReach = edge + new Vector3(envelope.maxForwardDistance, 0f, 0f);
-                Vector3 peakReach = edge + new Vector3(envelope.maxForwardAtMaxHeight, envelope.maxUpwardHeight, 0f);
-                Gizmos.DrawLine(edge, peakReach);
-                Gizmos.DrawLine(peakReach, flatReach);
-                Gizmos.DrawLine(edge, flatReach);
+                Vector3 edge = new Vector3(lastRightEdgeX, lastEdgeY, 0f);
+
+                Gizmos.color = lastEdgeColor;
+                Gizmos.DrawSphere(edge, 0.12f);
+                Color band = lastEdgeColor;
+                band.a = 0.35f;
+                Gizmos.color = band;
+                Gizmos.DrawLine(edge + Vector3.down * maxVerticalStep, edge + Vector3.up * maxVerticalStep);
+
+                if (Application.isPlaying)
+                {
+                    Gizmos.color = reachEnvelopeColor;
+                    Vector3 flatReach = edge + new Vector3(envelope.maxForwardDistance, 0f, 0f);
+                    Vector3 peakReach = edge + new Vector3(envelope.maxForwardAtMaxHeight, envelope.maxUpwardHeight, 0f);
+                    Gizmos.DrawLine(edge, peakReach);
+                    Gizmos.DrawLine(peakReach, flatReach);
+                    Gizmos.DrawLine(edge, flatReach);
+                }
+            }
+
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null) continue;
+
+                float baseline = lastEdgeY + layer.verticalOffset;
+                Color faint = layer.gizmoColor;
+                faint.a = 0.25f;
+                Gizmos.color = faint;
+                Gizmos.DrawLine(new Vector3(px, baseline, 0f), new Vector3(px + spawnAheadDistance, baseline, 0f));
+
+                if (layer.lastPlatform == null) continue;
+
+                Vector3 layerEdge = new Vector3(layer.lastRightEdgeX, layer.lastEdgeY, 0f);
+                Gizmos.color = layer.gizmoColor;
+                Gizmos.DrawSphere(layerEdge, 0.1f);
+
+                Color layerBand = layer.gizmoColor;
+                layerBand.a = 0.35f;
+                Gizmos.color = layerBand;
+                Gizmos.DrawLine(layerEdge + Vector3.down * layer.verticalJitter, layerEdge + Vector3.up * layer.verticalJitter);
             }
         }
     }

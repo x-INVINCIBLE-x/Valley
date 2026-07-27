@@ -1573,6 +1573,7 @@ GameObject:
   - component: {fileID: 1224916889}
   - component: {fileID: 1224916888}
   - component: {fileID: 1224916887}
+  - component: {fileID: 1224916892}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1806,6 +1807,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerLauncher
   profile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   platformEffects: {fileID: 1224916882}
+--- !u!114 &1224916892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224916879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba4795b5d8437f4aaa2e5bb4b8c226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerVerticalWrap
+  wrapBelowY: -200
+  wrapToY: 150
+  preserveVelocityOnWrap: 1
 --- !u!1 &1398581764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,6 +2092,7 @@ MonoBehaviour:
   player: {fileID: 1224916880}
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
+  - {fileID: 8902247037256730875, guid: f6da052a4d499d14c8902baff119aec7, type: 3}
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -2085,12 +2102,50 @@ MonoBehaviour:
   despawnBehindDistance: 30
   upperBoundOffset: 6
   maxVerticalStep: 3
-  minGapX: 4
-  maxGapX: 10
-  gapChance: 0
+  minGapX: 40
+  maxGapX: 100
+  gapChance: 0.1
   maxConsecutiveSticks: 3
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
+  layerSpacing: 4
+  sideLayers:
+  - label: 
+    verticalOffset: 50
+    verticalJitter: 24
+    gapMultiplier: 1.2
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
+  - label: 
+    verticalOffset: 100
+    verticalJitter: 24
+    gapMultiplier: 1.1
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  - label: 
+    verticalOffset: -50
+    verticalJitter: 24
+    gapMultiplier: 0.1
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
+  - label: 
+    verticalOffset: -100
+    verticalJitter: 24
+    gapMultiplier: 0
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
   showDebugGizmos: 1
   spawnAheadColor: {r: 0.2, g: 1, b: 0.4, a: 1}
   despawnBehindColor: {r: 1, g: 0, b: 0, a: 1}
