@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Valley.Core
 {
-    [CreateAssetMenu(fileName = "LaunchProfile", menuName = "NeonVertical/Launch Profile")]
+    [CreateAssetMenu(fileName = "LaunchProfile", menuName = "Valley/Launch Profile")]
     public class LaunchProfile : ScriptableObject
     {
         public float minLaunchForce = 5f;
