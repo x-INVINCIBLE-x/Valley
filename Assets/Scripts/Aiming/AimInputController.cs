@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Valley.Core;
 
 namespace Valley.Aiming
 {
@@ -14,6 +15,7 @@ namespace Valley.Aiming
         [SerializeField] private float startAngleDeg = 90f;
         [SerializeField] private bool rotationAffectedByTimeScale = true;
         [SerializeField] private float maxChargeTime = 1f;
+        [SerializeField] private PlayerLaunchGate launchGate;
 
         private PlayerControls _controls;
         private float _currentAngleDeg;
@@ -50,6 +52,8 @@ namespace Valley.Aiming
 
         private void BeginAim()
         {
+            if (launchGate != null && !launchGate.CanLaunch) return;
+
             _isAiming = true;
             _holdTimer = 0f;
             _currentAngleDeg = startAngleDeg;
