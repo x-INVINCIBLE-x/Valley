@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532ac05f8b3472c4db0521a79f72293b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerGravity
-  baseGravityScale: 9.8
+  baseGravityScale: 2
   platformEffects: {fileID: 0}
 --- !u!114 &1224916891
 MonoBehaviour:
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   minGapX: 40
   maxGapX: 100
   gapChance: 0.1
+  historyRetentionCount: 200
   maxConsecutiveSticks: 3
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8

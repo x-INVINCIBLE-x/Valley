@@ -1,14 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Valley.Level.Generation
 {
-    /// <summary>
-    /// Config + runtime state for one of the spawner's side layers (the layers above/below the mid
-    /// gameplay path). Each layer tracks its own last-spawned edge independently, but its target height
-    /// is re-centered every spawn on the mid layer's current edge height + verticalOffset, so the whole
-    /// stack rides along with wherever the mid path actually goes rather than drifting on its own.
-    /// </summary>
     [System.Serializable]
     public class PlatformLayer
     {
@@ -39,11 +32,7 @@ namespace Valley.Level.Generation
         [Tooltip("Gizmo color for this layer's debug markers.")]
         public Color gizmoColor = Color.white;
 
-        [System.NonSerialized] public PlatformBlock lastPlatform;
-        [System.NonSerialized] public float lastRightEdgeX;
-        [System.NonSerialized] public float lastEdgeY;
-        [System.NonSerialized] public int consecutiveSticks;
-        [System.NonSerialized] public readonly Queue<PlatformBlock> active = new Queue<PlatformBlock>();
+        [System.NonSerialized] public readonly PlatformLayerRuntime runtime = new PlatformLayerRuntime();
 
         public PlatformBlock[] ResolvePrefabPool(PlatformBlock[] fallback) =>
             (prefabOverride != null && prefabOverride.Length > 0) ? prefabOverride : fallback;

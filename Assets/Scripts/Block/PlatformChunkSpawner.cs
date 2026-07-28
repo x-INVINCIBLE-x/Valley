@@ -1,16 +1,20 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Valley.Core;
+using Valley.Core.Pooling;
 
 namespace Valley.Level.Generation
 {
     /// <summary>
-    /// Procedurally spawns PlatformBlock instances ahead of the player across 5 parallel layers: the
-    /// mid layer (the actual traversal path, using the full launch-reachability logic) plus up to 4
-    /// side layers configured in <see cref="sideLayers"/> - typically 2 above and 2 below. Side layers
-    /// re-center on the mid layer's current edge height every spawn, and trend sparser going up /
-    /// denser-and-more-likely-to-attach going down via each PlatformLayer's gapMultiplier and
-    /// stickChanceBonus. Despawning is distance-driven per layer, and all layers share the same pool.
+    /// Procedurally spawns PlatformBlock instances across 5 parallel layers: the mid layer (the actual
+    /// traversal path, using the full launch-reachability logic) plus up to 4 side layers configured in
+    /// <see cref="sideLayers"/>.
+    ///
+    /// Every layer keeps a permanent, append-only history of every record it has ever generated
+    /// (prefab + position + rotation), separate from which of those records currently have a live
+    /// GameObject. Moving forward grows the live window and, once the history runs out, generates and
+    /// appends new records; moving backward re-materializes existing records from history instead of
+    /// rolling new RNG, so revisiting an area reproduces the exact same layout. GameObjects themselves
+    /// are recycled through a generic PrefabPoolGroup rather than being destroyed.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
@@ -44,12 +48,16 @@ namespace Valley.Level.Generation
         public float maxGapX = 4f;
         [Range(0f, 1f)] public float gapChance = 0.65f;
 
+        [Header("History Retention")]
+        [Tooltip("How many already-despawned platforms behind the live window each layer keeps remembered, so backtracking reproduces the same layout. Beyond this, the oldest records are discarded and that ground regenerates fresh if revisited. 0 = unlimited (never trimmed).")]
+        public int historyRetentionCount = 200;
+
         [Header("Anti-Runaway Safety (Mid Layer)")]
         [Tooltip("Hard cap on flush attaches in a row, so blocks that allow sticking can't chain into an endless floor.")]
         public int maxConsecutiveSticks = 3;
         [Tooltip("After this many near-max-difficulty gaps in a row, the next gap eases off.")]
         public int maxConsecutiveHardGaps = 2;
-        [Tooltip("Every N spawns, force a flat, unrotated, easy gap as a guaranteed-reachable checkpoint.")]
+        [Tooltip("Every N newly-generated platforms, force a flat, unrotated, easy gap as a guaranteed-reachable checkpoint.")]
         public int guaranteedSafetyInterval = 8;
 
         [Header("Side Layers (2 up, 2 down)")]
@@ -68,17 +76,8 @@ namespace Valley.Level.Generation
         public float gizmoLineHalfHeight = 4f;
 
         LaunchReachability.Envelope envelope;
-
-        PlatformBlock lastPlatform;
-        float lastRightEdgeX;
-        float lastEdgeY;
-        int consecutiveSticks;
-        int consecutiveHardGaps;
-        int spawnsSinceSafety;
-
-        readonly Queue<PlatformBlock> active = new Queue<PlatformBlock>();
-        readonly Dictionary<PlatformBlock, Queue<PlatformBlock>> pools = new Dictionary<PlatformBlock, Queue<PlatformBlock>>();
-        readonly Dictionary<PlatformBlock, PlatformBlock> instanceSource = new Dictionary<PlatformBlock, PlatformBlock>();
+        PrefabPoolGroup<PlatformBlock> objectPool;
+        readonly PlatformLayerRuntime midRuntime = new PlatformLayerRuntime();
 
         [ContextMenu("Build Default Side Layers (2 Up / 2 Down)")]
         void BuildDefaultSideLayers()
@@ -95,12 +94,13 @@ namespace Valley.Level.Generation
         void Start()
         {
             envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
-            SpawnInitial();
+            objectPool = new PrefabPoolGroup<PlatformBlock>(transform);
 
+            SeedMid();
             foreach (var layer in sideLayers)
             {
                 if (layer == null) continue;
-                SpawnInitialSideLayer(layer);
+                SeedSideLayer(layer);
             }
         }
 
@@ -108,100 +108,245 @@ namespace Valley.Level.Generation
         {
             if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
 
-            while (player.position.x + spawnAheadDistance > lastRightEdgeX)
-                SpawnNext();
-            DespawnBehind();
-
+            AdvanceWindow(midRuntime, true, null);
             foreach (var layer in sideLayers)
             {
                 if (layer == null) continue;
-
-                while (player.position.x + spawnAheadDistance > layer.lastRightEdgeX)
-                    SpawnNextSideLayer(layer);
-                DespawnBehindLayer(layer);
+                AdvanceWindow(layer.runtime, false, layer);
             }
         }
 
-        // ---------------------------------------------------------------
-        // Mid layer (the traversal path) - unchanged reachability-aware logic
-        // ---------------------------------------------------------------
-
-        void SpawnInitial()
+        void SeedMid()
         {
             PlatformBlock prefab = platformPrefabs[0];
-            PlatformBlock instance = GetFromPool(prefab);
             float startLeftX = player.position.x - prefab.Width * 0.5f;
             float startLeftY = player.position.y - 0.1f;
-            PositionPlatform(instance, startLeftX, startLeftY, 0f);
-
-            lastPlatform = instance;
-            lastRightEdgeX = instance.GetRightEdgeWorld().x;
-            lastEdgeY = instance.GetRightEdgeWorld().y;
-            active.Enqueue(instance);
+            midRuntime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
+            MaterializeAppend(midRuntime, midRuntime.LastGlobalIndex);
         }
 
-        void SpawnNext()
+        void SeedSideLayer(PlatformLayer layer)
         {
-            spawnsSinceSafety++;
-            bool forceSafe = spawnsSinceSafety >= guaranteedSafetyInterval;
+            PlatformBlock prefab = layer.ResolvePrefabPool(platformPrefabs)[0];
+            float startLeftX = player.position.x - prefab.Width * 0.5f;
+            float startLeftY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
+            layer.runtime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
+            MaterializeAppend(layer.runtime, layer.runtime.LastGlobalIndex);
+        }
 
+        void AdvanceWindow(PlatformLayerRuntime r, bool isMid, PlatformLayer layer)
+        {
+            float aheadBound = player.position.x + spawnAheadDistance;
+            float behindBound = player.position.x - despawnBehindDistance;
+
+            // Grow right: materialize records that already exist in history, generating new ones only
+            // once the recorded frontier itself falls short of the ahead boundary.
+            while (true)
+            {
+                int nextIndex = r.liveInstances.Count == 0 ? r.liveStartIndex : r.liveStartIndex + r.liveInstances.Count;
+
+                if (nextIndex > r.LastGlobalIndex)
+                {
+                    float frontierRight = r.GetRecord(r.LastGlobalIndex).rightEdgeX;
+                    if (frontierRight >= aheadBound) break;
+                    if (isMid) GenerateMidRecord(r); else GenerateSideRecord(r, layer);
+                }
+
+                if (r.GetRecord(nextIndex).leftEdgeX >= aheadBound) break;
+                MaterializeAppend(r, nextIndex);
+            }
+
+            // Grow left: the player has moved back into an area that was despawned but is still recorded.
+            // If it's already been trimmed past historyRetentionCount, there's nothing left to bring back.
+            while (r.liveStartIndex > r.historyBaseIndex && r.GetRecord(r.liveStartIndex - 1).rightEdgeX > behindBound)
+            {
+                MaterializePrepend(r, r.liveStartIndex - 1);
+                r.liveStartIndex--;
+            }
+
+            // Shrink left: despawn what's fallen behind the player.
+            while (r.liveInstances.Count > 0 && r.GetRecord(r.liveStartIndex).rightEdgeX < behindBound)
+            {
+                ReleaseFront(r);
+                r.liveStartIndex++;
+            }
+
+            // Shrink right: despawn what's now too far ahead (player moved back a long way).
+            while (r.liveInstances.Count > 0 && r.GetRecord(r.liveStartIndex + r.liveInstances.Count - 1).leftEdgeX > aheadBound)
+            {
+                ReleaseBack(r);
+            }
+
+            TrimHistory(r);
+        }
+
+        void TrimHistory(PlatformLayerRuntime r)
+        {
+            if (historyRetentionCount <= 0) return;
+
+            int despawnedBehindCount = r.liveStartIndex - r.historyBaseIndex;
+            int excess = despawnedBehindCount - historyRetentionCount;
+            if (excess <= 0) return;
+
+            r.TrimFront(excess);
+        }
+
+        void MaterializeAppend(PlatformLayerRuntime r, int index)
+        {
+            PlatformRecord record = r.GetRecord(index);
+            PlatformBlock instance = objectPool.Get(record.prefab);
+            PositionPlatform(instance, record.leftEdgeX, record.leftEdgeY, record.rotationZ);
+
+            Vector3 rightEdge = instance.GetRightEdgeWorld();
+            record.rightEdgeX = rightEdge.x;
+            record.rightEdgeY = rightEdge.y;
+            r.SetRecord(index, record);
+
+            r.liveInstances.Add(instance);
+            if (r.liveInstances.Count == 1) r.liveStartIndex = index;
+        }
+
+        void MaterializePrepend(PlatformLayerRuntime r, int index)
+        {
+            PlatformRecord record = r.GetRecord(index);
+            PlatformBlock instance = objectPool.Get(record.prefab);
+            PositionPlatform(instance, record.leftEdgeX, record.leftEdgeY, record.rotationZ);
+
+            Vector3 rightEdge = instance.GetRightEdgeWorld();
+            record.rightEdgeX = rightEdge.x;
+            record.rightEdgeY = rightEdge.y;
+            r.SetRecord(index, record);
+
+            r.liveInstances.Insert(0, instance);
+        }
+
+        void ReleaseFront(PlatformLayerRuntime r)
+        {
+            objectPool.Release(r.liveInstances[0]);
+            r.liveInstances.RemoveAt(0);
+        }
+
+        void ReleaseBack(PlatformLayerRuntime r)
+        {
+            int last = r.liveInstances.Count - 1;
+            objectPool.Release(r.liveInstances[last]);
+            r.liveInstances.RemoveAt(last);
+        }
+
+        void GenerateMidRecord(PlatformLayerRuntime r)
+        {
+            r.spawnsSinceSafety++;
+            bool forceSafe = r.spawnsSinceSafety >= guaranteedSafetyInterval;
+
+            PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
             PlatformBlock prefab = ChoosePrefab(platformPrefabs);
 
             bool wantsGap = forceSafe || Random.value < gapChance;
-            bool canStick = !wantsGap && lastPlatform != null
-                             && lastPlatform.rightAttach.allowed && prefab.leftAttach.allowed
-                             && consecutiveSticks < maxConsecutiveSticks;
-            bool stick = canStick && Random.value <= Mathf.Min(lastPlatform.rightAttach.successRate, prefab.leftAttach.successRate);
+            bool canStick = !wantsGap && prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
+                             && r.consecutiveSticks < maxConsecutiveSticks;
+            bool stick = canStick && Random.value <= Mathf.Min(prev.prefab.rightAttach.successRate, prefab.leftAttach.successRate);
 
             float targetLeftEdgeY;
             float gapX;
 
             if (stick)
             {
-                targetLeftEdgeY = lastEdgeY;
+                targetLeftEdgeY = prev.rightEdgeY;
                 gapX = 0f;
-                consecutiveSticks++;
-                consecutiveHardGaps = 0;
+                r.consecutiveSticks++;
+                r.consecutiveHardGaps = 0;
             }
             else
             {
-                consecutiveSticks = 0;
+                r.consecutiveSticks = 0;
 
                 float dynamicCeiling = player.position.y + upperBoundOffset;
-                float minY = lastEdgeY - maxVerticalStep;
-                float maxY = Mathf.Min(lastEdgeY + maxVerticalStep, dynamicCeiling);
+                float minY = prev.rightEdgeY - maxVerticalStep;
+                float maxY = Mathf.Min(prev.rightEdgeY + maxVerticalStep, dynamicCeiling);
                 if (maxY < minY) maxY = minY;
 
-                float rawTarget = forceSafe ? lastEdgeY : Random.Range(minY, maxY);
+                float rawTarget = forceSafe ? prev.rightEdgeY : Random.Range(minY, maxY);
 
-                float maxReachableY = lastEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
+                float maxReachableY = prev.rightEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
                 targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
 
-                float heightDelta = targetLeftEdgeY - lastEdgeY;
+                float heightDelta = targetLeftEdgeY - prev.rightEdgeY;
                 float safeGap = Mathf.Max(minGapX, ComputeSafeGap(heightDelta) - reachabilitySafetyMargin);
                 float hardCap = forceSafe ? Mathf.Min(minGapX * 1.5f, safeGap) : Mathf.Min(maxGapX, safeGap);
 
                 bool isHardGap = !forceSafe && hardCap >= safeGap * 0.85f;
-                consecutiveHardGaps = isHardGap ? consecutiveHardGaps + 1 : 0;
-                if (consecutiveHardGaps > maxConsecutiveHardGaps) hardCap *= 0.6f;
+                r.consecutiveHardGaps = isHardGap ? r.consecutiveHardGaps + 1 : 0;
+                if (r.consecutiveHardGaps > maxConsecutiveHardGaps) hardCap *= 0.6f;
 
                 gapX = Random.Range(minGapX, Mathf.Max(minGapX, hardCap));
             }
 
-            float spawnLeftEdgeX = lastRightEdgeX + gapX;
+            float spawnLeftEdgeX = prev.rightEdgeX + gapX;
             float rotationZ = (!forceSafe && prefab.rotation.allowRotation)
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
 
-            PlatformBlock instance = GetFromPool(prefab);
-            PositionPlatform(instance, spawnLeftEdgeX, targetLeftEdgeY, rotationZ);
+            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ });
 
-            lastPlatform = instance;
-            lastRightEdgeX = instance.GetRightEdgeWorld().x;
-            lastEdgeY = instance.GetRightEdgeWorld().y;
-            active.Enqueue(instance);
+            if (forceSafe) r.spawnsSinceSafety = 0;
+        }
 
-            if (forceSafe) spawnsSinceSafety = 0;
+        void GenerateSideRecord(PlatformLayerRuntime r, PlatformLayer layer)
+        {
+            PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
+            PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
+            PlatformBlock prefab = ChoosePrefab(pool);
+
+            bool canStick = prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
+                             && r.consecutiveSticks < layer.maxConsecutiveSticks;
+            float stickRoll = canStick
+                ? Mathf.Min(prev.prefab.rightAttach.successRate, prefab.leftAttach.successRate) + layer.stickChanceBonus
+                : 0f;
+            bool stick = canStick && Random.value <= Mathf.Clamp01(stickRoll);
+
+            float targetLeftEdgeY;
+            float gapX;
+
+            if (stick)
+            {
+                targetLeftEdgeY = prev.rightEdgeY;
+                gapX = 0f;
+                r.consecutiveSticks++;
+            }
+            else
+            {
+                r.consecutiveSticks = 0;
+
+                float baselineY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
+                float rawTarget = Random.Range(baselineY - layer.verticalJitter, baselineY + layer.verticalJitter);
+
+                float scaledMin = Mathf.Max(0.05f, minGapX * layer.gapMultiplier);
+                float scaledMax;
+
+                if (layer.clampToReachability)
+                {
+                    float maxReachableY = prev.rightEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
+                    targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
+
+                    float heightDelta = targetLeftEdgeY - prev.rightEdgeY;
+                    float safeGap = Mathf.Max(minGapX, ComputeSafeGap(heightDelta) - reachabilitySafetyMargin);
+                    scaledMax = Mathf.Max(scaledMin, Mathf.Min(maxGapX, safeGap) * layer.gapMultiplier);
+                }
+                else
+                {
+                    targetLeftEdgeY = rawTarget;
+                    scaledMax = Mathf.Max(scaledMin, maxGapX * layer.gapMultiplier);
+                }
+
+                gapX = Random.Range(scaledMin, scaledMax);
+            }
+
+            float spawnLeftEdgeX = prev.rightEdgeX + gapX;
+            float rotationZ = prefab.rotation.allowRotation
+                ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
+                : 0f;
+
+            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ });
         }
 
         float ComputeSafeGap(float heightDelta)
@@ -217,108 +362,6 @@ namespace Valley.Level.Generation
             return Mathf.Lerp(envelope.maxForwardDistance, envelope.maxForwardAtMaxHeight, t);
         }
 
-        void DespawnBehind()
-        {
-            float cutoff = player.position.x - despawnBehindDistance;
-            while (active.Count > 0 && active.Peek().GetRightEdgeWorld().x < cutoff)
-                ReturnToPool(active.Dequeue());
-        }
-
-        // ---------------------------------------------------------------
-        // Side layers - simpler logic, re-centered on the mid layer each spawn
-        // ---------------------------------------------------------------
-
-        void SpawnInitialSideLayer(PlatformLayer layer)
-        {
-            PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
-            PlatformBlock prefab = pool[0];
-            PlatformBlock instance = GetFromPool(prefab);
-
-            float startLeftX = player.position.x - prefab.Width * 0.5f;
-            float startLeftY = lastEdgeY + layer.verticalOffset;
-            PositionPlatform(instance, startLeftX, startLeftY, 0f);
-
-            layer.lastPlatform = instance;
-            layer.lastRightEdgeX = instance.GetRightEdgeWorld().x;
-            layer.lastEdgeY = instance.GetRightEdgeWorld().y;
-            layer.active.Enqueue(instance);
-        }
-
-        void SpawnNextSideLayer(PlatformLayer layer)
-        {
-            PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
-            PlatformBlock prefab = ChoosePrefab(pool);
-
-            bool canStick = layer.lastPlatform != null
-                             && layer.lastPlatform.rightAttach.allowed && prefab.leftAttach.allowed
-                             && layer.consecutiveSticks < layer.maxConsecutiveSticks;
-            float stickRoll = canStick
-                ? Mathf.Min(layer.lastPlatform.rightAttach.successRate, prefab.leftAttach.successRate) + layer.stickChanceBonus
-                : 0f;
-            bool stick = canStick && Random.value <= Mathf.Clamp01(stickRoll);
-
-            float targetLeftEdgeY;
-            float gapX;
-
-            if (stick)
-            {
-                targetLeftEdgeY = layer.lastEdgeY;
-                gapX = 0f;
-                layer.consecutiveSticks++;
-            }
-            else
-            {
-                layer.consecutiveSticks = 0;
-
-                float baselineY = lastEdgeY + layer.verticalOffset; // rides along the mid layer's current path height
-                float rawTarget = Random.Range(baselineY - layer.verticalJitter, baselineY + layer.verticalJitter);
-
-                float scaledMin = Mathf.Max(0.05f, minGapX * layer.gapMultiplier);
-                float scaledMax;
-
-                if (layer.clampToReachability)
-                {
-                    float maxReachableY = layer.lastEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
-                    targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
-
-                    float heightDelta = targetLeftEdgeY - layer.lastEdgeY;
-                    float safeGap = Mathf.Max(minGapX, ComputeSafeGap(heightDelta) - reachabilitySafetyMargin);
-                    scaledMax = Mathf.Max(scaledMin, Mathf.Min(maxGapX, safeGap) * layer.gapMultiplier);
-                }
-                else
-                {
-                    targetLeftEdgeY = rawTarget;
-                    scaledMax = Mathf.Max(scaledMin, maxGapX * layer.gapMultiplier);
-                }
-
-                gapX = Random.Range(scaledMin, scaledMax);
-            }
-
-            float spawnLeftEdgeX = layer.lastRightEdgeX + gapX;
-            float rotationZ = prefab.rotation.allowRotation
-                ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
-                : 0f;
-
-            PlatformBlock instance = GetFromPool(prefab);
-            PositionPlatform(instance, spawnLeftEdgeX, targetLeftEdgeY, rotationZ);
-
-            layer.lastPlatform = instance;
-            layer.lastRightEdgeX = instance.GetRightEdgeWorld().x;
-            layer.lastEdgeY = instance.GetRightEdgeWorld().y;
-            layer.active.Enqueue(instance);
-        }
-
-        void DespawnBehindLayer(PlatformLayer layer)
-        {
-            float cutoff = player.position.x - despawnBehindDistance;
-            while (layer.active.Count > 0 && layer.active.Peek().GetRightEdgeWorld().x < cutoff)
-                ReturnToPool(layer.active.Dequeue());
-        }
-
-        // ---------------------------------------------------------------
-        // Shared helpers
-        // ---------------------------------------------------------------
-
         void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float rotationZ)
         {
             block.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, 0f, rotationZ));
@@ -328,46 +371,19 @@ namespace Valley.Level.Generation
             block.transform.position += delta;
         }
 
-        PlatformBlock ChoosePrefab(PlatformBlock[] pool)
+        PlatformBlock ChoosePrefab(PlatformBlock[] prefabPool)
         {
             float total = 0f;
-            foreach (var p in pool) total += p.spawnWeight;
+            foreach (var p in prefabPool) total += p.spawnWeight;
 
             float roll = Random.Range(0f, total);
             float accum = 0f;
-            foreach (var p in pool)
+            foreach (var p in prefabPool)
             {
                 accum += p.spawnWeight;
                 if (roll <= accum) return p;
             }
-            return pool[pool.Length - 1];
-        }
-
-        PlatformBlock GetFromPool(PlatformBlock prefab)
-        {
-            if (!pools.TryGetValue(prefab, out var pool))
-            {
-                pool = new Queue<PlatformBlock>();
-                pools[prefab] = pool;
-            }
-
-            if (pool.Count > 0)
-            {
-                PlatformBlock reused = pool.Dequeue();
-                reused.gameObject.SetActive(true);
-                return reused;
-            }
-
-            PlatformBlock created = Instantiate(prefab, transform);
-            instanceSource[created] = prefab;
-            return created;
-        }
-
-        void ReturnToPool(PlatformBlock instance)
-        {
-            if (!instanceSource.TryGetValue(instance, out var prefab)) return;
-            instance.gameObject.SetActive(false);
-            pools[prefab].Enqueue(instance);
+            return prefabPool[prefabPool.Length - 1];
         }
 
         void OnDrawGizmos()
@@ -387,49 +403,50 @@ namespace Valley.Level.Generation
             Gizmos.color = ceilingColor;
             Gizmos.DrawLine(new Vector3(px, py + upperBoundOffset, 0f), new Vector3(px + spawnAheadDistance, py + upperBoundOffset, 0f));
 
-            if (lastPlatform != null)
+            DrawLayerGizmo(midRuntime, lastEdgeColor, maxVerticalStep);
+
+            if (Application.isPlaying && midRuntime.RecordCount > 0)
             {
-                Vector3 edge = new Vector3(lastRightEdgeX, lastEdgeY, 0f);
-
-                Gizmos.color = lastEdgeColor;
-                Gizmos.DrawSphere(edge, 0.12f);
-                Color band = lastEdgeColor;
-                band.a = 0.35f;
-                Gizmos.color = band;
-                Gizmos.DrawLine(edge + Vector3.down * maxVerticalStep, edge + Vector3.up * maxVerticalStep);
-
-                if (Application.isPlaying)
-                {
-                    Gizmos.color = reachEnvelopeColor;
-                    Vector3 flatReach = edge + new Vector3(envelope.maxForwardDistance, 0f, 0f);
-                    Vector3 peakReach = edge + new Vector3(envelope.maxForwardAtMaxHeight, envelope.maxUpwardHeight, 0f);
-                    Gizmos.DrawLine(edge, peakReach);
-                    Gizmos.DrawLine(peakReach, flatReach);
-                    Gizmos.DrawLine(edge, flatReach);
-                }
+                PlatformRecord frontier = midRuntime.GetRecord(midRuntime.LastGlobalIndex);
+                Vector3 edge = new Vector3(frontier.rightEdgeX, frontier.rightEdgeY, 0f);
+                Gizmos.color = reachEnvelopeColor;
+                Vector3 flatReach = edge + new Vector3(envelope.maxForwardDistance, 0f, 0f);
+                Vector3 peakReach = edge + new Vector3(envelope.maxForwardAtMaxHeight, envelope.maxUpwardHeight, 0f);
+                Gizmos.DrawLine(edge, peakReach);
+                Gizmos.DrawLine(peakReach, flatReach);
+                Gizmos.DrawLine(edge, flatReach);
             }
 
             foreach (var layer in sideLayers)
             {
                 if (layer == null) continue;
 
-                float baseline = lastEdgeY + layer.verticalOffset;
-                Color faint = layer.gizmoColor;
-                faint.a = 0.25f;
-                Gizmos.color = faint;
-                Gizmos.DrawLine(new Vector3(px, baseline, 0f), new Vector3(px + spawnAheadDistance, baseline, 0f));
+                if (midRuntime.RecordCount > 0)
+                {
+                    float baseline = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
+                    Color faint = layer.gizmoColor;
+                    faint.a = 0.25f;
+                    Gizmos.color = faint;
+                    Gizmos.DrawLine(new Vector3(px, baseline, 0f), new Vector3(px + spawnAheadDistance, baseline, 0f));
+                }
 
-                if (layer.lastPlatform == null) continue;
-
-                Vector3 layerEdge = new Vector3(layer.lastRightEdgeX, layer.lastEdgeY, 0f);
-                Gizmos.color = layer.gizmoColor;
-                Gizmos.DrawSphere(layerEdge, 0.1f);
-
-                Color layerBand = layer.gizmoColor;
-                layerBand.a = 0.35f;
-                Gizmos.color = layerBand;
-                Gizmos.DrawLine(layerEdge + Vector3.down * layer.verticalJitter, layerEdge + Vector3.up * layer.verticalJitter);
+                DrawLayerGizmo(layer.runtime, layer.gizmoColor, layer.verticalJitter);
             }
+        }
+
+        void DrawLayerGizmo(PlatformLayerRuntime r, Color color, float bandHalfHeight)
+        {
+            if (r.RecordCount == 0) return;
+
+            PlatformRecord frontier = r.GetRecord(r.LastGlobalIndex);
+            Vector3 edge = new Vector3(frontier.rightEdgeX, frontier.rightEdgeY, 0f);
+
+            Gizmos.color = color;
+            Gizmos.DrawSphere(edge, 0.1f);
+            Color band = color;
+            band.a = 0.35f;
+            Gizmos.color = band;
+            Gizmos.DrawLine(edge + Vector3.down * bandHalfHeight, edge + Vector3.up * bandHalfHeight);
         }
     }
 }
