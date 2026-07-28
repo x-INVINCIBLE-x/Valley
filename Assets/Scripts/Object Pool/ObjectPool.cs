@@ -7,18 +7,21 @@ namespace Valley.Core.Pooling
     {
         readonly T prefab;
         readonly Transform parent;
+        readonly Vector3 prefabWorldScale;
         readonly Stack<T> inactive = new Stack<T>();
 
         public ObjectPool(T prefab, Transform parent)
         {
             this.prefab = prefab;
             this.parent = parent;
+            prefabWorldScale = prefab.transform.localScale;
         }
 
         public T Get()
         {
             T instance = inactive.Count > 0 ? inactive.Pop() : Object.Instantiate(prefab, parent);
             instance.gameObject.SetActive(true);
+            ApplyUnscaledParenting(instance.transform);
             return instance;
         }
 
@@ -33,9 +36,20 @@ namespace Valley.Core.Pooling
             for (int i = 0; i < count; i++)
             {
                 T instance = Object.Instantiate(prefab, parent);
+                ApplyUnscaledParenting(instance.transform);
                 instance.gameObject.SetActive(false);
                 inactive.Push(instance);
             }
+        }
+
+        void ApplyUnscaledParenting(Transform instanceTransform)
+        {
+            Vector3 parentLossyScale = parent != null ? parent.lossyScale : Vector3.one;
+
+            instanceTransform.localScale = new Vector3(
+                Mathf.Approximately(parentLossyScale.x, 0f) ? prefabWorldScale.x : prefabWorldScale.x / parentLossyScale.x,
+                Mathf.Approximately(parentLossyScale.y, 0f) ? prefabWorldScale.y : prefabWorldScale.y / parentLossyScale.y,
+                Mathf.Approximately(parentLossyScale.z, 0f) ? prefabWorldScale.z : prefabWorldScale.z / parentLossyScale.z);
         }
     }
 
