@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Valley.Core;
 
 namespace Valley.Aiming
 {
@@ -15,7 +14,9 @@ namespace Valley.Aiming
         [SerializeField] private float startAngleDeg = 90f;
         [SerializeField] private bool rotationAffectedByTimeScale = true;
         [SerializeField] private float maxChargeTime = 1f;
-        [SerializeField] private PlayerLaunchGate launchGate;
+        [Tooltip("Each entry must implement IAimBlocker. Aiming is blocked if any of them reports CanAim == false." +
+            " Add new blocking systems here instead of adding new checks to this script.")]
+        [SerializeField] private MonoBehaviour[] aimBlockers;
 
         private PlayerControls _controls;
         private float _currentAngleDeg;
@@ -52,12 +53,21 @@ namespace Valley.Aiming
 
         private void BeginAim()
         {
-            if (launchGate != null && !launchGate.CanLaunch) return;
+            if (!CanAim()) return;
 
             _isAiming = true;
             _holdTimer = 0f;
             _currentAngleDeg = startAngleDeg;
             OnAimStarted?.Invoke();
+        }
+
+        private bool CanAim()
+        {
+            foreach (var blocker in aimBlockers)
+            {
+                if (blocker is IAimBlocker aimBlocker && !aimBlocker.CanAim) return false;
+            }
+            return true;
         }
 
         private void TickAim()
@@ -73,6 +83,8 @@ namespace Valley.Aiming
 
         private void EndAim()
         {
+            if (!CanAim()) return;
+
             _isAiming = false;
             float charge = Mathf.Clamp01(_holdTimer / maxChargeTime);
             OnAimReleased?.Invoke(AngleToDir(_currentAngleDeg), charge);

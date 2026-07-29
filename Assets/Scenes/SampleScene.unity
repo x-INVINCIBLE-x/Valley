@@ -291,6 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 49769248}
+  - component: {fileID: 49769249}
   - component: {fileID: 49769247}
   m_Layer: 0
   m_Name: Managers
@@ -326,9 +327,22 @@ Transform:
   m_LocalPosition: {x: 17.48698, y: 2.68918, z: -0.02462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1201852886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49769249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49769246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da552734c08cf4244ba797a52e63366e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.QTE.QuickTimeEventRunner
 --- !u!1 &58807315
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +488,39 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96591590}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &291690106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291690107}
+  m_Layer: 0
+  m_Name: Platform Generators
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &291690107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291690106}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53.74094, y: 7.91174, z: -0.02462}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1594634035}
+  - {fileID: 1621702770}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,8 +607,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -2.220446e-16, y: -0.00000004786024, z: -1.0627108e-23, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1520,6 +1567,131 @@ Transform:
   - {fileID: 1224916880}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &909296676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909296680}
+  - component: {fileID: 909296679}
+  - component: {fileID: 909296678}
+  - component: {fileID: 909296677}
+  m_Layer: 0
+  m_Name: Follow Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &909296677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909296676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.1, y: 0.5}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
+--- !u!114 &909296678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909296676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 0, z: -12}
+--- !u!114 &909296679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909296676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 0
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 1224916880}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &909296680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909296676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -2.220446e-16, y: -0.00000004786024, z: -2.0146224e-17, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1089880885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1725,56 @@ Transform:
   - {fileID: 697664511}
   m_Father: {fileID: 8033268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1201852885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201852886}
+  - component: {fileID: 1201852887}
+  m_Layer: 0
+  m_Name: Universal Obstacle Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201852886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201852885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 49769248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201852887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201852885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39eca9e181a97de4090b0b79fd1e44f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.UniversalObstacleSpawner
+  player: {fileID: 1224916880}
+  obstaclePrefabs:
+  - {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+  maxActiveObstacles: 2
+  spawnIntervalRange: {x: 3, y: 6}
+  showGizmos: 1
 --- !u!1 &1224916879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1991,9 @@ MonoBehaviour:
   startAngleDeg: 90
   rotationAffectedByTimeScale: 0
   maxChargeTime: 1
-  launchGate: {fileID: 1224916893}
+  aimBlockers:
+  - {fileID: 49769249}
+  - {fileID: 1224916893}
 --- !u!114 &1224916889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2124,12 +2348,12 @@ GameObject:
   - component: {fileID: 1441645506}
   - component: {fileID: 1441645505}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Chaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1441645505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2391,13 +2615,122 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594634033}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.74094, y: 7.91174, z: -0.02462}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 291690107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1621702769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621702770}
+  - component: {fileID: 1621702771}
+  m_Layer: 0
+  m_Name: Platform Generator (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621702770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621702769}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291690107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621702771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621702769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8611525345798a049acadf5f29081df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformChunkSpawner
+  player: {fileID: 1224916880}
+  platformPrefabs:
+  - {fileID: 8902247037256730875, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
+  - {fileID: 8902247037256730875, guid: f6da052a4d499d14c8902baff119aec7, type: 3}
+  forwardSpeed: 6
+  launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
+  gravity: 20
+  maxLaunches: 2
+  reachabilitySafetyMargin: 0.5
+  spawnAheadDistance: 300
+  despawnBehindDistance: 30
+  upperBoundOffset: 6
+  maxVerticalStep: 3
+  minGapX: 40
+  maxGapX: 100
+  gapChance: 0.1
+  historyRetentionCount: 200
+  maxConsecutiveSticks: 3
+  maxConsecutiveHardGaps: 2
+  guaranteedSafetyInterval: 8
+  layerSpacing: 4
+  sideLayers:
+  - label: 
+    verticalOffset: 50
+    verticalJitter: 24
+    gapMultiplier: 1.2
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
+  - label: 
+    verticalOffset: 100
+    verticalJitter: 24
+    gapMultiplier: 1.1
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  - label: 
+    verticalOffset: -50
+    verticalJitter: 24
+    gapMultiplier: 0.1
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
+  - label: 
+    verticalOffset: -100
+    verticalJitter: 24
+    gapMultiplier: 0
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
+  showDebugGizmos: 1
+  spawnAheadColor: {r: 0.2, g: 1, b: 0.4, a: 1}
+  despawnBehindColor: {r: 1, g: 0, b: 0, a: 1}
+  ceilingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lastEdgeColor: {r: 1, g: 0, b: 1, a: 1}
+  reachEnvelopeColor: {r: 1, g: 0.5, b: 0.1, a: 0.8}
+  gizmoLineHalfHeight: 4
 --- !u!1 &1642621044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,5 +3174,5 @@ SceneRoots:
   - {fileID: 865035396}
   - {fileID: 2141299850}
   - {fileID: 49769248}
-  - {fileID: 1594634035}
+  - {fileID: 291690107}
   - {fileID: 1441645511}

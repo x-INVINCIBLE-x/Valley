@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using Valley.Aiming;
 
 namespace Valley.Core
 {
-    public class PlayerLaunchGate : MonoBehaviour
+    public class PlayerLaunchGate : MonoBehaviour, IAimBlocker
     {
         public static event Action<int, int> OnChargesChanged;
 
@@ -12,6 +13,7 @@ namespace Valley.Core
 
         public int Remaining { get; private set; }
         public bool CanLaunch => Remaining > 0;
+        bool IAimBlocker.CanAim => CanLaunch;
 
         private void Awake()
         {
