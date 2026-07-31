@@ -494,15 +494,15 @@ MonoBehaviour:
   lines:
   - {fileID: 1584609513150987024}
   - {fileID: 7085854832541822122}
-  anticipationDuration: 1
+  anticipationDuration: 2
   actionDuration: 0.5
   recoveryDuration: 1
   startBoxXOffset: -100
   endBoxXOffset: 100
-  beamDeployDuration: 1
+  beamDeployDuration: 2
   spawnXOffsetRange: {x: 0, y: 0}
   spawnYOffsetRange: {x: 0, y: 0}
-  followDuration: 0.5
+  followDuration: 1.5
 --- !u!1 &8725429330616073995
 GameObject:
   m_ObjectHideFlags: 0
