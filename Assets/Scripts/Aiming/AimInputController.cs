@@ -9,6 +9,7 @@ namespace Valley.Aiming
         public static event Action OnAimStarted;
         public static event Action<Vector3, float> OnAiming;
         public static event Action<Vector3, float> OnAimReleased;
+        public static event Action OnAimCancelled;
 
         [SerializeField] private float rotationSpeedDegPerSec = 220f;
         [SerializeField] private float startAngleDeg = 90f;
@@ -48,12 +49,19 @@ namespace Valley.Aiming
         private void Update()
         {
             if (!_isAiming) return;
+
+            if (!CanAim())
+            {
+                CancelAim();
+                return;
+            }
+
             TickAim();
         }
 
         private void BeginAim()
         {
-            if (!CanAim()) return;
+            if (_isAiming || !CanAim()) return;
 
             _isAiming = true;
             _holdTimer = 0f;
@@ -83,11 +91,17 @@ namespace Valley.Aiming
 
         private void EndAim()
         {
-            if (!CanAim()) return;
+            if (!_isAiming) return;
 
             _isAiming = false;
             float charge = Mathf.Clamp01(_holdTimer / maxChargeTime);
             OnAimReleased?.Invoke(AngleToDir(_currentAngleDeg), charge);
+        }
+
+        private void CancelAim()
+        {
+            _isAiming = false;
+            OnAimCancelled?.Invoke();
         }
 
         private static Vector3 AngleToDir(float angleDeg)

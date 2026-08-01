@@ -20,6 +20,7 @@ namespace Valley.Player
             AimInputController.OnAimStarted += HandleAimStarted;
             AimInputController.OnAiming += HandleAiming;
             AimInputController.OnAimReleased += HandleAimReleased;
+            AimInputController.OnAimCancelled += HandleAimCancelled;
         }
 
         private void OnDisable()
@@ -27,6 +28,7 @@ namespace Valley.Player
             AimInputController.OnAimStarted -= HandleAimStarted;
             AimInputController.OnAiming -= HandleAiming;
             AimInputController.OnAimReleased -= HandleAimReleased;
+            AimInputController.OnAimCancelled -= HandleAimCancelled;
         }
 
         private void HandleAimStarted() => SetVisible(true);
@@ -42,6 +44,8 @@ namespace Valley.Player
         }
 
         private void HandleAimReleased(Vector3 direction, float charge) => SetVisible(false);
+
+        private void HandleAimCancelled() => SetVisible(false);
 
         private void SetVisible(bool visible) => arrowVisual.gameObject.SetActive(visible);
     }

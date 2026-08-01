@@ -3,7 +3,6 @@ using UnityEngine;
 using Valley.Aiming;
 using Valley.Core;
 using Valley.Platforms;
-using Valley.Player;
 
 namespace Valley.Player
 {
@@ -34,6 +33,7 @@ namespace Valley.Player
             AimInputController.OnAimStarted += Show;
             AimInputController.OnAiming += UpdatePreview;
             AimInputController.OnAimReleased += HandleAimReleased;
+            AimInputController.OnAimCancelled += Hide;
         }
 
         private void OnDisable()
@@ -41,6 +41,7 @@ namespace Valley.Player
             AimInputController.OnAimStarted -= Show;
             AimInputController.OnAiming -= UpdatePreview;
             AimInputController.OnAimReleased -= HandleAimReleased;
+            AimInputController.OnAimCancelled -= Hide;
         }
 
         private void Show() => _line.enabled = true;
@@ -72,7 +73,11 @@ namespace Valley.Player
 
             Vector3 pos = playerRigidbody.position;
             Vector3 launchVelocity = direction * (profile.EvaluateForce(charge) / Mathf.Max(playerRigidbody.mass, 0.01f));
-            Vector3 velocity = playerRigidbody.linearVelocity * profile.previousVelocityRetention + launchVelocity;
+            Vector3 current = playerRigidbody.linearVelocity;
+            Vector3 velocity = new Vector3(
+                current.x * profile.previousVelocityRetention + launchVelocity.x,
+                launchVelocity.y,
+                current.z);
 
             float gravityScale = playerGravity != null ? playerGravity.CurrentGravityScale : 1f;
             Vector3 gravity = Physics.gravity * gravityScale;
