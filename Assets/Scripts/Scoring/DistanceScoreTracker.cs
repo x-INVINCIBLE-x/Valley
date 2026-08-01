@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Valley.Core;
@@ -13,10 +14,13 @@ namespace Valley.Scoring
         [SerializeField] private float baseMultiplier = 1f;
 
         private readonly Dictionary<object, float> _multiplierContributions = new Dictionary<object, float>();
-
+        
         private float _startX;
         private float _worldShiftOffset;
         private float _cachedMultiplier;
+
+        // <LastMultiplier, NewMultiplier>
+        public event Action<float, float> OnMultiplierUpdated;
 
         public float Score { get; private set; }
         public float Distance { get; private set; }
@@ -60,7 +64,13 @@ namespace Valley.Scoring
             {
                 total += contribution;
             }
-            _cachedMultiplier = total;
+
+            if (_cachedMultiplier != total)
+            {
+                float previousMultiplier = _cachedMultiplier;
+                _cachedMultiplier = total;
+                OnMultiplierUpdated?.Invoke(previousMultiplier, _cachedMultiplier);
+            }
         }
     }
 }

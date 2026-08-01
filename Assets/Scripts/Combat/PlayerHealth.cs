@@ -18,14 +18,14 @@ namespace Valley.Player
 
         private void OnEnable()
         {
-            _health.OnHealthChanged += HandleHealthChanged;
+            _health.OnHealthUpdated += HandleHealthChanged;
             _health.OnDamaged += HandleDamaged;
             _health.OnDeath += HandleDeath;
         }
 
         private void OnDisable()
         {
-            _health.OnHealthChanged -= HandleHealthChanged;
+            _health.OnHealthUpdated -= HandleHealthChanged;
             _health.OnDamaged -= HandleDamaged;
             _health.OnDeath -= HandleDeath;
         }

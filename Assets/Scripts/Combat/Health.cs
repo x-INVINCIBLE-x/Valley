@@ -6,8 +6,11 @@ namespace Valley.Combat
 {
     public class Health : MonoBehaviour, IDamageable
     {
-        public event Action<float, float> OnHealthChanged;
+        // <Current, MaxHealth>
+        public event Action<float, float> OnHealthUpdated;
         public event Action<float, GameObject> OnDamaged;
+        public event Action<float> OnHeal;
+
         public event Action OnDeath;
 
         [SerializeField] private float maxHealth = 100f;
@@ -20,7 +23,7 @@ namespace Valley.Combat
         private void Awake()
         {
             Current = maxHealth;
-            OnHealthChanged?.Invoke(Current, maxHealth);
+            OnHealthUpdated?.Invoke(Current, maxHealth);
         }
 
         public void ApplyDamage(float amount, GameObject source)
@@ -29,7 +32,7 @@ namespace Valley.Combat
 
             Current = Mathf.Max(0f, Current - amount);
             OnDamaged?.Invoke(amount, source);
-            OnHealthChanged?.Invoke(Current, maxHealth);
+            OnHealthUpdated?.Invoke(Current, maxHealth);
 
             if (Current <= 0f) Die();
         }
@@ -39,7 +42,8 @@ namespace Valley.Combat
             if (IsDead || amount <= 0f) return;
 
             Current = Mathf.Min(maxHealth, Current + amount);
-            OnHealthChanged?.Invoke(Current, maxHealth);
+            OnHeal?.Invoke(amount);
+            OnHealthUpdated?.Invoke(Current, maxHealth);
         }
 
         private void Die()
