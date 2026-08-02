@@ -18,6 +18,7 @@ namespace Valley.Scoring
         private float _startX;
         private float _worldShiftOffset;
         private float _cachedMultiplier;
+        private float _lastDistance;
 
         // <LastMultiplier, NewMultiplier>
         public event Action<float, float> OnMultiplierUpdated;
@@ -42,7 +43,19 @@ namespace Valley.Scoring
             if (target == null) return;
 
             Distance = (target.position.x + _worldShiftOffset) - _startX;
-            Score = Distance * _cachedMultiplier;
+
+            float deltaDistance = Distance - _lastDistance;
+
+            if (deltaDistance > 0f)
+            {
+                Score += deltaDistance * _cachedMultiplier;
+            }
+            else
+            {
+                Score += deltaDistance;
+            }
+
+            _lastDistance = Distance;
         }
 
         public void SetMultiplierContribution(object source, float amount)

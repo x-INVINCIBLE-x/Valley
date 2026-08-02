@@ -164,6 +164,10 @@ namespace Valley.UI
                 ? levelColors[Mathf.Min(cycle - 1, levelColors.Length - 1)]
                 : defaultColor;
 
+            Color baseColor = cycle > 1
+                ? levelColors[Mathf.Min(cycle - 2, levelColors.Length - 1)]
+                : defaultColor;
+
             foreach (var container in _containerIcons)
             {
                 for (int i = 0; i < container.Length; i++)
@@ -175,7 +179,7 @@ namespace Valley.UI
                     {
                         container[i].color = (cycle > 0 && i < upgradedIcons)
                             ? upgradeColor
-                            : defaultColor;
+                            : baseColor;         
                     }
                     else
                     {
