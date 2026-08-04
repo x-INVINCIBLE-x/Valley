@@ -82,7 +82,6 @@ namespace Valley.Level.Obstacles
                     transform.position.z);
             }
 
-            // Reset beam ends
             laserStart.localPosition = laserStartInitialLocalPos;
             laserEnd.localPosition = laserEndInitialLocalPos;
 

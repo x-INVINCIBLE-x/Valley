@@ -35,6 +35,8 @@ namespace Valley.Level.Generation
         [Header("Spawn Window")]
         public float spawnAheadDistance = 30f;
         public float despawnBehindDistance = 15f;
+        [Tooltip("Distance in X from the player at which the very first platform of every layer is seeded when this component starts (e.g. 100 seeds the first platform 100 units ahead of the player). 0 seeds it centered on the player, matching the old behavior. Keep this at or below spawnAheadDistance - if it's larger, the seeded platform starts outside the spawn-ahead window and will be immediately despawned again until the player gets close enough.")]
+        public float startingOffsetX = 0f;
 
         [Header("Vertical Band (Mid Layer)")]
         [Tooltip("Platforms never generate above (player's current Y + this offset). Re-evaluated on every spawn, so it tracks the player instead of trapping them under a fixed ceiling.")]
@@ -47,6 +49,10 @@ namespace Valley.Level.Generation
         [Tooltip("Authored ceiling on mid-layer gap size; still further clamped by reachability.")]
         public float maxGapX = 4f;
         [Range(0f, 1f)] public float gapChance = 0.65f;
+
+        [Header("Score-Based Spawning")]
+        [Tooltip("How many times a candidate's spawnChance is allowed to fail in a row before the last-picked candidate is placed anyway, guaranteeing forward progress.")]
+        public int maxSpawnChanceAttempts = 4;
 
         [Header("History Retention")]
         [Tooltip("How many already-despawned platforms behind the live window each layer keeps remembered, so backtracking reproduces the same layout. Beyond this, the oldest records are discarded and that ground regenerates fresh if revisited. 0 = unlimited (never trimmed).")]
@@ -78,6 +84,28 @@ namespace Valley.Level.Generation
         LaunchReachability.Envelope envelope;
         PrefabPoolGroup<PlatformBlock> objectPool;
         readonly PlatformLayerRuntime midRuntime = new PlatformLayerRuntime();
+
+        float worldShiftOffset;
+
+        /// <summary>
+        /// player.position.x corrected for every WorldShiftEvents.OnWorldShiftedX broadcast so far. If
+        /// progress is made by moving the player, this is just player.position.x. If progress is instead
+        /// made by shifting the world/platforms backward under a stationary-ish player, player.position.x
+        /// alone never advances - this is what keeps the spawn/despawn window actually moving either way.
+        /// </summary>
+        float PlayerProgressX => player.position.x + worldShiftOffset;
+
+        void OnEnable()
+        {
+            WorldShiftEvents.OnWorldShiftedX += HandleWorldShift;
+        }
+
+        void OnDisable()
+        {
+            WorldShiftEvents.OnWorldShiftedX -= HandleWorldShift;
+        }
+
+        void HandleWorldShift(float amountSubtractedFromWorld) => worldShiftOffset += amountSubtractedFromWorld;
 
         [ContextMenu("Build Default Side Layers (2 Up / 2 Down)")]
         void BuildDefaultSideLayers()
@@ -116,10 +144,14 @@ namespace Valley.Level.Generation
             }
         }
 
+        // ---------------------------------------------------------------
+        // Seeding
+        // ---------------------------------------------------------------
+
         void SeedMid()
         {
             PlatformBlock prefab = platformPrefabs[0];
-            float startLeftX = player.position.x - prefab.Width * 0.5f;
+            float startLeftX = PlayerProgressX + startingOffsetX - prefab.Width * 0.5f;
             float startLeftY = player.position.y - 0.1f;
             midRuntime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
             MaterializeAppend(midRuntime, midRuntime.LastGlobalIndex);
@@ -128,16 +160,20 @@ namespace Valley.Level.Generation
         void SeedSideLayer(PlatformLayer layer)
         {
             PlatformBlock prefab = layer.ResolvePrefabPool(platformPrefabs)[0];
-            float startLeftX = player.position.x - prefab.Width * 0.5f;
+            float startLeftX = PlayerProgressX + startingOffsetX - prefab.Width * 0.5f;
             float startLeftY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
             layer.runtime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
             MaterializeAppend(layer.runtime, layer.runtime.LastGlobalIndex);
         }
 
+        // ---------------------------------------------------------------
+        // Bidirectional window management (shared by every layer)
+        // ---------------------------------------------------------------
+
         void AdvanceWindow(PlatformLayerRuntime r, bool isMid, PlatformLayer layer)
         {
-            float aheadBound = player.position.x + spawnAheadDistance;
-            float behindBound = player.position.x - despawnBehindDistance;
+            float aheadBound = PlayerProgressX + spawnAheadDistance;
+            float behindBound = PlayerProgressX - despawnBehindDistance;
 
             // Grow right: materialize records that already exist in history, generating new ones only
             // once the recorded frontier itself falls short of the ahead boundary.
@@ -180,6 +216,7 @@ namespace Valley.Level.Generation
             TrimHistory(r);
         }
 
+        /// <summary>Permanently forgets already-despawned records once more than historyRetentionCount of them have piled up behind the live window.</summary>
         void TrimHistory(PlatformLayerRuntime r)
         {
             if (historyRetentionCount <= 0) return;
@@ -233,13 +270,17 @@ namespace Valley.Level.Generation
             r.liveInstances.RemoveAt(last);
         }
 
+        // ---------------------------------------------------------------
+        // Record generation (only ever called when extending the frontier)
+        // ---------------------------------------------------------------
+
         void GenerateMidRecord(PlatformLayerRuntime r)
         {
             r.spawnsSinceSafety++;
             bool forceSafe = r.spawnsSinceSafety >= guaranteedSafetyInterval;
 
             PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
-            PlatformBlock prefab = ChoosePrefab(platformPrefabs);
+            PlatformBlock prefab = ChooseSpawnablePrefab(platformPrefabs, out float missedGap);
 
             bool wantsGap = forceSafe || Random.value < gapChance;
             bool canStick = !wantsGap && prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
@@ -281,7 +322,7 @@ namespace Valley.Level.Generation
                 gapX = Random.Range(minGapX, Mathf.Max(minGapX, hardCap));
             }
 
-            float spawnLeftEdgeX = prev.rightEdgeX + gapX;
+            float spawnLeftEdgeX = prev.rightEdgeX + gapX + missedGap;
             float rotationZ = (!forceSafe && prefab.rotation.allowRotation)
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
@@ -295,7 +336,7 @@ namespace Valley.Level.Generation
         {
             PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
             PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
-            PlatformBlock prefab = ChoosePrefab(pool);
+            PlatformBlock prefab = ChooseSpawnablePrefab(pool, out float missedGap);
 
             bool canStick = prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
                              && r.consecutiveSticks < layer.maxConsecutiveSticks;
@@ -341,7 +382,7 @@ namespace Valley.Level.Generation
                 gapX = Random.Range(scaledMin, scaledMax);
             }
 
-            float spawnLeftEdgeX = prev.rightEdgeX + gapX;
+            float spawnLeftEdgeX = prev.rightEdgeX + gapX + missedGap;
             float rotationZ = prefab.rotation.allowRotation
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
@@ -361,6 +402,10 @@ namespace Valley.Level.Generation
             float t = envelope.maxUpwardHeight <= 0f ? 0f : clampedDelta / envelope.maxUpwardHeight;
             return Mathf.Lerp(envelope.maxForwardDistance, envelope.maxForwardAtMaxHeight, t);
         }
+
+        // ---------------------------------------------------------------
+        // Shared helpers
+        // ---------------------------------------------------------------
 
         void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float rotationZ)
         {
@@ -386,11 +431,34 @@ namespace Valley.Level.Generation
             return prefabPool[prefabPool.Length - 1];
         }
 
+        /// <summary>
+        /// Weighted-picks a candidate, then rolls its spawnChance. On failure it re-picks and adds that
+        /// candidate's width plus a base gap to extraGap - the space it would have occupied becomes part
+        /// of the gap before whatever finally gets placed. After maxSpawnChanceAttempts failures in a
+        /// row, the last candidate is returned regardless, so a generation step always produces exactly
+        /// one record and forward progress is never blocked by an unlucky run of chance rolls.
+        /// </summary>
+        PlatformBlock ChooseSpawnablePrefab(PlatformBlock[] prefabPool, out float extraGap)
+        {
+            extraGap = 0f;
+            PlatformBlock prefab = ChoosePrefab(prefabPool);
+
+            for (int attempt = 0; attempt < maxSpawnChanceAttempts; attempt++)
+            {
+                if (Random.value <= prefab.spawnChance) return prefab;
+
+                extraGap += prefab.Width + minGapX;
+                prefab = ChoosePrefab(prefabPool);
+            }
+
+            return prefab;
+        }
+
         void OnDrawGizmos()
         {
             if (!showDebugGizmos || player == null) return;
 
-            float px = player.position.x;
+            float px = PlayerProgressX;
             float py = player.position.y;
             float h = gizmoLineHalfHeight;
 

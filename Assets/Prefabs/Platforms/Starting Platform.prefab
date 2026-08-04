@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7103385011401550929
+--- !u!1 &8122842394199844381
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3453975349288977278}
-  - component: {fileID: 9070130729628821209}
-  - component: {fileID: 1564358647052131997}
-  - component: {fileID: 3718322076823276862}
-  - component: {fileID: 5600735133980647282}
-  - component: {fileID: 5701032680008938852}
-  m_Layer: 8
-  m_Name: Path Teleporter
+  - component: {fileID: 3871367911874071647}
+  - component: {fileID: 2239101901520903585}
+  - component: {fileID: 803982929547054200}
+  - component: {fileID: 8187887650984870127}
+  - component: {fileID: 4085474063315848417}
+  - component: {fileID: 8902247037256730875}
+  - component: {fileID: -7351680396675123006}
+  m_Layer: 7
+  m_Name: Starting Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3453975349288977278
+--- !u!4 &3871367911874071647
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
+  m_GameObject: {fileID: 8122842394199844381}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 2.47, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9070130729628821209
+--- !u!33 &2239101901520903585
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1564358647052131997
+  m_GameObject: {fileID: 8122842394199844381}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &803982929547054200
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
+  m_GameObject: {fileID: 8122842394199844381}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -69,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 55db8de89560e3c458ca217880f78699, type: 2}
+  - {fileID: 2100000, guid: 16e1646727982df43aeb7a6aa2d5f28c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,14 +94,14 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3718322076823276862
-SphereCollider:
+--- !u!65 &8187887650984870127
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
-  m_Material: {fileID: 0}
+  m_GameObject: {fileID: 8122842394199844381}
+  m_Material: {fileID: 13400000, guid: b078f808cffbc70418b8905acb30b0b1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -108,41 +109,68 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5600735133980647282
+--- !u!114 &4085474063315848417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
+  m_GameObject: {fileID: 8122842394199844381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2633fa8dc87b830449fc664ec82217e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 24d90b4320a209e46b5faaf37a3a4010, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Spawning.SpawnedEntity
---- !u!114 &5701032680008938852
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
+  profile: {fileID: 11400000, guid: 02f62f6f92220154e8218afd132eabad, type: 2}
+--- !u!114 &8902247037256730875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103385011401550929}
+  m_GameObject: {fileID: 8122842394199844381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d2e82f6d18ec3f41a49b0cda2b37a0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Paths.PathTeleporter
-  possiblePaths:
-  - {fileID: 11400000, guid: 6c7684859f91c93458f1f5ba2903fc4c, type: 2}
-  - {fileID: 11400000, guid: eadeeff7aa5714e499d7408bc265f639, type: 2}
-  zTransitionSpeed: 30
-  maxTransitionDuration: 4
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 64
+  m_EditorClassIdentifier: Assembly-CSharp::EndlessRunner.Level.Generation.PlatformBlock
+  boundsCenter: {x: 0, y: 0, z: 0}
+  boundsSize: {x: 1, y: 1, z: 1}
+  leftAnchor: {fileID: 0}
+  rightAnchor: {fileID: 0}
+  surfaceAnchor: {fileID: 0}
+  leftAttach:
+    allowed: 1
+    successRate: 1
+  rightAttach:
+    allowed: 1
+    successRate: 1
+  rotation:
+    allowRotation: 0
+    minAngleDegrees: 0
+    maxAngleDegrees: 0
+  spawnWeight: 1
+  spawnChance: 1
+--- !u!114 &-7351680396675123006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122842394199844381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b411ff2aa41563d499b19f8eaf895f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectMover
+  moveOnEnable: 1
+  startOffset: {x: 0, y: -10, z: 0}
+  useCachedPositionAsTarget: 1
+  targetPosition: {x: 0, y: 0, z: 0}
+  duration: 0.5

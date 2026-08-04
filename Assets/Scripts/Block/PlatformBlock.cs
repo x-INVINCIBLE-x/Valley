@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace Valley.Level.Generation
 {
+    /// <summary>
+    /// Authoring component for a single platform prefab. Defines its boundary box (auto-detected or
+    /// hand-adjusted via the custom inspector/gizmos), whether it is allowed to flush-attach to a
+    /// neighboring block on each side and how often that succeeds, and an optional rotation clamp.
+    /// </summary>
     [DisallowMultipleComponent]
     public class PlatformBlock : MonoBehaviour
     {
@@ -34,6 +39,9 @@ namespace Valley.Level.Generation
         [Tooltip("Relative chance this prefab is picked among the spawner's platform list.")]
         [Range(0.01f, 10f)] public float spawnWeight = 1f;
 
+        [Tooltip("Independent chance (0-1) that this platform actually spawns once picked. Unlike spawnWeight, which only affects likelihood relative to other candidates, this can make it not spawn at all - the space it would have taken becomes extra gap instead. Meant to be driven by a score-threshold controller for gating rarer content.")]
+        [Range(0f, 1f)] public float spawnChance = 1f;
+
         [System.Serializable]
         public struct AttachSettings
         {
@@ -51,6 +59,11 @@ namespace Valley.Level.Generation
 
         public float Width => boundsSize.x;
 
+        /// <summary>
+        /// Recomputes boundsCenter/boundsSize (in this transform's local space) from every Renderer
+        /// underneath it. Hooked up to the "Auto-Detect Bounds" button in the custom inspector - run it
+        /// once to get a starting box, then drag the Scene-view handles to adjust it by hand.
+        /// </summary>
         public void RecalculateBoundsFromRenderers()
         {
             var renderers = GetComponentsInChildren<Renderer>();

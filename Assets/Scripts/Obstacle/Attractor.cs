@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Valley.Obstacles
+namespace Valley.Obstacle
 {
     public class Attractor : MonoBehaviour
     {
@@ -34,6 +34,8 @@ namespace Valley.Obstacles
             if (rb == null) return;
 
             Vector3 toCenter = transform.position - rb.position;
+            toCenter.z = 0f;
+
             float distance = toCenter.magnitude;
             if (distance < 0.01f || distance > radius) return;
 

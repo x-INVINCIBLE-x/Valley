@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8902247037256730875}
   - component: {fileID: 8568519369255158485}
   m_Layer: 7
-  m_Name: Cube
+  m_Name: Portal Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
     minAngleDegrees: -15
     maxAngleDegrees: 15
   spawnWeight: 1
+  spawnChance: 1
 --- !u!114 &8568519369255158485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,19 +173,17 @@ MonoBehaviour:
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   categories:
-  - categoryName: Obstacles
+  - categoryName: Portal
     prefabs:
-    - {fileID: 5683537784595061676, guid: b5a667bc2e99ea54cbcaf8f9c4c67c9a, type: 3}
-    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+    - {fileID: 5600735133980647282, guid: 042d37594731da1429b1150b8ed174c9, type: 3}
+    gizmoColor: {r: 0, g: 0.15949917, b: 1, a: 1}
     autoPointCount: 3
     positionJitter: {x: 0, y: 0}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -0.4, y: 0.5, z: 0}
-    - localPosition: {x: 0, y: 0.5, z: 0}
-    - localPosition: {x: 0.4, y: 0.5, z: 0}
+    - localPosition: {x: 0, y: 1.5, z: 0}
     activeCount: 1
-    activationProbability: 1
+    activationProbability: 0.2
   overlapCheckRadius: 0.25
   obstructionLayers:
     serializedVersion: 2
