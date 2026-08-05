@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 646c911d32c0a83459e54fb167e418f7, type: 3}
-  m_Name: PlatformEffectProfile
+  m_Name: Bouncy_PlatformEffect
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectProfile
   gravityMultiplier: 1
-  bounceMultiplier: 0.4
+  bounceMultiplier: 1.5
   speedMultiplier: 1
