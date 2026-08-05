@@ -248,8 +248,8 @@ MonoBehaviour:
     y: 0
     width: 340
     height: 459
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -329,8 +329,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "UnityEditor.MainToolbarWindow\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 51
+    x: 0
+    y: 0
     width: 1918
     height: 36
   m_SerializedDataModeController:
@@ -595,8 +595,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 491
+    x: 0
+    y: 428
     width: 1072
     height: 614
   m_SerializedDataModeController:
@@ -698,8 +698,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 87
+    x: 0
+    y: 24
     width: 1072
     height: 378
   m_SerializedDataModeController:
@@ -1744,8 +1744,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1074
-    y: 87
+    x: 1
+    y: 24
     width: 338
     height: 433
   m_SerializedDataModeController:
@@ -1818,8 +1818,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1074
-    y: 546
+    x: 1
+    y: 483
     width: 338
     height: 559
   m_SerializedDataModeController:
@@ -1869,25 +1869,7 @@ MonoBehaviour:
       m_Data: 108980
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 54374
-    - m_Data: 55164
-    - m_Data: 55166
-    - m_Data: 55168
-    - m_Data: 55170
-    - m_Data: 55172
-    - m_Data: 55176
-    - m_Data: 55182
-    - m_Data: 55186
-    - m_Data: 55188
-    - m_Data: 55190
-    - m_Data: 55194
-    - m_Data: 55196
-    - m_Data: 55198
-    - m_Data: 55200
-    - m_Data: 55202
-    - m_Data: 55204
-    - m_Data: 55208
-    - m_Data: 55210
+    - m_Data: 54370
     - m_Data: 55212
     - m_Data: 55214
     - m_Data: 55216
@@ -1903,17 +1885,35 @@ MonoBehaviour:
     - m_Data: 55236
     - m_Data: 55238
     - m_Data: 55240
+    - m_Data: 55242
     - m_Data: 55244
+    - m_Data: 55246
     - m_Data: 55248
     - m_Data: 55250
     - m_Data: 55252
+    - m_Data: 55254
+    - m_Data: 55256
     - m_Data: 55258
     - m_Data: 55260
-    - m_Data: 55520
-    - m_Data: 55740
-    - m_Data: 55842
-    - m_Data: 55846
-    - m_Data: 75254
+    - m_Data: 55262
+    - m_Data: 55264
+    - m_Data: 55266
+    - m_Data: 55268
+    - m_Data: 55270
+    - m_Data: 55272
+    - m_Data: 55274
+    - m_Data: 55276
+    - m_Data: 55278
+    - m_Data: 55280
+    - m_Data: 55282
+    - m_Data: 55284
+    - m_Data: 55286
+    - m_Data: 55288
+    - m_Data: 55290
+    - m_Data: 55292
+    - m_Data: 55294
+    - m_Data: 55296
+    - m_Data: 55298
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1947,25 +1947,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 54374
-    - m_Data: 55164
-    - m_Data: 55166
-    - m_Data: 55168
-    - m_Data: 55170
-    - m_Data: 55172
-    - m_Data: 55176
-    - m_Data: 55182
-    - m_Data: 55186
-    - m_Data: 55188
-    - m_Data: 55190
-    - m_Data: 55194
-    - m_Data: 55196
-    - m_Data: 55198
-    - m_Data: 55200
-    - m_Data: 55202
-    - m_Data: 55204
-    - m_Data: 55208
-    - m_Data: 55210
+    - m_Data: 54370
     - m_Data: 55212
     - m_Data: 55214
     - m_Data: 55216
@@ -1981,17 +1963,35 @@ MonoBehaviour:
     - m_Data: 55236
     - m_Data: 55238
     - m_Data: 55240
+    - m_Data: 55242
     - m_Data: 55244
+    - m_Data: 55246
     - m_Data: 55248
     - m_Data: 55250
     - m_Data: 55252
+    - m_Data: 55254
+    - m_Data: 55256
     - m_Data: 55258
     - m_Data: 55260
-    - m_Data: 55520
-    - m_Data: 55740
-    - m_Data: 55842
-    - m_Data: 55846
-    - m_Data: 75254
+    - m_Data: 55262
+    - m_Data: 55264
+    - m_Data: 55266
+    - m_Data: 55268
+    - m_Data: 55270
+    - m_Data: 55272
+    - m_Data: 55274
+    - m_Data: 55276
+    - m_Data: 55278
+    - m_Data: 55280
+    - m_Data: 55282
+    - m_Data: 55284
+    - m_Data: 55286
+    - m_Data: 55288
+    - m_Data: 55290
+    - m_Data: 55292
+    - m_Data: 55294
+    - m_Data: 55296
+    - m_Data: 55298
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1414
-    y: 87
+    y: 24
     width: 504
     height: 1018
   m_SerializedDataModeController:
