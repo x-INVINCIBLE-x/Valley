@@ -20,8 +20,8 @@ namespace Valley.Player
 
         private void Awake() => _rb = GetComponent<Rigidbody>();
 
-        private void OnEnable() => AimInputController.OnAimReleased += HandleAimReleased;
-        private void OnDisable() => AimInputController.OnAimReleased -= HandleAimReleased;
+        private void OnEnable() => InputController.OnAimReleased += HandleAimReleased;
+        private void OnDisable() => InputController.OnAimReleased -= HandleAimReleased;
 
         private void HandleAimReleased(Vector3 direction, float charge) => _bounceCount = 0;
 

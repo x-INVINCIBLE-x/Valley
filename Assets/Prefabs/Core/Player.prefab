@@ -16702,7 +16702,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4368308482900420421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8afcf19a70a4b6747ba161a17215fbd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 295f853b97adbb44aae9b3329184a6b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Aiming.AimInputController
   rotationSpeedDegPerSec: 220
@@ -16712,6 +16712,7 @@ MonoBehaviour:
   aimBlockers:
   - {fileID: 0}
   - {fileID: 7368794356948607061}
+  - {fileID: 0}
 --- !u!114 &176300393753129225
 MonoBehaviour:
   m_ObjectHideFlags: 0

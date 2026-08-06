@@ -30,18 +30,18 @@ namespace Valley.Player
 
         private void OnEnable()
         {
-            AimInputController.OnAimStarted += Show;
-            AimInputController.OnAiming += UpdatePreview;
-            AimInputController.OnAimReleased += HandleAimReleased;
-            AimInputController.OnAimCancelled += Hide;
+            InputController.OnAimStarted += Show;
+            InputController.OnAiming += UpdatePreview;
+            InputController.OnAimReleased += HandleAimReleased;
+            InputController.OnAimCancelled += Hide;
         }
 
         private void OnDisable()
         {
-            AimInputController.OnAimStarted -= Show;
-            AimInputController.OnAiming -= UpdatePreview;
-            AimInputController.OnAimReleased -= HandleAimReleased;
-            AimInputController.OnAimCancelled -= Hide;
+            InputController.OnAimStarted -= Show;
+            InputController.OnAiming -= UpdatePreview;
+            InputController.OnAimReleased -= HandleAimReleased;
+            InputController.OnAimCancelled -= Hide;
         }
 
         private void Show() => _line.enabled = true;

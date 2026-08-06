@@ -17,18 +17,18 @@ namespace Valley.Player
 
         private void OnEnable()
         {
-            AimInputController.OnAimStarted += HandleAimStarted;
-            AimInputController.OnAiming += HandleAiming;
-            AimInputController.OnAimReleased += HandleAimReleased;
-            AimInputController.OnAimCancelled += HandleAimCancelled;
+            InputController.OnAimStarted += HandleAimStarted;
+            InputController.OnAiming += HandleAiming;
+            InputController.OnAimReleased += HandleAimReleased;
+            InputController.OnAimCancelled += HandleAimCancelled;
         }
 
         private void OnDisable()
         {
-            AimInputController.OnAimStarted -= HandleAimStarted;
-            AimInputController.OnAiming -= HandleAiming;
-            AimInputController.OnAimReleased -= HandleAimReleased;
-            AimInputController.OnAimCancelled -= HandleAimCancelled;
+            InputController.OnAimStarted -= HandleAimStarted;
+            InputController.OnAiming -= HandleAiming;
+            InputController.OnAimReleased -= HandleAimReleased;
+            InputController.OnAimCancelled -= HandleAimCancelled;
         }
 
         private void HandleAimStarted() => SetVisible(true);

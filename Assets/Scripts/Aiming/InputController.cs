@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 
 namespace Valley.Aiming
 {
-    public class AimInputController : MonoBehaviour, PlayerControls.IGameplayActions
+    public class InputController : MonoBehaviour, PlayerControls.IGameplayActions
     {
         public static event Action OnAimStarted;
         public static event Action<Vector3, float> OnAiming;
         public static event Action<Vector3, float> OnAimReleased;
         public static event Action OnAimCancelled;
+        public static event Action OnPaused;
 
         [SerializeField] private float rotationSpeedDegPerSec = 220f;
         [SerializeField] private float startAngleDeg = 90f;
@@ -108,6 +109,12 @@ namespace Valley.Aiming
         {
             float rad = angleDeg * Mathf.Deg2Rad;
             return new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f);
+        }
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                OnPaused?.Invoke();
         }
     }
 }

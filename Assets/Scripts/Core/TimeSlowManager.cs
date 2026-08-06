@@ -27,14 +27,14 @@ namespace Valley.Core
 
         private void OnEnable()
         {
-            AimInputController.OnAimStarted += SlowDown;
-            AimInputController.OnAimReleased += HandleAimReleased;
+            InputController.OnAimStarted += SlowDown;
+            InputController.OnAimReleased += HandleAimReleased;
         }
 
         private void OnDisable()
         {
-            AimInputController.OnAimStarted -= SlowDown;
-            AimInputController.OnAimReleased -= HandleAimReleased;
+            InputController.OnAimStarted -= SlowDown;
+            InputController.OnAimReleased -= HandleAimReleased;
         }
 
         private void HandleAimReleased(Vector3 direction, float charge) => ResumeNormal();

@@ -38,7 +38,7 @@ namespace Valley.Player
         {
             OnPlayerDied?.Invoke();
 
-            var aim = GetComponent<AimInputController>();
+            var aim = GetComponent<InputController>();
             if (aim != null) aim.enabled = false;
 
             var rb = GetComponent<Rigidbody>();

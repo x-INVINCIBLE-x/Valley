@@ -85,5 +85,9 @@ namespace Valley.QTE
             if (success) OnQTESucceeded?.Invoke();
             else OnQTEFailed?.Invoke();
         }
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+        }
     }
 }

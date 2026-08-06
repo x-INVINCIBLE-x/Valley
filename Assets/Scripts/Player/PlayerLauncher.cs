@@ -15,8 +15,8 @@ namespace Valley.Player
 
         private void Awake() => _rb = GetComponent<Rigidbody>();
 
-        private void OnEnable() => AimInputController.OnAimReleased += Launch;
-        private void OnDisable() => AimInputController.OnAimReleased -= Launch;
+        private void OnEnable() => InputController.OnAimReleased += Launch;
+        private void OnDisable() => InputController.OnAimReleased -= Launch;
 
         private void Launch(Vector3 direction, float charge)
         {
