@@ -11,6 +11,7 @@ namespace Valley.QTE
         public static QuickTimeEventRunner Instance { get; private set; }
 
         public static event Action<QuickTimeEventProfile> OnQTEStarted;
+        //<tapsDone, requiredTaps>
         public static event Action<int, int> OnQTETapRegistered;
         public static event Action OnQTESucceeded;
         public static event Action OnQTEFailed;
