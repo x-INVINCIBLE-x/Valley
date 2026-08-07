@@ -59,8 +59,6 @@ namespace Valley.Paths
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
 
-                rb.isKinematic = true;
-
                 float elapsed = 0f;
 
                 while (Mathf.Abs(rb.position.z - targetZ) > 0.01f &&
@@ -86,7 +84,6 @@ namespace Valley.Paths
             }
             finally
             {
-                rb.isKinematic = originalKinematic;
                 rb.constraints = originalConstraints;
 
                 rb.linearVelocity = Vector3.zero;
