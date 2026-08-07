@@ -38,5 +38,16 @@ namespace Valley.Level.Generation
             history.RemoveRange(0, count);
             historyBaseIndex += count;
         }
+
+        public void Reset()
+        {
+            history.Clear();
+            liveInstances.Clear();
+            liveStartIndex = 0;
+            historyBaseIndex = 0;
+            consecutiveSticks = 0;
+            consecutiveHardGaps = 0;
+            spawnsSinceSafety = 0;
+        }
     }
 }

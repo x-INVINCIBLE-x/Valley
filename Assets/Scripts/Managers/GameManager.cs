@@ -57,4 +57,9 @@ public class GameManager : MonoBehaviour, IAimBlocker
             resetFeedback.PlayFeedbacks();
         }
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

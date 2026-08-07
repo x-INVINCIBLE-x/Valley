@@ -15,6 +15,12 @@ namespace Valley.Level.Generation
     /// appends new records; moving backward re-materializes existing records from history instead of
     /// rolling new RNG, so revisiting an area reproduces the exact same layout. GameObjects themselves
     /// are recycled through a generic PrefabPoolGroup rather than being destroyed.
+    ///
+    /// The whole generation state (history, live instances, world-shift offset, streak counters) is
+    /// reset every time the component is enabled or disabled: OnDisable releases every live platform
+    /// back to the pool, and OnEnable wipes both runtimes' history and reseeds from scratch relative to
+    /// the player's current position - equivalent to a fresh Start(). The object pool itself persists
+    /// across enable/disable so recycled instances keep getting reused instead of being rebuilt.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
@@ -35,7 +41,7 @@ namespace Valley.Level.Generation
         [Header("Spawn Window")]
         public float spawnAheadDistance = 30f;
         public float despawnBehindDistance = 15f;
-        [Tooltip("Distance in X from the player at which the very first platform of every layer is seeded when this component starts (e.g. 100 seeds the first platform 100 units ahead of the player). 0 seeds it centered on the player, matching the old behavior. Keep this at or below spawnAheadDistance - if it's larger, the seeded platform starts outside the spawn-ahead window and will be immediately despawned again until the player gets close enough.")]
+        [Tooltip("Distance in X from the player at which the very first platform of every layer is seeded when this component is enabled (e.g. 100 seeds the first platform 100 units ahead of the player). 0 seeds it centered on the player, matching the old behavior. Keep this at or below spawnAheadDistance - if it's larger, the seeded platform starts outside the spawn-ahead window and will be immediately despawned again until the player gets close enough.")]
         public float startingOffsetX = 0f;
 
         [Header("Vertical Band (Mid Layer)")]
@@ -95,14 +101,31 @@ namespace Valley.Level.Generation
         /// </summary>
         float PlayerProgressX => player.position.x + worldShiftOffset;
 
+        void Awake()
+        {
+            // Pool survives enable/disable cycles - recycled instances just get reused across resets
+            // instead of being torn down and rebuilt every time.
+            objectPool = new PrefabPoolGroup<PlatformBlock>(transform);
+        }
+
         void OnEnable()
         {
             WorldShiftEvents.OnWorldShiftedX += HandleWorldShift;
+
+            // Guard against edit-mode enable (e.g. toggling the component checkbox without pressing
+            // Play), where Awake never ran and objectPool would still be null.
+            if (!Application.isPlaying) return;
+
+            ResetAndSeed();
         }
 
         void OnDisable()
         {
             WorldShiftEvents.OnWorldShiftedX -= HandleWorldShift;
+
+            if (!Application.isPlaying) return;
+
+            DeleteAllPlatforms();
         }
 
         void HandleWorldShift(float amountSubtractedFromWorld) => worldShiftOffset += amountSubtractedFromWorld;
@@ -119,19 +142,6 @@ namespace Valley.Level.Generation
             };
         }
 
-        void Start()
-        {
-            envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
-            objectPool = new PrefabPoolGroup<PlatformBlock>(transform);
-
-            SeedMid();
-            foreach (var layer in sideLayers)
-            {
-                if (layer == null) continue;
-                SeedSideLayer(layer);
-            }
-        }
-
         void Update()
         {
             if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
@@ -145,8 +155,37 @@ namespace Valley.Level.Generation
         }
 
         // ---------------------------------------------------------------
-        // Seeding
+        // Reset + seeding (runs fresh every OnEnable)
         // ---------------------------------------------------------------
+
+        /// <summary>
+        /// Wipes every layer's history and live instances, resets the world-shift offset and streak
+        /// counters, recalculates the reachability envelope (in case reachability-related fields were
+        /// tweaked while disabled), and reseeds every layer relative to the player's current position.
+        /// Public so a level-restart / respawn system can force this without needing to toggle the
+        /// component's enabled state.
+        /// </summary>
+        public void ResetAndSeed()
+        {
+            worldShiftOffset = 0f;
+            envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
+
+            midRuntime.Reset();
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null) continue;
+                layer.runtime.Reset();
+            }
+
+            if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
+
+            SeedMid();
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null) continue;
+                SeedSideLayer(layer);
+            }
+        }
 
         void SeedMid()
         {
@@ -268,6 +307,28 @@ namespace Valley.Level.Generation
             int last = r.liveInstances.Count - 1;
             objectPool.Release(r.liveInstances[last]);
             r.liveInstances.RemoveAt(last);
+        }
+
+        public void DeleteAllPlatforms()
+        {
+            ReleaseAll(midRuntime);
+
+            foreach (var layer in sideLayers)
+            {
+                if (layer == null)
+                    continue;
+
+                ReleaseAll(layer.runtime);
+            }
+        }
+
+        private void ReleaseAll(PlatformLayerRuntime runtime)
+        {
+            while (runtime.liveInstances.Count > 0)
+            {
+                objectPool.Release(runtime.liveInstances[^1]);
+                runtime.liveInstances.RemoveAt(runtime.liveInstances.Count - 1);
+            }
         }
 
         // ---------------------------------------------------------------

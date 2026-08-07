@@ -7,7 +7,7 @@ namespace Valley.Player
     {
         [SerializeField] private float initialSpeed = 5f;
 
-        private void Start()
+        private void OnEnable()
         {
             GetComponent<Rigidbody>().linearVelocity = Vector3.right * initialSpeed;
         }
