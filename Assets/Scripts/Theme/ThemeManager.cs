@@ -22,9 +22,16 @@ namespace Valley.Theming
                 Destroy(gameObject);
                 return;
             }
+
             Instance = this;
 
             if (initialTheme != null) SetTheme(initialTheme);
+        }
+
+        private void Start()
+        {
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
         }
 
         public void SetTheme(ThemeDefinition theme)

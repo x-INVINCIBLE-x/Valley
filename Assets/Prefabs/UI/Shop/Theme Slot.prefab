@@ -233,7 +233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &614009142618179578
 RectTransform:
   m_ObjectHideFlags: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   nameText: {fileID: 7913133088297532209}
   priceText: {fileID: 1891065708771622055}
   lockIndicator: {fileID: 5729555934167942930}
+  selectedIndicator: {fileID: 0}
   holdProgressImage: {fileID: 781670878552763344}
   holdDurationToBuy: 2
 --- !u!1 &5729555934167942930

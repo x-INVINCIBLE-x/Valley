@@ -11,13 +11,21 @@ namespace Valley.Shop
         public static event Action<ThemeDefinition> OnThemePurchased;
 
         [SerializeField] private CurrencyWallet wallet;
-        [SerializeField] private ThemeManager themeManager;
 
         private readonly HashSet<ThemeDefinition> _ownedThemes = new HashSet<ThemeDefinition>();
         private ThemeDefinition _lastConfirmedTheme;
+        private ThemeManager themeManager;
 
-        private void Awake()
+        private void Start()
         {
+            themeManager = ThemeManager.Instance;
+
+            if (themeManager == null)
+            {
+                gameObject.SetActive(false);
+                Debug.LogWarning("ThemeManager instance not found. ThemeShopController will be disabled.");
+            }
+
             _lastConfirmedTheme = themeManager.CurrentTheme;
             if (_lastConfirmedTheme != null) _ownedThemes.Add(_lastConfirmedTheme);
         }
