@@ -21,6 +21,17 @@ namespace Valley.Level.Generation
     /// back to the pool, and OnEnable wipes both runtimes' history and reseeds from scratch relative to
     /// the player's current position - equivalent to a fresh Start(). The object pool itself persists
     /// across enable/disable so recycled instances keep getting reused instead of being rebuilt.
+    ///
+    /// COORDINATE FRAMES: every PlatformRecord stores X in "logical" space - i.e. positions are chained
+    /// purely off the previous record (prev.rightEdgeX + gapX + ...), with no reference to the live
+    /// Transform hierarchy. This is what makes history reproducible regardless of how progress was made.
+    /// Real Unity world-space X, on the other hand, drifts away from logical X (by TotalShiftX) whenever
+    /// progress is made by shifting the world backward under a stationary-ish player instead of moving the
+    /// player - whether that shift arrives via a WorldShiftEvents.OnWorldShiftedX broadcast or by some
+    /// other script translating this component's own Transform directly (every pooled platform is
+    /// parented under it, so it doubles as the "world root"). RecordToWorldX / WorldToRecordX are the
+    /// single conversion point between the two frames; every place that turns a record into an actual
+    /// Transform position (or vice versa) must go through them.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
@@ -92,14 +103,37 @@ namespace Valley.Level.Generation
         readonly PlatformLayerRuntime midRuntime = new PlatformLayerRuntime();
 
         float worldShiftOffset;
+        float originAtReset;
 
         /// <summary>
-        /// player.position.x corrected for every WorldShiftEvents.OnWorldShiftedX broadcast so far. If
-        /// progress is made by moving the player, this is just player.position.x. If progress is instead
-        /// made by shifting the world/platforms backward under a stationary-ish player, player.position.x
-        /// alone never advances - this is what keeps the spawn/despawn window actually moving either way.
+        /// Total accumulated shift between logical record space and current real Unity world-space X.
+        /// Combines two independent ways "the world moves" can happen:
+        ///  1) External systems explicitly broadcasting WorldShiftEvents.OnWorldShiftedX, accumulated into worldShiftOffset.
+        ///  2) This component's OWN Transform being translated directly (e.g. a "world root" GameObject
+        ///     that some scroller script moves every frame instead of firing the event). Since every
+        ///     pooled platform is parented under this transform, live platforms are dragged along for
+        ///     free by Unity's hierarchy - but PlayerProgressX needs to know about it too, or the
+        ///     spawn/despawn window silently freezes whenever the player itself isn't also moving.
         /// </summary>
-        float PlayerProgressX => player.position.x + worldShiftOffset;
+        float TotalShiftX => worldShiftOffset + (originAtReset - transform.position.x);
+
+        /// <summary>
+        /// player.position.x corrected for TotalShiftX. If progress is made by moving the player, this is
+        /// just player.position.x. If progress is instead made by shifting the world/platforms backward
+        /// under a stationary-ish player - whether via WorldShiftEvents or by moving this transform
+        /// directly - player.position.x alone never advances; this is what keeps the spawn/despawn window
+        /// actually moving either way.
+        ///
+        /// This is LOGICAL space (matches PlatformRecord.leftEdgeX / rightEdgeX), not necessarily real
+        /// Unity world-space X - see RecordToWorldX / WorldToRecordX.
+        /// </summary>
+        float PlayerProgressX => player.position.x + TotalShiftX;
+
+        /// <summary>Converts a record's logical X into the real Unity world-space X it should be placed/drawn at right now.</summary>
+        float RecordToWorldX(float recordX) => recordX - TotalShiftX;
+
+        /// <summary>Converts a real Unity world-space X (e.g. read back off a freshly positioned Transform) into logical record space.</summary>
+        float WorldToRecordX(float worldX) => worldX + TotalShiftX;
 
         void Awake()
         {
@@ -168,6 +202,7 @@ namespace Valley.Level.Generation
         public void ResetAndSeed()
         {
             worldShiftOffset = 0f;
+            originAtReset = transform.position.x;
             envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
 
             midRuntime.Reset();
@@ -271,10 +306,10 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
-            PositionPlatform(instance, record.leftEdgeX, record.leftEdgeY, record.rotationZ);
+            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.rotationZ);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();
-            record.rightEdgeX = rightEdge.x;
+            record.rightEdgeX = WorldToRecordX(rightEdge.x);
             record.rightEdgeY = rightEdge.y;
             r.SetRecord(index, record);
 
@@ -286,10 +321,10 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
-            PositionPlatform(instance, record.leftEdgeX, record.leftEdgeY, record.rotationZ);
+            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.rotationZ);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();
-            record.rightEdgeX = rightEdge.x;
+            record.rightEdgeX = WorldToRecordX(rightEdge.x);
             record.rightEdgeY = rightEdge.y;
             r.SetRecord(index, record);
 
@@ -468,6 +503,7 @@ namespace Valley.Level.Generation
         // Shared helpers
         // ---------------------------------------------------------------
 
+        /// <summary>leftEdgeX/leftEdgeY here are expected to already be real Unity world-space values (see RecordToWorldX).</summary>
         void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float rotationZ)
         {
             block.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, 0f, rotationZ));
@@ -519,7 +555,11 @@ namespace Valley.Level.Generation
         {
             if (!showDebugGizmos || player == null) return;
 
-            float px = PlayerProgressX;
+            // Real Unity world-space player position - used for anything drawn directly in the Scene
+            // view, as opposed to PlayerProgressX (logical space) which drives the actual spawn/despawn
+            // threshold math in AdvanceWindow. Distances (spawnAheadDistance etc.) are translation-invariant
+            // between the two frames, so it's only the origin that needs to be the real one here.
+            float px = player.position.x;
             float py = player.position.y;
             float h = gizmoLineHalfHeight;
 
@@ -537,7 +577,7 @@ namespace Valley.Level.Generation
             if (Application.isPlaying && midRuntime.RecordCount > 0)
             {
                 PlatformRecord frontier = midRuntime.GetRecord(midRuntime.LastGlobalIndex);
-                Vector3 edge = new Vector3(frontier.rightEdgeX, frontier.rightEdgeY, 0f);
+                Vector3 edge = new Vector3(RecordToWorldX(frontier.rightEdgeX), frontier.rightEdgeY, 0f);
                 Gizmos.color = reachEnvelopeColor;
                 Vector3 flatReach = edge + new Vector3(envelope.maxForwardDistance, 0f, 0f);
                 Vector3 peakReach = edge + new Vector3(envelope.maxForwardAtMaxHeight, envelope.maxUpwardHeight, 0f);
@@ -568,7 +608,7 @@ namespace Valley.Level.Generation
             if (r.RecordCount == 0) return;
 
             PlatformRecord frontier = r.GetRecord(r.LastGlobalIndex);
-            Vector3 edge = new Vector3(frontier.rightEdgeX, frontier.rightEdgeY, 0f);
+            Vector3 edge = new Vector3(RecordToWorldX(frontier.rightEdgeX), frontier.rightEdgeY, 0f);
 
             Gizmos.color = color;
             Gizmos.DrawSphere(edge, 0.1f);

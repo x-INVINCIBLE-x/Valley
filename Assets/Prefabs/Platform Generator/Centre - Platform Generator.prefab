@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &959289109831160357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1208964110092416383}
+  - component: {fileID: 7295319984269486695}
+  m_Layer: 0
+  m_Name: Centre - Platform Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1208964110092416383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959289109831160357}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7295319984269486695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959289109831160357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8611525345798a049acadf5f29081df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformChunkSpawner
+  player: {fileID: 0}
+  platformPrefabs:
+  - {fileID: 8902247037256730875, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
+  - {fileID: 8902247037256730875, guid: f6da052a4d499d14c8902baff119aec7, type: 3}
+  - {fileID: 8902247037256730875, guid: a32e3f71342a4044db89c973d42ad3d0, type: 3}
+  - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
+  - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
+  - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
+  forwardSpeed: 6
+  launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
+  gravity: 20
+  maxLaunches: 2
+  reachabilitySafetyMargin: 0.5
+  spawnAheadDistance: 300
+  despawnBehindDistance: 50
+  startingOffsetX: 200
+  upperBoundOffset: 6
+  maxVerticalStep: 3
+  minGapX: 40
+  maxGapX: 100
+  gapChance: 0.1
+  maxSpawnChanceAttempts: 4
+  historyRetentionCount: 200
+  maxConsecutiveSticks: 3
+  maxConsecutiveHardGaps: 2
+  guaranteedSafetyInterval: 8
+  layerSpacing: 4
+  sideLayers:
+  - label: 
+    verticalOffset: 50
+    verticalJitter: 24
+    gapMultiplier: 1.2
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
+  - label: 
+    verticalOffset: 100
+    verticalJitter: 24
+    gapMultiplier: 1.1
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  - label: 
+    verticalOffset: -50
+    verticalJitter: 24
+    gapMultiplier: 0.1
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
+  - label: 
+    verticalOffset: -100
+    verticalJitter: 24
+    gapMultiplier: 0
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
+  showDebugGizmos: 1
+  spawnAheadColor: {r: 0.2, g: 1, b: 0.4, a: 1}
+  despawnBehindColor: {r: 1, g: 0, b: 0, a: 1}
+  ceilingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lastEdgeColor: {r: 1, g: 0, b: 1, a: 1}
+  reachEnvelopeColor: {r: 1, g: 0.5, b: 0.1, a: 0.8}
+  gizmoLineHalfHeight: 4
