@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
-using Valley.Aiming;
 using Valley.Combat;
+using Valley.Aiming;
 
 namespace Valley.Player
 {
@@ -9,8 +9,10 @@ namespace Valley.Player
     public class PlayerHealth : MonoBehaviour
     {
         public static event Action<float, float> OnPlayerHealthChanged;
+        public static event Action<float> OnPlayerHealed;
         public static event Action OnPlayerDamaged;
         public static event Action OnPlayerDied;
+        public static event Action OnPlayerRevived;
 
         private Health _health;
 
@@ -18,19 +20,25 @@ namespace Valley.Player
 
         private void OnEnable()
         {
-            _health.OnHealthUpdated += HandleHealthChanged;
+            _health.OnHealthUpdated += HandleHealthUpdated;
+            _health.OnHeal += HandleHeal;
             _health.OnDamaged += HandleDamaged;
             _health.OnDeath += HandleDeath;
+            _health.OnRevived += HandleRevived;
         }
 
         private void OnDisable()
         {
-            _health.OnHealthUpdated -= HandleHealthChanged;
+            _health.OnHealthUpdated -= HandleHealthUpdated;
+            _health.OnHeal -= HandleHeal;
             _health.OnDamaged -= HandleDamaged;
             _health.OnDeath -= HandleDeath;
+            _health.OnRevived -= HandleRevived;
         }
 
-        private void HandleHealthChanged(float current, float max) => OnPlayerHealthChanged?.Invoke(current, max);
+        private void HandleHealthUpdated(float current, float max) => OnPlayerHealthChanged?.Invoke(current, max);
+
+        private void HandleHeal(float amount) => OnPlayerHealed?.Invoke(amount);
 
         private void HandleDamaged(float amount, GameObject source) => OnPlayerDamaged?.Invoke();
 
@@ -43,6 +51,14 @@ namespace Valley.Player
 
             var rb = GetComponent<Rigidbody>();
             if (rb != null) rb.linearVelocity = Vector3.zero;
+        }
+
+        private void HandleRevived()
+        {
+            var aim = GetComponent<InputController>();
+            if (aim != null) aim.enabled = true;
+
+            OnPlayerRevived?.Invoke();
         }
     }
 }

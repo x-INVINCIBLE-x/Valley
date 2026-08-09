@@ -16,7 +16,7 @@ namespace Valley.Level.Difficulty
     public class ScoreThresholdContentController : MonoBehaviour
     {
         [Header("Score Source")]
-        public DistanceScoreTracker scoreTracker;
+        public DistanceScoreTracker distanceTracker;
 
         [Header("Targets")]
         [Tooltip("Every generator whose categories should be affected by a tier's spawnPointOverrides - typically one per distinct platform prefab that has spawn points.")]
@@ -62,9 +62,9 @@ namespace Valley.Level.Difficulty
 
         void Update()
         {
-            if (scoreTracker == null || tiers.Length == 0) return;
+            if (distanceTracker == null || tiers.Length == 0) return;
 
-            int targetTier = FindTierIndex(scoreTracker.Score);
+            int targetTier = FindTierIndex(distanceTracker.Distance);
             if (targetTier < 0 || targetTier == currentTierIndex) return;
 
             ApplyTier(tiers[targetTier]);

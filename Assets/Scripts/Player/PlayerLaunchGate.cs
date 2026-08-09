@@ -30,6 +30,12 @@ namespace Valley.Core
             return true;
         }
 
+        public void SetCharges(int amount)
+        {
+            Remaining = Mathf.Clamp(amount, 0, maxCharges);
+            OnChargesChanged?.Invoke(Remaining, maxCharges);
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if (!IsInLayerMask(collision.gameObject.layer, groundMask)) return;

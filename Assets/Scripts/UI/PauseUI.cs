@@ -22,7 +22,6 @@ public class PauseUI : MonoBehaviour
 
     private void ShowPauseUI(bool isPaused)
     {
-        Debug.Log($"PauseUI: ShowPauseUI called with isPaused = {isPaused}");
         if (isPaused && pauseFeedback != null)
             pauseFeedback.PlayFeedbacks();
         else if (!isPaused && unpauseFeedback != null)

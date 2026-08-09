@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Valley.Combat;
 
 namespace Valley.Combat
 {
@@ -10,8 +9,8 @@ namespace Valley.Combat
         public event Action<float, float> OnHealthUpdated;
         public event Action<float, GameObject> OnDamaged;
         public event Action<float> OnHeal;
-
         public event Action OnDeath;
+        public event Action OnRevived;
 
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private bool destroyOnDeath = false;
@@ -44,6 +43,16 @@ namespace Valley.Combat
             Current = Mathf.Min(maxHealth, Current + amount);
             OnHeal?.Invoke(amount);
             OnHealthUpdated?.Invoke(Current, maxHealth);
+        }
+
+        public void Revive(float amount)
+        {
+            if (!IsDead) return;
+
+            IsDead = false;
+            Current = Mathf.Clamp(amount, 0f, maxHealth);
+            OnHealthUpdated?.Invoke(Current, maxHealth);
+            OnRevived?.Invoke();
         }
 
         private void Die()
