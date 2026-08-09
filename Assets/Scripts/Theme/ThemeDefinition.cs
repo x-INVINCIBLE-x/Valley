@@ -6,5 +6,7 @@ namespace Valley.Theming
     public class ThemeDefinition : ScriptableObject
     {
         public string themeName;
+        public Sprite icon;
+        public int price;
     }
 }

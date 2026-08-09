@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Valley.Theming
@@ -9,8 +10,10 @@ namespace Valley.Theming
         public static event Action<ThemeDefinition> OnThemeChanged;
 
         [SerializeField] private ThemeDefinition initialTheme;
+        [SerializeField] private ThemeDefinition[] availableThemes;
 
         public ThemeDefinition CurrentTheme { get; private set; }
+        public IReadOnlyList<ThemeDefinition> AvailableThemes => availableThemes;
 
         private void Awake()
         {
