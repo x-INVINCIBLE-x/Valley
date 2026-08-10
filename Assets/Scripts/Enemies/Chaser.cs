@@ -40,7 +40,6 @@ namespace Valley.Enemies
             _rb = GetComponent<Rigidbody>();
 
             _rb.constraints =
-                RigidbodyConstraints.FreezePositionZ |
                 RigidbodyConstraints.FreezeRotationX |
                 RigidbodyConstraints.FreezeRotationY;
 
@@ -100,10 +99,12 @@ namespace Valley.Enemies
             float verticalVelocity =
                 (target.position.y - _rb.position.y) / Time.fixedDeltaTime;
 
+            float zVelocity = (target.position.z - _rb.position.z) / Time.fixedDeltaTime;
+
             _rb.linearVelocity = new Vector3(
                 _currentSpeed,
                 verticalVelocity,
-                0f);
+                zVelocity);
         }
 
         private void OnDrawGizmosSelected()
