@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Valley.Level.Generation;
+using Valley.Level.Obstacles;
 using Valley.Level.Spawning;
 using Valley.Scoring;
 
@@ -9,18 +10,21 @@ namespace Valley.Level.Difficulty
 {
     /// <summary>
     /// Watches a DistanceScoreTracker's Score and, whenever it crosses into a new tier, applies that
-    /// tier's overrides directly onto the referenced PlatformBlock prefabs' spawnChance/spawnWeight and
-    /// onto the referenced PlatformSpawnPointGenerators' categories (matched by categoryName). A tier
-    /// only needs entries for what actually changes at that threshold.
+    /// tier's overrides directly onto the referenced PlatformBlock prefabs' spawnChance/spawnWeight, the
+    /// referenced PlatformSpawnPointGenerators' categories, and the referenced UniversalObstacleSpawner's
+    /// categories/entries (all matched by name/reference). A tier only needs entries for what actually
+    /// changes at that threshold.
     /// </summary>
     public class ScoreThresholdContentController : MonoBehaviour
     {
         [Header("Score Source")]
-        public DistanceScoreTracker distanceTracker;
+        public DistanceScoreTracker scoreTracker;
 
         [Header("Targets")]
         [Tooltip("Every generator whose categories should be affected by a tier's spawnPointOverrides - typically one per distinct platform prefab that has spawn points.")]
         public PlatformSpawnPointGenerator[] spawnPointGenerators;
+        [Tooltip("Affected by a tier's obstacleCategoryOverrides.")]
+        public UniversalObstacleSpawner obstacleSpawner;
 
         [Header("Tiers")]
         [Tooltip("Sorted by scoreThreshold automatically at startup - author them in any order.")]
@@ -48,11 +52,32 @@ namespace Valley.Level.Difficulty
         }
 
         [Serializable]
+        public struct ObstacleEntryOverride
+        {
+            [Tooltip("Matched by reference against ObstacleEntry.prefab within the target category.")]
+            public ObstacleEntity prefab;
+            public float weight;
+            public int maxSpawnsBeforeReset;
+            public int maxActiveInstances;
+        }
+
+        [Serializable]
+        public struct ObstacleCategoryOverride
+        {
+            [Tooltip("Matched against ObstacleCategory.categoryName on obstacleSpawner.")]
+            public string categoryName;
+            [Tooltip("0 effectively locks this category out until a later tier raises it again.")]
+            public float categoryWeight;
+            public ObstacleEntryOverride[] entryOverrides;
+        }
+
+        [Serializable]
         public class ScoreTier
         {
             public float scoreThreshold;
             public PlatformOverride[] platformOverrides = new PlatformOverride[0];
             public SpawnPointCategoryOverride[] spawnPointOverrides = new SpawnPointCategoryOverride[0];
+            public ObstacleCategoryOverride[] obstacleCategoryOverrides = new ObstacleCategoryOverride[0];
         }
 
         void Awake()
@@ -62,9 +87,9 @@ namespace Valley.Level.Difficulty
 
         void Update()
         {
-            if (distanceTracker == null || tiers.Length == 0) return;
+            if (scoreTracker == null || tiers.Length == 0) return;
 
-            int targetTier = FindTierIndex(distanceTracker.Distance);
+            int targetTier = FindTierIndex(scoreTracker.Score);
             if (targetTier < 0 || targetTier == currentTierIndex) return;
 
             ApplyTier(tiers[targetTier]);
@@ -91,21 +116,44 @@ namespace Valley.Level.Difficulty
                 o.prefab.spawnWeight = o.spawnWeight;
             }
 
-            if (spawnPointGenerators == null) return;
-
-            foreach (var generator in spawnPointGenerators)
+            if (spawnPointGenerators != null)
             {
-                if (generator == null || generator.categories == null) continue;
-
-                foreach (var categoryOverride in tier.spawnPointOverrides)
+                foreach (var generator in spawnPointGenerators)
                 {
-                    var category = generator.categories.Find(c => c.categoryName == categoryOverride.categoryName);
+                    if (generator == null || generator.categories == null) continue;
+
+                    foreach (var categoryOverride in tier.spawnPointOverrides)
+                    {
+                        var category = generator.categories.Find(c => c.categoryName == categoryOverride.categoryName);
+                        if (category == null) continue;
+
+                        category.activeCount = categoryOverride.activeCount;
+                        category.activationProbability = categoryOverride.activationProbability;
+                        if (categoryOverride.prefabOverride != null && categoryOverride.prefabOverride.Length > 0)
+                            category.prefabs = categoryOverride.prefabOverride;
+                    }
+                }
+            }
+
+            if (obstacleSpawner != null && obstacleSpawner.categories != null)
+            {
+                foreach (var categoryOverride in tier.obstacleCategoryOverrides)
+                {
+                    var category = obstacleSpawner.categories.Find(c => c.categoryName == categoryOverride.categoryName);
                     if (category == null) continue;
 
-                    category.activeCount = categoryOverride.activeCount;
-                    category.activationProbability = categoryOverride.activationProbability;
-                    if (categoryOverride.prefabOverride != null && categoryOverride.prefabOverride.Length > 0)
-                        category.prefabs = categoryOverride.prefabOverride;
+                    category.categoryWeight = categoryOverride.categoryWeight;
+
+                    foreach (var entryOverride in categoryOverride.entryOverrides)
+                    {
+                        if (entryOverride.prefab == null) continue;
+                        var entry = category.obstacles.Find(e => e.prefab == entryOverride.prefab);
+                        if (entry == null) continue;
+
+                        entry.weight = entryOverride.weight;
+                        entry.maxSpawnsBeforeReset = entryOverride.maxSpawnsBeforeReset;
+                        entry.maxActiveInstances = entryOverride.maxActiveInstances;
+                    }
                 }
             }
         }

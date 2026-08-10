@@ -72,7 +72,7 @@ public class QTEUI : MonoBehaviour
 
     private void HandleQTETapRegistered(int tapsDone, int requiredTaps)
     {
-        progressRadialBar.UpdateBar(tapsDone, 0f, requiredTaps);
+        progressRadialBar.UpdateBar(tapsDone, 0f, requiredTaps-1);
 
         qteTapFeedback?.PlayFeedbacks();
     }

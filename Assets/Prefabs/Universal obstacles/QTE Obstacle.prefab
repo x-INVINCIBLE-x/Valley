@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2736816130537693461}
   - component: {fileID: 2189065263868223180}
   - component: {fileID: 2196384832229793805}
+  - component: {fileID: 3390093467320885124}
   - component: {fileID: 2671041552391859507}
   m_Layer: 8
   m_Name: QTE Obstacle
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.91, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,6 +114,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3390093467320885124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165517727704490597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cabffb361825344c929c41aa9f6d5ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.ChaserObstacle
+  player: {fileID: 0}
+  anticipationVisual: {fileID: 0}
+  actionVisual: {fileID: 0}
+  anticipationDuration: 0
+  spawnXOffsetRange: {x: 100, y: 120}
+  spawnYOffsetRange: {x: -5, y: 5}
+  chaseSpeed: 25
+  despawnDistance: 200
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &2671041552391859507
 MonoBehaviour:
   m_ObjectHideFlags: 0
