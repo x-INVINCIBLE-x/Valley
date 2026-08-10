@@ -1,5 +1,4 @@
-using MoreMountains.Feedbacks;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,8 +10,8 @@ namespace Valley.Shop
     {
         [Header("Display")]
         [SerializeField] private Image iconImage;
-        [SerializeField] private TextMeshProUGUI nameText;
-        [SerializeField] private TextMeshProUGUI priceText;
+        [SerializeField] private Text nameText;
+        [SerializeField] private Text priceText;
         [SerializeField] private GameObject lockIndicator;
         [Tooltip("Optional - fills 0 to 1 while held, to show purchase-hold progress.")]
         [SerializeField] private Image holdProgressImage;
@@ -21,6 +20,8 @@ namespace Valley.Shop
         [Tooltip("A tap shorter than this previews the theme. Holding past this attempts a purchase.")]
         [SerializeField] private float holdDurationToBuy = 0.8f;
 
+        private static readonly Dictionary<ThemeDefinition, ThemeShopSlot> _registry = new Dictionary<ThemeDefinition, ThemeShopSlot>();
+
         private ThemeDefinition _theme;
         private ThemeShopController _controller;
 
@@ -28,15 +29,31 @@ namespace Valley.Shop
         private bool _purchaseTriggeredThisPress;
         private float _pressStartTime;
 
+        public ThemeDefinition Theme => _theme;
+
+        public static ThemeShopSlot Find(ThemeDefinition theme)
+        {
+            return theme != null && _registry.TryGetValue(theme, out var slot) ? slot : null;
+        }
+
         public void Initialize(ThemeDefinition theme, ThemeShopController controller)
         {
             _theme = theme;
             _controller = controller;
+            _registry[theme] = this;
 
             if (iconImage != null) iconImage.sprite = theme.icon;
             if (nameText != null) nameText.text = theme.themeName;
 
             Refresh();
+        }
+
+        private void OnDestroy()
+        {
+            if (_theme != null && _registry.TryGetValue(_theme, out var current) && current == this)
+            {
+                _registry.Remove(_theme);
+            }
         }
 
         public void Refresh()
@@ -85,15 +102,11 @@ namespace Valley.Shop
             }
 
             if (heldDuration < holdDurationToBuy) return;
-            Debug.Log("Purchase triggered for theme: " + _theme.themeName);
+
             _purchaseTriggeredThisPress = true;
+            if (_controller.TryPurchase(_theme)) Refresh();
 
-            bool status = _controller.TryPurchase(_theme);
-            if (status) Refresh();
-
-            Debug.Log("Purchase " + (status ? "successful" : "failed") + " for theme: " + _theme.themeName);
-
-            if (holdProgressImage != null) holdProgressImage.fillAmount = 0f;
+            if (holdProgressImage != null) holdProgressImage.fillAmount = 1f;
         }
     }
 }
