@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 130390629}
   - component: {fileID: 130390628}
   - component: {fileID: 130390627}
+  - component: {fileID: 130390631}
   m_Layer: 5
   m_Name: Wallet
   m_TagString: Untagged
@@ -375,6 +376,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130390625}
   m_CullTransparentMesh: 1
+--- !u!114 &130390631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130390625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18f200ab8d2c4042a96f0d961bb9703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalletUI
+  amtText: {fileID: 1608563292}
 --- !u!1 &234764032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,8 +2238,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 158.075, y: -100}
-  m_SizeDelta: {x: 146.15, y: 100}
+  m_AnchoredPosition: {x: 165.63501, y: -100}
+  m_SizeDelta: {x: 161.27, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608563291
 MonoBehaviour:
@@ -2294,7 +2308,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

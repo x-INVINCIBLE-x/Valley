@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6656493528011506164}
   - component: {fileID: 7696979514330635445}
   - component: {fileID: 6626515876700190783}
-  - component: {fileID: 2472893553353935902}
+  - component: {fileID: 6490484633219819576}
   - component: {fileID: 6662646115573043302}
   m_Layer: 8
   m_Name: Attractor
@@ -112,9 +112,9 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2472893553353935902
+--- !u!114 &6490484633219819576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,9 +123,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5385704164682557697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2633fa8dc87b830449fc664ec82217e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Spawning.SpawnedEntity
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformBlock
+  boundsCenter: {x: 0, y: 0, z: 0}
+  boundsSize: {x: 10, y: 10, z: 10}
+  leftAnchor: {fileID: 0}
+  rightAnchor: {fileID: 0}
+  surfaceAnchor: {fileID: 0}
+  leftAttach:
+    allowed: 0
+    successRate: 0.5
+  rightAttach:
+    allowed: 0
+    successRate: 0.5
+  rotation:
+    allowRotation: 0
+    minAngleDegrees: -15
+    maxAngleDegrees: 15
+  spawnWeight: 0.1
+  spawnChance: 1
 --- !u!114 &6662646115573043302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,8 +158,8 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
-  radius: 30
-  maxStrength: 250
+  radius: 25
+  maxStrength: 200
   strengthCurve:
     serializedVersion: 2
     m_Curve:
@@ -167,3 +184,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  activateFeedback: {fileID: 0}
+  deactivateFeedback: {fileID: 0}

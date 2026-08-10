@@ -19,6 +19,7 @@ namespace Valley.Shop
         private void Start()
         {
             themeManager = ThemeManager.Instance;
+            wallet = CurrencyWallet.Instance;
 
             if (themeManager == null)
             {

@@ -356,6 +356,7 @@ Transform:
   - {fileID: 550864627}
   - {fileID: 1666983300}
   - {fileID: 2133629435}
+  - {fileID: 1160901047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &49769249
@@ -814,6 +815,8 @@ MonoBehaviour:
   minGapX: 0
   maxGapX: 0
   gapChance: 0
+  zNoiseMin: 0
+  zNoiseMax: 0
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3
@@ -1869,8 +1872,8 @@ MonoBehaviour:
   - rid: 9217333693710598233
   - rid: 9217333693710598234
   - rid: 9217333693710598235
-  - rid: 9217333693710598236
   - rid: 9217333693710598237
+  - rid: 9217333693710598236
   - rid: 9217333693710598238
   - rid: 9217333693710598239
   - rid: 9217333693710598240
@@ -4531,6 +4534,8 @@ MonoBehaviour:
   minGapX: 40
   maxGapX: 100
   gapChance: 0.1
+  zNoiseMin: 0
+  zNoiseMax: 0
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3
@@ -7312,6 +7317,8 @@ MonoBehaviour:
   minGapX: 10
   maxGapX: 10
   gapChance: 0.5
+  zNoiseMin: 0
+  zNoiseMax: 0
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3
@@ -25460,6 +25467,51 @@ Transform:
   - {fileID: 1886685580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1160901046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160901047}
+  - component: {fileID: 1160901048}
+  m_Layer: 0
+  m_Name: Currency Wallet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1160901047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160901046}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 749.30524, y: -2.68917, z: 12374.108}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 49769248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1160901048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160901046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82faa9f7297cfdc4ea4b4c0386d2bef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Economy.CurrencyWallet
+  startingBalance: 100
 --- !u!1 &1161304495
 GameObject:
   m_ObjectHideFlags: 0
@@ -26440,6 +26492,8 @@ MonoBehaviour:
   minGapX: 10
   maxGapX: 10
   gapChance: 0.5
+  zNoiseMin: 0
+  zNoiseMax: 0
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3
@@ -29970,6 +30024,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
+  - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -29983,6 +30038,8 @@ MonoBehaviour:
   minGapX: 40
   maxGapX: 100
   gapChance: 0.1
+  zNoiseMin: -0.1
+  zNoiseMax: 0.1
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3

@@ -32,6 +32,13 @@ namespace Valley.Level.Generation
     /// parented under it, so it doubles as the "world root"). RecordToWorldX / WorldToRecordX are the
     /// single conversion point between the two frames; every place that turns a record into an actual
     /// Transform position (or vice versa) must go through them.
+    ///
+    /// Y and Z are simpler: neither one drifts the way X does (nothing ever shifts the world vertically or
+    /// in depth), so PlatformRecord stores both directly with no logical/world conversion needed. Z in
+    /// particular is just a small per-platform offset added on top of this spawner's own Z (see
+    /// <see cref="zNoiseMin"/>/<see cref="zNoiseMax"/>) - it's rolled once when a record is generated and
+    /// stored on the record itself, not re-rolled every time it's materialized, so backtracking into
+    /// already-generated ground keeps the same depth jitter instead of a new one.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
@@ -66,6 +73,11 @@ namespace Valley.Level.Generation
         [Tooltip("Authored ceiling on mid-layer gap size; still further clamped by reachability.")]
         public float maxGapX = 4f;
         [Range(0f, 1f)] public float gapChance = 0.65f;
+
+        [Header("Depth Variance (Z Noise)")]
+        [Tooltip("Random Z offset added on top of this spawner's own Z position for every platform spawned, in mid or side layers alike. Leave both at 0 to keep the old fixed-Z behavior. Rolled once per platform when its record is generated and stored in history, so revisiting an area keeps the same depth offset instead of re-rolling it. If min is set higher than max, the two are swapped automatically.")]
+        public float zNoiseMin = 0f;
+        public float zNoiseMax = 0f;
 
         [Header("Score-Based Spawning")]
         [Tooltip("How many times a candidate's spawnChance is allowed to fail in a row before the last-picked candidate is placed anyway, guaranteeing forward progress.")]
@@ -227,7 +239,7 @@ namespace Valley.Level.Generation
             PlatformBlock prefab = platformPrefabs[0];
             float startLeftX = PlayerProgressX + startingOffsetX - prefab.Width * 0.5f;
             float startLeftY = player.position.y - 0.1f;
-            midRuntime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
+            midRuntime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f, zOffset = RollZNoise() });
             MaterializeAppend(midRuntime, midRuntime.LastGlobalIndex);
         }
 
@@ -236,7 +248,7 @@ namespace Valley.Level.Generation
             PlatformBlock prefab = layer.ResolvePrefabPool(platformPrefabs)[0];
             float startLeftX = PlayerProgressX + startingOffsetX - prefab.Width * 0.5f;
             float startLeftY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
-            layer.runtime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f });
+            layer.runtime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f, zOffset = RollZNoise() });
             MaterializeAppend(layer.runtime, layer.runtime.LastGlobalIndex);
         }
 
@@ -306,7 +318,7 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
-            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.rotationZ);
+            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();
             record.rightEdgeX = WorldToRecordX(rightEdge.x);
@@ -321,7 +333,7 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
-            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.rotationZ);
+            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();
             record.rightEdgeX = WorldToRecordX(rightEdge.x);
@@ -423,7 +435,7 @@ namespace Valley.Level.Generation
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
 
-            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ });
+            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ, zOffset = RollZNoise() });
 
             if (forceSafe) r.spawnsSinceSafety = 0;
         }
@@ -483,7 +495,7 @@ namespace Valley.Level.Generation
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
 
-            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ });
+            r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ, zOffset = RollZNoise() });
         }
 
         float ComputeSafeGap(float heightDelta)
@@ -499,17 +511,25 @@ namespace Valley.Level.Generation
             return Mathf.Lerp(envelope.maxForwardDistance, envelope.maxForwardAtMaxHeight, t);
         }
 
+        /// <summary>Rolls a random depth offset within [zNoiseMin, zNoiseMax] (order-independent - min/max are sorted before rolling).</summary>
+        float RollZNoise()
+        {
+            float min = Mathf.Min(zNoiseMin, zNoiseMax);
+            float max = Mathf.Max(zNoiseMin, zNoiseMax);
+            return Random.Range(min, max);
+        }
+
         // ---------------------------------------------------------------
         // Shared helpers
         // ---------------------------------------------------------------
 
-        /// <summary>leftEdgeX/leftEdgeY here are expected to already be real Unity world-space values (see RecordToWorldX).</summary>
-        void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float rotationZ)
+        /// <summary>leftEdgeX/leftEdgeY here are expected to already be real Unity world-space values (see RecordToWorldX). zOffset is added directly on top of the spawner's own Z.</summary>
+        void PositionPlatform(PlatformBlock block, float leftEdgeX, float leftEdgeY, float zOffset, float rotationZ)
         {
             block.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, 0f, rotationZ));
 
             Vector3 currentLeft = block.GetLeftEdgeWorld();
-            Vector3 delta = new Vector3(leftEdgeX - currentLeft.x, leftEdgeY - currentLeft.y, 0f);
+            Vector3 delta = new Vector3(leftEdgeX - currentLeft.x, leftEdgeY - currentLeft.y, zOffset);
             block.transform.position += delta;
         }
 

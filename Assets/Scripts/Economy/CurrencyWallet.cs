@@ -5,6 +5,7 @@ namespace Valley.Economy
 {
     public class CurrencyWallet : MonoBehaviour
     {
+        public static CurrencyWallet Instance { get; private set; }
         public static event Action<int> OnBalanceChanged;
 
         [SerializeField] private int startingBalance;
@@ -13,6 +14,17 @@ namespace Valley.Economy
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
+
             Balance = startingBalance;
             OnBalanceChanged?.Invoke(Balance);
         }

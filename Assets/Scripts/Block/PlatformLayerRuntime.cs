@@ -10,6 +10,8 @@ namespace Valley.Level.Generation
         public float leftEdgeY;
         public float rotationZ;
 
+        public float zOffset;
+
         public float rightEdgeX;
         public float rightEdgeY;
     }

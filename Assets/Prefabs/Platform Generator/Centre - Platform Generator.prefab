@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
+  - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -65,6 +66,8 @@ MonoBehaviour:
   minGapX: 40
   maxGapX: 100
   gapChance: 0.1
+  zNoiseMin: -0.1
+  zNoiseMax: 0.1
   maxSpawnChanceAttempts: 4
   historyRetentionCount: 200
   maxConsecutiveSticks: 3
