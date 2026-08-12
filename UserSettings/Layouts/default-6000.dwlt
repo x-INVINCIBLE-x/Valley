@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1109
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 27
+  controlID: 51
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -1482,9 +1482,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 2736.7786, y: -102.06698, z: 0.42619783}
+    m_Target: {x: 333.71478, y: -76.99653, z: 0}
     speed: 2
-    m_Value: {x: 2736.7786, y: -102.06698, z: 0.42619783}
+    m_Value: {x: 333.71478, y: -76.99653, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1530,13 +1530,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.46213055, y: 0.093331754, z: -0.04897948, w: -0.88054127}
+    m_Target: {x: -0.18076319, y: -0.02301474, z: 0.0042322273, w: -0.98326516}
     speed: 2
-    m_Value: {x: -0.46213052, y: 0.093331754, z: -0.04897948, w: -0.8805412}
+    m_Value: {x: -0.18076319, y: -0.023014737, z: 0.004232227, w: -0.9832651}
   m_Size:
-    m_Target: 4.027065
+    m_Target: 1.9125988
     speed: 2
-    m_Value: 4.027065
+    m_Value: 1.9125988
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1763,22 +1763,14 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 96}
       m_SelectedIDs:
       - m_Data: 51142
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -79678
-      - m_Data: -71700
-      - m_Data: -1326
-      - m_Data: 52912
-      - m_Data: 52924
-      - m_Data: 52930
-      - m_Data: 53026
-      - m_Data: 53116
-      - m_Data: 91010
-      - m_Data: 91506
+      - m_Data: -3932
+      - m_Data: -1298
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1853,7 +1845,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Universal obstacles
+    - Assets/Scripts/Enemies
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1880,11 +1872,7 @@ MonoBehaviour:
     - m_Data: 51160
     - m_Data: 51186
     - m_Data: 52134
-    - m_Data: 55120
-    - m_Data: 56318
-    - m_Data: 56320
-    - m_Data: 56322
-    - m_Data: 56324
+    - m_Data: 55124
     - m_Data: 56326
     - m_Data: 56328
     - m_Data: 56330
@@ -1935,9 +1923,6 @@ MonoBehaviour:
     - m_Data: 56420
     - m_Data: 56422
     - m_Data: 56424
-    - m_Data: 56426
-    - m_Data: 56428
-    - m_Data: 56430
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1964,22 +1949,18 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 842}
+    scrollPos: {x: 0, y: 2554}
     m_SelectedIDs:
-    - m_Data: 51142
+    - m_Data: -4152
     m_LastClickedID:
-      m_Data: 51142
+      m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 50800
     - m_Data: 51160
     - m_Data: 51186
     - m_Data: 52134
-    - m_Data: 55120
-    - m_Data: 56318
-    - m_Data: 56320
-    - m_Data: 56322
-    - m_Data: 56324
+    - m_Data: 55124
     - m_Data: 56326
     - m_Data: 56328
     - m_Data: 56330
@@ -2030,9 +2011,6 @@ MonoBehaviour:
     - m_Data: 56420
     - m_Data: 56422
     - m_Data: 56424
-    - m_Data: 56426
-    - m_Data: 56428
-    - m_Data: 56430
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2060,8 +2038,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 51142
-    m_LastClickedInstanceID: 51142
+    - m_Data: -4152
+    m_LastClickedInstanceID: -4152
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
