@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7153751660954690581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5861796681501461586}
+  - component: {fileID: 2116115557013901038}
+  m_Layer: 0
+  m_Name: Dual Laser Obstacle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5861796681501461586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153751660954690581}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 774807607755230189}
+  - {fileID: 9155554729684648534}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2116115557013901038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153751660954690581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7c4c434908b914ba43de2bedc1dc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParentObstacle
+  player: {fileID: 0}
+  obstacles:
+  - {fileID: 6028307419366855012}
+  - {fileID: 2767288549453830367}
+--- !u!1001 &3338954592564350468
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5861796681501461586}
+    m_Modifications:
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153751660954690581, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_Name
+      value: Laser Obstacle (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+--- !u!114 &2767288549453830367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+  m_PrefabInstance: {fileID: 3338954592564350468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e2b3ece48fdf041b49ee750ef1d643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.LaserObstacle
+--- !u!4 &9155554729684648534 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+  m_PrefabInstance: {fileID: 3338954592564350468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6600555683847866303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5861796681501461586}
+    m_Modifications:
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153751660954690581, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+      propertyPath: m_Name
+      value: Laser Obstacle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+--- !u!4 &774807607755230189 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5861796681501461586, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+  m_PrefabInstance: {fileID: 6600555683847866303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6028307419366855012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+  m_PrefabInstance: {fileID: 6600555683847866303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e2b3ece48fdf041b49ee750ef1d643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.LaserObstacle

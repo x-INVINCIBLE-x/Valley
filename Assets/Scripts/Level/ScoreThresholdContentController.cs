@@ -68,6 +68,8 @@ namespace Valley.Level.Difficulty
             public string categoryName;
             [Tooltip("0 effectively locks this category out until a later tier raises it again.")]
             public float categoryWeight;
+            public int consecutiveSpawnCount;
+            public float consecutiveSpawnDelay;
             public ObstacleEntryOverride[] entryOverrides;
         }
 
@@ -143,6 +145,8 @@ namespace Valley.Level.Difficulty
                     if (category == null) continue;
 
                     category.categoryWeight = categoryOverride.categoryWeight;
+                    category.consecutiveSpawnCount = categoryOverride.consecutiveSpawnCount;
+                    category.consecutiveSpawnDelay = categoryOverride.consecutiveSpawnDelay;
 
                     foreach (var entryOverride in categoryOverride.entryOverrides)
                     {

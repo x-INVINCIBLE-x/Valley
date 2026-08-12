@@ -5,14 +5,14 @@ using Valley.Core.Pooling;
 namespace Valley.Level.Obstacles
 {
     /// <summary>
-    /// Spawns global obstacles (lasers, missiles, etc) that aren't tied to any specific platform,
-    /// organized into weighted categories. Each spawn attempt: pick an eligible category by weight
-    /// (respecting maxActiveCategories), pick an eligible entry within it by weight (respecting that
-    /// entry's own maxActiveInstances and maxSpawnsBeforeReset), then hand the instance the player
-    /// reference and call BeginAnticipation() - the obstacle drives its own lifecycle from there and
-    /// reports back through its Despawned event when it's done, at which point it's released to the pool
-    /// and its slot frees up on every cap it was counted against. The next spawn timer is a fresh random
-    /// value within spawnIntervalRange each time a spawn actually happens.
+    /// Spawns global obstacles organized into categories. Categories activate in a staggered round-robin:
+    /// up to maxActiveCategories can run concurrently, a new one is brought online roughly every
+    /// categoryActivationDelayRange seconds (ramping from 1 up to the max rather than bursting all at
+    /// once), and once a category has been activated it's excluded from being picked again until every
+    /// other eligible category has also been picked - at which point the whole round resets. While
+    /// active, a category spawns consecutiveSpawnCount obstacles in a row (each picked by weight among
+    /// its still-spawnable entries), consecutiveSpawnDelay apart, then its cycle ends and its
+    /// concurrent-category slot frees up for the next one.
     /// </summary>
     public class UniversalObstacleSpawner : MonoBehaviour
     {
@@ -26,12 +26,12 @@ namespace Valley.Level.Obstacles
         [Header("Global Limits")]
         [Tooltip("Maximum number of obstacles allowed active at once, across every category and prefab.")]
         public int maxActiveObstacles = 2;
-        [Tooltip("Maximum number of distinct categories allowed to have a live obstacle at the same time. A category already represented among active obstacles doesn't count against this when picking its next one.")]
+        [Tooltip("Maximum number of categories allowed to be running a consecutive-spawn cycle at the same time.")]
         public int maxActiveCategories = 2;
 
-        [Header("Spawn Timing")]
-        [Tooltip("Min/max seconds between spawns. A new random value in this range is picked after every successful spawn.")]
-        public Vector2 spawnIntervalRange = new Vector2(3f, 6f);
+        [Header("Category Activation")]
+        [Tooltip("Delay range before trying to bring another category cycle online. Re-rolled every time a new category is actually activated.")]
+        public Vector2 categoryActivationDelayRange = new Vector2(2f, 4f);
 
         [Header("Debug Gizmos")]
         public bool showGizmos = true;
@@ -39,67 +39,135 @@ namespace Valley.Level.Obstacles
         readonly List<ObstacleEntity> activeObstacles = new List<ObstacleEntity>();
         readonly Dictionary<ObstacleEntity, ObstacleCategory> activeInstanceCategory = new Dictionary<ObstacleEntity, ObstacleCategory>();
         readonly Dictionary<ObstacleEntity, ObstacleEntry> activeInstanceEntry = new Dictionary<ObstacleEntity, ObstacleEntry>();
+        readonly List<CategoryCycle> runningCycles = new List<CategoryCycle>();
 
         PrefabPoolGroup<ObstacleEntity> pool;
-        float spawnTimer;
+        float categoryActivationTimer;
+
+        class CategoryCycle
+        {
+            public ObstacleCategory category;
+            public int spawnsRemaining;
+            public float nextSpawnTimer;
+        }
 
         void Awake()
         {
             pool = new PrefabPoolGroup<ObstacleEntity>(transform);
-            spawnTimer = Random.Range(spawnIntervalRange.x, spawnIntervalRange.y);
+            categoryActivationTimer = Random.Range(categoryActivationDelayRange.x, categoryActivationDelayRange.y);
         }
 
         void Update()
         {
             if (player == null || categories == null || categories.Count == 0) return;
 
-            spawnTimer -= Time.deltaTime;
-            if (spawnTimer > 0f) return;
-            if (activeObstacles.Count >= maxActiveObstacles) return;
-
-            if (TrySpawnObstacle())
-                spawnTimer = Random.Range(spawnIntervalRange.x, spawnIntervalRange.y);
+            UpdateRunningCycles();
+            TryActivateNewCategory();
         }
 
-        bool TrySpawnObstacle()
+        void UpdateRunningCycles()
         {
-            ObstacleCategory category = ChooseEligibleCategory();
-            if (category == null) return false;
+            for (int i = runningCycles.Count - 1; i >= 0; i--)
+            {
+                CategoryCycle cycle = runningCycles[i];
+                cycle.nextSpawnTimer -= Time.deltaTime;
+                if (cycle.nextSpawnTimer > 0f) continue;
+                if (activeObstacles.Count >= maxActiveObstacles) continue;
 
-            ObstacleEntry entry = ChooseEligibleObstacle(category);
-            if (entry == null) return false;
+                ObstacleEntry entry = ChooseEligibleObstacle(cycle.category);
+                if (entry == null)
+                {
+                    runningCycles.RemoveAt(i);
+                    continue;
+                }
 
-            SpawnFrom(category, entry);
-            return true;
+                SpawnFrom(cycle.category, entry);
+                cycle.spawnsRemaining--;
+                cycle.nextSpawnTimer = cycle.category.consecutiveSpawnDelay;
+
+                if (cycle.spawnsRemaining <= 0)
+                    runningCycles.RemoveAt(i);
+            }
         }
 
-        ObstacleCategory ChooseEligibleCategory()
+        void TryActivateNewCategory()
         {
-            int activeCategoryCount = CountActiveCategories();
+            categoryActivationTimer -= Time.deltaTime;
+            if (categoryActivationTimer > 0f) return;
+            if (runningCycles.Count >= maxActiveCategories) return;
 
+            ObstacleCategory category = ChooseCategoryForNewCycle();
+            if (category == null) return;
+
+            runningCycles.Add(new CategoryCycle
+            {
+                category = category,
+                spawnsRemaining = Mathf.Max(1, category.consecutiveSpawnCount),
+                nextSpawnTimer = 0f
+            });
+            category.usedThisRound = true;
+
+            categoryActivationTimer = Random.Range(categoryActivationDelayRange.x, categoryActivationDelayRange.y);
+        }
+
+        ObstacleCategory ChooseCategoryForNewCycle()
+        {
             var eligible = new List<ObstacleCategory>();
             float totalWeight = 0f;
 
             foreach (var category in categories)
             {
+                if (category.usedThisRound) continue;
+                if (IsCategoryRunning(category)) continue;
                 if (!category.HasSpawnableObstacle()) continue;
-
-                bool alreadyActive = category.liveCount > 0;
-                if (!alreadyActive && activeCategoryCount >= maxActiveCategories) continue;
 
                 eligible.Add(category);
                 totalWeight += category.categoryWeight;
             }
 
-            return PickWeighted(eligible, c => c.categoryWeight, totalWeight);
+            if (eligible.Count > 0)
+                return PickWeighted(eligible, c => c.categoryWeight, totalWeight);
+
+            if (!AllEligibleCategoriesUsed()) return null;
+
+            ResetRound();
+
+            foreach (var category in categories)
+            {
+                if (category.usedThisRound) continue;
+                if (IsCategoryRunning(category)) continue;
+                if (!category.HasSpawnableObstacle()) continue;
+
+                eligible.Add(category);
+                totalWeight += category.categoryWeight;
+            }
+
+            return eligible.Count > 0 ? PickWeighted(eligible, c => c.categoryWeight, totalWeight) : null;
         }
 
-        int CountActiveCategories()
+        bool IsCategoryRunning(ObstacleCategory category)
         {
-            int count = 0;
+            foreach (var cycle in runningCycles)
+                if (cycle.category == category) return true;
+            return false;
+        }
+
+        bool AllEligibleCategoriesUsed()
+        {
+            bool anyEligibleAtAll = false;
             foreach (var category in categories)
-                if (category.liveCount > 0) count++;
-            return count;
+            {
+                if (!category.HasSpawnableObstacle()) continue;
+                anyEligibleAtAll = true;
+                if (!category.usedThisRound) return false;
+            }
+            return anyEligibleAtAll;
+        }
+
+        void ResetRound()
+        {
+            foreach (var category in categories)
+                category.usedThisRound = false;
         }
 
         ObstacleEntry ChooseEligibleObstacle(ObstacleCategory category)
@@ -179,9 +247,9 @@ namespace Valley.Level.Obstacles
 
 #if UNITY_EDITOR
             int liveCount = Application.isPlaying ? activeObstacles.Count : 0;
-            int liveCategoryCount = Application.isPlaying ? CountActiveCategories() : 0;
+            int runningCategoryCount = Application.isPlaying ? runningCycles.Count : 0;
             UnityEditor.Handles.Label(player.position + Vector3.up * 0.6f,
-                $"Obstacles: {liveCount}/{maxActiveObstacles}   Categories: {liveCategoryCount}/{maxActiveCategories}");
+                $"Obstacles: {liveCount}/{maxActiveObstacles}   Categories: {runningCategoryCount}/{maxActiveCategories}");
 #endif
         }
     }

@@ -25703,7 +25703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1201852886
 Transform:
   m_ObjectHideFlags: 0
@@ -25738,8 +25738,14 @@ MonoBehaviour:
     obstacles:
     - prefab: {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
       weight: 1
-      maxSpawnsBeforeReset: 1
+      maxSpawnsBeforeReset: 3
       maxActiveInstances: 1
+    - prefab: {fileID: 2116115557013901038, guid: efa4baed590c06441a9b1d5eed2f40c2, type: 3}
+      weight: 1
+      maxSpawnsBeforeReset: 2
+      maxActiveInstances: 1
+    consecutiveSpawnCount: 1
+    consecutiveSpawnDelay: 0.5
   - categoryName: QTE
     categoryWeight: 1
     obstacles:
@@ -25747,9 +25753,11 @@ MonoBehaviour:
       weight: 1
       maxSpawnsBeforeReset: 10
       maxActiveInstances: 4
+    consecutiveSpawnCount: 3
+    consecutiveSpawnDelay: 0.5
   maxActiveObstacles: 2
   maxActiveCategories: 2
-  spawnIntervalRange: {x: 10, y: 20}
+  categoryActivationDelayRange: {x: 8, y: 15}
   showGizmos: 1
 --- !u!4 &1224916880 stripped
 Transform:
@@ -40474,6 +40482,7 @@ MonoBehaviour:
   - rid: 9217333637168496764
   - rid: 9217333637168496765
   - rid: 9217333637168496766
+  - rid: 9217333800641495114
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -42031,6 +42040,95 @@ MonoBehaviour:
         Owner: {fileID: 2140951438}
         DebugActive: 0
         TargetGameObject: {fileID: 909296676}
+        ExtraTargetGameObjects: []
+        IgnorePlayDirection: 0
+        SetStateOnInit: 0
+        StateOnInit: 1
+        SetStateOnPlay: 1
+        StateOnPlay: 0
+        SetStateOnStop: 0
+        StateOnStop: 1
+        SetStateOnReset: 0
+        StateOnReset: 1
+        SetStateOnSkip: 0
+        StateOnSkip: 1
+        SetStateOnPlayerComplete: 0
+        StateOnPlayerComplete: 1
+    - rid: 9217333800641495114
+      type: {class: MMF_SetActive, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -1653775629
+        Label: Set Active
+        OriginalLabel: Set Active
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: 
+        Owner: {fileID: 2140951438}
+        DebugActive: 0
+        TargetGameObject: {fileID: 1201852885}
         ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0

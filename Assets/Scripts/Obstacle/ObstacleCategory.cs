@@ -32,21 +32,31 @@ namespace Valley.Level.Obstacles
 
     /// <summary>
     /// A group of related obstacle entries (e.g. "Lasers", "Missiles"). Categories are picked by weight
-    /// among those with at least one spawnable entry and room under the spawner's maxActiveCategories.
-    /// Once every entry in a category has used up its maxSpawnsBeforeReset, the whole category's usage
-    /// counters reset so it can be drawn from again.
+    /// among those not yet used this round and with at least one spawnable entry; once picked, a category
+    /// is excluded from being picked again until every other eligible category has also been picked -
+    /// at which point the whole round resets. While active, a category spawns consecutiveSpawnCount
+    /// entries in a row, consecutiveSpawnDelay apart. Separately, once every entry in a category has used
+    /// up its own maxSpawnsBeforeReset, that category's entry usage resets so it has fresh entries to draw
+    /// from the next time it's picked.
     /// </summary>
     [System.Serializable]
     public class ObstacleCategory
     {
         public string categoryName = "Category";
 
-        [Tooltip("Relative chance this category is picked among other eligible categories.")]
+        [Tooltip("Relative chance this category is picked among other categories not yet used this round.")]
         [Range(0.01f, 10f)] public float categoryWeight = 1f;
 
         public List<ObstacleEntry> obstacles = new List<ObstacleEntry>();
 
+        [Header("Consecutive Spawn Burst")]
+        [Tooltip("How many obstacles this category spawns in a row (each picked normally by weight among still-spawnable entries) once it's activated.")]
+        public int consecutiveSpawnCount = 3;
+        [Tooltip("Delay between each spawn within this category's consecutive burst.")]
+        public float consecutiveSpawnDelay = 0.5f;
+
         [System.NonSerialized] public int liveCount;
+        [System.NonSerialized] public bool usedThisRound;
 
         public bool HasSpawnableObstacle()
         {

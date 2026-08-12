@@ -13,7 +13,7 @@ namespace Valley.Level.Obstacles
     public abstract class ObstacleEntity : MonoBehaviour
     {
         [Tooltip("Assigned automatically by the spawner right before BeginAnticipation() is called.")]
-        public Transform player;
+        [HideInInspector] public Transform player;
 
         public event Action<ObstacleEntity> Despawned;
 
