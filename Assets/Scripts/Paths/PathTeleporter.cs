@@ -44,10 +44,17 @@ namespace Valley.Paths
             if (destination == null)
                 return;
 
-            StartCoroutine(MoveZRoutine(rb, destination.zPosition));
+            // Snapshot everything the coroutine needs right now. Once it's launched it has
+            // no dependency left on this component, so it runs to completion even if this
+            // script (or its GameObject) is disabled, deactivated, or destroyed mid-transition.
+            float duration = Mathf.Max(zTransitionDuration, 0.0001f);
+            AnimationCurve easing = zEasing;
+
+            PathTeleporterCoroutineHost.Instance.StartCoroutine(
+                MoveZRoutine(rb, destination.zPosition, duration, easing));
         }
 
-        private IEnumerator MoveZRoutine(Rigidbody rb, float targetZ)
+        private static IEnumerator MoveZRoutine(Rigidbody rb, float targetZ, float duration, AnimationCurve easing)
         {
             InTransitionGlobal.Add(rb);
 
@@ -70,15 +77,16 @@ namespace Valley.Paths
 
             float startZ = rb.position.z;
             float elapsed = 0f;
-            float duration = Mathf.Max(zTransitionDuration, 0.0001f);
 
             try
             {
                 while (elapsed < duration)
                 {
+                    if (rb == null) yield break; // target was destroyed mid-transition
+
                     elapsed += Time.fixedDeltaTime;
                     float t = Mathf.Clamp01(elapsed / duration);
-                    float easedT = zEasing != null && zEasing.length > 0 ? zEasing.Evaluate(t) : t;
+                    float easedT = easing != null && easing.length > 0 ? easing.Evaluate(t) : t;
 
                     Vector3 position = rb.position;
 
@@ -93,21 +101,27 @@ namespace Valley.Paths
                     yield return new WaitForFixedUpdate();
                 }
 
-                Vector3 finalPosition = rb.position;
-                finalPosition.z = targetZ;
-                rb.position = finalPosition;
+                if (rb != null)
+                {
+                    Vector3 finalPosition = rb.position;
+                    finalPosition.z = targetZ;
+                    rb.position = finalPosition;
+                }
             }
             finally
             {
-                rb.isKinematic = originalKinematic;
-                rb.constraints = originalConstraints;
+                if (rb != null)
+                {
+                    rb.isKinematic = originalKinematic;
+                    rb.constraints = originalConstraints;
 
-                // Hand the original momentum back so the player exits the teleport
-                // carrying the same X/Y velocity (and spin) they entered with.
-                rb.linearVelocity = conservedVelocity;
-                rb.angularVelocity = conservedAngularVelocity;
+                    // Hand the original momentum back so the player exits the teleport
+                    // carrying the same X/Y velocity (and spin) they entered with.
+                    rb.linearVelocity = conservedVelocity;
+                    rb.angularVelocity = conservedAngularVelocity;
 
-                Physics.SyncTransforms();
+                    Physics.SyncTransforms();
+                }
 
                 InTransitionGlobal.Remove(rb);
             }
@@ -158,6 +172,33 @@ namespace Valley.Paths
                     0.2f);
 
                 index++;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Persistent, scene-independent object that owns in-flight teleport coroutines.
+    /// Because coroutines run here instead of on the PathTeleporter itself, they keep
+    /// running to completion even if the PathTeleporter that started them gets disabled,
+    /// its GameObject deactivated, or the teleporter destroyed mid-transition.
+    /// </summary>
+    internal sealed class PathTeleporterCoroutineHost : MonoBehaviour
+    {
+        private static PathTeleporterCoroutineHost _instance;
+
+        public static PathTeleporterCoroutineHost Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    var go = new GameObject("~PathTeleporterCoroutineHost");
+                    go.hideFlags = HideFlags.HideInHierarchy;
+                    DontDestroyOnLoad(go);
+                    _instance = go.AddComponent<PathTeleporterCoroutineHost>();
+                }
+
+                return _instance;
             }
         }
     }
