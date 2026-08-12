@@ -11,7 +11,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private MMF_Player[] healFeedbacks;
     [SerializeField] private MMF_Player[] damageFeedbacks;
 
-    private void Start()
+    private void OnEnable()
     {
         health.OnHealthUpdated += HandleHealthUpdate;
         health.OnDamaged += HandleDamage;
@@ -20,7 +20,7 @@ public class HealthUI : MonoBehaviour
         Initialize();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         health.OnHealthUpdated -= HandleHealthUpdate;
         health.OnDamaged -= HandleDamage;
