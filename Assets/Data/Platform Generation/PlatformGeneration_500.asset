@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78366d8d3d2889d449ee410b48f74ab1, type: 3}
+  m_Name: PlatformGeneration_500
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformGenerationProfile
+  platformPrefabs:
+  - {fileID: 8902247037256730875, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
+  - {fileID: 8902247037256730875, guid: f6da052a4d499d14c8902baff119aec7, type: 3}
+  forwardSpeed: 6
+  launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
+  gravity: 20
+  maxLaunches: 2
+  reachabilitySafetyMargin: 0.5
+  spawnAheadDistance: 300
+  despawnBehindDistance: 200
+  upperBoundOffset: 6
+  maxVerticalStep: 3
+  minGapX: 0.5
+  maxGapX: 4
+  gapChance: 0.65
+  zNoiseMin: 0
+  zNoiseMax: 0
+  maxSpawnChanceAttempts: 4
+  maxConsecutiveSticks: 3
+  maxConsecutiveHardGaps: 2
+  guaranteedSafetyInterval: 8

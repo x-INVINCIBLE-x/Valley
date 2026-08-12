@@ -1,6 +1,7 @@
 using UnityEngine;
 using Valley.Core;
 using Valley.Core.Pooling;
+using Valley.Scoring;
 
 namespace Valley.Level.Generation
 {
@@ -39,9 +40,33 @@ namespace Valley.Level.Generation
     /// <see cref="zNoiseMin"/>/<see cref="zNoiseMax"/>) - it's rolled once when a record is generated and
     /// stored on the record itself, not re-rolled every time it's materialized, so backtracking into
     /// already-generated ground keeps the same depth jitter instead of a new one.
+    ///
+    /// DISTANCE-BASED PROGRESSION: everything under "Distance-Based Progression" below lets the mid
+    /// layer's whole data set be swapped out as the player covers distance, via PlatformGenerationProfile
+    /// assets - see that class and <see cref="PlatformProgressionStage"/> for details.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
+        /// <summary>
+        /// One entry in <see cref="progressionStages"/>. Triggers exactly once, the first time
+        /// <see cref="CurrentDistance"/> reaches <see cref="distanceThreshold"/>. A stage can carry a new
+        /// profile, a premade level, both, or neither - whatever's left null is simply skipped, so
+        /// "continue with the next profile if there is one, otherwise keep the current one" and "insert a
+        /// premade level" are independent knobs rather than an either/or choice.
+        /// </summary>
+        [System.Serializable]
+        public class PlatformProgressionStage
+        {
+            [Tooltip("Stage triggers the first time CurrentDistance >= this value.")]
+            public float distanceThreshold = 500f;
+
+            [Tooltip("Optional. If assigned, every generation field this profile covers overwrites the spawner's current values once this stage triggers - i.e. 'move on to the next data set'. Leave empty to keep whatever profile is already active.")]
+            public PlatformGenerationProfile profile;
+
+            [Tooltip("Optional. If assigned, this single PlatformBlock is inserted into the MID layer as the very next platform once this stage triggers, positioned flush after whichever platform precedes it (leftEdgeX = prev.rightEdgeX + premadeLevelGap, leftEdgeY = prev.rightEdgeY) - exactly like any other generated block, just picked deterministically instead of rolled. Give it a single PlatformBlock component whose bounds/anchors span the whole hand-built segment, so normal generation can pick back up cleanly from its right edge afterward.")]
+            public PlatformBlock premadeLevel;
+        }
+
         [Header("References")]
         public Transform player;
         public PlatformBlock[] platformPrefabs;
@@ -100,6 +125,16 @@ namespace Valley.Level.Generation
         public float layerSpacing = 4f;
         public PlatformLayer[] sideLayers = new PlatformLayer[0];
 
+        [Header("Distance-Based Progression")]
+        [Tooltip("Optional. If assigned, applied once during the very first ResetAndSeed (before the first platform is seeded), overwriting the fields above with this profile's values. Leave empty to just use the values set directly on this component, exactly like before this feature existed.")]
+        public PlatformGenerationProfile initialProfile;
+        [Tooltip("Sorted ascending by distanceThreshold automatically. Each entry triggers exactly once, the first time CurrentDistance reaches its threshold - see PlatformProgressionStage.")]
+        public PlatformProgressionStage[] progressionStages = new PlatformProgressionStage[0];
+        [Tooltip("Flush gap placed between the previous platform and a stage's premade level when one is inserted.")]
+        public float premadeLevelGap = 0f;
+        [Tooltip("Optional. If assigned, CurrentDistance reads from this tracker's Distance instead of being computed internally from player progress - use this to keep chunk-progression thresholds in lockstep with an on-screen distance/score readout driven by the same tracker.")]
+        public DistanceScoreTracker distanceSource;
+
         [Header("Debug Gizmos")]
         public bool showDebugGizmos = true;
         public Color spawnAheadColor = new Color(0.2f, 1f, 0.4f);
@@ -116,6 +151,10 @@ namespace Valley.Level.Generation
 
         float worldShiftOffset;
         float originAtReset;
+
+        float distanceOriginX;
+        int nextProgressionStageIndex;
+        PlatformBlock pendingPremadeBlock;
 
         /// <summary>
         /// Total accumulated shift between logical record space and current real Unity world-space X.
@@ -146,6 +185,14 @@ namespace Valley.Level.Generation
 
         /// <summary>Converts a real Unity world-space X (e.g. read back off a freshly positioned Transform) into logical record space.</summary>
         float WorldToRecordX(float worldX) => worldX + TotalShiftX;
+
+        /// <summary>
+        /// Distance covered since the last ResetAndSeed, driving <see cref="progressionStages"/>. Reads
+        /// from <see cref="distanceSource"/> when one is assigned; otherwise computed internally from
+        /// PlayerProgressX, which is a superset of what DistanceScoreTracker tracks (it also accounts for
+        /// this spawner's own Transform being moved directly - see TotalShiftX).
+        /// </summary>
+        public float CurrentDistance => distanceSource != null ? distanceSource.Distance : (PlayerProgressX - distanceOriginX);
 
         void Awake()
         {
@@ -192,6 +239,8 @@ namespace Valley.Level.Generation
         {
             if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
 
+            CheckProgressionStages();
+
             AdvanceWindow(midRuntime, true, null);
             foreach (var layer in sideLayers)
             {
@@ -207,7 +256,9 @@ namespace Valley.Level.Generation
         /// <summary>
         /// Wipes every layer's history and live instances, resets the world-shift offset and streak
         /// counters, recalculates the reachability envelope (in case reachability-related fields were
-        /// tweaked while disabled), and reseeds every layer relative to the player's current position.
+        /// tweaked while disabled), applies initialProfile if one is assigned, and reseeds every layer
+        /// relative to the player's current position. Also resets distance-progression state, so a
+        /// disable/enable cycle (or a manual call) restarts the profile progression from the beginning.
         /// Public so a level-restart / respawn system can force this without needing to toggle the
         /// component's enabled state.
         /// </summary>
@@ -217,6 +268,12 @@ namespace Valley.Level.Generation
             originAtReset = transform.position.x;
             envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
 
+            nextProgressionStageIndex = 0;
+            pendingPremadeBlock = null;
+            SortProgressionStages();
+
+            if (initialProfile != null) ApplyProfile(initialProfile);
+
             midRuntime.Reset();
             foreach (var layer in sideLayers)
             {
@@ -225,6 +282,8 @@ namespace Valley.Level.Generation
             }
 
             if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
+
+            distanceOriginX = PlayerProgressX;
 
             SeedMid();
             foreach (var layer in sideLayers)
@@ -250,6 +309,96 @@ namespace Valley.Level.Generation
             float startLeftY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
             layer.runtime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f, zOffset = RollZNoise() });
             MaterializeAppend(layer.runtime, layer.runtime.LastGlobalIndex);
+        }
+
+        // ---------------------------------------------------------------
+        // Distance-based progression
+        // ---------------------------------------------------------------
+
+        /// <summary>
+        /// Checks CurrentDistance against progressionStages and fires every stage whose threshold has
+        /// been reached since the last check, in order. Looping (rather than checking just the next one)
+        /// means a single big jump in distance still fires every stage it skipped past, so
+        /// nextProgressionStageIndex and "which profile is active" never fall out of sync.
+        /// </summary>
+        void CheckProgressionStages()
+        {
+            if (progressionStages == null) return;
+
+            float currentDistance = CurrentDistance;
+            while (nextProgressionStageIndex < progressionStages.Length
+                   && progressionStages[nextProgressionStageIndex] != null
+                   && currentDistance >= progressionStages[nextProgressionStageIndex].distanceThreshold)
+            {
+                PlatformProgressionStage stage = progressionStages[nextProgressionStageIndex];
+                nextProgressionStageIndex++;
+
+                // An empty stage.profile simply leaves whatever profile is already active in place -
+                // this is what makes "continue with the next data set if there is one, otherwise keep
+                // the current one" fall out naturally instead of needing special-case handling here.
+                if (stage.profile != null) ApplyProfile(stage.profile);
+
+                if (stage.premadeLevel != null) pendingPremadeBlock = stage.premadeLevel;
+            }
+        }
+
+        /// <summary>
+        /// Overwrites this spawner's generation fields with profile's values and immediately recalculates
+        /// the reachability envelope (since forwardSpeed/launchProfile/gravity/maxLaunches may have just
+        /// changed). Only affects generation from this point forward - already-materialized platforms and
+        /// history are untouched, keeping backtracking reproducible. Public so profiles can also be
+        /// swapped manually (e.g. from an editor tool or a non-distance gameplay trigger) instead of only
+        /// through progressionStages.
+        /// </summary>
+        public void ApplyProfile(PlatformGenerationProfile profile)
+        {
+            if (profile == null) return;
+
+            platformPrefabs = profile.platformPrefabs;
+
+            forwardSpeed = profile.forwardSpeed;
+            launchProfile = profile.launchProfile;
+            gravity = profile.gravity;
+            maxLaunches = profile.maxLaunches;
+            reachabilitySafetyMargin = profile.reachabilitySafetyMargin;
+
+            spawnAheadDistance = profile.spawnAheadDistance;
+            despawnBehindDistance = profile.despawnBehindDistance;
+
+            upperBoundOffset = profile.upperBoundOffset;
+            maxVerticalStep = profile.maxVerticalStep;
+
+            minGapX = profile.minGapX;
+            maxGapX = profile.maxGapX;
+            gapChance = profile.gapChance;
+
+            zNoiseMin = profile.zNoiseMin;
+            zNoiseMax = profile.zNoiseMax;
+
+            maxSpawnChanceAttempts = profile.maxSpawnChanceAttempts;
+
+            maxConsecutiveSticks = profile.maxConsecutiveSticks;
+            maxConsecutiveHardGaps = profile.maxConsecutiveHardGaps;
+            guaranteedSafetyInterval = profile.guaranteedSafetyInterval;
+
+            envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
+        }
+
+        /// <summary>
+        /// Manually queues a single pre-made platform block to be inserted as the very next mid-layer
+        /// record, positioned flush after whatever platform precedes it - the same mechanism
+        /// PlatformProgressionStage.premadeLevel uses internally. Useful for triggering a hand-built
+        /// segment from something other than distance (a gameplay event, for instance) without needing to
+        /// fabricate a whole PlatformProgressionStage for it.
+        /// </summary>
+        public void QueuePremadeLevel(PlatformBlock premadeLevel) => pendingPremadeBlock = premadeLevel;
+
+        void SortProgressionStages()
+        {
+            if (progressionStages == null || progressionStages.Length < 2) return;
+
+            System.Array.Sort(progressionStages, (a, b) =>
+                (a?.distanceThreshold ?? float.MaxValue).CompareTo(b?.distanceThreshold ?? float.MaxValue));
         }
 
         // ---------------------------------------------------------------
@@ -384,10 +533,30 @@ namespace Valley.Level.Generation
 
         void GenerateMidRecord(PlatformLayerRuntime r)
         {
+            PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
+
+            // A queued premade level takes priority over normal generation for exactly one record: place
+            // it flush (plus premadeLevelGap) after prev and let its own width/anchors carry it, then let
+            // ordinary generation resume from its right edge next time this runs.
+            if (pendingPremadeBlock != null)
+            {
+                PlatformBlock premadePrefab = pendingPremadeBlock;
+                pendingPremadeBlock = null;
+
+                float premadeLeftEdgeX = prev.rightEdgeX + Mathf.Max(0f, premadeLevelGap);
+                r.AddRecord(new PlatformRecord { prefab = premadePrefab, leftEdgeX = premadeLeftEdgeX, leftEdgeY = prev.rightEdgeY, rotationZ = 0f, zOffset = RollZNoise() });
+
+                // Treat it like a safety checkpoint: whatever stick/hard-gap streak was building up
+                // shouldn't carry across a hand-built segment into the next profile's platforms.
+                r.consecutiveSticks = 0;
+                r.consecutiveHardGaps = 0;
+                r.spawnsSinceSafety = 0;
+                return;
+            }
+
             r.spawnsSinceSafety++;
             bool forceSafe = r.spawnsSinceSafety >= guaranteedSafetyInterval;
 
-            PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
             PlatformBlock prefab = ChooseSpawnablePrefab(platformPrefabs, out float missedGap);
 
             bool wantsGap = forceSafe || Random.value < gapChance;
