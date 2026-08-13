@@ -11,7 +11,7 @@ namespace Valley.Ads
         [Tooltip("Must implement IInterstitialAdProvider - wire in your ad SDK's integration here.")]
         [SerializeField] private MonoBehaviour adProvider;
 
-        private int _playsSinceLastAd;
+        [SerializeField] private int _playsSinceLastAd;
 
         private void OnEnable() => PlayerReviveController.OnGameOver += HandlePlayCompleted;
         private void OnDisable() => PlayerReviveController.OnGameOver -= HandlePlayCompleted;

@@ -25913,7 +25913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Revive.PlayerReviveController
   reviveHealthAmount: 50
   offerDuration: 8
-  adProvider: {fileID: 0}
+  adProvider: {fileID: 1706527593}
 --- !u!1 &1236906144
 GameObject:
   m_ObjectHideFlags: 0
@@ -29297,7 +29297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d250918608dfe8e4496f4aaee8cad1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerInitialVelocity
-  initialSpeed: 150
+  initialSpeed: 100
 --- !u!4 &1447534130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3927843006806357455, guid: 89dc55d9518449e4ba5b8cb6cc6df203, type: 3}
@@ -31318,6 +31318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1706527591}
+  - component: {fileID: 1706527593}
   - component: {fileID: 1706527592}
   m_Layer: 0
   m_Name: AD Manager
@@ -31353,8 +31354,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf15692c943568c4a98a2a64dce533bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Ads.InterstitialAdScheduler
-  playsPerAd: 3
-  adProvider: {fileID: 0}
+  playsPerAd: 1
+  adProvider: {fileID: 1706527593}
+  _playsSinceLastAd: 0
+--- !u!114 &1706527593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706527590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f3cc13e7ec0d645ae3d2b5811e82f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdManager
 --- !u!224 &1716677676 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 692034467615779492, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}

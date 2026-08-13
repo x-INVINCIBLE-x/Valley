@@ -23,6 +23,7 @@ namespace Valley.Revive
         private Health _health;
         private Coroutine _offerRoutine;
         private bool _offerActive;
+        private bool _adInFlight;
 
         private void Awake() => _health = GetComponent<Health>();
 
@@ -42,10 +43,15 @@ namespace Valley.Revive
             float elapsed = 0f;
             while (elapsed < offerDuration && _offerActive)
             {
-                float remaining = offerDuration - elapsed;
-                OnReviveCountdownTick?.Invoke(remaining, Mathf.Clamp01(remaining / offerDuration));
+                // Freeze the countdown while an ad is loading/playing so a slow
+                // ad can't run the offer window out from under the player.
+                if (!_adInFlight)
+                {
+                    float remaining = offerDuration - elapsed;
+                    OnReviveCountdownTick?.Invoke(remaining, Mathf.Clamp01(remaining / offerDuration));
+                    elapsed += Time.unscaledDeltaTime;
+                }
 
-                elapsed += Time.unscaledDeltaTime;
                 yield return null;
             }
 
@@ -57,16 +63,27 @@ namespace Valley.Revive
 
         public void RequestRevive()
         {
-            if (!_offerActive) return;
+            if (!_offerActive || _adInFlight) return;
 
-            GrantRevive(); // For testing purposes, you can call GrantRevive directly. In production, you would show the ad.
             var provider = adProvider as IRewardedAdProvider;
             if (provider == null)
             {
                 Debug.LogWarning("PlayerReviveController: adProvider is not assigned or doesn't implement IRewardedAdProvider.");
                 return;
             }
-            provider.ShowRewardedAd(GrantRevive, HandleAdUnavailableOrDeclined);
+
+            _adInFlight = true;
+            provider.ShowRewardedAd(
+                onRewardGranted: () =>
+                {
+                    _adInFlight = false;
+                    GrantRevive();
+                },
+                onAdUnavailableOrDeclined: () =>
+                {
+                    _adInFlight = false;
+                    HandleAdUnavailableOrDeclined();
+                });
         }
 
         public void DeclineRevive()
