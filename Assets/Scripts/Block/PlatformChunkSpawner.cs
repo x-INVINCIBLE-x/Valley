@@ -42,8 +42,9 @@ namespace Valley.Level.Generation
     /// already-generated ground keeps the same depth jitter instead of a new one.
     ///
     /// DISTANCE-BASED PROGRESSION: everything under "Distance-Based Progression" below lets the mid
-    /// layer's whole data set be swapped out as the player covers distance, via PlatformGenerationProfile
-    /// assets - see that class and <see cref="PlatformProgressionStage"/> for details.
+    /// layer's whole data set - and the side-layer set itself (tuning, prefab overrides, even which
+    /// layers exist) - be swapped out as the player covers distance, via PlatformGenerationProfile assets
+    /// - see that class and <see cref="PlatformProgressionStage"/> for details.
     /// </summary>
     public class PlatformChunkSpawner : MonoBehaviour
     {
@@ -272,7 +273,7 @@ namespace Valley.Level.Generation
             pendingPremadeBlock = null;
             SortProgressionStages();
 
-            if (initialProfile != null) ApplyProfile(initialProfile);
+            if (initialProfile != null) ApplyProfile(initialProfile, seedNewSideLayers: false);
 
             midRuntime.Reset();
             foreach (var layer in sideLayers)
@@ -350,7 +351,16 @@ namespace Valley.Level.Generation
         /// swapped manually (e.g. from an editor tool or a non-distance gameplay trigger) instead of only
         /// through progressionStages.
         /// </summary>
-        public void ApplyProfile(PlatformGenerationProfile profile)
+        public void ApplyProfile(PlatformGenerationProfile profile) => ApplyProfile(profile, seedNewSideLayers: true);
+
+        /// <summary>
+        /// seedNewSideLayers is false only when called from ResetAndSeed's initialProfile step: at that
+        /// point midRuntime hasn't been seeded yet (SeedSideLayer needs a mid-layer record to read a
+        /// height off), and ResetAndSeed's own Reset()+Seed loop is about to run for every side layer -
+        /// new or pre-existing - right afterward anyway, so seeding here would be redundant at best and a
+        /// crash at worst.
+        /// </summary>
+        void ApplyProfile(PlatformGenerationProfile profile, bool seedNewSideLayers)
         {
             if (profile == null) return;
 
@@ -381,7 +391,60 @@ namespace Valley.Level.Generation
             maxConsecutiveHardGaps = profile.maxConsecutiveHardGaps;
             guaranteedSafetyInterval = profile.guaranteedSafetyInterval;
 
+            ApplySideLayerConfigs(profile.sideLayers, seedNewSideLayers);
+
             envelope = LaunchReachability.Calculate(forwardSpeed, launchProfile, gravity, maxLaunches);
+        }
+
+        /// <summary>
+        /// An empty/null configs leaves sideLayers completely untouched (see PlatformGenerationProfile.sideLayers
+        /// for why). Otherwise configs becomes the complete side-layer set, matched against the spawner's
+        /// current sideLayers BY INDEX: an index that already exists keeps its PlatformLayer instance (so
+        /// its live runtime/history survives) and just gets retuned in place; an index beyond the current
+        /// count gets a brand-new PlatformLayer (its runtime is always fresh - see PlatformLayer.runtime);
+        /// indices beyond configs' length are released and dropped.
+        /// </summary>
+        void ApplySideLayerConfigs(PlatformGenerationProfile.SideLayerConfig[] configs, bool seedNewLayers)
+        {
+            if (configs == null || configs.Length == 0) return;
+
+            int oldCount = sideLayers?.Length ?? 0;
+            int newCount = configs.Length;
+
+            for (int i = newCount; i < oldCount; i++)
+            {
+                if (sideLayers[i] != null) ReleaseAll(sideLayers[i].runtime);
+            }
+
+            PlatformLayer[] rebuilt = new PlatformLayer[newCount];
+            for (int i = 0; i < newCount; i++)
+            {
+                bool isNewLayer = i >= oldCount || sideLayers[i] == null;
+                PlatformLayer layer = isNewLayer ? new PlatformLayer() : sideLayers[i];
+
+                PlatformGenerationProfile.SideLayerConfig config = configs[i];
+                layer.label = config.label;
+                layer.verticalOffset = config.verticalOffset;
+                layer.verticalJitter = config.verticalJitter;
+                layer.gapMultiplier = config.gapMultiplier;
+                layer.stickChanceBonus = config.stickChanceBonus;
+                layer.maxConsecutiveSticks = config.maxConsecutiveSticks;
+                layer.clampToReachability = config.clampToReachability;
+                layer.prefabOverride = config.prefabOverride;
+                layer.gizmoColor = config.gizmoColor;
+
+                rebuilt[i] = layer;
+
+                if (isNewLayer && seedNewLayers)
+                {
+                    if (player != null && midRuntime.RecordCount > 0)
+                        SeedSideLayer(layer);
+                    else
+                        Debug.LogWarning($"PlatformChunkSpawner: side layer '{layer.label}' was added by a profile before the spawner had seeded its mid layer, so it will stay empty until the next ResetAndSeed.", this);
+                }
+            }
+
+            sideLayers = rebuilt;
         }
 
         /// <summary>

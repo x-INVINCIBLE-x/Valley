@@ -13,15 +13,36 @@ namespace Valley.Level.Generation
     /// Applying a profile only changes what gets generated FROM THAT POINT ON - it never touches
     /// platforms that already exist, so history stays reproducible exactly like the rest of this spawner.
     ///
-    /// Deliberately does NOT cover side layers (the up/down decorative layers) or spawner infrastructure
-    /// (player reference, history retention, debug gizmos) - those stay on the spawner itself and are
-    /// unaffected by profile swaps. Side layers DO still pick up a new global prefab pool automatically
-    /// (any layer without its own prefab-pool override falls back to platformPrefabs), so re-theming the
-    /// mid layer re-themes most side content for free.
+    /// Side layers (the up/down decorative layers) are covered too - including adding/removing layers and
+    /// each layer's own prefab-pool override - see <see cref="sideLayers"/> below for exactly how. Spawner
+    /// infrastructure (player reference, history retention, debug gizmos) always stays on the spawner
+    /// itself, unaffected by profile swaps.
     /// </summary>
     [CreateAssetMenu(fileName = "PlatformGenerationProfile", menuName = "Valley/Level Generation/Platform Generation Profile")]
     public class PlatformGenerationProfile : ScriptableObject
     {
+        /// <summary>
+        /// Mirrors every tunable field on PlatformLayer (label, verticalOffset, verticalJitter,
+        /// gapMultiplier, stickChanceBonus, maxConsecutiveSticks, clampToReachability, prefabOverride,
+        /// gizmoColor) - deliberately NOT a PlatformLayer itself, since a PlatformLayer also carries live
+        /// runtime state (pooled instances, generation history) that must never live inside a shared
+        /// ScriptableObject asset.
+        /// </summary>
+        [System.Serializable]
+        public struct SideLayerConfig
+        {
+            public string label;
+            public float verticalOffset;
+            public float verticalJitter;
+            public float gapMultiplier;
+            public float stickChanceBonus;
+            public int maxConsecutiveSticks;
+            public bool clampToReachability;
+            [Tooltip("Optional per-layer prefab set. Leave empty to reuse this profile's platformPrefabs list.")]
+            public PlatformBlock[] prefabOverride;
+            public Color gizmoColor;
+        }
+
         [Header("Prefab Pool")]
         public PlatformBlock[] platformPrefabs;
 
@@ -67,5 +88,9 @@ namespace Valley.Level.Generation
         public int maxConsecutiveHardGaps = 2;
         [Tooltip("Every N newly-generated platforms, force a flat, unrotated, easy gap as a guaranteed-reachable checkpoint.")]
         public int guaranteedSafetyInterval = 8;
+
+        [Header("Side Layers")]
+        [Tooltip("Matched to the spawner's existing sideLayers array BY INDEX when this profile is applied - entry 0 maps to sideLayers[0], entry 1 to sideLayers[1], and so on. An index that already exists on the spawner keeps its live runtime/history and just gets retuned in place. An index beyond the spawner's current count creates a brand-new layer (seeded fresh). Leaving this EMPTY leaves every side layer exactly as currently configured on the spawner - untouched, not removed - so profiles that don't care about side layers can't accidentally wipe them. Any NON-empty array becomes the complete side-layer set going forward: if it has fewer entries than the spawner currently has side layers, the extra existing ones are released and dropped.")]
+        public SideLayerConfig[] sideLayers = new SideLayerConfig[0];
     }
 }
