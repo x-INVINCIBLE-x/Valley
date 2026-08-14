@@ -28998,6 +28998,86 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1600, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1394336433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394336435}
+  - component: {fileID: 1394336434}
+  m_Layer: 0
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1394336434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394336433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8611525345798a049acadf5f29081df4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformChunkSpawner
+  player: {fileID: 1224916880}
+  platformPrefabs:
+  - {fileID: 1330894729458914102, guid: f6a646da4c11fac4698a54c7832b77fd, type: 3}
+  forwardSpeed: 6
+  launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
+  gravity: 20
+  maxLaunches: 2
+  reachabilitySafetyMargin: 0.5
+  spawnAheadDistance: 3000
+  despawnBehindDistance: 1000
+  startingOffsetX: 0
+  upperBoundOffset: 0
+  maxVerticalStep: 0
+  minGapX: 0
+  maxGapX: 0
+  gapChance: 0
+  zNoiseMin: 0
+  zNoiseMax: 0
+  maxSpawnChanceAttempts: 4
+  historyRetentionCount: 200
+  maxConsecutiveSticks: 3
+  maxConsecutiveHardGaps: 2
+  guaranteedSafetyInterval: 8
+  layerSpacing: 4
+  sideLayers: []
+  initialProfile: {fileID: 0}
+  progressionStages: []
+  premadeLevelGap: 0
+  distanceSource: {fileID: 0}
+  showDebugGizmos: 1
+  spawnAheadColor: {r: 0.2, g: 1, b: 0.4, a: 1}
+  despawnBehindColor: {r: 1, g: 0, b: 0, a: 1}
+  ceilingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lastEdgeColor: {r: 1, g: 0, b: 1, a: 1}
+  reachEnvelopeColor: {r: 1, g: 0.5, b: 0.1, a: 0.8}
+  gizmoLineHalfHeight: 4
+--- !u!4 &1394336435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394336433}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 500}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1395886204 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5406832016397650341, guid: 32b481090bf8f1b4287d82b401c97d9c, type: 3}
@@ -31326,7 +31406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1706527591
 Transform:
   m_ObjectHideFlags: 0
@@ -68625,3 +68705,4 @@ SceneRoots:
   - {fileID: 1501084121}
   - {fileID: 1287391833}
   - {fileID: 181319924}
+  - {fileID: 1394336435}

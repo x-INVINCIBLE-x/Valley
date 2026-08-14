@@ -1,0 +1,34 @@
+{
+  "name": "com.guardabarranco.rankhub",
+  "version": "1.0.0",
+  "displayName": "RankHub Leaderboard",
+  "description": "Plug-and-play leaderboard SDK for Unity. Submit player scores, retrieve rankings, and display leaderboards with minimal setup.",
+  "unity": "2020.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://leaderboard-game.vercel.app/docs_api.html",
+  "changelogUrl": "https://leaderboard-game.vercel.app/changelog",
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6"
+  },
+  "keywords": [
+    "leaderboard",
+    "score",
+    "ranking",
+    "api",
+    "online",
+    "multiplayer",
+    "highscore"
+  ],
+  "author": {
+    "name": "Guardabarranco",
+    "email": "Guardabarrancoestudioapp@gmail.com",
+    "url": "https://leaderboard-game.vercel.app"
+  },
+  "samples": [
+    {
+      "displayName": "Demo Scene",
+      "description": "Contains a complete example of RankHub Leaderboard integration with rank display, name editing, and score submission.",
+      "path": "Samples~/DemoScene"
+    }
+  ]
+}
