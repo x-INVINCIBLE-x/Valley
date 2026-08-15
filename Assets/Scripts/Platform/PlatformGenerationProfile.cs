@@ -22,6 +22,17 @@ namespace Valley.Level.Generation
     public class PlatformGenerationProfile : ScriptableObject
     {
         /// <summary>
+        /// Raised whenever any field on this asset changes in the Inspector. PlatformChunkSpawner
+        /// subscribes to this for whatever profile is assigned to its (editor-only) testProfile slot, so
+        /// tweaking values here re-applies them to a running spawner immediately - see
+        /// PlatformChunkSpawner.testProfile. OnValidate is never invoked in a player build, so in practice
+        /// this event never fires outside the editor.
+        /// </summary>
+        public event System.Action Changed;
+
+        void OnValidate() => Changed?.Invoke();
+
+        /// <summary>
         /// Mirrors every tunable field on PlatformLayer (label, verticalOffset, verticalJitter,
         /// gapMultiplier, stickChanceBonus, maxConsecutiveSticks, clampToReachability, prefabOverride,
         /// gizmoColor) - deliberately NOT a PlatformLayer itself, since a PlatformLayer also carries live
@@ -45,6 +56,17 @@ namespace Valley.Level.Generation
 
         [Header("Prefab Pool")]
         public PlatformBlock[] platformPrefabs;
+
+        /// <summary>Pairs a prefab with its spawn weight - see prefabWeights below.</summary>
+        [System.Serializable]
+        public struct PrefabWeight
+        {
+            public PlatformBlock prefab;
+            [Range(0.01f, 10f)] public float weight;
+        }
+
+        [Tooltip("Spawn weight per prefab, matched BY PREFAB REFERENCE (not index) - so the same entry applies wherever that prefab shows up, in platformPrefabs or in any side layer's prefabOverride pool. A prefab not listed here uses the spawner's defaultPrefabWeight. This is what replaced each PlatformBlock describing its own weight: the same prefab can now be common in one profile and rare in another.")]
+        public PrefabWeight[] prefabWeights;
 
         [Header("Reachability")]
         [Tooltip("Should mirror the player's actual forward-run speed.")]

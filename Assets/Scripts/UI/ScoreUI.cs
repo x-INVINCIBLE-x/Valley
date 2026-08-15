@@ -12,6 +12,7 @@ namespace Valley.UI
         [SerializeField] private DistanceScoreTracker scoreTracker;
 
         [SerializeField] private TextMeshProUGUI score;
+        [SerializeField] private TextMeshProUGUI distance;
         [SerializeField] private TextMeshProUGUI multiplier;
 
         [SerializeField] private Transform[] multiplierContainers;
@@ -51,6 +52,7 @@ namespace Valley.UI
         private void Update()
         {
             score.text = $"{scoreTracker.Score:F0}";
+            distance.text = $"{scoreTracker.Distance:F0}m";
         }
 
         private void Initialize()

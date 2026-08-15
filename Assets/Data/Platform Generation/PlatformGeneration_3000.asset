@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78366d8d3d2889d449ee410b48f74ab1, type: 3}
+  m_Name: PlatformGeneration_3000
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformGenerationProfile
+  platformPrefabs:
+  - {fileID: 8902247037256730875, guid: 471ab7f9bc90a3b4a87d302bc0e9d9d9, type: 3}
+  - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
+  - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
+  prefabWeights: []
+  forwardSpeed: 6
+  launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
+  gravity: 20
+  maxLaunches: 2
+  reachabilitySafetyMargin: 0.5
+  spawnAheadDistance: 300
+  despawnBehindDistance: 200
+  upperBoundOffset: 6
+  maxVerticalStep: 3
+  minGapX: 40
+  maxGapX: 60
+  gapChance: 0
+  zNoiseMin: 0
+  zNoiseMax: 0
+  maxSpawnChanceAttempts: 4
+  maxConsecutiveSticks: 4
+  maxConsecutiveHardGaps: 2
+  guaranteedSafetyInterval: 8
+  sideLayers:
+  - label: Above
+    verticalOffset: 65
+    verticalJitter: 24
+    gapMultiplier: 1.2
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
+  - label: Below
+    verticalOffset: -65
+    verticalJitter: 10
+    gapMultiplier: 0.1
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}

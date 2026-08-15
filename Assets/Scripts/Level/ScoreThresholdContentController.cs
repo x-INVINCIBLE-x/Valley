@@ -115,7 +115,6 @@ namespace Valley.Level.Difficulty
             {
                 if (o.prefab == null) continue;
                 o.prefab.spawnChance = o.spawnChance;
-                o.prefab.spawnWeight = o.spawnWeight;
             }
 
             if (spawnPointGenerators != null)

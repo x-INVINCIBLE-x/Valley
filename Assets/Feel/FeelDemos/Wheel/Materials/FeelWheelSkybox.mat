@@ -2,20 +2,25 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FeelWheelSkybox
   m_Shader: {fileID: 4800000, guid: 21b28f3ee4b3c13408ed85c229008f40, type: 3}
-  m_ShaderKeywords: _SCREENSPACE
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SCREENSPACE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -55,6 +60,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -76,7 +82,9 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BottomColor: {r: 0.7075472, g: 0.6535339, b: 0.51063544, a: 0}
+    - _BottomColor: {r: 1, g: 0.92941004, b: 0.5896226, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TopColor: {r: 0.051397286, g: 0.5616622, b: 0.7264151, a: 0}
+    - _TopColor: {r: 0.11356357, g: 0.65519893, b: 0.8301887, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

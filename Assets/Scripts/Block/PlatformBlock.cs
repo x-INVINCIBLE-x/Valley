@@ -6,6 +6,11 @@ namespace Valley.Level.Generation
     /// Authoring component for a single platform prefab. Defines its boundary box (auto-detected or
     /// hand-adjusted via the custom inspector/gizmos), whether it is allowed to flush-attach to a
     /// neighboring block on each side and how often that succeeds, and an optional rotation clamp.
+    ///
+    /// Deliberately does NOT describe its own spawn weight - that now lives on whichever
+    /// PlatformGenerationProfile is active (see PlatformGenerationProfile.prefabWeights), with the
+    /// spawner able to override it further at runtime (see PlatformChunkSpawner.SetPrefabWeight). This
+    /// lets the exact same prefab be common in one zone and rare in another without touching the prefab.
     /// </summary>
     [DisallowMultipleComponent]
     public class PlatformBlock : MonoBehaviour
@@ -35,11 +40,8 @@ namespace Valley.Level.Generation
         [Tooltip("If disabled, this block always spawns unrotated. If enabled, spawn rotation (Z axis) is randomized within the min/max clamp.")]
         public RotationClamp rotation = new RotationClamp { allowRotation = false, minAngleDegrees = -15f, maxAngleDegrees = 15f };
 
-        [Header("Spawn Weighting")]
-        [Tooltip("Relative chance this prefab is picked among the spawner's platform list.")]
-        [Range(0.01f, 10f)] public float spawnWeight = 1f;
-
-        [Tooltip("Independent chance (0-1) that this platform actually spawns once picked. Unlike spawnWeight, which only affects likelihood relative to other candidates, this can make it not spawn at all - the space it would have taken becomes extra gap instead. Meant to be driven by a score-threshold controller for gating rarer content.")]
+        [Header("Spawn Chance")]
+        [Tooltip("Independent chance (0-1) that this platform actually spawns once picked. Unlike the active profile's per-prefab weight, which only affects likelihood relative to other candidates, this can make it not spawn at all - the space it would have taken becomes extra gap instead. Meant to be driven by a score-threshold controller for gating rarer content.")]
         [Range(0f, 1f)] public float spawnChance = 1f;
 
         [System.Serializable]

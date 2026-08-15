@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Valley.Core;
 using Valley.Core.Pooling;
@@ -9,43 +10,7 @@ namespace Valley.Level.Generation
     /// Procedurally spawns PlatformBlock instances across 5 parallel layers: the mid layer (the actual
     /// traversal path, using the full launch-reachability logic) plus up to 4 side layers configured in
     /// <see cref="sideLayers"/>.
-    ///
-    /// Every layer keeps a permanent, append-only history of every record it has ever generated
-    /// (prefab + position + rotation), separate from which of those records currently have a live
-    /// GameObject. Moving forward grows the live window and, once the history runs out, generates and
-    /// appends new records; moving backward re-materializes existing records from history instead of
-    /// rolling new RNG, so revisiting an area reproduces the exact same layout. GameObjects themselves
-    /// are recycled through a generic PrefabPoolGroup rather than being destroyed.
-    ///
-    /// The whole generation state (history, live instances, world-shift offset, streak counters) is
-    /// reset every time the component is enabled or disabled: OnDisable releases every live platform
-    /// back to the pool, and OnEnable wipes both runtimes' history and reseeds from scratch relative to
-    /// the player's current position - equivalent to a fresh Start(). The object pool itself persists
-    /// across enable/disable so recycled instances keep getting reused instead of being rebuilt.
-    ///
-    /// COORDINATE FRAMES: every PlatformRecord stores X in "logical" space - i.e. positions are chained
-    /// purely off the previous record (prev.rightEdgeX + gapX + ...), with no reference to the live
-    /// Transform hierarchy. This is what makes history reproducible regardless of how progress was made.
-    /// Real Unity world-space X, on the other hand, drifts away from logical X (by TotalShiftX) whenever
-    /// progress is made by shifting the world backward under a stationary-ish player instead of moving the
-    /// player - whether that shift arrives via a WorldShiftEvents.OnWorldShiftedX broadcast or by some
-    /// other script translating this component's own Transform directly (every pooled platform is
-    /// parented under it, so it doubles as the "world root"). RecordToWorldX / WorldToRecordX are the
-    /// single conversion point between the two frames; every place that turns a record into an actual
-    /// Transform position (or vice versa) must go through them.
-    ///
-    /// Y and Z are simpler: neither one drifts the way X does (nothing ever shifts the world vertically or
-    /// in depth), so PlatformRecord stores both directly with no logical/world conversion needed. Z in
-    /// particular is just a small per-platform offset added on top of this spawner's own Z (see
-    /// <see cref="zNoiseMin"/>/<see cref="zNoiseMax"/>) - it's rolled once when a record is generated and
-    /// stored on the record itself, not re-rolled every time it's materialized, so backtracking into
-    /// already-generated ground keeps the same depth jitter instead of a new one.
-    ///
-    /// DISTANCE-BASED PROGRESSION: everything under "Distance-Based Progression" below lets the mid
-    /// layer's whole data set - and the side-layer set itself (tuning, prefab overrides, even which
-    /// layers exist) - be swapped out as the player covers distance, via PlatformGenerationProfile assets
-    /// - see that class and <see cref="PlatformProgressionStage"/> for details.
-    /// </summary>
+    
     public class PlatformChunkSpawner : MonoBehaviour
     {
         /// <summary>
@@ -71,6 +36,10 @@ namespace Valley.Level.Generation
         [Header("References")]
         public Transform player;
         public PlatformBlock[] platformPrefabs;
+
+        [Header("Prefab Weighting")]
+        [Tooltip("Weight used for any prefab that has no entry in the active profile's prefabWeights AND no runtime override via SetPrefabWeight. See PlatformGenerationProfile.prefabWeights - platform prefabs no longer describe their own weight.")]
+        public float defaultPrefabWeight = 1f;
 
         [Header("Reachability")]
         [Tooltip("Should mirror the player's actual forward-run speed.")]
@@ -136,6 +105,14 @@ namespace Valley.Level.Generation
         [Tooltip("Optional. If assigned, CurrentDistance reads from this tracker's Distance instead of being computed internally from player progress - use this to keep chunk-progression thresholds in lockstep with an on-screen distance/score readout driven by the same tracker.")]
         public DistanceScoreTracker distanceSource;
 
+#if UNITY_EDITOR
+        [Header("Testing (Editor Only)")]
+        [Tooltip("Assign a profile here during Play Mode to apply it immediately - and to KEEP it applied live: editing any field on this profile asset's own Inspector re-applies it to this spawner automatically, so you can tune values while watching generation react in real time. This field and everything it does is compiled out of player builds. The Platform Chunk Spawner Tester window (Window > Valley > Platform Chunk Spawner Tester) does the same thing without needing this field, plus lets you test premade levels and weight overrides.")]
+        public PlatformGenerationProfile testProfile;
+
+        PlatformGenerationProfile subscribedTestProfile;
+#endif
+
         [Header("Debug Gizmos")]
         public bool showDebugGizmos = true;
         public Color spawnAheadColor = new Color(0.2f, 1f, 0.4f);
@@ -156,6 +133,11 @@ namespace Valley.Level.Generation
         float distanceOriginX;
         int nextProgressionStageIndex;
         PlatformBlock pendingPremadeBlock;
+
+        /// <summary>Base weights supplied by the currently active profile - fully replaced every ApplyProfile call.</summary>
+        readonly Dictionary<PlatformBlock, float> profileWeights = new Dictionary<PlatformBlock, float>();
+        /// <summary>Runtime overrides set via SetPrefabWeight - take priority over profileWeights and persist across profile swaps until explicitly cleared.</summary>
+        readonly Dictionary<PlatformBlock, float> weightOverrides = new Dictionary<PlatformBlock, float>();
 
         /// <summary>
         /// Total accumulated shift between logical record space and current real Unity world-space X.
@@ -195,6 +177,9 @@ namespace Valley.Level.Generation
         /// </summary>
         public float CurrentDistance => distanceSource != null ? distanceSource.Distance : (PlayerProgressX - distanceOriginX);
 
+        /// <summary>Index into progressionStages of the next stage that hasn't triggered yet (equals progressionStages.Length once every stage has fired). Read-only - exposed for debug/tester UI.</summary>
+        public int NextProgressionStageIndex => nextProgressionStageIndex;
+
         void Awake()
         {
             // Pool survives enable/disable cycles - recycled instances just get reused across resets
@@ -217,12 +202,51 @@ namespace Valley.Level.Generation
         {
             WorldShiftEvents.OnWorldShiftedX -= HandleWorldShift;
 
+#if UNITY_EDITOR
+            if (subscribedTestProfile != null) subscribedTestProfile.Changed -= ReapplyTestProfile;
+            subscribedTestProfile = null;
+#endif
+
             if (!Application.isPlaying) return;
 
             DeleteAllPlatforms();
         }
 
         void HandleWorldShift(float amountSubtractedFromWorld) => worldShiftOffset += amountSubtractedFromWorld;
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Unity calls this whenever a field changes in this component's own Inspector (including when
+        /// testProfile is (re)assigned). Actually applying the profile is deferred via delayCall since
+        /// OnValidate runs during Unity's serialization pass, and ApplyProfile itself writes serialized
+        /// fields (platformPrefabs, forwardSpeed, etc.) - doing that synchronously from inside OnValidate
+        /// is unsafe and logs warnings.
+        /// </summary>
+        void OnValidate()
+        {
+            if (!Application.isPlaying) return;
+            UnityEditor.EditorApplication.delayCall += HandleTestProfileChanged;
+        }
+
+        void HandleTestProfileChanged()
+        {
+            if (this == null) return; // spawner may have been disabled/destroyed before delayCall fired
+
+            if (subscribedTestProfile != testProfile)
+            {
+                if (subscribedTestProfile != null) subscribedTestProfile.Changed -= ReapplyTestProfile;
+                subscribedTestProfile = testProfile;
+                if (subscribedTestProfile != null) subscribedTestProfile.Changed += ReapplyTestProfile;
+            }
+
+            if (testProfile != null) ApplyProfile(testProfile);
+        }
+
+        void ReapplyTestProfile()
+        {
+            if (testProfile != null) ApplyProfile(testProfile);
+        }
+#endif
 
         [ContextMenu("Build Default Side Layers (2 Up / 2 Down)")]
         void BuildDefaultSideLayers()
@@ -366,6 +390,15 @@ namespace Valley.Level.Generation
 
             platformPrefabs = profile.platformPrefabs;
 
+            profileWeights.Clear();
+            if (profile.prefabWeights != null)
+            {
+                foreach (var pw in profile.prefabWeights)
+                {
+                    if (pw.prefab != null) profileWeights[pw.prefab] = Mathf.Max(0f, pw.weight);
+                }
+            }
+
             forwardSpeed = profile.forwardSpeed;
             launchProfile = profile.launchProfile;
             gravity = profile.gravity;
@@ -455,6 +488,37 @@ namespace Valley.Level.Generation
         /// fabricate a whole PlatformProgressionStage for it.
         /// </summary>
         public void QueuePremadeLevel(PlatformBlock premadeLevel) => pendingPremadeBlock = premadeLevel;
+
+        /// <summary>
+        /// Effective spawn weight for prefab right now: a runtime override if one's been set via
+        /// SetPrefabWeight, else the active profile's weight for it, else defaultPrefabWeight.
+        /// </summary>
+        float GetPrefabWeight(PlatformBlock prefab)
+        {
+            if (prefab == null) return defaultPrefabWeight;
+            if (weightOverrides.TryGetValue(prefab, out float overrideWeight)) return overrideWeight;
+            if (profileWeights.TryGetValue(prefab, out float profileWeight)) return profileWeight;
+            return defaultPrefabWeight;
+        }
+
+        /// <summary>
+        /// Overrides prefab's spawn weight at runtime, on top of whatever the active profile set. Takes
+        /// effect on the very next weighted pick and persists across profile swaps until ClearPrefabWeight
+        /// is called - this is the spawner-level adjustment knob, independent of which profile is active.
+        /// A weight of 0 excludes the prefab from being picked without removing it from the pool array.
+        /// </summary>
+        public void SetPrefabWeight(PlatformBlock prefab, float weight)
+        {
+            if (prefab == null) return;
+            weightOverrides[prefab] = Mathf.Max(0f, weight);
+        }
+
+        /// <summary>Removes a runtime override set via SetPrefabWeight, reverting prefab to the active profile's weight (or defaultPrefabWeight if unlisted).</summary>
+        public void ClearPrefabWeight(PlatformBlock prefab)
+        {
+            if (prefab == null) return;
+            weightOverrides.Remove(prefab);
+        }
 
         void SortProgressionStages()
         {
@@ -768,13 +832,13 @@ namespace Valley.Level.Generation
         PlatformBlock ChoosePrefab(PlatformBlock[] prefabPool)
         {
             float total = 0f;
-            foreach (var p in prefabPool) total += p.spawnWeight;
+            foreach (var p in prefabPool) total += GetPrefabWeight(p);
 
             float roll = Random.Range(0f, total);
             float accum = 0f;
             foreach (var p in prefabPool)
             {
-                accum += p.spawnWeight;
+                accum += GetPrefabWeight(p);
                 if (roll <= accum) return p;
             }
             return prefabPool[prefabPool.Length - 1];
