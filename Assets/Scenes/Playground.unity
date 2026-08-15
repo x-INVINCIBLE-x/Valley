@@ -3303,6 +3303,8 @@ Transform:
   - {fileID: 1594634035}
   - {fileID: 1621702770}
   - {fileID: 449032342}
+  - {fileID: 471653610}
+  - {fileID: 1786141765}
   m_Father: {fileID: 100822096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303517924
@@ -5649,6 +5651,64 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &471653609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471653610}
+  - component: {fileID: 471653611}
+  m_Layer: 0
+  m_Name: Floor - Sequencer Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471653610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471653609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291690107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471653611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471653609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f533de0ec4c4d5e4c9cc434dba7b71a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformSequenceSpawner
+  player: {fileID: 1224916880}
+  streamAxis: 0
+  prefabSet:
+  - {fileID: -4547146439938697443, guid: 1c40e4f026ff3ab40ac86e7706a73ffb, type: 3}
+  spawnMode: 0
+  loopSequence: 1
+  randomSeed: 0
+  aheadDistance: 1000
+  behindDistance: 200
+  gapDistanceRange: {x: 0, y: 0}
+  offsetMode: 0
+  spawnOffset: {x: 0, y: -250, z: 0}
+  historyLimit: 30
+  originPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &473628733
 GameObject:
   m_ObjectHideFlags: 0
@@ -33097,6 +33157,64 @@ MonoBehaviour:
   - {r: 1, g: 0.058691405, b: 0, a: 1}
   iconDelay: 0.08
   colorChangeDelay: 0.05
+--- !u!1 &1786141764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1786141765}
+  - component: {fileID: 1786141766}
+  m_Layer: 0
+  m_Name: Background - Sequencer Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1786141765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786141764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291690107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1786141766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786141764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f533de0ec4c4d5e4c9cc434dba7b71a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformSequenceSpawner
+  player: {fileID: 1224916880}
+  streamAxis: 0
+  prefabSet:
+  - {fileID: 1330894729458914102, guid: f6a646da4c11fac4698a54c7832b77fd, type: 3}
+  spawnMode: 0
+  loopSequence: 1
+  randomSeed: 0
+  aheadDistance: 1000
+  behindDistance: 200
+  gapDistanceRange: {x: 0, y: 0}
+  offsetMode: 0
+  spawnOffset: {x: 0, y: -250, z: 250}
+  historyLimit: 30
+  originPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1787808727
 GameObject:
   m_ObjectHideFlags: 0
@@ -68085,7 +68203,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d4772f942496f5e4d980e9ac81ded89c, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].label
@@ -68160,6 +68278,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[6].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ec8e2a8c2166774196ebaa907e4f839, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].verticalOffset
       value: 100
       objectReference: {fileID: 0}
@@ -68194,6 +68316,10 @@ PrefabInstance:
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[5].distanceThreshold
       value: 12000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[6].distanceThreshold
+      value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].prefabOverride.Array.size
