@@ -9,8 +9,11 @@ namespace Valley.Level.Generation
     /// <summary>
     /// Procedurally spawns PlatformBlock instances across 5 parallel layers: the mid layer (the actual
     /// traversal path, using the full launch-reachability logic) plus up to 4 side layers configured in
-    /// <see cref="sideLayers"/>.
-    
+    /// <see cref="sideLayers"/>. Each layer resolves its own prefab spawn weights independently - the mid
+    /// layer via GetPrefabWeight (profile weights + runtime overrides), side layers via their own
+    /// PlatformLayer.prefabWeights + PlatformLayer overrides - so the same prefab can be common in one
+    /// layer and rare (or absent) in another.
+
     public class PlatformChunkSpawner : MonoBehaviour
     {
         /// <summary>
@@ -38,7 +41,7 @@ namespace Valley.Level.Generation
         public PlatformBlock[] platformPrefabs;
 
         [Header("Prefab Weighting")]
-        [Tooltip("Weight used for any prefab that has no entry in the active profile's prefabWeights AND no runtime override via SetPrefabWeight. See PlatformGenerationProfile.prefabWeights - platform prefabs no longer describe their own weight.")]
+        [Tooltip("Fallback weight shared by every layer, used for any prefab that has no entry in that layer's own weight table. Mid layer: the active profile's prefabWeights, then a runtime override via SetPrefabWeight(prefab, weight). Side layers: that PlatformLayer's own prefabWeights array, then a runtime override via SetPrefabWeight(layer, prefab, weight). Each layer's weighting is fully independent - the same prefab can be common in one layer and rare in another.")]
         public float defaultPrefabWeight = 1f;
 
         [Header("Reachability")]
@@ -134,9 +137,9 @@ namespace Valley.Level.Generation
         int nextProgressionStageIndex;
         PlatformBlock pendingPremadeBlock;
 
-        /// <summary>Base weights supplied by the currently active profile - fully replaced every ApplyProfile call.</summary>
+        /// <summary>Mid-layer base weights supplied by the currently active profile - fully replaced every ApplyProfile call. Side layers never read this; each has its own PlatformLayer.prefabWeights instead.</summary>
         readonly Dictionary<PlatformBlock, float> profileWeights = new Dictionary<PlatformBlock, float>();
-        /// <summary>Runtime overrides set via SetPrefabWeight - take priority over profileWeights and persist across profile swaps until explicitly cleared.</summary>
+        /// <summary>Mid-layer runtime overrides set via SetPrefabWeight(prefab, weight) - take priority over profileWeights and persist across profile swaps until explicitly cleared. For a side layer's runtime overrides, see SetPrefabWeight(layer, prefab, weight).</summary>
         readonly Dictionary<PlatformBlock, float> weightOverrides = new Dictionary<PlatformBlock, float>();
 
         /// <summary>
@@ -433,9 +436,11 @@ namespace Valley.Level.Generation
         /// An empty/null configs leaves sideLayers completely untouched (see PlatformGenerationProfile.sideLayers
         /// for why). Otherwise configs becomes the complete side-layer set, matched against the spawner's
         /// current sideLayers BY INDEX: an index that already exists keeps its PlatformLayer instance (so
-        /// its live runtime/history survives) and just gets retuned in place; an index beyond the current
-        /// count gets a brand-new PlatformLayer (its runtime is always fresh - see PlatformLayer.runtime);
-        /// indices beyond configs' length are released and dropped.
+        /// its live runtime/history AND its own prefabWeights/overrides survive) and just gets retuned in
+        /// place; an index beyond the current count gets a brand-new PlatformLayer (its runtime and weight
+        /// table are always fresh - see PlatformLayer.runtime); indices beyond configs' length are released
+        /// and dropped. Note that SideLayerConfig doesn't currently carry weight data, so a retuned layer's
+        /// existing prefabWeights/overrides are left as-is rather than being overwritten by the profile.
         /// </summary>
         void ApplySideLayerConfigs(PlatformGenerationProfile.SideLayerConfig[] configs, bool seedNewLayers)
         {
@@ -490,8 +495,9 @@ namespace Valley.Level.Generation
         public void QueuePremadeLevel(PlatformBlock premadeLevel) => pendingPremadeBlock = premadeLevel;
 
         /// <summary>
-        /// Effective spawn weight for prefab right now: a runtime override if one's been set via
-        /// SetPrefabWeight, else the active profile's weight for it, else defaultPrefabWeight.
+        /// Effective MID-LAYER spawn weight for prefab right now: a runtime override if one's been set
+        /// via SetPrefabWeight(prefab, weight), else the active profile's weight for it, else
+        /// defaultPrefabWeight. Side layers don't use this - see PlatformLayer.GetPrefabWeight.
         /// </summary>
         float GetPrefabWeight(PlatformBlock prefab)
         {
@@ -501,11 +507,17 @@ namespace Valley.Level.Generation
             return defaultPrefabWeight;
         }
 
+        /// <summary>Routes to the mid layer's weight resolution when layer is null, otherwise to that layer's own independent weight table (PlatformLayer.GetPrefabWeight).</summary>
+        float WeightFor(PlatformBlock prefab, PlatformLayer layer) =>
+            layer != null ? layer.GetPrefabWeight(prefab, defaultPrefabWeight) : GetPrefabWeight(prefab);
+
         /// <summary>
-        /// Overrides prefab's spawn weight at runtime, on top of whatever the active profile set. Takes
-        /// effect on the very next weighted pick and persists across profile swaps until ClearPrefabWeight
-        /// is called - this is the spawner-level adjustment knob, independent of which profile is active.
-        /// A weight of 0 excludes the prefab from being picked without removing it from the pool array.
+        /// Overrides prefab's MID-LAYER spawn weight at runtime, on top of whatever the active profile set.
+        /// Takes effect on the very next weighted pick and persists across profile swaps until
+        /// ClearPrefabWeight is called - this is the spawner-level adjustment knob, independent of which
+        /// profile is active. A weight of 0 excludes the prefab from being picked without removing it from
+        /// the pool array. For a side layer, use the SetPrefabWeight(PlatformLayer, ...) overload instead -
+        /// mid and side layers each resolve weight independently, so this never affects sideLayers.
         /// </summary>
         public void SetPrefabWeight(PlatformBlock prefab, float weight)
         {
@@ -513,11 +525,31 @@ namespace Valley.Level.Generation
             weightOverrides[prefab] = Mathf.Max(0f, weight);
         }
 
-        /// <summary>Removes a runtime override set via SetPrefabWeight, reverting prefab to the active profile's weight (or defaultPrefabWeight if unlisted).</summary>
+        /// <summary>Removes a mid-layer runtime override set via SetPrefabWeight, reverting prefab to the active profile's weight (or defaultPrefabWeight if unlisted).</summary>
         public void ClearPrefabWeight(PlatformBlock prefab)
         {
             if (prefab == null) return;
             weightOverrides.Remove(prefab);
+        }
+
+        /// <summary>
+        /// Overrides prefab's spawn weight at runtime for a single side layer, on top of whatever that
+        /// layer's own <see cref="PlatformLayer.prefabWeights"/> sets. Effective on the very next weighted
+        /// pick for that layer only and persists across profile swaps until ClearPrefabWeight(layer, prefab)
+        /// is called - the mid layer and every other side layer are untouched, even if they share the same
+        /// prefab. A weight of 0 excludes the prefab from being picked in this layer only.
+        /// </summary>
+        public void SetPrefabWeight(PlatformLayer layer, PlatformBlock prefab, float weight)
+        {
+            if (layer == null) { SetPrefabWeight(prefab, weight); return; }
+            layer.SetWeightOverride(prefab, weight);
+        }
+
+        /// <summary>Removes a runtime override set via SetPrefabWeight(layer, ...), reverting prefab to that layer's own prefabWeights entry (or defaultPrefabWeight if unlisted).</summary>
+        public void ClearPrefabWeight(PlatformLayer layer, PlatformBlock prefab)
+        {
+            if (layer == null) { ClearPrefabWeight(prefab); return; }
+            layer.ClearWeightOverride(prefab);
         }
 
         void SortProgressionStages()
@@ -684,7 +716,7 @@ namespace Valley.Level.Generation
             r.spawnsSinceSafety++;
             bool forceSafe = r.spawnsSinceSafety >= guaranteedSafetyInterval;
 
-            PlatformBlock prefab = ChooseSpawnablePrefab(platformPrefabs, out float missedGap);
+            PlatformBlock prefab = ChooseSpawnablePrefab(platformPrefabs, null, out float missedGap);
 
             bool wantsGap = forceSafe || Random.value < gapChance;
             bool canStick = !wantsGap && prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
@@ -740,7 +772,7 @@ namespace Valley.Level.Generation
         {
             PlatformRecord prev = r.GetRecord(r.LastGlobalIndex);
             PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
-            PlatformBlock prefab = ChooseSpawnablePrefab(pool, out float missedGap);
+            PlatformBlock prefab = ChooseSpawnablePrefab(pool, layer, out float missedGap);
 
             bool canStick = prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
                              && r.consecutiveSticks < layer.maxConsecutiveSticks;
@@ -829,16 +861,17 @@ namespace Valley.Level.Generation
             block.transform.position += delta;
         }
 
-        PlatformBlock ChoosePrefab(PlatformBlock[] prefabPool)
+        /// <summary>Weighted pick from prefabPool. Pass layer = null for the mid layer (uses GetPrefabWeight -> profile weights -> runtime override -> defaultPrefabWeight); pass the owning PlatformLayer for a side layer so that layer's own prefabWeights/overrides are consulted instead.</summary>
+        PlatformBlock ChoosePrefab(PlatformBlock[] prefabPool, PlatformLayer layer)
         {
             float total = 0f;
-            foreach (var p in prefabPool) total += GetPrefabWeight(p);
+            foreach (var p in prefabPool) total += WeightFor(p, layer);
 
             float roll = Random.Range(0f, total);
             float accum = 0f;
             foreach (var p in prefabPool)
             {
-                accum += GetPrefabWeight(p);
+                accum += WeightFor(p, layer);
                 if (roll <= accum) return p;
             }
             return prefabPool[prefabPool.Length - 1];
@@ -849,19 +882,21 @@ namespace Valley.Level.Generation
         /// candidate's width plus a base gap to extraGap - the space it would have occupied becomes part
         /// of the gap before whatever finally gets placed. After maxSpawnChanceAttempts failures in a
         /// row, the last candidate is returned regardless, so a generation step always produces exactly
-        /// one record and forward progress is never blocked by an unlucky run of chance rolls.
+        /// one record and forward progress is never blocked by an unlucky run of chance rolls. layer is
+        /// forwarded to ChoosePrefab unchanged - null for the mid layer, the owning PlatformLayer for a
+        /// side layer - so weighting stays scoped to whichever layer is generating.
         /// </summary>
-        PlatformBlock ChooseSpawnablePrefab(PlatformBlock[] prefabPool, out float extraGap)
+        PlatformBlock ChooseSpawnablePrefab(PlatformBlock[] prefabPool, PlatformLayer layer, out float extraGap)
         {
             extraGap = 0f;
-            PlatformBlock prefab = ChoosePrefab(prefabPool);
+            PlatformBlock prefab = ChoosePrefab(prefabPool, layer);
 
             for (int attempt = 0; attempt < maxSpawnChanceAttempts; attempt++)
             {
                 if (Random.value <= prefab.spawnChance) return prefab;
 
                 extraGap += prefab.Width + minGapX;
-                prefab = ChoosePrefab(prefabPool);
+                prefab = ChoosePrefab(prefabPool, layer);
             }
 
             return prefab;

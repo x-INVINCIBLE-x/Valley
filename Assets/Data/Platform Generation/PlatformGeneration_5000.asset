@@ -29,8 +29,8 @@ MonoBehaviour:
   minGapX: 40
   maxGapX: 60
   gapChance: 0
-  zNoiseMin: 0
-  zNoiseMax: 0
+  zNoiseMin: -0.1
+  zNoiseMax: 0.1
   maxSpawnChanceAttempts: 4
   maxConsecutiveSticks: 4
   maxConsecutiveHardGaps: 2

@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 49769248}
   - component: {fileID: 49769249}
   - component: {fileID: 49769247}
+  - component: {fileID: 49769250}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -372,6 +373,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da552734c08cf4244ba797a52e63366e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.QTE.QuickTimeEventRunner
+--- !u!114 &49769250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49769246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339374c0046c0de47850bca1e8379981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Scoring.DistanceGameObjectActivator
+  distanceTracker: {fileID: 1224916896}
+  targetObject: {fileID: 1201852885}
+  threshold: 6000
+  enableAboveThreshold: 1
 --- !u!1001 &64269525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4559,6 +4576,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
   - label: 
     verticalOffset: 100
@@ -4568,6 +4586,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   - label: 
     verticalOffset: -50
@@ -4577,6 +4596,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
   - label: 
     verticalOffset: -100
@@ -4586,6 +4606,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -29889,9 +29910,9 @@ RectTransform:
   - {fileID: 1270686792}
   m_Father: {fileID: 13183978}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 477.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -62.5}
   m_SizeDelta: {x: 0, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1394336433
@@ -31163,6 +31184,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
   - label: 
     verticalOffset: 100
@@ -31172,6 +31194,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   - label: 
     verticalOffset: -50
@@ -31181,6 +31204,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
   - label: 
     verticalOffset: -100
@@ -31190,6 +31214,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -33081,7 +33106,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1787808728}
-  - component: {fileID: 1787808729}
   m_Layer: 0
   m_Name: Level Difficulty
   m_TagString: Untagged
@@ -33104,38 +33128,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 49769248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1787808729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787808727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6286e0a4eca123c4b850364c73a3269e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Difficulty.ScoreThresholdContentController
-  scoreTracker: {fileID: 0}
-  spawnPointGenerators:
-  - {fileID: 8568519369255158485, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
-  obstacleSpawner: {fileID: 0}
-  tiers:
-  - scoreThreshold: 0
-    platformOverrides:
-    - prefab: {fileID: 8902247037256730875, guid: 5db542dcc3c263940a8730b93518564e, type: 3}
-      spawnChance: 1
-      spawnWeight: 1
-    - prefab: {fileID: 8902247037256730875, guid: f6da052a4d499d14c8902baff119aec7, type: 3}
-      spawnChance: 1
-      spawnWeight: 1
-    spawnPointOverrides:
-    - categoryName: 
-      activeCount: 2
-      activationProbability: 1
-      prefabOverride:
-      - {fileID: 5683537784595061676, guid: b5a667bc2e99ea54cbcaf8f9c4c67c9a, type: 3}
-    obstacleCategoryOverrides: []
 --- !u!224 &1787823229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 692034467615779492, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
@@ -43317,7 +43309,6 @@ MonoBehaviour:
   - rid: 9217333637168496764
   - rid: 9217333637168496765
   - rid: 9217333637168496766
-  - rid: 9217333800641495114
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -43921,8 +43912,7 @@ MonoBehaviour:
         Owner: {fileID: 2140951438}
         DebugActive: 0
         TargetGameObject: {fileID: 100822095}
-        ExtraTargetGameObjects:
-        - {fileID: 1201852885}
+        ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0
         StateOnInit: 1
@@ -44875,95 +44865,6 @@ MonoBehaviour:
         Owner: {fileID: 2140951438}
         DebugActive: 0
         TargetGameObject: {fileID: 909296676}
-        ExtraTargetGameObjects: []
-        IgnorePlayDirection: 0
-        SetStateOnInit: 0
-        StateOnInit: 1
-        SetStateOnPlay: 1
-        StateOnPlay: 0
-        SetStateOnStop: 0
-        StateOnStop: 1
-        SetStateOnReset: 0
-        StateOnReset: 1
-        SetStateOnSkip: 0
-        StateOnSkip: 1
-        SetStateOnPlayerComplete: 0
-        StateOnPlayerComplete: 1
-    - rid: 9217333800641495114
-      type: {class: MMF_SetActive, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
-      data:
-        Active: 1
-        UniqueID: -1653775629
-        Label: Set Active
-        OriginalLabel: Set Active
-        ChannelMode: 0
-        Channel: 0
-        MMChannelDefinition: {fileID: 0}
-        Chance: 100
-        Timing:
-          TimescaleMode: 0
-          ExcludeFromHoldingPauses: 0
-          ContributeToTotalDuration: 1
-          InitialDelay: 0
-          CooldownDuration: 0
-          InterruptsOnStop: 1
-          NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
-          PlayCount: 0
-          LimitPlayCount: 0
-          MaxPlayCount: 3
-          SetPlayCountToZeroOnReset: 0
-          MMFeedbacksDirectionCondition: 0
-          PlayDirection: 0
-          ConstantIntensity: 0
-          UseIntensityInterval: 0
-          IntensityIntervalMin: 0
-          IntensityIntervalMax: 0
-          Sequence: {fileID: 0}
-          TrackID: 0
-          Quantized: 0
-          TargetBPM: 120
-        AutomatedTargetAcquisition:
-          Mode: 0
-          ChildIndex: 0
-        RandomizeOutput: 0
-        RandomMultiplier: {x: 0.8, y: 1}
-        RandomizeDuration: 0
-        RandomDurationMultiplier: {x: 0.5, y: 2}
-        UseRange: 0
-        RangeDistance: 5
-        UseRangeFalloff: 0
-        RangeFalloff:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        RemapRangeFalloff: {x: 0, y: 1}
-        AutomaticShakerSetupButton:
-          ButtonText: 
-        Owner: {fileID: 2140951438}
-        DebugActive: 0
-        TargetGameObject: {fileID: 1201852885}
         ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0
@@ -68175,10 +68076,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1224916880}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
-      propertyPath: testProfile
-      value: 
-      objectReference: {fileID: 11400000, guid: d4772f942496f5e4d980e9ac81ded89c, type: 2}
-    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: distanceSource
       value: 
       objectReference: {fileID: 1224916896}
@@ -68188,7 +68085,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d4772f942496f5e4d980e9ac81ded89c, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].label
@@ -68251,6 +68148,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6b23ed444fec54744a21415d2676130f, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[3].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: 194d9883f5b2f1f489f7d9a3bcef1d5a, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[4].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: a41bf7f4b9a85e043a1834219860e7e9, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[5].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].verticalOffset
       value: 100
       objectReference: {fileID: 0}
@@ -68273,6 +68182,18 @@ PrefabInstance:
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[2].distanceThreshold
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[3].distanceThreshold
+      value: 7000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[4].distanceThreshold
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[5].distanceThreshold
+      value: 12000
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].prefabOverride.Array.size

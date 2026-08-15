@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78366d8d3d2889d449ee410b48f74ab1, type: 3}
-  m_Name: PlatformGeneration_3000
+  m_Name: PlatformGeneration_15000
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformGenerationProfile
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: 471ab7f9bc90a3b4a87d302bc0e9d9d9, type: 3}
   - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
+  - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
+  - {fileID: 8902247037256730875, guid: a32e3f71342a4044db89c973d42ad3d0, type: 3}
   prefabWeights: []
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
@@ -27,8 +29,8 @@ MonoBehaviour:
   upperBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
-  maxGapX: 60
-  gapChance: 0
+  maxGapX: 100
+  gapChance: 0.1
   zNoiseMin: -0.1
   zNoiseMax: 0.1
   maxSpawnChanceAttempts: 4
@@ -36,6 +38,15 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   sideLayers:
+  - label: Ceil
+    verticalOffset: 115
+    verticalJitter: 24
+    gapMultiplier: 1.1
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   - label: Above
     verticalOffset: 65
     verticalJitter: 24
@@ -43,12 +54,25 @@ MonoBehaviour:
     stickChanceBonus: 0.4
     maxConsecutiveSticks: 0
     clampToReachability: 0
-    prefabOverride: []
+    prefabOverride:
+    - {fileID: 8902247037256730875, guid: 471ab7f9bc90a3b4a87d302bc0e9d9d9, type: 3}
+    - {fileID: 8902247037256730875, guid: af071e40637b26847a882fc28ba37bbf, type: 3}
+    - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
+    - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
   - label: Below
     verticalOffset: -65
     verticalJitter: 10
     gapMultiplier: 0.1
+    stickChanceBonus: 0.8
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
+  - label: Floor
+    verticalOffset: -115
+    verticalJitter: 24
+    gapMultiplier: 0
     stickChanceBonus: 0.8
     maxConsecutiveSticks: 0
     clampToReachability: 0
