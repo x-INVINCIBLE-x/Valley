@@ -24,7 +24,10 @@ namespace Valley.Theming
                 if (entry.theme != theme) continue;
 
                 if (_spawnedInstance != null) Destroy(_spawnedInstance);
-                _spawnedInstance = Instantiate(entry.prefab, transform.position, transform.rotation, transform);
+                _spawnedInstance = Instantiate(entry.prefab,
+                                               transform.position,
+                                               entry.prefab.transform.rotation,
+                                               transform);
                 return;
             }
         }
