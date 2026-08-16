@@ -79,6 +79,13 @@ namespace Valley.Level.Generation
         [Tooltip("Extra offset baked into every newly generated slot. Absolute = fixed world-space vector. Relative = expressed in referenceObject's local space, so it turns/moves with it. Already-generated slots are not retroactively moved when this changes.")]
         public Vector3 spawnOffset = Vector3.zero;
 
+        [Header("Parallax")]
+        [Tooltip("If enabled, spawned instances visually drift along Stream Axis as the reference object moves, on top of their normal fixed chain position. Purely visual - it never affects spawn/despawn timing or the chain math neighbors use.")]
+        public bool enableParallax = false;
+
+        [Tooltip("Parallax Speed multiplies how far the reference object has moved (along Stream Axis) since streaming started. Applied identically to every active instance each frame, so flush-attached neighbors stay touching regardless of when each one spawned. 0 = fully static, identical to parallax disabled. 1 = moves exactly with the reference, so the whole chain appears to hang at a fixed point on screen. Between 0 and 1 gives a distant/background feel (drifts slower than a normal platform). Above 1 (or negative) gives a close/foreground feel that rushes past faster than normal.")]
+        public float parallaxSpeed = 0.5f;
+
         [Header("History")]
         [Tooltip("How many despawned slots behind the active window are remembered exactly (prefab, spawn/gap roll, attach roll, position). Slots older than this are forgotten and re-rolled fresh if the reference object backs up into them again.")]
         [Min(0)] public int historyLimit = 30;
@@ -107,6 +114,11 @@ namespace Valley.Level.Generation
         bool hasGenerated;
         int highestGeneratedSlot = -1;
         int lowestRetainedSlot;
+
+        // Single shared baseline the whole layer drifts from, so every active instance is offset by the
+        // exact same vector each frame - individual spawn times never affect relative spacing.
+        bool parallaxBaselineSet;
+        float parallaxBaselineAxis;
 
         void Awake()
         {
@@ -141,6 +153,7 @@ namespace Valley.Level.Generation
             hasGenerated = false;
             highestGeneratedSlot = -1;
             lowestRetainedSlot = 0;
+            parallaxBaselineSet = false;
 
             if (spawnMode == PlatformSpawnMode.RandomBag) InitRandomBagIfNeeded();
         }
@@ -148,8 +161,22 @@ namespace Valley.Level.Generation
         void RefreshStreaming()
         {
             float refAxis = GetAxisValue(referenceObject.position);
-            float windowStart = refAxis - behindDistance;
-            float windowEnd = refAxis + aheadDistance;
+
+            if (!parallaxBaselineSet)
+            {
+                parallaxBaselineAxis = refAxis;
+                parallaxBaselineSet = true;
+            }
+
+            // How far parallax has visually pushed every active instance this frame (0 when disabled).
+            float drift = enableParallax ? (refAxis - parallaxBaselineAxis) * parallaxSpeed : 0f;
+
+            // Every record's cached position/edges are logical (undrifted) - but what the player actually
+            // sees is that position shifted by `drift` (see ApplyParallax). Shifting the window by -drift
+            // here, rather than shifting every record by +drift, keeps the comparisons below in logical
+            // space while still matching spawn/despawn timing to where platforms actually render.
+            float windowStart = refAxis - behindDistance - drift;
+            float windowEnd = refAxis + aheadDistance - drift;
 
             // Grow the forward frontier until the newest slot's right edge covers the window's leading edge.
             while (!hasGenerated || GetAxisValue(timeline[highestGeneratedSlot].rightEdgeWorld) < windowEnd)
@@ -176,6 +203,8 @@ namespace Valley.Level.Generation
 
                 if (shouldBeActive && record.spawns && record.instance == null) InstantiateRecord(record);
                 else if (!shouldBeActive && record.instance != null) DestroyRecordInstance(record);
+
+                if (record.instance != null) ApplyParallax(record, drift);
             }
 
             TrimHistory();
@@ -308,6 +337,22 @@ namespace Valley.Level.Generation
             if (record.instance == null) return;
             Destroy(record.instance.gameObject);
             record.instance = null;
+        }
+
+        /// <summary>
+        /// Purely visual: offsets every active instance from its logical chain position along Stream
+        /// Axis by the SAME `drift` value (computed once per frame in RefreshStreaming, which also uses
+        /// it to shift the spawn/despawn window - see the comment there). Using one shared drift for the
+        /// whole layer, instead of one per instance, is what keeps flush-attached neighbors touching:
+        /// every instance gets an identical offset, so their relative spacing is preserved regardless of
+        /// when each one spawned. The cached record.position/leftEdgeWorld/rightEdgeWorld used for
+        /// chaining are never touched, so parallax can't drift the streaming logic off track.
+        /// </summary>
+        void ApplyParallax(SpawnRecord record, float drift)
+        {
+            Vector3 targetPosition = drift == 0f ? record.position : record.position + GetAxisDirection() * drift;
+            if (record.instance.transform.position != targetPosition)
+                record.instance.transform.position = targetPosition;
         }
 
         void TrimHistory()

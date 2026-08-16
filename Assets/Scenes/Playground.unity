@@ -6312,6 +6312,8 @@ MonoBehaviour:
   gapDistanceRange: {x: 0, y: 0}
   offsetMode: 0
   spawnOffset: {x: 0, y: -250, z: 0}
+  enableParallax: 0
+  parallaxSpeed: 0.5
   historyLimit: 30
   originPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &473628733
@@ -34839,6 +34841,8 @@ MonoBehaviour:
   gapDistanceRange: {x: 0, y: 0}
   offsetMode: 0
   spawnOffset: {x: 0, y: -250, z: 250}
+  enableParallax: 1
+  parallaxSpeed: -0.5
   historyLimit: 30
   originPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1787808727
