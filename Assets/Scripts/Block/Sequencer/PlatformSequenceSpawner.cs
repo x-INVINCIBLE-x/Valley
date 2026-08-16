@@ -1,4 +1,3 @@
-using MoreMountains.Tools;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +45,7 @@ namespace Valley.Level.Generation
     {
         [Header("Reference")]
         [Tooltip("The object whose position drives spawning/despawning - typically the player or camera.")]
-        public Transform player;
+        public Transform referenceObject;
 
         [Tooltip("World axis the platform chain is laid out along.")]
         public StreamAxis streamAxis = StreamAxis.X;
@@ -77,7 +76,7 @@ namespace Valley.Level.Generation
 
         [Header("Offset")]
         public SpawnOffsetMode offsetMode = SpawnOffsetMode.Relative;
-        [Tooltip("Extra offset baked into every newly generated slot. Absolute = fixed world-space vector. Relative = expressed in player's local space, so it turns/moves with it. Already-generated slots are not retroactively moved when this changes.")]
+        [Tooltip("Extra offset baked into every newly generated slot. Absolute = fixed world-space vector. Relative = expressed in referenceObject's local space, so it turns/moves with it. Already-generated slots are not retroactively moved when this changes.")]
         public Vector3 spawnOffset = Vector3.zero;
 
         [Header("History")]
@@ -119,7 +118,7 @@ namespace Valley.Level.Generation
 
         void Update()
         {
-            if (player == null || prefabSet == null || prefabSet.Count == 0) return;
+            if (referenceObject == null || prefabSet == null || prefabSet.Count == 0) return;
             RefreshStreaming();
         }
 
@@ -148,7 +147,7 @@ namespace Valley.Level.Generation
 
         void RefreshStreaming()
         {
-            float refAxis = GetAxisValue(player.position);
+            float refAxis = GetAxisValue(referenceObject.position);
             float windowStart = refAxis - behindDistance;
             float windowEnd = refAxis + aheadDistance;
 
@@ -332,8 +331,8 @@ namespace Valley.Level.Generation
 
         Vector3 GetOffsetVector()
         {
-            if (offsetMode == SpawnOffsetMode.Absolute || player == null) return spawnOffset;
-            return player.TransformDirection(spawnOffset);
+            if (offsetMode == SpawnOffsetMode.Absolute || referenceObject == null) return spawnOffset;
+            return referenceObject.TransformDirection(spawnOffset);
         }
 
         Vector3 GetAxisDirection()
@@ -363,10 +362,10 @@ namespace Valley.Level.Generation
 
         void OnDrawGizmosSelected()
         {
-            if (player == null) return;
+            if (referenceObject == null) return;
 
             Vector3 axisDir = GetAxisDirection();
-            Vector3 refPos = player.position;
+            Vector3 refPos = referenceObject.position;
 
             Gizmos.color = new Color(1f, 0.6f, 0f, 0.8f);
             Gizmos.DrawLine(refPos - axisDir * behindDistance + Vector3.up * 2f, refPos - axisDir * behindDistance - Vector3.up * 2f);
