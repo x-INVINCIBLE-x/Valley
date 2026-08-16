@@ -39,6 +39,9 @@ dependencyResolutionManagement {
         maven {
             url "https://jitpack.io" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
         }
+        maven {
+            url "https://maven.google.com/" // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:9, Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:14
+        }
         mavenLocal()
 // Android Resolver Repos End
         flatDir {
