@@ -489,17 +489,19 @@ MonoBehaviour:
   IsPositionRoot: 1
   anticipationVisual: {fileID: 1655466372560097985}
   laserStart: {fileID: 3300512977060822076}
-  laserEnd: {fileID: 1930595135673961465}
+  laserEnds:
+  - end: {fileID: 1930595135673961465}
+    lines:
+    - {fileID: 1584609513150987024}
+    - {fileID: 7085854832541822122}
+    deployOffset: {x: 100, y: 0, z: 0}
+    initialLocalPos: {x: 0, y: 0, z: 0}
   actionVisual: {fileID: 4999475814127123334}
-  damageCollider: {fileID: 5751903611839861338}
-  lines:
-  - {fileID: 1584609513150987024}
-  - {fileID: 7085854832541822122}
+  damageColliders: []
   anticipationDuration: 2
   actionDuration: 0.5
   recoveryDuration: 1
   startBoxXOffset: -100
-  endBoxXOffset: 100
   beamDeployDuration: 2
   placement:
     spawnXOffsetRange: {x: 0, y: 0}

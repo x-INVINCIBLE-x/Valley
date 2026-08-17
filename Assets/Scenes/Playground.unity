@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339374c0046c0de47850bca1e8379981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Scoring.DistanceGameObjectActivator
-  distanceTracker: {fileID: 0}
+  distanceTracker: {fileID: 2060574091}
   targetObject: {fileID: 1201852885}
   threshold: 6000
   enableAboveThreshold: 1
@@ -27924,8 +27924,12 @@ MonoBehaviour:
   player: {fileID: 1224916880}
   categories:
   - categoryName: Lasers
-    categoryWeight: 1
+    categoryWeight: 2
     obstacles:
+    - prefab: {fileID: 590318742647772891, guid: 19aa573f7ee41734ab5119a298dbd7f7, type: 3}
+      weight: 1
+      maxSpawnsBeforeReset: 2
+      maxActiveInstances: 1
     - prefab: {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
       weight: 1
       maxSpawnsBeforeReset: 3
