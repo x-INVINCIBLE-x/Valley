@@ -486,6 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.LaserObstacle
   player: {fileID: 0}
+  IsPositionRoot: 1
   anticipationVisual: {fileID: 1655466372560097985}
   laserStart: {fileID: 3300512977060822076}
   laserEnd: {fileID: 1930595135673961465}
@@ -500,9 +501,10 @@ MonoBehaviour:
   startBoxXOffset: -100
   endBoxXOffset: 100
   beamDeployDuration: 2
-  spawnXOffsetRange: {x: 0, y: 0}
-  spawnYOffsetRange: {x: 0, y: 0}
-  followDuration: 1.5
+  placement:
+    spawnXOffsetRange: {x: 0, y: 0}
+    spawnYOffsetRange: {x: 0, y: 0}
+    followDuration: 1
 --- !u!1 &8725429330616073995
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,11 +35,9 @@ namespace Valley.Level.Obstacles
         [SerializeField] private float beamDeployDuration = 0f;
 
         [Header("Placement")]
-        [SerializeField] private Vector2 spawnXOffsetRange = new(6f, 6f);
-        [SerializeField] private Vector2 spawnYOffsetRange = new(0f, 0f);
-
-        [Tooltip("How long the obstacle follows the player's Y position before locking.")]
-        [SerializeField] private float followDuration = 0f;
+        [Tooltip("Handles spawn offset + follow-the-player behavior. Only runs if IsPositionRoot is true " +
+                 "(a ParentObstacle sets this false on its children so only the parent moves).")]
+        [SerializeField] private ObstacleSpawnPlacement placement = new();
 
         private enum Phase
         {
@@ -50,11 +48,6 @@ namespace Valley.Level.Obstacles
 
         private Phase phase;
         private float phaseTimer;
-
-        private float spawnYOffset;
-        private float followTimer;
-
-        private Vector3 previousPlayerPosition;
 
         private Vector3 laserStartInitialLocalPos;
         private Vector3 laserEndInitialLocalPos;
@@ -67,20 +60,8 @@ namespace Valley.Level.Obstacles
 
         public override void BeginAnticipation()
         {
-            float spawnXOffset = Random.Range(spawnXOffsetRange.x, spawnXOffsetRange.y);
-            spawnYOffset = Random.Range(spawnYOffsetRange.x, spawnYOffsetRange.y);
-
-            followTimer = followDuration;
-
-            if (player != null)
-            {
-                previousPlayerPosition = player.position;
-
-                transform.position = new Vector3(
-                    player.position.x + spawnXOffset,
-                    player.position.y + spawnYOffset,
-                    transform.position.z);
-            }
+            if (IsPositionRoot)
+                placement.PlaceNearPlayer(transform, player);
 
             laserStart.localPosition = laserStartInitialLocalPos;
             laserEnd.localPosition = laserEndInitialLocalPos;
@@ -90,28 +71,10 @@ namespace Valley.Level.Obstacles
 
         private void Update()
         {
-            UpdateFollow();
+            if (IsPositionRoot)
+                placement.UpdateFollow(transform, player);
+
             UpdatePhase();
-        }
-
-        private void UpdateFollow()
-        {
-            if (player == null)
-                return;
-
-            float deltaX = player.position.x - previousPlayerPosition.x;
-
-            Vector3 pos = transform.position;
-            pos.x += deltaX;
-
-            if (followTimer > 0f)
-            {
-                followTimer -= Time.deltaTime;
-                pos.y = player.position.y + spawnYOffset;
-            }
-
-            transform.position = pos;
-            previousPlayerPosition = player.position;
         }
 
         private void UpdatePhase()

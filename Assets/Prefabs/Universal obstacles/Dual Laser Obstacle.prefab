@@ -47,9 +47,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParentObstacle
   player: {fileID: 0}
+  IsPositionRoot: 1
   obstacles:
   - {fileID: 6028307419366855012}
   - {fileID: 2767288549453830367}
+  placement:
+    spawnXOffsetRange: {x: 6, y: 6}
+    spawnYOffsetRange: {x: 0, y: 0}
+    followDuration: 1
 --- !u!1001 &3338954592564350468
 PrefabInstance:
   m_ObjectHideFlags: 0
