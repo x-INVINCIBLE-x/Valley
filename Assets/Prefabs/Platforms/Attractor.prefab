@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6626515876700190783}
   - component: {fileID: 6490484633219819576}
   - component: {fileID: 6662646115573043302}
+  - component: {fileID: 4629472267813585366}
   m_Layer: 8
   m_Name: Attractor
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5385704164682557697}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -141,7 +142,6 @@ MonoBehaviour:
     allowRotation: 0
     minAngleDegrees: -15
     maxAngleDegrees: 15
-  spawnWeight: 0.1
   spawnChance: 1
 --- !u!114 &6662646115573043302
 MonoBehaviour:
@@ -186,3 +186,18 @@ MonoBehaviour:
     m_RotationOrder: 4
   activateFeedback: {fileID: 0}
   deactivateFeedback: {fileID: 0}
+--- !u!114 &4629472267813585366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385704164682557697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefab: {fileID: 7831525049502529868, guid: ee8dcb6b73aa11144ad0621afc2ab83d, type: 3}

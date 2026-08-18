@@ -23,7 +23,7 @@ namespace Valley.Player
         {
             if (!IsInLayerMask(other.gameObject.layer, platformMask)) return;
 
-            var zone = other.GetComponent<PlatformEffectZone>();
+            var zone = other.GetComponentInChildren<PlatformEffectZone>();
             if (zone == null || zone.Profile == null) return;
 
             Current = zone.Profile;
@@ -37,7 +37,7 @@ namespace Valley.Player
         {
             if (!IsInLayerMask(other.gameObject.layer, platformMask)) return;
 
-            var zone = other.GetComponent<PlatformEffectZone>();
+            var zone = other.GetComponentInChildren<PlatformEffectZone>();
             if (zone == null || zone.Profile != Current) return;
 
             Current = null;

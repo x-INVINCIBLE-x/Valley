@@ -17,6 +17,19 @@ namespace Valley.Theming
 
         private GameObject _spawnedInstance;
 
+        private void OnValidate()
+        {
+            for(int i = 0; i < entries.Length; i++)
+            {
+                var entry = entries[i];
+                if (entry.prefab.gameObject == gameObject)
+                {
+                    entries[i] = new Entry();
+                    Debug.LogError(gameObject.name + " Entry prefab cannot be itself");
+                }
+            }
+        }
+
         protected override void ApplyTheme(ThemeDefinition theme)
         {
             foreach (var entry in entries)
