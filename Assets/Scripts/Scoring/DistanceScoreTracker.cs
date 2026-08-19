@@ -7,6 +7,7 @@ namespace Valley.Scoring
 {
     public class DistanceScoreTracker : MonoBehaviour
     {
+        public static DistanceScoreTracker Instance { get; private set; }
         [Header("Tracking")]
         [Tooltip("Usually the player. Score is derived from this transform's +X position.")]
         [SerializeField] private Transform target;
@@ -29,6 +30,13 @@ namespace Valley.Scoring
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
             if (target != null) _startX = target.position.x;
             _cachedMultiplier = baseMultiplier;
         }
@@ -38,6 +46,7 @@ namespace Valley.Scoring
 
         private void HandleWorldShift(float amountSubtractedFromWorld) => _worldShiftOffset += amountSubtractedFromWorld;
 
+        
         private void Update()
         {
             if (target == null) return;

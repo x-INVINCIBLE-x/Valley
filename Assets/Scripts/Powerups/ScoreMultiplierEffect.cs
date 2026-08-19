@@ -14,9 +14,9 @@ namespace Valley.Powerups
 
         public override void Apply(GameObject target, Transform source)
         {
-            if (!target.TryGetComponent<DistanceScoreTracker>(out var tracker)) return;
+            targetTracker = DistanceScoreTracker.Instance;
+            if (targetTracker == null) return;
 
-            targetTracker = tracker;
             targetTracker.SetMultiplierContribution(this, multiplierBonus);
         }
 

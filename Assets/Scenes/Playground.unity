@@ -27893,7 +27893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1201852886
 Transform:
   m_ObjectHideFlags: 0
@@ -70331,6 +70331,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d4772f942496f5e4d980e9ac81ded89c, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: premadeLevelGap
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -70417,6 +70421,14 @@ PrefabInstance:
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[1].verticalOffset
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[0].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[1].premadeLevel
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].clampToReachability

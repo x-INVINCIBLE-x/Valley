@@ -137,6 +137,23 @@ namespace Valley.Level.Generation
         int nextProgressionStageIndex;
         PlatformBlock pendingPremadeBlock;
 
+        /// <summary>
+        /// Right edge (logical X) of the most recently materialized premade level. Side-layer generation
+        /// is clamped to never start before this, since side layers have no independent awareness of
+        /// premade levels inserted into the mid layer - without this, a side layer's own gap/stick roll
+        /// can place its next platform inside the premade segment's footprint. Reset to negative infinity
+        /// (no clearance in effect) on ResetAndSeed and whenever the pending premade record is consumed.
+        /// </summary>
+        float sideLayerClearanceRightX = float.NegativeInfinity;
+
+        /// <summary>
+        /// Global mid-layer index of a just-queued premade record that's been added to history but not
+        /// yet materialized/measured. MaterializeAppend watches for this index and, once it fires,
+        /// promotes the record's freshly-measured rightEdgeX into <see cref="sideLayerClearanceRightX"/>.
+        /// -1 when no premade record is pending materialization.
+        /// </summary>
+        int pendingPremadeRecordIndex = -1;
+
         /// <summary>Mid-layer base weights supplied by the currently active profile - fully replaced every ApplyProfile call. Side layers never read this; each has its own PlatformLayer.prefabWeights instead.</summary>
         readonly Dictionary<PlatformBlock, float> profileWeights = new Dictionary<PlatformBlock, float>();
         /// <summary>Mid-layer runtime overrides set via SetPrefabWeight(prefab, weight) - take priority over profileWeights and persist across profile swaps until explicitly cleared. For a side layer's runtime overrides, see SetPrefabWeight(layer, prefab, weight).</summary>
@@ -298,6 +315,8 @@ namespace Valley.Level.Generation
 
             nextProgressionStageIndex = 0;
             pendingPremadeBlock = null;
+            pendingPremadeRecordIndex = -1;
+            sideLayerClearanceRightX = float.NegativeInfinity;
             SortProgressionStages();
 
             if (initialProfile != null) ApplyProfile(initialProfile, seedNewSideLayers: false);
@@ -435,32 +454,40 @@ namespace Valley.Level.Generation
         /// <summary>
         /// An empty/null configs leaves sideLayers completely untouched (see PlatformGenerationProfile.sideLayers
         /// for why). Otherwise configs becomes the complete side-layer set, matched against the spawner's
-        /// current sideLayers BY INDEX: an index that already exists keeps its PlatformLayer instance (so
-        /// its live runtime/history AND its own prefabWeights/overrides survive) and just gets retuned in
-        /// place; an index beyond the current count gets a brand-new PlatformLayer (its runtime and weight
-        /// table are always fresh - see PlatformLayer.runtime); indices beyond configs' length are released
-        /// and dropped. Note that SideLayerConfig doesn't currently carry weight data, so a retuned layer's
-        /// existing prefabWeights/overrides are left as-is rather than being overwritten by the profile.
+        /// current sideLayers BY LABEL: a config whose label matches an existing layer keeps that PlatformLayer
+        /// instance (so its live runtime/history AND its own prefabWeights/overrides survive) and just gets
+        /// retuned in place; a config with no matching label gets a brand-new PlatformLayer (its runtime and
+        /// weight table are always fresh - see PlatformLayer.runtime). Any existing layer whose label has no
+        /// matching config entry is no longer part of the active set and is released outright, rather than being
+        /// silently repurposed into an unrelated config the way index-based matching would. Note that
+        /// SideLayerConfig doesn't currently carry weight data, so a retuned layer's existing
+        /// prefabWeights/overrides are left as-is rather than being overwritten by the profile.
         /// </summary>
         void ApplySideLayerConfigs(PlatformGenerationProfile.SideLayerConfig[] configs, bool seedNewLayers)
         {
             if (configs == null || configs.Length == 0) return;
 
-            int oldCount = sideLayers?.Length ?? 0;
-            int newCount = configs.Length;
+            PlatformLayer[] existing = sideLayers ?? new PlatformLayer[0];
+            // Marks which existing layers got claimed by a config entry, so anything left unclaimed at the
+            // end is known to have no home in the new set and gets released rather than retuned.
+            bool[] consumed = new bool[existing.Length];
 
-            for (int i = newCount; i < oldCount; i++)
+            PlatformLayer[] rebuilt = new PlatformLayer[configs.Length];
+            for (int i = 0; i < configs.Length; i++)
             {
-                if (sideLayers[i] != null) ReleaseAll(sideLayers[i].runtime);
-            }
-
-            PlatformLayer[] rebuilt = new PlatformLayer[newCount];
-            for (int i = 0; i < newCount; i++)
-            {
-                bool isNewLayer = i >= oldCount || sideLayers[i] == null;
-                PlatformLayer layer = isNewLayer ? new PlatformLayer() : sideLayers[i];
-
                 PlatformGenerationProfile.SideLayerConfig config = configs[i];
+
+                int matchIndex = -1;
+                for (int j = 0; j < existing.Length; j++)
+                {
+                    if (consumed[j] || existing[j] == null) continue;
+                    if (existing[j].label == config.label) { matchIndex = j; break; }
+                }
+
+                bool isNewLayer = matchIndex < 0;
+                PlatformLayer layer = isNewLayer ? new PlatformLayer() : existing[matchIndex];
+                if (!isNewLayer) consumed[matchIndex] = true;
+
                 layer.label = config.label;
                 layer.verticalOffset = config.verticalOffset;
                 layer.verticalJitter = config.verticalJitter;
@@ -480,6 +507,13 @@ namespace Valley.Level.Generation
                     else
                         Debug.LogWarning($"PlatformChunkSpawner: side layer '{layer.label}' was added by a profile before the spawner had seeded its mid layer, so it will stay empty until the next ResetAndSeed.", this);
                 }
+            }
+
+            // Anything left unconsumed had no matching config entry - it's genuinely gone from the active
+            // set, so release its live instances instead of leaving it to be repurposed by index.
+            for (int j = 0; j < existing.Length; j++)
+            {
+                if (!consumed[j] && existing[j] != null) ReleaseAll(existing[j].runtime);
             }
 
             sideLayers = rebuilt;
@@ -633,6 +667,15 @@ namespace Valley.Level.Generation
             record.rightEdgeY = rightEdge.y;
             r.SetRecord(index, record);
 
+            // If this was the pending premade record, its right edge is now known for real (measured off
+            // the actual instance, not guessed) - promote it into the side-layer clearance floor so
+            // GenerateSideRecord stops placing platforms inside the premade segment's footprint.
+            if (r == midRuntime && index == pendingPremadeRecordIndex)
+            {
+                sideLayerClearanceRightX = record.rightEdgeX;
+                pendingPremadeRecordIndex = -1;
+            }
+
             r.liveInstances.Add(instance);
             if (r.liveInstances.Count == 1) r.liveStartIndex = index;
         }
@@ -704,6 +747,10 @@ namespace Valley.Level.Generation
 
                 float premadeLeftEdgeX = prev.rightEdgeX + Mathf.Max(0f, premadeLevelGap);
                 r.AddRecord(new PlatformRecord { prefab = premadePrefab, leftEdgeX = premadeLeftEdgeX, leftEdgeY = prev.rightEdgeY, rotationZ = 0f, zOffset = RollZNoise() });
+
+                // Remember this record's index so MaterializeAppend can promote its real measured right
+                // edge into sideLayerClearanceRightX once the instance actually exists.
+                pendingPremadeRecordIndex = r.LastGlobalIndex;
 
                 // Treat it like a safety checkpoint: whatever stick/hard-gap streak was building up
                 // shouldn't carry across a hand-built segment into the next profile's platforms.
@@ -818,7 +865,12 @@ namespace Valley.Level.Generation
                 gapX = Random.Range(scaledMin, scaledMax);
             }
 
-            float spawnLeftEdgeX = prev.rightEdgeX + gapX + missedGap;
+            // Clamp against any premade level currently occupying the mid layer: side layers roll their
+            // own independent gap/stick logic and have no other way to know that X-range is spoken for.
+            // Mathf.Max is a no-op once the premade's footprint has been passed (sideLayerClearanceRightX
+            // stays behind prev.rightEdgeX from then on), so ordinary generation is unaffected outside of
+            // an active premade segment.
+            float spawnLeftEdgeX = Mathf.Max(prev.rightEdgeX + gapX + missedGap, sideLayerClearanceRightX);
             float rotationZ = prefab.rotation.allowRotation
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
                 : 0f;
