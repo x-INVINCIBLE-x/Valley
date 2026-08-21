@@ -539,12 +539,11 @@ GameObject:
   - component: {fileID: 3871367911874071647}
   - component: {fileID: 2239101901520903585}
   - component: {fileID: 803982929547054200}
-  - component: {fileID: 8187887650984870127}
-  - component: {fileID: 4085474063315848417}
   - component: {fileID: 8902247037256730875}
   - component: {fileID: 8568519369255158485}
   - component: {fileID: 1380577813570018457}
   - component: {fileID: 1415932178603386777}
+  - component: {fileID: 1627509048350144745}
   m_Layer: 7
   m_Name: Speedy Platform
   m_TagString: Untagged
@@ -562,7 +561,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734650599865819168}
@@ -583,7 +582,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8122842394199844381}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -625,41 +624,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8187887650984870127
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122842394199844381}
-  m_Material: {fileID: 13400000, guid: b078f808cffbc70418b8905acb30b0b1, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4085474063315848417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122842394199844381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24d90b4320a209e46b5faaf37a3a4010, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
-  profile: {fileID: 11400000, guid: b86b0f75394122344b14df6d079c17ab, type: 2}
-  collisionFeedback: {fileID: 22475877315475715}
 --- !u!114 &8902247037256730875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,8 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessRunner.Level.Generation.PlatformBlock
-  boundsCenter: {x: 0, y: 0, z: 0}
-  boundsSize: {x: 1, y: 1, z: 1}
+  boundsCenter: {x: 0.12108612, y: 0.18163872, z: 0}
+  boundsSize: {x: 51.14908, y: 7.273446, z: 17.94}
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   surfaceAnchor: {fileID: 0}
@@ -687,7 +651,6 @@ MonoBehaviour:
     allowRotation: 1
     minAngleDegrees: -15
     maxAngleDegrees: 15
-  spawnWeight: 1
   spawnChance: 1
 --- !u!114 &8568519369255158485
 MonoBehaviour:
@@ -831,6 +794,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   StartShakingButton: 0
+--- !u!114 &1627509048350144745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122842394199844381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefabs:
+    - prefab: {fileID: 7598802711810759272, guid: 727c96dfcdb1e6c42a67141e5766ae8a, type: 3}
+      weight: 5
 --- !u!1 &8836120215119900831
 GameObject:
   m_ObjectHideFlags: 0

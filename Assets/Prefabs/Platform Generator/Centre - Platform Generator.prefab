@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
   - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
+  defaultPrefabWeight: 1
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -83,6 +84,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
   - label: 
     verticalOffset: 100
@@ -92,6 +94,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   - label: 
     verticalOffset: -50
@@ -101,6 +104,7 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
   - label: 
     verticalOffset: -100
@@ -110,7 +114,34 @@ MonoBehaviour:
     maxConsecutiveSticks: 0
     clampToReachability: 0
     prefabOverride: []
+    prefabWeights: []
     gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
+  initialProfile: {fileID: 0}
+  progressionStages:
+  - distanceThreshold: 1500
+    profile: {fileID: 11400000, guid: 81191c6758f10d4489aad45c4f735c72, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 3000
+    profile: {fileID: 11400000, guid: 187f51d7d973f7f42bd146df73094580, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 5000
+    profile: {fileID: 11400000, guid: 6b23ed444fec54744a21415d2676130f, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 7000
+    profile: {fileID: 11400000, guid: 194d9883f5b2f1f489f7d9a3bcef1d5a, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 10000
+    profile: {fileID: 11400000, guid: a41bf7f4b9a85e043a1834219860e7e9, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 12000
+    profile: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 15000
+    profile: {fileID: 11400000, guid: 7ec8e2a8c2166774196ebaa907e4f839, type: 2}
+    premadeLevel: {fileID: 0}
+  premadeLevelGap: 0
+  distanceSource: {fileID: 0}
+  testProfile: {fileID: 0}
   showDebugGizmos: 1
   spawnAheadColor: {r: 0.2, g: 1, b: 0.4, a: 1}
   despawnBehindColor: {r: 1, g: 0, b: 0, a: 1}
