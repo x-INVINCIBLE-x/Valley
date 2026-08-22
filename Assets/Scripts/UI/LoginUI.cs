@@ -13,6 +13,13 @@ namespace Valley
         [SerializeField] private TMP_Text statusText;
         [SerializeField] private GameObject accountPanel;
 
+        [Header("Login State GameObjects")]
+        [Tooltip("Enabled when the player successfully signs in.")]
+        [SerializeField] private GameObject signedInObject;
+
+        [Tooltip("Disabled when the player successfully signs in.")]
+        [SerializeField] private GameObject signedOutObject;
+
         [Header("Settings")]
         [SerializeField] private string signedOutText = "Sign in with Google Play Games";
         [SerializeField] private string signingInText = "Signing in...";
@@ -44,6 +51,7 @@ namespace Valley
             }
 
             SetSigningInState();
+
             loginManager.StartGooglePlayGamesLogin();
         }
 
@@ -61,13 +69,21 @@ namespace Valley
                 accountNameText.text = displayName;
 
             if (statusText != null)
-                statusText.text = $"Signed in as {displayName}";
+                statusText.text = "Connected";
 
             if (loginButton != null)
                 loginButton.gameObject.SetActive(false);
 
             if (accountPanel != null)
                 accountPanel.SetActive(true);
+
+            if (signedInObject != null)
+                signedInObject.SetActive(true);
+
+            if (signedOutObject != null)
+                signedOutObject.SetActive(false);
+
+            Debug.Log("[LoginUI] Successfully signed in.");
         }
 
         private void OnSignInFailed(string error)
@@ -82,6 +98,13 @@ namespace Valley
                 statusText.text = signInFailedText;
 
             Debug.LogWarning($"[LoginUI] Sign in failed: {error}");
+
+            // Make sure the UI remains in the signed-out state.
+            if (signedInObject != null)
+                signedInObject.SetActive(false);
+
+            if (signedOutObject != null)
+                signedOutObject.SetActive(true);
         }
 
         private void SetSignedOutState()
@@ -100,6 +123,12 @@ namespace Valley
 
             if (statusText != null)
                 statusText.text = signedOutText;
+
+            if (signedInObject != null)
+                signedInObject.SetActive(false);
+
+            if (signedOutObject != null)
+                signedOutObject.SetActive(true);
         }
 
         private void SetSigningInState()
