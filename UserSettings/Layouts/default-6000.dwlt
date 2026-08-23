@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 17884
+  controlID: 174
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 17885
+  controlID: 58
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: DeploymentWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -167,16 +167,16 @@ MonoBehaviour:
     y: 0
     width: 1071
     height: 440
-  m_MinSize: {x: 201, y: 226}
+  m_MinSize: {x: 251, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 15}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 15}
   - {fileID: 16}
   - {fileID: 17}
   - {fileID: 18}
-  m_Selected: 0
-  m_LastSelected: 2
+  m_Selected: 3
+  m_LastSelected: 0
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -200,10 +200,10 @@ MonoBehaviour:
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 19}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 1
+  - {fileID: 19}
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 17928
+  controlID: 69
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -1821,33 +1821,12 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -59210
-      - m_Data: -58840
-      - m_Data: -57042
-      - m_Data: -55692
-      - m_Data: -47644
-      - m_Data: -47274
-      - m_Data: -45394
-      - m_Data: -44044
-      - m_Data: -36244
-      - m_Data: -23832
-      - m_Data: -23830
-      - m_Data: -8382
-      - m_Data: -1730
+      - m_Data: -15026
+      - m_Data: -14948
+      - m_Data: -13060
+      - m_Data: -11706
       - m_Data: -1300
-      - m_Data: 59602
-      - m_Data: 59750
-      - m_Data: 59818
-      - m_Data: 59986
-      - m_Data: 137042
-      - m_Data: 137606
-      - m_Data: 137894
-      - m_Data: 138056
-      - m_Data: 138328
-      - m_Data: 138420
-      - m_Data: 138576
-      - m_Data: 138584
-      - m_Data: 138756
+      - m_Data: 59018
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1944,35 +1923,11 @@ MonoBehaviour:
       m_Data: 108980
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 56776
-    - m_Data: 57352
-    - m_Data: 57378
-    - m_Data: 58448
-    - m_Data: 61796
-    - m_Data: 64404
-    - m_Data: 64406
-    - m_Data: 64408
-    - m_Data: 64410
-    - m_Data: 64412
-    - m_Data: 64414
-    - m_Data: 64416
-    - m_Data: 64418
-    - m_Data: 64420
-    - m_Data: 64422
-    - m_Data: 64424
-    - m_Data: 64426
-    - m_Data: 64428
-    - m_Data: 64430
-    - m_Data: 64432
-    - m_Data: 64434
-    - m_Data: 64436
-    - m_Data: 64438
-    - m_Data: 64440
-    - m_Data: 64442
-    - m_Data: 64444
-    - m_Data: 64446
-    - m_Data: 64448
-    - m_Data: 64450
+    - m_Data: 56774
+    - m_Data: 57350
+    - m_Data: 57376
+    - m_Data: 58446
+    - m_Data: 61826
     - m_Data: 64452
     - m_Data: 64454
     - m_Data: 64456
@@ -2029,7 +1984,31 @@ MonoBehaviour:
     - m_Data: 64558
     - m_Data: 64560
     - m_Data: 64562
-    - m_Data: 64898
+    - m_Data: 64564
+    - m_Data: 64566
+    - m_Data: 64568
+    - m_Data: 64570
+    - m_Data: 64572
+    - m_Data: 64574
+    - m_Data: 64576
+    - m_Data: 64578
+    - m_Data: 64580
+    - m_Data: 64582
+    - m_Data: 64584
+    - m_Data: 64586
+    - m_Data: 64588
+    - m_Data: 64590
+    - m_Data: 64592
+    - m_Data: 64594
+    - m_Data: 64596
+    - m_Data: 64598
+    - m_Data: 64600
+    - m_Data: 64602
+    - m_Data: 64604
+    - m_Data: 64606
+    - m_Data: 64608
+    - m_Data: 64610
+    - m_Data: 64612
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2056,41 +2035,17 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 436}
+    scrollPos: {x: 0, y: 84}
     m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 56776
-    - m_Data: 57352
-    - m_Data: 57378
-    - m_Data: 58448
-    - m_Data: 61796
-    - m_Data: 64404
-    - m_Data: 64406
-    - m_Data: 64408
-    - m_Data: 64410
-    - m_Data: 64412
-    - m_Data: 64414
-    - m_Data: 64416
-    - m_Data: 64418
-    - m_Data: 64420
-    - m_Data: 64422
-    - m_Data: 64424
-    - m_Data: 64426
-    - m_Data: 64428
-    - m_Data: 64430
-    - m_Data: 64432
-    - m_Data: 64434
-    - m_Data: 64436
-    - m_Data: 64438
-    - m_Data: 64440
-    - m_Data: 64442
-    - m_Data: 64444
-    - m_Data: 64446
-    - m_Data: 64448
-    - m_Data: 64450
+    - m_Data: 56774
+    - m_Data: 57350
+    - m_Data: 57376
+    - m_Data: 58446
+    - m_Data: 61826
     - m_Data: 64452
     - m_Data: 64454
     - m_Data: 64456
@@ -2146,8 +2101,35 @@ MonoBehaviour:
     - m_Data: 64556
     - m_Data: 64558
     - m_Data: 64560
-    - m_Data: 64562
-    - m_Data: 64898
+    - m_Data: 64564
+    - m_Data: 64566
+    - m_Data: 64568
+    - m_Data: 64570
+    - m_Data: 64572
+    - m_Data: 64574
+    - m_Data: 64576
+    - m_Data: 64578
+    - m_Data: 64584
+    - m_Data: 64586
+    - m_Data: 64588
+    - m_Data: 64590
+    - m_Data: 64592
+    - m_Data: 64594
+    - m_Data: 64596
+    - m_Data: 64598
+    - m_Data: 64600
+    - m_Data: 64602
+    - m_Data: 64604
+    - m_Data: 64606
+    - m_Data: 64608
+    - m_Data: 64610
+    - m_Data: 64612
+    - m_Data: 64966
+    - m_Data: 65086
+    - m_Data: 65100
+    - m_Data: 65134
+    - m_Data: 65136
+    - m_Data: 65138
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2165,7 +2147,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 12}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}

@@ -1,12 +1,14 @@
+using MoreMountains.Feedbacks;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using MoreMountains.Feedbacks;
 
 public class OnboardingUIController : MonoBehaviour
 {
     [Header("Name Input")]
     [SerializeField] private TMP_InputField nameInputField;
+    [SerializeField] private int maxNameLength = 15;
 
     [Header("Age Slider")]
     [SerializeField] private Slider ageSlider;
@@ -39,6 +41,11 @@ public class OnboardingUIController : MonoBehaviour
 
     private void Start()
     {
+        if (nameInputField != null)
+        {
+            nameInputField.characterLimit = maxNameLength;
+        }
+
         if (ageSlider != null)
         {
             ageSlider.minValue = minAge;
@@ -79,7 +86,7 @@ public class OnboardingUIController : MonoBehaviour
     {
         // Letters only. If you want to allow spaces for multi-word names,
         // change the condition to: char.IsLetter(addedChar) || addedChar == ' '
-        if (char.IsLetter(addedChar))
+        if (char.IsLetterOrDigit(addedChar))
             return addedChar;
 
         return '\0';
@@ -118,6 +125,18 @@ public class OnboardingUIController : MonoBehaviour
         if (string.IsNullOrEmpty(playerName))
         {
             ShowStatus("Please enter a name.");
+            return;
+        }
+
+        if (playerName.Length > maxNameLength)
+        {
+            ShowStatus($"Name must be less than {maxNameLength + 1} characters.");
+            return;
+        }
+
+        if (!playerName.All(char.IsLetterOrDigit))
+        {
+            ShowStatus("Name can only contain letters and numbers.");
             return;
         }
 
