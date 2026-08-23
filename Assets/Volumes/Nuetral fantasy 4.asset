@@ -104,7 +104,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   neutralHDRRangeReductionMode:
     m_OverrideState: 0
     m_Value: 2
@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Value: -0.7
   contrast:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 10
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_Value: -3
   saturation:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 10
 --- !u!114 &4577228705862743757
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ChromaticAberration
-  active: 0
+  active: 1
   intensity:
     m_OverrideState: 1
     m_Value: 0
@@ -185,14 +185,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e021b4c809a781e468c2988c016ebbea, type: 3}
   m_Name: ColorLookup
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ColorLookup
-  active: 1
+  active: 0
   texture:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: d063bb87c0a270041b4a50d6a94f6024, type: 3}
+    m_Value: {fileID: 2800000, guid: 985121459dea4a342b37beba48f3ab5e, type: 3}
     dimension: 1
   contribution:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 1
 --- !u!114 &7769586002644316664
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -208,10 +208,10 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.60808307, y: 0.61997885, z: 1, w: -0.072258994}
+    m_Value: {x: 0.60808307, y: 0.61997885, z: 1, w: 0.039825093}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.9032546, y: 0.91833246, z: 1, w: -0.030127538}
+    m_Value: {x: 0.9032546, y: 0.91833246, z: 1, w: -0.10018007}
   highlights:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.94484276, z: 0.723102, w: 0.03489521}

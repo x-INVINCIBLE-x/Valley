@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6022588830347081343}
   - component: {fileID: -4547146439938697443}
   - component: {fileID: 3869425399405770133}
+  - component: {fileID: 1284512800617320652}
+  - component: {fileID: 5588566009487886619}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -45,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformBlock
-  boundsCenter: {x: 0, y: 0, z: 0}
-  boundsSize: {x: 500, y: 1, z: 500}
+  boundsCenter: {x: 14.833862, y: 0, z: -556.4359}
+  boundsSize: {x: 1484.96, y: 332.59778, z: 1523.6545}
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   surfaceAnchor: {fileID: 0}
@@ -75,4 +77,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
-    prefab: {fileID: 206582840973057822, guid: 96180f108548c444da039eb78240592c, type: 3}
+    prefabs:
+    - prefab: {fileID: 206582840973057822, guid: 96180f108548c444da039eb78240592c, type: 3}
+      weight: 6
+--- !u!33 &1284512800617320652
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005655924565791146}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5588566009487886619
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005655924565791146}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: c900f6c87a4f8fc41ab8c36ac842e271, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}

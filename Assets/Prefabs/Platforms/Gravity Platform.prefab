@@ -5174,7 +5174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessRunner.Level.Generation.PlatformBlock
   boundsCenter: {x: -0.57134247, y: 0, z: -1.240448}
-  boundsSize: {x: 36.62638, y: 20, z: 33.02796}
+  boundsSize: {x: 45.62638, y: 29, z: 42.02796}
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   surfaceAnchor: {fileID: 0}
@@ -5213,9 +5213,9 @@ MonoBehaviour:
     positionJitter: {x: 0, y: 0}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -0.4, y: 0.5, z: 0}
-    - localPosition: {x: 0, y: 0.5, z: 0}
-    - localPosition: {x: 0.4, y: 0.5, z: 0}
+    - localPosition: {x: -18.884537, y: 10, z: 0}
+    - localPosition: {x: -0.57134247, y: 10, z: 0}
+    - localPosition: {x: 17.741852, y: 10, z: 0}
     activeCount: 1
     activationProbability: 0.2
   - categoryName: Powerups
@@ -5228,9 +5228,9 @@ MonoBehaviour:
     positionJitter: {x: 2, y: 1}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -0.4, y: 0.7, z: 0}
-    - localPosition: {x: 0, y: 0.7, z: 0}
-    - localPosition: {x: 0.4, y: 0.7, z: 0}
+    - localPosition: {x: -18.733456, y: 9.474733, z: 0}
+    - localPosition: {x: 0.61935186, y: 9.218406, z: 0}
+    - localPosition: {x: 17.581339, y: 9.487328, z: 0}
     activeCount: 1
     activationProbability: 0.01
   overlapCheckRadius: 0.25
@@ -5255,4 +5255,8 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
     - prefab: {fileID: 3564220349041269022, guid: 398a68358ef5725409d54c18ef18a7fa, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 3081831388020290180, guid: dd50986f4fad2a046a3bda4812a763a9, type: 3}
       weight: 5

@@ -32,7 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,4 +187,8 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
     - prefab: {fileID: 8358878671737883948, guid: 89a736d30b1a3754b923da620ba9d3bc, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 6728571055593665918, guid: a926de360064ec94b91fe7b24aa097ce, type: 3}
       weight: 5
