@@ -80,6 +80,10 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 206582840973057822, guid: 96180f108548c444da039eb78240592c, type: 3}
       weight: 6
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 6643115393378327997, guid: 352ed267863c7924ca369cb4e806463a, type: 3}
+      weight: 6
 --- !u!33 &1284512800617320652
 MeshFilter:
   m_ObjectHideFlags: 0

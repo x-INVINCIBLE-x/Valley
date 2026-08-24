@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_CelShadingCharacter
+  m_Shader: {fileID: 4800000, guid: f1e5ed4c3fb469a43a486f44f199b460, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HatchMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HatchTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ILMTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadeTex1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AmbientStrength: 1
+    - _AnimationOffset: 0.37
+    - _AnimationSpeed: 1
+    - _DiffuseSmoothness: 1
+    - _DiffuseStrength: -0.53
+    - _DiffuseThreshold: 1
+    - _DissolveThickness: 0.1
+    - _DissolveThreshold: 0.1
+    - _DstFactor: 10
+    - _EmissionIntensity: 1
+    - _FresnelIntensity: 1.03
+    - _FresnelSmoothness: 0.26
+    - _FresnelThreshold: 0.58
+    - _Gloss: 1
+    - _HatchOpacity: 0.5
+    - _HatchSmoothness: 0.01
+    - _HatchThreshold: 0.01
+    - _MetallicStrength: 0.5
+    - _NormalStrength: 1
+    - _OcculisionStrength: 0.5
+    - _Opp: 0
+    - _OutlineWidth: 0.01
+    - _ShadeStrength: 1
+    - _SpecularSmoothness: 1
+    - _SpecularThreshold: 1
+    - _SrcFactor: 5
+    - _UseAO: 0
+    - _UseDissolve: 0
+    - _UseEmission: 0
+    - _UseHatching: 0
+    - _UseMetallic: 0
+    - _UseNormal: 0
+    - _UseOutline: 0
+    m_Colors:
+    - _DiffuseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FresnelColor: {r: 0.13886309, g: 0.103773475, b: 1, a: 1}
+    - _HatchColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

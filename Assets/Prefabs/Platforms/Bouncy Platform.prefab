@@ -145,9 +145,9 @@ MonoBehaviour:
     positionJitter: {x: 0, y: 0}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -0.4, y: 0.5, z: 0}
-    - localPosition: {x: 0, y: 0.5, z: 0}
-    - localPosition: {x: 0.4, y: 0.5, z: 0}
+    - localPosition: {x: -20.969574, y: 7.487854, z: 0}
+    - localPosition: {x: -0.029373169, y: 7.487854, z: 0}
+    - localPosition: {x: 20.910828, y: 7.487854, z: 0}
     activeCount: 1
     activationProbability: 0.2
   - categoryName: Powerups
@@ -160,9 +160,9 @@ MonoBehaviour:
     positionJitter: {x: 2, y: 1}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -0.4, y: 0.7, z: 0}
-    - localPosition: {x: 0, y: 0.7, z: 0}
-    - localPosition: {x: 0.4, y: 0.7, z: 0}
+    - localPosition: {x: -21.644907, y: 8.348392, z: 0}
+    - localPosition: {x: 1.0699582, y: 6.5587473, z: 0}
+    - localPosition: {x: 20.02664, y: 7.250346, z: 0}
     activeCount: 1
     activationProbability: 0.01
   overlapCheckRadius: 0.25
