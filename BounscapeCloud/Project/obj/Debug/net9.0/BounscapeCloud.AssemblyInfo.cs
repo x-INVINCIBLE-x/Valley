@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BounscapeCloud")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+508a2ab40bcb48a546c2827ba92c5371c5fda579")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d8051889500b8048fa15a2cc7abadb3b3f8999f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BounscapeCloud")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BounscapeCloud")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
