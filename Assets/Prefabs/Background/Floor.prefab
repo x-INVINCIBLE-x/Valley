@@ -84,6 +84,14 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 6643115393378327997, guid: 352ed267863c7924ca369cb4e806463a, type: 3}
       weight: 6
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 6983826932646272835, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      weight: 6
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 8829889391540198016, guid: 0748caf48e705b04cac514034ebccf4a, type: 3}
+      weight: 6
 --- !u!33 &1284512800617320652
 MeshFilter:
   m_ObjectHideFlags: 0

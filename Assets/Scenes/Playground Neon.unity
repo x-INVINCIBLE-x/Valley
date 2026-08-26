@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.4862745, g: 0.5803922, b: 0.60784316, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.002
+  m_FogDensity: 0.0003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -7635,6 +7635,10 @@ PrefabInstance:
     - target: {fileID: 6643115393378327997, guid: 352ed267863c7924ca369cb4e806463a, type: 3}
       propertyPath: m_Name
       value: Floor Neon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643115393378327997, guid: 352ed267863c7924ca369cb4e806463a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28884,6 +28888,63 @@ MonoBehaviour:
   reviveHealthAmount: 50
   offerDuration: 8
   adProvider: {fileID: 1706527593}
+--- !u!1001 &1225490139
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6983826932646272835, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_Name
+      value: Floor Pixelated 02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 452.3039
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.2952437
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2802.2332
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125415507330156713, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86065aa3a128b0f4496b77baacd69dd2, type: 3}
 --- !u!1 &1236906144
 GameObject:
   m_ObjectHideFlags: 0
@@ -46419,6 +46480,7 @@ MonoBehaviour:
   availableThemes:
   - {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
   - {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+  - {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
 --- !u!1 &2140951437
 GameObject:
   m_ObjectHideFlags: 0
@@ -77080,3 +77142,4 @@ SceneRoots:
   - {fileID: 543450652599626724}
   - {fileID: 110317872}
   - {fileID: 573475055}
+  - {fileID: 1225490139}

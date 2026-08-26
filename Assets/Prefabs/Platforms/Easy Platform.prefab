@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8122842394199844381}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -163,4 +163,14 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     prefabs:
     - prefab: {fileID: 7662641447933759522, guid: 2f6bb27c996e0a841aa7776f5deb3e5b, type: 3}
+      weight: 4
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 3313209472649586302, guid: 7447dc11481e06f43aa8b1706849c96c, type: 3}
+      weight: 4
+    - prefab: {fileID: 3605930776209238389, guid: 62acc3e617e01cf4788dd45ec5e46859, type: 3}
+      weight: 4
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 8990383169584636149, guid: 1eec67f3e1934db47a4ba1ffef4ea19b, type: 3}
       weight: 4
