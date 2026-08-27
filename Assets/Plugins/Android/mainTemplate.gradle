@@ -6,8 +6,12 @@ apply from: '../shared/common.gradle'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.google.android.gms:play-services-games-v2:+' // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:9
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.1.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
+    implementation 'com.google.android.gms:play-services-games-v2:22.0.0' // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:9
     implementation 'com.google.android.gms:play-services-nearby:18.5.0' // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:14
+    implementation 'com.unity3d.ads:unity-ads:4.20.0' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:9
+    implementation 'com.unity3d.ads-mediation:mediation-sdk:9.6.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:5
+    implementation 'com.unity3d.ads-mediation:unityads-adapter:5.12.0' // Assets/LevelPlay/Editor/ISUnityAdsAdapterDependencies.xml:5
     implementation 'com.yodo1.mas.mediation.admob.adapters:applovin-ad-manager:4.18.1' // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:36
     implementation 'com.yodo1.mas.mediation.admob.adapters:applovin-admob:4.18.1' // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:33
     implementation 'com.yodo1.mas.mediation.admob.adapters:ironsource:4.18.1' // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:34

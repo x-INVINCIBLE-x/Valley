@@ -1,8 +1,12 @@
 using UnityEngine;
 using Valley.Economy;
+using Valley.Revive;
 
 public class DailyRewardController : MonoBehaviour
 {
+    [Header("Referenes")]
+    [SerializeField] private MonoBehaviour rewardedAdProvider;
+
     [Header("Reward")]
     [SerializeField] private int rewardAmount = 10;
 
@@ -25,7 +29,10 @@ public class DailyRewardController : MonoBehaviour
             return;
         }
 
+        IRewardedAdProvider adProvider = rewardedAdProvider as IRewardedAdProvider;
+
         _dailyReward = new DailyReward(
+            adProvider,
             wallet,
             rewardAmount,
             maxRewardsPerDay

@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
 using Valley.Economy;
+using Valley.Revive;
 
 public class DailyReward
 {
+    private IRewardedAdProvider _rewardedAdProvider;
     private readonly CurrencyWallet _wallet;
     private readonly int _rewardAmount;
     private readonly int _maxRewardsPerDay;
@@ -24,10 +26,12 @@ public class DailyReward
         Mathf.Max(0, _maxRewardsPerDay - _rewardsClaimedToday);
 
     public DailyReward(
+        IRewardedAdProvider adProvider,
         CurrencyWallet wallet,
         int rewardAmount,
         int maxRewardsPerDay)
     {
+        _rewardedAdProvider = adProvider;
         _wallet = wallet;
         _rewardAmount = rewardAmount;
         _maxRewardsPerDay = Mathf.Max(1, maxRewardsPerDay);
@@ -48,7 +52,7 @@ public class DailyReward
             return;
         }
 
-        var provider = AdManager.instance;
+        var provider = _rewardedAdProvider;
 
         if (provider == null)
         {
@@ -59,7 +63,7 @@ public class DailyReward
         }
 
         _adInFlight = true;
-
+        Debug.Log("Rewared");
         provider.ShowRewardedAd(
             onRewardGranted: () =>
             {
@@ -78,7 +82,7 @@ public class DailyReward
     {
         if (RemainingAttempts <= 0)
             return;
-
+        Debug.Log("Reward Granted");
         _rewardsClaimedToday++;
 
         SaveDailyState();

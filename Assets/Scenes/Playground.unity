@@ -8795,6 +8795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70da9684a8c8a5347bb7cb1e083c6de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailyRewardController
+  rewardedAdProvider: {fileID: 1706527594}
   rewardAmount: 10
   maxRewardsPerDay: 3
   rewardUI: {fileID: 197912650}
@@ -34256,6 +34257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1706527591}
+  - component: {fileID: 1706527594}
   - component: {fileID: 1706527593}
   - component: {fileID: 1706527592}
   m_Layer: 0
@@ -34293,7 +34295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Ads.InterstitialAdScheduler
   playsPerAd: 1
-  adProvider: {fileID: 1706527593}
+  adProvider: {fileID: 1706527594}
   _playsSinceLastAd: 0
 --- !u!114 &1706527593
 MonoBehaviour:
@@ -34302,11 +34304,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706527590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99f3cc13e7ec0d645ae3d2b5811e82f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdManager
+--- !u!114 &1706527594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706527590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042f34ede06690b4cbf2bc5c92d03d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelPlayAds
+  androidAppKey: 27d3968f5
+  iosAppKey: 
+  androidBannerAdUnitId: 4forutrm9oxmtxy6
+  iosBannerAdUnitId: 
+  androidInterstitialAdUnitId: vba2uhzxpyswvsm7
+  iosinterstitialAdUnitId: 
+  androidRewardedAdUnitId: 9brqsc678ldqzjmk
+  iosRewardedAdUnitId: 
 --- !u!1 &1716605340
 GameObject:
   m_ObjectHideFlags: 0
@@ -55004,6 +55026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Theme Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 2371570750767009559, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
+      propertyPath: initialTheme
+      value: 
+      objectReference: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     - target: {fileID: 4146147813003455412, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -55045,8 +55071,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4850742973150115722, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
@@ -65965,7 +65990,7 @@ PrefabInstance:
     - target: {fileID: 6661031574441522672, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
       propertyPath: adProvider
       value: 
-      objectReference: {fileID: 1706527593}
+      objectReference: {fileID: 1706527594}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
