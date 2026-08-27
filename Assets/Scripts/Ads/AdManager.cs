@@ -99,7 +99,7 @@ public class AdManager : MonoBehaviour, IRewardedAdProvider, IInterstitialAdProv
             LoadRewarded();
 
 
-            Invoke(nameof(ShowBanner), 1f); // Delay banner show to ensure it's stable
+            //Invoke(nameof(ShowBanner), 1f); // Delay banner show to ensure it's stable
             Invoke(nameof(LoadRewarded), 2f); // Optional second attempt to load rewarded
         };
 
@@ -131,7 +131,7 @@ public class AdManager : MonoBehaviour, IRewardedAdProvider, IInterstitialAdProv
             if (scene.name != currentScene)
             {
                 currentScene = scene.name;
-                Invoke(nameof(ShowBanner), 1f);
+                //Invoke(nameof(ShowBanner), 1f);
             }
         };
     }

@@ -65,7 +65,7 @@ namespace Valley.Revive
         {
             if (!_offerActive || _adInFlight) return;
 
-            var provider = adProvider as IRewardedAdProvider;
+            var provider = AdManager.instance;
             if (provider == null)
             {
                 Debug.LogWarning("PlayerReviveController: adProvider is not assigned or doesn't implement IRewardedAdProvider.");
@@ -94,11 +94,13 @@ namespace Valley.Revive
 
         private void HandleAdUnavailableOrDeclined()
         {
+            Debug.Log("Failed");
             // Offer window keeps running - the player can retry while time remains.
         }
 
         private void GrantRevive()
         {
+            Debug.Log("revive");
             if (!_offerActive) return;
 
             _offerActive = false;

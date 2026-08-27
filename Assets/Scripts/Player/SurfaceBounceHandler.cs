@@ -72,7 +72,7 @@ namespace Valley.Player
                     1f, 1.5f,
                     Mathf.InverseLerp(minBounceSpeed, maxBounceSpeedForIntensity, bounceVelocity.magnitude)
                 );
-                Debug.Log($"Bounce intensity: {intensity}");
+
                 squashFeedback.RemapCurveOne = _baseSquash * intensity;
                 squashFeedback.Axis = GetAxisFromNormal(contact.normal);
             }
