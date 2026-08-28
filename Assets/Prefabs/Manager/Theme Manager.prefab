@@ -47,12 +47,20 @@ MonoBehaviour:
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
-    - prefab: {fileID: 979187059043968995, guid: f335660003684cf4e8e2dca69e0e0b9b, type: 3}
-      weight: 0
+    - prefab: {fileID: 979187059043968995, guid: afc4bdbb0d1a26b4d89827bbd97965b9, type: 3}
+      weight: 5
   - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     prefabs:
     - prefab: {fileID: 979187059043968995, guid: f335660003684cf4e8e2dca69e0e0b9b, type: 3}
-      weight: 0
+      weight: 5
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 979187059043968995, guid: e63f9fee20630094e83919853908e3d3, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 979187059043968995, guid: e778993ffc161ff4f90ace7547bba982, type: 3}
+      weight: 5
 --- !u!1 &1448222984558551584
 GameObject:
   m_ObjectHideFlags: 0
