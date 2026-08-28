@@ -3,7 +3,6 @@ using Unity.Services.LevelPlay;
 using UnityEngine;
 using Valley.Ads;
 using Valley.Revive;
-using Yodo1.MAS;
 
 public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdProvider
 {
@@ -101,7 +100,7 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
 
     private void SdkInitializationFailedEvent(LevelPlayInitError error)
     {
-        throw new NotImplementedException();
+        Debug.LogError($"[INIT ERROR] {error.ToString()}");
     }
 
     #region BannerAd
@@ -165,12 +164,16 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
     }
 
     void InterstitialOnAdLoadedEvent(LevelPlayAdInfo adInfo) { }
-    void InterstitialOnAdLoadFailedEvent(LevelPlayAdError error) 
+    void InterstitialOnAdLoadFailedEvent(LevelPlayAdError error)
     {
+        Debug.LogError($"[INTERSTITIAL LOAD FAILED]: {error}");
         LoadInterstitialAd();
     }
     void InterstitialOnAdDisplayedEvent(LevelPlayAdInfo adInfo) { }
-    void InterstitialOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error) { }
+    void InterstitialOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
+    {
+        Debug.LogError($"[INTERSTITIAL DISPLAY FAILED]: {error}");
+    }
     void InterstitialOnAdClickedEvent(LevelPlayAdInfo adInfo) { }
     void InterstitialOnAdClosedEvent(LevelPlayAdInfo adInfo)
     {
@@ -211,6 +214,7 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
     void RewardedOnAdLoadFailedEvent(LevelPlayAdError error)
     {
         LoadRewardedAd();
+        Debug.LogError($"[REWARDED LOAD FAILED]: {error}");
     }
 
     void RewardedOnAdDisplayedEvent(LevelPlayAdInfo adInfo)
@@ -220,6 +224,7 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
 
     void RewardedOnAdDisplayFailedEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
     {
+        Debug.LogError($"[REWARDED DISPLAY FAILED]: {error}");
         // The ad was not successfully displayed.
         InvokeUnavailableCallback();
 
@@ -260,7 +265,7 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
     {
         if (rewardedAd == null || !rewardedAd.IsAdReady())
         {
-            Debug.Log("Rewarded ad is not ready.");
+            Debug.LogWarning("Rewarded ad is not ready.");
 
             onAdUnavailableOrDeclined?.Invoke();
             return;

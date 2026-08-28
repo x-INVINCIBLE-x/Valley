@@ -19,28 +19,7 @@ dependencyResolutionManagement {
 // Android Resolver Repos Start
         def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
         maven {
-            url "https://artifactory.bidmachine.io/bidmachine" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://android-sdk.is.com" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://artifact.bytedance.com/repository/pangle" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://jfrog.anythinktech.com/artifactory/overseas_sdk" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://ysonetwork.s3.eu-west-3.amazonaws.com/sdk/android" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://jitpack.io" // Assets/Yodo1/MAS/Editor/Dependencies/Yodo1MasAndroidDependencies.xml:12
-        }
-        maven {
-            url "https://maven.google.com/" // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:9, Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:14, Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
+            url "https://maven.google.com/" // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:9, Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:14, Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12, Assets/LevelPlay/Editor/ISAdMobAdapterDependencies.xml:8
         }
         mavenLocal()
 // Android Resolver Repos End
