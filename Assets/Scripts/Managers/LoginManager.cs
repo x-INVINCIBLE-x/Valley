@@ -32,6 +32,8 @@ namespace Valley
     [AddComponentMenu("Valley/Authentication/Login Manager")]
     public class LoginManager : MonoBehaviour
     {
+        public static LoginManager Instance { get; private set; }
+
         [Header("Settings")]
         [SerializeField] private bool enableDebugLog = true;
         [SerializeField] private bool signInOnAwake = true;
@@ -50,6 +52,21 @@ namespace Valley
         /// </summary>
         public static event Action<string> SignInFailed;
 
+        /// <summary>
+        /// Returns true when the player is authenticated with Unity Authentication.
+        /// Unity Authentication remains the source of truth for the game's login state.
+        /// </summary>
+        public bool IsSignedIn
+        {
+            get
+            {
+                return m_UnityServicesInitialized &&
+                       AuthenticationService.Instance.IsSignedIn;
+            }
+        }
+
+        public string DisplayName => GooglePlayGamesDisplayName;
+
 #if UNITY_ANDROID
 
         /// <summary>
@@ -66,6 +83,21 @@ namespace Valley
 #endif
 
         private async void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
+
+            _ = InitializeAsync();
+        }
+
+        private async Task InitializeAsync()
         {
             await InitializeUnityServicesAsync();
 

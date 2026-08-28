@@ -33,13 +33,33 @@ namespace Valley
 
         private void Start()
         {
-            SetSignedOutState();
+            loginManager = LoginManager.Instance;
+            RefreshLoginState();
         }
 
         private void OnDisable()
         {
             LoginManager.PlayerSignedIn -= OnPlayerSignedIn;
             LoginManager.SignInFailed -= OnSignInFailed;
+        }
+
+        private void RefreshLoginState()
+        {
+            if (loginManager == null)
+            {
+                Debug.LogError("[LoginUI] LoginManager reference is missing.");
+                SetSignedOutState();
+                return;
+            }
+
+            if (loginManager.IsSignedIn)
+            {
+                OnPlayerSignedIn();
+            }
+            else
+            {
+                SetSignedOutState();
+            }
         }
 
         public void OnLoginButtonClicked()

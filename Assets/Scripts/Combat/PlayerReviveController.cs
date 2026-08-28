@@ -65,7 +65,9 @@ namespace Valley.Revive
         {
             if (!_offerActive || _adInFlight) return;
 
-            var provider = adProvider as IRewardedAdProvider;
+            //var provider = adProvider as IRewardedAdProvider;
+            var provider = LevelPlayAds.Instance;
+
             if (provider == null)
             {
                 Debug.LogWarning("PlayerReviveController: adProvider is not assigned or doesn't implement IRewardedAdProvider.");

@@ -28,7 +28,9 @@ namespace Valley.Ads
 
         private void ShowAd()
         {
-            var provider = adProvider as IInterstitialAdProvider;
+            //var provider = adProvider as IInterstitialAdProvider;
+            var provider = LevelPlayAds.Instance;
+
             if (provider == null)
             {
                 Debug.LogWarning("InterstitialAdScheduler: adProvider is not assigned or doesn't implement IInterstitialAdProvider.");

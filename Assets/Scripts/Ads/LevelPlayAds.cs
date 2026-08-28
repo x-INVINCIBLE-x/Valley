@@ -6,6 +6,8 @@ using Valley.Revive;
 
 public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdProvider
 {
+    public static LevelPlayAds Instance { get; private set; }
+
     [Header("App Key")]
     [SerializeField] private string androidAppKey;
     [SerializeField] private string iosAppKey;
@@ -81,10 +83,24 @@ public class LevelPlayAds : MonoBehaviour, IInterstitialAdProvider, IRewardedAdP
 
     private bool rewardGranted;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        transform.parent = null;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void Start()
     {
+#if UNITY_EDITOR
         LevelPlay.ValidateIntegration();
-
+#endif
         LevelPlay.OnInitSuccess += SdkInitializationCompletedEvent;
         LevelPlay.OnInitFailed += SdkInitializationFailedEvent;
 

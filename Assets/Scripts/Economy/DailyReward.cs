@@ -52,7 +52,8 @@ public class DailyReward
             return;
         }
 
-        var provider = _rewardedAdProvider;
+        //var provider = _rewardedAdProvider;
+        var provider = LevelPlayAds.Instance;
 
         if (provider == null)
         {
