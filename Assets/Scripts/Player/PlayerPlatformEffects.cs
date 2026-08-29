@@ -16,11 +16,13 @@ namespace Valley.Player
 
         public PlatformEffectProfile Current { get; private set; }
 
-        private void OnCollisionEnter(Collision collision) => TryApply(collision.collider);
-        //private void OnCollisionExit(Collision collision) => TryClear(collision.collider);
+        private void OnCollisionEnter(Collision collision) => TryApply(collision);
+        //private void OnCollisionExit(Collision collision) => TryClear(collision);
 
-        private void TryApply(Collider other)
+        private void TryApply(Collision collision)
         {
+            var other = collision.collider;
+
             if (!IsInLayerMask(other.gameObject.layer, platformMask)) return;
 
             var zone = other.GetComponent<PlatformEffectZone>();
@@ -28,13 +30,16 @@ namespace Valley.Player
 
             Current = zone.Profile;
 
-            ExecuteFeedback();
+            ExecuteFeedback(collision.contacts[0].point,
+                            collision.contacts[0].normal);
 
             OnPlatformEffectApplied?.Invoke(Current);
         }
 
-        private void TryClear(Collider other)
+        private void TryClear(Collision collision)
         {
+            var other = collision.collider;
+
             if (!IsInLayerMask(other.gameObject.layer, platformMask)) return;
 
             var zone = other.GetComponent<PlatformEffectZone>();
@@ -44,19 +49,27 @@ namespace Valley.Player
             OnPlatformEffectCleared?.Invoke();
         }
 
-        private void ExecuteFeedback()
+        private void ExecuteFeedback(Vector3 position, Vector3 normal)
         {
             if (feedbacks == null || feedbacks.Length == 0) return;
             if (Current == null) return;
 
+            Quaternion rotation = Quaternion.LookRotation(normal);
+
             for (int i = 0; i < feedbacks.Length; i++)
             {
-                PlatfromEffectFeedback fedback = feedbacks[i];
-                if (fedback.EffectType == Current.EffectType)
+                PlatfromEffectFeedback feedback = feedbacks[i];
+                if (feedback.EffectType == Current.EffectType)
                 {
-                    if (fedback.Feedback != null)
+                    if (feedback.Feedback != null)
                     {
-                        fedback.Feedback.PlayFeedbacks();
+                        feedback.Feedback.PlayFeedbacks();
+                    }
+
+                    if (feedback.OnPointFeedback != null)
+                    {
+                        feedback.OnPointFeedback.transform.rotation = rotation;
+                        feedback.OnPointFeedback.PlayFeedbacks(position);
                     }
                     break;
                 }
@@ -71,5 +84,6 @@ namespace Valley.Player
     {
         [field: SerializeField] public EffectType EffectType { get; private set; }
         [field: SerializeField] public MMF_Player Feedback { get; private set; }
+        [field: SerializeField] public MMF_Player OnPointFeedback { get; private set; }
     }
 }

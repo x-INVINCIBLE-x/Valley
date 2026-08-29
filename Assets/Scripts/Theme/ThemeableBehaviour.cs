@@ -4,7 +4,27 @@ namespace Valley.Theming
 {
     public abstract class ThemeableBehaviour : MonoBehaviour
     {
+        public enum ThemingMode
+        {
+            Enable,
+            Start
+        }
+
+        [SerializeField] private ThemingMode mode = ThemingMode.Enable;
+
         protected virtual void OnEnable()
+        {
+            if (mode == ThemingMode.Enable)
+                Setup();
+        }
+
+        protected virtual void Start()
+        {
+            if (mode == ThemingMode.Start)
+                Setup();
+        }
+
+        private void Setup()
         {
             ThemeManager.OnThemeChanged += ApplyTheme;
 
@@ -16,7 +36,14 @@ namespace Valley.Theming
 
         protected virtual void OnDisable()
         {
-            ThemeManager.OnThemeChanged -= ApplyTheme;
+            if (mode == ThemingMode.Enable)
+                ThemeManager.OnThemeChanged -= ApplyTheme;
+        }
+
+        public virtual void OnDestroy()
+        {
+            if (mode == ThemingMode.Start)
+                ThemeManager.OnThemeChanged -= ApplyTheme;
         }
 
         protected abstract void ApplyTheme(ThemeDefinition theme);

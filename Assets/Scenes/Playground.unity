@@ -55029,7 +55029,7 @@ PrefabInstance:
     - target: {fileID: 2371570750767009559, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: initialTheme
       value: 
-      objectReference: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+      objectReference: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     - target: {fileID: 4146147813003455412, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -65926,6 +65926,42 @@ PrefabInstance:
     - target: {fileID: 316640635790469373, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829623113932927520, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157184321439075386, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5862648925608474183, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
       propertyPath: 'aimBlockers.Array.data[0]'
