@@ -10548,8 +10548,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752316557103934431}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -92.87883, y: -13.39, z: -11.70805}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1.93, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10570,7 +10570,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752316557103934431}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10647,6 +10647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  mode: 1
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
@@ -17224,6 +17225,7 @@ MonoBehaviour:
   feedbacks:
   - <EffectType>k__BackingField: 3
     <Feedback>k__BackingField: {fileID: 6829107009063780831}
+    <OnPointFeedback>k__BackingField: {fileID: 0}
 --- !u!114 &1085371392637006613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17269,8 +17271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295f853b97adbb44aae9b3329184a6b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Aiming.AimInputController
-  rotationSpeedDegPerSec: 220
-  startAngleDeg: 90
+  rotationSpeedDegPerSec: -264
+  startAngleDeg: 0
   rotationAffectedByTimeScale: 0
   maxChargeTime: 1
   aimBlockers:
