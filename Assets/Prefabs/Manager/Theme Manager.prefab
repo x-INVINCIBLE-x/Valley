@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  mode: 0
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
@@ -112,3 +113,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
   - {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
   - {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+  - {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}

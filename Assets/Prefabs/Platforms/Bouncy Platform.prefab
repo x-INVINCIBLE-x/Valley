@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  mode: 0
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
@@ -203,4 +204,8 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
     prefabs:
     - prefab: {fileID: 8565613851469109550, guid: 7ab95991ae9f9c549a9689c190bc5f2e, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    prefabs:
+    - prefab: {fileID: 5853255471664473526, guid: 0a6b4361022eb7748aaefe7bf1278780, type: 3}
       weight: 5
