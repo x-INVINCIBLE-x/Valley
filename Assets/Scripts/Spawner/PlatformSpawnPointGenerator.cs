@@ -191,7 +191,7 @@ namespace Valley.Level.Spawning
 
                 Gizmos.color = category.gizmoColor;
                 foreach (var point in category.points)
-                    Gizmos.DrawWireSphere(transform.TransformPoint(point.localPosition), gizmoRadius);
+                    Gizmos.DrawSphere(transform.TransformPoint(point.localPosition), gizmoRadius);
             }
         }
     }

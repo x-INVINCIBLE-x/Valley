@@ -160,11 +160,26 @@ MonoBehaviour:
     positionJitter: {x: 2, y: 1}
     zRange: {x: 0, y: 0}
     points:
-    - localPosition: {x: -19.851013, y: 9.256917, z: 0}
-    - localPosition: {x: 0.5721049, y: 10.266224, z: 0}
-    - localPosition: {x: 20.262976, y: 10.45181, z: 0}
+    - localPosition: {x: -19.099905, y: 10.457769, z: 0}
+    - localPosition: {x: -0.40024352, y: 10.371232, z: 0}
+    - localPosition: {x: 19.778196, y: 10.723143, z: 0}
     activeCount: 1
     activationProbability: 0.01
+  - categoryName: Collectibles
+    prefabs:
+    - {fileID: -6607678068641846427, guid: 8c7dee6464be0ae48bad30da21012e74, type: 3}
+    gizmoColor: {r: 1, g: 0.89338535, b: 0, a: 1}
+    autoPointCount: 5
+    positionJitter: {x: 2, y: 0}
+    zRange: {x: 0, y: 0}
+    points:
+    - localPosition: {x: -20.391735, y: 10, z: 0}
+    - localPosition: {x: -10.034469, y: 10, z: 0}
+    - localPosition: {x: -1.8934522, y: 10, z: 0}
+    - localPosition: {x: 11.130225, y: 10, z: 0}
+    - localPosition: {x: 19.74681, y: 10, z: 0}
+    activeCount: 1
+    activationProbability: 1
   overlapCheckRadius: 0.25
   obstructionLayers:
     serializedVersion: 2

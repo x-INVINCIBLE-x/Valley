@@ -32988,7 +32988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1621702770
 Transform:
   m_ObjectHideFlags: 0
@@ -71138,7 +71138,7 @@ PrefabInstance:
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[0].premadeLevel
       value: 
-      objectReference: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[1].premadeLevel
       value: 
