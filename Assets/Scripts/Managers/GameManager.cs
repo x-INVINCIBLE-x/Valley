@@ -1,18 +1,23 @@
+using Esper.ESave.Example;
 using MoreMountains.Feedbacks;
 using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Valley.Aiming;
+using Valley.Revive;
 
 public class GameManager : MonoBehaviour, IAimBlocker
 {
     public static GameManager Instance { get; private set; }
 
+    [SerializeField]
+    private SaveLoad saveLoad;
+
     private MMF_Player resetFeedback;
 
     public event Action<bool> OnPaused;
 
-    public bool IsPaused { get { return isPaused; } }
+    public bool IsPaused => isPaused;
+
     public bool CanAim => !isPaused;
 
     private bool isPaused = false;
@@ -24,31 +29,102 @@ public class GameManager : MonoBehaviour, IAimBlocker
             Destroy(gameObject);
             return;
         }
-        
+
+        transform.SetParent(null);
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        if (saveLoad == null)
+        {
+            saveLoad = GetComponentInChildren<SaveLoad>();
+        }
+
+        if (saveLoad == null)
+        {
+            Debug.LogError(
+                "GameManager: SaveLoadExample is missing."
+            );
+        }
     }
 
     private void Start()
     {
         InputController.OnPaused += TogglePause;
+
+        PlayerReviveController.OnGameOver += HandleGameOver;
+
+        // Load once when the game boots.
+        LoadGame();
     }
 
     private void OnDestroy()
     {
         InputController.OnPaused -= TogglePause;
+
+        PlayerReviveController.OnGameOver -= HandleGameOver;
     }
+
+    // ==================================================
+    // SAVE / LOAD
+    // ==================================================
+
+    public void LoadGame()
+    {
+        if (saveLoad == null)
+            return;
+
+        saveLoad.LoadGame();
+    }
+
+    public void SaveGame()
+    {
+        if (saveLoad == null)
+            return;
+
+        saveLoad.SaveGame();
+    }
+
+    // ==================================================
+    // MATCH END
+    // ==================================================
+
+    private void HandleGameOver()
+    {
+        Debug.Log("Match ended. Saving game.");
+
+        SaveGame();
+    }
+
+    // ==================================================
+    // APPLICATION
+    // ==================================================
+
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    // ==================================================
+    // PAUSE
+    // ==================================================
 
     public void TogglePause()
     {
         isPaused = !isPaused;
+
         OnPaused?.Invoke(isPaused);
     }
 
     public void SetPause(bool pause)
     {
         isPaused = pause;
+
         OnPaused?.Invoke(isPaused);
     }
+
+    // ==================================================
+    // RESET
+    // ==================================================
 
     public void Reset()
     {
@@ -58,8 +134,14 @@ public class GameManager : MonoBehaviour, IAimBlocker
         }
     }
 
+    // ==================================================
+    // EXIT
+    // ==================================================
+
     public void Exit()
     {
+        SaveGame();
+
         Application.Quit();
     }
 }

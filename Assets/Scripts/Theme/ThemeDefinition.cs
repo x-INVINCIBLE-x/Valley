@@ -6,6 +6,8 @@ namespace Valley.Theming
     public class ThemeDefinition : ScriptableObject
     {
         [Header("Info")]
+        [SerializeField] private string saveId;
+
         public string themeName;
         public Sprite icon;
 
@@ -28,5 +30,8 @@ namespace Valley.Theming
 
         // Used when fogMode is Exponential or ExponentialSquared
         [Range(0f, 0.5f)] public float fogDensity = 0.002f;
+        
+        
+        public string SaveId => saveId;
     }
 }

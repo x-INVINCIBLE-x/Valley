@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,17 +11,16 @@ namespace Valley.Shop
     {
         [Header("Display")]
         [SerializeField] private Image iconImage;
-        [SerializeField] private Text nameText;
-        [SerializeField] private Text priceText;
+        [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private GameObject lockIndicator;
-        [Tooltip("Optional - fills 0 to 1 while held, to show purchase-hold progress.")]
         [SerializeField] private Image holdProgressImage;
 
         [Header("Interaction")]
-        [Tooltip("A tap shorter than this previews the theme. Holding past this attempts a purchase.")]
         [SerializeField] private float holdDurationToBuy = 0.8f;
 
-        private static readonly Dictionary<ThemeDefinition, ThemeShopSlot> _registry = new Dictionary<ThemeDefinition, ThemeShopSlot>();
+        private static readonly Dictionary<ThemeDefinition, ThemeShopSlot> _registry =
+            new Dictionary<ThemeDefinition, ThemeShopSlot>();
 
         private ThemeDefinition _theme;
         private ThemeShopController _controller;
@@ -33,35 +33,77 @@ namespace Valley.Shop
 
         public static ThemeShopSlot Find(ThemeDefinition theme)
         {
-            return theme != null && _registry.TryGetValue(theme, out var slot) ? slot : null;
+            return theme != null &&
+                   _registry.TryGetValue(theme, out var slot)
+                ? slot
+                : null;
         }
 
-        public void Initialize(ThemeDefinition theme, ThemeShopController controller)
+        public void Initialize(
+            ThemeDefinition theme,
+            ThemeShopController controller)
         {
             _theme = theme;
             _controller = controller;
-            _registry[theme] = this;
 
-            if (iconImage != null) iconImage.sprite = theme.icon;
-            if (nameText != null) nameText.text = theme.themeName;
+            if (_theme != null)
+                _registry[_theme] = this;
+
+            if (iconImage != null)
+                iconImage.sprite = theme.icon;
+
+            if (nameText != null)
+                nameText.text = theme.themeName;
 
             Refresh();
         }
 
+        private void OnEnable()
+        {
+            ThemeManager.OnThemeChanged += HandleThemeChanged;
+            ThemeManager.OnThemePurchased += HandleThemePurchased;
+        }
+
+        private void OnDisable()
+        {
+            ThemeManager.OnThemeChanged -= HandleThemeChanged;
+            ThemeManager.OnThemePurchased -= HandleThemePurchased;
+        }
+
         private void OnDestroy()
         {
-            if (_theme != null && _registry.TryGetValue(_theme, out var current) && current == this)
+            if (_theme != null &&
+                _registry.TryGetValue(_theme, out var current) &&
+                current == this)
             {
                 _registry.Remove(_theme);
             }
         }
 
+        private void HandleThemeChanged(ThemeDefinition theme)
+        {
+            Refresh();
+        }
+
+        private void HandleThemePurchased(ThemeDefinition theme)
+        {
+            Refresh();
+        }
+
         public void Refresh()
         {
+            if (_theme == null || _controller == null)
+                return;
+
             bool owned = _controller.IsOwned(_theme);
 
-            if (lockIndicator != null) lockIndicator.SetActive(!owned);
-            if (priceText != null) priceText.text = owned ? "Owned" : _theme.price.ToString();
+            if (lockIndicator != null)
+                lockIndicator.SetActive(!owned);
+
+            if (priceText != null)
+                priceText.text = owned
+                    ? "Owned"
+                    : _theme.price.ToString();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -70,43 +112,56 @@ namespace Valley.Shop
             _purchaseTriggeredThisPress = false;
             _pressStartTime = Time.unscaledTime;
 
-            if (holdProgressImage != null) holdProgressImage.fillAmount = 1f;
+            if (holdProgressImage != null)
+                holdProgressImage.fillAmount = 1f;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (!_isPressed) return;
+            if (!_isPressed)
+                return;
+
             _isPressed = false;
 
-            if (holdProgressImage != null) holdProgressImage.fillAmount = 1f;
+            if (holdProgressImage != null)
+                holdProgressImage.fillAmount = 1f;
 
-            if (_purchaseTriggeredThisPress) return;
+            if (_purchaseTriggeredThisPress)
+                return;
 
-            float heldDuration = Time.unscaledTime - _pressStartTime;
+            float heldDuration =
+                Time.unscaledTime - _pressStartTime;
+
             if (heldDuration < holdDurationToBuy)
-            {
                 _controller.PreviewTheme(_theme);
-            }
         }
 
         private void Update()
         {
-            if (!_isPressed || _purchaseTriggeredThisPress) return;
+            if (!_isPressed || _purchaseTriggeredThisPress)
+                return;
 
-            float heldDuration = Time.unscaledTime - _pressStartTime;
+            float heldDuration =
+                Time.unscaledTime - _pressStartTime;
 
             if (holdProgressImage != null)
             {
                 holdProgressImage.fillAmount = Mathf.Clamp01(
-                    (holdDurationToBuy - heldDuration) / holdDurationToBuy);
+                    (holdDurationToBuy - heldDuration) /
+                    holdDurationToBuy
+                );
             }
 
-            if (heldDuration < holdDurationToBuy) return;
+            if (heldDuration < holdDurationToBuy)
+                return;
 
             _purchaseTriggeredThisPress = true;
-            if (_controller.TryPurchase(_theme)) Refresh();
 
-            if (holdProgressImage != null) holdProgressImage.fillAmount = 1f;
+            if (_controller.TryPurchase(_theme))
+                Refresh();
+
+            if (holdProgressImage != null)
+                holdProgressImage.fillAmount = 1f;
         }
     }
 }

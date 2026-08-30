@@ -71,7 +71,6 @@ namespace Valley
 
         /// <summary>
         /// Google Play Games display name.
-        /// Example: "Shubham"
         /// </summary>
         public string GooglePlayGamesDisplayName { get; private set; }
 

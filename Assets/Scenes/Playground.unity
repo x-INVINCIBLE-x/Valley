@@ -7141,7 +7141,8 @@ Transform:
   m_LocalPosition: {x: -18.73704, y: -2.68918, z: 74.17141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1671445227}
   m_Father: {fileID: 49769248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &550864628
@@ -7156,6 +7157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6391cf2f0107a34ba65cfd453965d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  saveLoad: {fileID: 1671445225}
 --- !u!1 &580839186
 GameObject:
   m_ObjectHideFlags: 0
@@ -34212,6 +34214,73 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5406832016397650341, guid: 32b481090bf8f1b4287d82b401c97d9c, type: 3}
   m_PrefabInstance: {fileID: 1762511081}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1671445224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1671445227}
+  - component: {fileID: 1671445226}
+  - component: {fileID: 1671445225}
+  m_Layer: 0
+  m_Name: Save Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1671445225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671445224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e2977479b9af441b4584bdf64d67c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveLoad
+--- !u!114 &1671445226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671445224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b4b220e9db2634389147b7a07bb0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ESave::Esper.ESave.SaveFileSetup
+  saveFileData:
+    fileName: Persistance
+    saveLocation: 0
+    filePath: 
+    fileType: 0
+    encryptionMethod: 1
+    aesKey: 8z8KCOLlz0d8Ex4/s6UNVz8+4QXwvhsl3JiHklizYDw=
+    aesIV: r5EF/zNKrx4GBnQYpX0NYg==
+    addToStorage: 1
+    backgroundTask: 1
+--- !u!4 &1671445227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671445224}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3813.3376, y: -66.75648, z: -77.87536}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 550864627}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1673265251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3927843006806357455, guid: 89dc55d9518449e4ba5b8cb6cc6df203, type: 3}
