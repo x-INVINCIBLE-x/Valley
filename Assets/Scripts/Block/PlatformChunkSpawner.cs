@@ -660,6 +660,8 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
+            instance.RecalculateBoundsFromRenderers();
+
             PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();

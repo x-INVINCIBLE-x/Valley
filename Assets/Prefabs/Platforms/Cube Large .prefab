@@ -105,6 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessRunner.Level.Generation.PlatformBlock
+  autoBoundOnStart: 1
+  detectBoundsFromLayer: 1
+  boundsLayer:
+    serializedVersion: 2
+    m_Bits: 128
   boundsCenter: {x: 0, y: 3.2818518, z: 0}
   boundsSize: {x: 67.28, y: 8.702833, z: 33.792786}
   leftAnchor: {fileID: 0}

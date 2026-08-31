@@ -12,7 +12,8 @@ public class PauseUI : MonoBehaviour
     {
         GameManager.Instance.OnPaused += ShowPauseUI;
 
-        pauseUI.SetActive(false);
+        if (pauseUI != null)
+            pauseUI.SetActive(false);
     }
 
     private void OnDestroy()
@@ -27,7 +28,8 @@ public class PauseUI : MonoBehaviour
         else if (!isPaused && unpauseFeedback != null)
             unpauseFeedback.PlayFeedbacks();
 
-        pauseUI.SetActive(isPaused);
+        if (pauseUI != null)
+            pauseUI.SetActive(isPaused);
     }
 
     public void Pause()
