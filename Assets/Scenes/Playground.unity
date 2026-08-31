@@ -55102,6 +55102,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 49769248}
     m_Modifications:
+    - target: {fileID: 1364939214938642550, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
+      propertyPath: mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1448222984558551584, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: m_Name
       value: Theme Manager
