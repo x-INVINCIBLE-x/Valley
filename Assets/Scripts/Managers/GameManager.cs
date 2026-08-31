@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
         if (saveLoad == null)
         {
             Debug.LogError(
-                "GameManager: SaveLoadExample is missing."
+                "GameManager: SaveLoad is missing."
             );
         }
     }
@@ -53,14 +53,12 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
         PlayerReviveController.OnGameOver += HandleGameOver;
 
-        // Load once when the game boots.
         LoadGame();
     }
 
     private void OnDestroy()
     {
         InputController.OnPaused -= TogglePause;
-
         PlayerReviveController.OnGameOver -= HandleGameOver;
     }
 
@@ -84,6 +82,14 @@ public class GameManager : MonoBehaviour, IAimBlocker
         saveLoad.SaveGame();
     }
 
+    public void SaveGameToCloud()
+    {
+        if (saveLoad == null)
+            return;
+
+        saveLoad.SaveGameToCloud();
+    }
+
     // ==================================================
     // MATCH END
     // ==================================================
@@ -101,7 +107,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        SaveGameToCloud();
     }
 
     // ==================================================
@@ -140,7 +146,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
     public void Exit()
     {
-        SaveGame();
+        SaveGameToCloud();
 
         Application.Quit();
     }

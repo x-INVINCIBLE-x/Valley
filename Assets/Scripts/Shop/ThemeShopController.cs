@@ -70,7 +70,9 @@ namespace Valley.Shop
 
             // Save the newly purchased theme.
             if (GameManager.Instance != null)
-                GameManager.Instance.SaveGame();
+            {
+                GameManager.Instance.SaveGameToCloud();
+            }
 
             return true;
         }

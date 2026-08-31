@@ -153,28 +153,26 @@ namespace Valley
         /// </summary>
         private void InitializeGooglePlayGames()
         {
-            if (!m_UnityServicesInitialized)
-            {
-                LogWarning("Unity Services are not initialized yet.");
-                return;
-            }
-
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                Log("Unity Authentication already signed in.");
-
-                RefreshPlayerInformation();
-                PlayerSignedIn?.Invoke();
-
-                return;
-            }
-
+#if UNITY_ANDROID
             PlayGamesPlatform.DebugLogEnabled = enableDebugLog;
             PlayGamesPlatform.Activate();
 
+            if (PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                Log("Google Play Games is already signed in.");
+
+                RefreshPlayerInformation();
+                StartUnityAuthentication();
+
+                return;
+            }
+
             Log("Starting automatic Google Play Games authentication...");
 
-            PlayGamesPlatform.Instance.Authenticate(OnAutomaticAuthenticationFinished);
+            PlayGamesPlatform.Instance.Authenticate(
+                OnAutomaticAuthenticationFinished
+            );
+#endif
         }
 
         /// <summary>
@@ -195,9 +193,6 @@ namespace Valley
                 return;
             }
 
-            // Automatic authentication failed.
-            // This is NOT treated as a fatal error because the player
-            // may simply need to press the Login button.
             LogWarning(
                 $"Automatic Google Play Games authentication did not succeed: {status}"
             );
@@ -214,19 +209,10 @@ namespace Valley
         /// </summary>
         public void StartGooglePlayGamesLogin()
         {
+#if UNITY_ANDROID
             if (!m_UnityServicesInitialized)
             {
                 LogWarning("Unity Services are not initialized yet.");
-                return;
-            }
-
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                Log("Player is already signed into Unity Authentication.");
-
-                RefreshPlayerInformation();
-                PlayerSignedIn?.Invoke();
-
                 return;
             }
 
@@ -240,6 +226,16 @@ namespace Valley
             PlayGamesPlatform.DebugLogEnabled = enableDebugLog;
             PlayGamesPlatform.Activate();
 
+            if (PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                Log("Google Play Games is already signed in.");
+
+                RefreshPlayerInformation();
+                StartUnityAuthentication();
+
+                return;
+            }
+
             m_GooglePlayGamesAuthenticating = true;
 
             Log("Starting manual Google Play Games authentication...");
@@ -247,6 +243,9 @@ namespace Valley
             PlayGamesPlatform.Instance.ManuallyAuthenticate(
                 OnManualAuthenticationFinished
             );
+#else
+    LogWarning("Google Play Games login is only available on Android.");
+#endif
         }
 
         /// <summary>

@@ -6444,10 +6444,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 550864628}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SetPause
-        m_Mode: 6
+      - m_Target: {fileID: 1778941438}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7137,8 +7137,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550864626}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.73704, y: -2.68918, z: 74.17141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10018,7 +10018,6 @@ GameObject:
   m_Component:
   - component: {fileID: 853646118}
   - component: {fileID: 853646117}
-  - component: {fileID: 853646116}
   - component: {fileID: 853646115}
   m_Layer: 0
   m_Name: Render Camera
@@ -10071,14 +10070,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &853646116
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853646114}
-  m_Enabled: 1
 --- !u!20 &853646117
 Camera:
   m_ObjectHideFlags: 0
@@ -20395,33 +20386,9 @@ PrefabInstance:
       value: Button - Exit
       objectReference: {fileID: 0}
     - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 550864628}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Exit
-      objectReference: {fileID: 0}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3301586620536241461, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1321512115}
     - target: {fileID: 6339888434707580697, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
       propertyPath: m_text
       value: EXIT
@@ -30941,6 +30908,7 @@ GameObject:
   - component: {fileID: 1321512114}
   - component: {fileID: 1321512113}
   - component: {fileID: 1321512112}
+  - component: {fileID: 1321512115}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -31035,6 +31003,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1321512115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321512110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45b794b1d3bcfe41afe81df7d38071b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuUI
 --- !u!1001 &1345946585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34225,6 +34205,7 @@ GameObject:
   - component: {fileID: 1671445227}
   - component: {fileID: 1671445226}
   - component: {fileID: 1671445225}
+  - component: {fileID: 1671445228}
   m_Layer: 0
   m_Name: Save Manager
   m_TagString: Untagged
@@ -34281,6 +34262,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 550864627}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671445228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671445224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633b2548f97f2d14d9cbf222573f4127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.GooglePlaySaveManager
+  saveFileName: player_save
+  debugLogs: 1
 --- !u!4 &1673265251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3927843006806357455, guid: 89dc55d9518449e4ba5b8cb6cc6df203, type: 3}
@@ -34888,6 +34883,7 @@ GameObject:
   - component: {fileID: 1778941435}
   - component: {fileID: 1778941437}
   - component: {fileID: 1778941436}
+  - component: {fileID: 1778941438}
   m_Layer: 5
   m_Name: Pause UI
   m_TagString: Untagged
@@ -34966,6 +34962,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778941433}
   m_CullTransparentMesh: 1
+--- !u!114 &1778941438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778941433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39aef689f9ed841b15b62d036b0491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseUI
+  pauseUI: {fileID: 473628733}
+  pauseFeedback: {fileID: 0}
+  unpauseFeedback: {fileID: 0}
 --- !u!1 &1779105205
 GameObject:
   m_ObjectHideFlags: 0
