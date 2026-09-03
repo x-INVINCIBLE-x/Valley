@@ -17383,6 +17383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Revive.PlayerReviveController
   reviveHealthAmount: 50
   offerDuration: 8
+  maxRevives: 1
   adProvider: {fileID: 0}
 --- !u!1 &4662261556064832140
 GameObject:

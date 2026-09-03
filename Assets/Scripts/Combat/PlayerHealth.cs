@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Valley.Combat;
 using Valley.Aiming;
+using MoreMountains.Feedbacks;
 
 namespace Valley.Player
 {
@@ -13,6 +14,9 @@ namespace Valley.Player
         public static event Action OnPlayerDamaged;
         public static event Action OnPlayerDied;
         public static event Action OnPlayerRevived;
+
+        [SerializeField] private MMF_Player OnDeathFeedback;
+        [SerializeField] private MMF_Player OnReviveFeedback;
 
         private Health _health;
 
@@ -44,6 +48,7 @@ namespace Valley.Player
 
         private void HandleDeath()
         {
+            OnDeathFeedback?.PlayFeedbacks();
             OnPlayerDied?.Invoke();
 
             var aim = GetComponent<InputController>();
@@ -58,6 +63,7 @@ namespace Valley.Player
             var aim = GetComponent<InputController>();
             if (aim != null) aim.enabled = true;
 
+            OnReviveFeedback?.PlayFeedbacks();
             OnPlayerRevived?.Invoke();
         }
     }
