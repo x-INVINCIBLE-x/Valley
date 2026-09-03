@@ -21845,7 +21845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.LoginUI
   loginManager: {fileID: 606454105}
-  loginButton: {fileID: 1476651503}
   accountNameText: {fileID: 1846616150}
   statusText: {fileID: 789437279}
   accountPanel: {fileID: 1846616151}
@@ -21854,6 +21853,7 @@ MonoBehaviour:
   signedOutText: Connect to Google Play
   signingInText: Signing in...
   signInFailedText: Sign in failed
+  loginButton: {fileID: 1476651503}
 --- !u!1 &1066333499
 GameObject:
   m_ObjectHideFlags: 0
@@ -44094,7 +44094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -135}
+  m_AnchoredPosition: {x: 455, y: -135}
   m_SizeDelta: {x: 430, y: 135}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2107573332

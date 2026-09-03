@@ -8,7 +8,6 @@ namespace Valley
     {
         [Header("References")]
         [SerializeField] private LoginManager loginManager;
-        [SerializeField] private Button loginButton;
         [SerializeField] private TMP_Text accountNameText;
         [SerializeField] private TMP_Text statusText;
         [SerializeField] private GameObject accountPanel;
@@ -25,15 +24,34 @@ namespace Valley
         [SerializeField] private string signingInText = "Signing in...";
         [SerializeField] private string signInFailedText = "Sign in failed";
 
+        [SerializeField] private Button loginButton;
+
+        private void Awake()
+        {
+            loginManager = LoginManager.Instance;
+            Debug.Log("[LoginUI] Awake");
+            if (loginButton == null)
+            {
+                Debug.LogError(
+                    "[LoginUI] No Button found in children. " +
+                    "Make sure the login button is under LoginUI."
+                );
+            }
+            else
+            {
+                // Remove first in case this component gets enabled/disabled
+                // multiple times.
+                loginButton.onClick.RemoveListener(OnLoginButtonClicked);
+                loginButton.onClick.AddListener(OnLoginButtonClicked);
+            }
+        }
+
         private void OnEnable()
         {
             LoginManager.PlayerSignedIn += OnPlayerSignedIn;
             LoginManager.SignInFailed += OnSignInFailed;
-        }
 
-        private void Start()
-        {
-            loginManager = LoginManager.Instance;
+            // Handle case where LoginManager was already signed in.
             RefreshLoginState();
         }
 
@@ -43,8 +61,19 @@ namespace Valley
             LoginManager.SignInFailed -= OnSignInFailed;
         }
 
+        private void OnDestroy()
+        {
+            if (loginButton != null)
+                loginButton.onClick.RemoveListener(OnLoginButtonClicked);
+        }
+
         private void RefreshLoginState()
         {
+            if (loginManager == null)
+            {
+                loginManager = LoginManager.Instance;
+            }
+
             if (loginManager == null)
             {
                 Debug.LogError("[LoginUI] LoginManager reference is missing.");
@@ -62,8 +91,13 @@ namespace Valley
             }
         }
 
-        public void OnLoginButtonClicked()
+        private void OnLoginButtonClicked()
         {
+            if (loginManager == null)
+            {
+                loginManager = LoginManager.Instance;
+            }
+
             if (loginManager == null)
             {
                 Debug.LogError("[LoginUI] LoginManager reference is missing.");
@@ -119,7 +153,6 @@ namespace Valley
 
             Debug.LogWarning($"[LoginUI] Sign in failed: {error}");
 
-            // Make sure the UI remains in the signed-out state.
             if (signedInObject != null)
                 signedInObject.SetActive(false);
 

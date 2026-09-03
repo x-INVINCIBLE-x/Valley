@@ -13,6 +13,7 @@ namespace Valley
     public class GooglePlaySaveManager : MonoBehaviour
     {
         public static GooglePlaySaveManager Instance { get; private set; }
+        public static event Action CloudSaveReady;
 
         [SerializeField]
         private string saveFileName = "player_save";
@@ -50,7 +51,9 @@ namespace Valley
 #if UNITY_ANDROID
             IsReady = true;
 
-            Log("Google Play cloud save is ready.");
+            Log("Google Play Games authentication is ready.");
+
+            CloudSaveReady?.Invoke();
 #endif
         }
 

@@ -210,41 +210,49 @@ namespace Valley
         public void StartGooglePlayGamesLogin()
         {
 #if UNITY_ANDROID
-            if (!m_UnityServicesInitialized)
+            if (PlayGamesPlatform.Instance == null)
             {
-                LogWarning("Unity Services are not initialized yet.");
+                Debug.LogError("[LoginManager] PlayGamesPlatform is not available.");
+                SignInFailed?.Invoke("Google Play Games is unavailable.");
                 return;
             }
-
-            if (m_GooglePlayGamesAuthenticating ||
-                m_UnityAuthenticationInProgress)
-            {
-                LogWarning("Authentication is already in progress.");
-                return;
-            }
-
-            PlayGamesPlatform.DebugLogEnabled = enableDebugLog;
-            PlayGamesPlatform.Activate();
 
             if (PlayGamesPlatform.Instance.IsAuthenticated())
             {
-                Log("Google Play Games is already signed in.");
-
-                RefreshPlayerInformation();
-                StartUnityAuthentication();
-
+                HandleSuccessfulSignIn();
                 return;
             }
 
-            m_GooglePlayGamesAuthenticating = true;
+            Debug.Log("[LoginManager] Starting manual Google Play Games authentication.");
 
-            Log("Starting manual Google Play Games authentication...");
+            PlayGamesPlatform.Instance.ManuallyAuthenticate(status =>
+            {
+                Debug.Log($"[LoginManager] Authentication result: {status}");
 
-            PlayGamesPlatform.Instance.ManuallyAuthenticate(
-                OnManualAuthenticationFinished
-            );
+                if (status == SignInStatus.Success)
+                {
+                    HandleSuccessfulSignIn();
+                }
+                else
+                {
+                    SignInFailed?.Invoke(status.ToString());
+                }
+            });
 #else
-    LogWarning("Google Play Games login is only available on Android.");
+    SignInFailed?.Invoke("Google Play Games is only available on Android.");
+#endif
+        }
+
+        private void HandleSuccessfulSignIn()
+        {
+#if UNITY_ANDROID
+            if (!PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                SignInFailed?.Invoke("Authentication reported success but player is not authenticated.");
+                return;
+            }
+
+            PlayerSignedIn?.Invoke();
 #endif
         }
 
