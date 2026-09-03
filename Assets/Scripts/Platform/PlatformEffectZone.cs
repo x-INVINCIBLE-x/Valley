@@ -21,7 +21,7 @@ namespace Valley.Platforms
             if (pointCollisionFeedback != null)
             {
                 Vector3 normal = collision.contacts[0].normal;
-                Quaternion lookRotation = Quaternion.LookRotation(normal);
+                Quaternion lookRotation = Quaternion.LookRotation(-normal);
                 
                 pointCollisionFeedback.transform.rotation = lookRotation;
                 pointCollisionFeedback.PlayFeedbacks(collision.contacts[0].point);
