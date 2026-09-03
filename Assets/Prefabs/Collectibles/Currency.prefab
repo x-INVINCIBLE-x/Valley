@@ -11,10 +11,8 @@ GameObject:
   - component: {fileID: 1113507418679370311}
   - component: {fileID: 5627608358418411440}
   - component: {fileID: 4767042378911091344}
-  - component: {fileID: 7825011829512865024}
   - component: {fileID: 2340993043520196688}
   - component: {fileID: -6607678068641846427}
-  - component: {fileID: -2960775098346584933}
   m_Layer: 9
   m_Name: Currency
   m_TagString: Untagged
@@ -52,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7459402207923310631}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -94,27 +92,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7825011829512865024
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7459402207923310631}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2340993043520196688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
   mode: 0
-  entries: []
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefabs:
+    - prefab: {fileID: 306700866205418467, guid: 224518c371289a1419334262615241b5, type: 3}
+      weight: 5
+    - prefab: {fileID: 7178389527394821171, guid: 0768af028bc73a549b71b00ad0033bd4, type: 3}
+      weight: 5
+    - prefab: {fileID: 4460407875784521774, guid: bf4b1b398efc2a64f80bf9e68b090239, type: 3}
+      weight: 3
+    - prefab: {fileID: 6661490808417169621, guid: 0e17b68e077d51042afb2f86b5bfb342, type: 3}
+      weight: 1
 --- !u!114 &-6607678068641846427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,20 +128,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2633fa8dc87b830449fc664ec82217e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Spawning.SpawnedEntity
---- !u!114 &-2960775098346584933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7459402207923310631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334482355204a4478b1fcb977f01183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CurrencyProvider
-  onTrigger: 1
-  collectorLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  amt: 10
