@@ -815,6 +815,7 @@ Transform:
   - {fileID: 865035396}
   - {fileID: 13183978}
   - {fileID: 1441645511}
+  - {fileID: 1245205334}
   - {fileID: 1771297716}
   - {fileID: 291690107}
   m_Father: {fileID: 0}
@@ -28748,6 +28749,84 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &1245205333
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 100822096}
+    m_Modifications:
+    - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1224916880}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871692670544356112, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_Name
+      value: Chaser (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871692670544356112, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+--- !u!4 &1245205334 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+  m_PrefabInstance: {fileID: 1245205333}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1254946430
 GameObject:
   m_ObjectHideFlags: 0
@@ -32008,7 +32087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1441645505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45896,7 +45975,6 @@ MonoBehaviour:
   DebugActive: 0
   InScriptDrivenPause: 0
   FeedbacksList:
-  - rid: 1176045405605462102
   - rid: 9217333628104868052
   - rid: 9217333639647592516
   - rid: 9217333884297936973
@@ -45924,152 +46002,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1176045405605462102
-      type: {class: MMF_TimescaleModifier, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
-      data:
-        Active: 1
-        UniqueID: 744735681
-        Label: Timescale Modifier
-        OriginalLabel: Timescale Modifier
-        ChannelMode: 0
-        Channel: 0
-        MMChannelDefinition: {fileID: 0}
-        Chance: 100
-        Timing:
-          TimescaleMode: 0
-          ExcludeFromHoldingPauses: 0
-          ContributeToTotalDuration: 1
-          InitialDelay: 0
-          CooldownDuration: 0
-          InterruptsOnStop: 1
-          NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
-          PlayCount: 0
-          LimitPlayCount: 0
-          MaxPlayCount: 3
-          SetPlayCountToZeroOnReset: 0
-          MMFeedbacksDirectionCondition: 0
-          PlayDirection: 0
-          ConstantIntensity: 0
-          UseIntensityInterval: 0
-          IntensityIntervalMin: 0
-          IntensityIntervalMax: 0
-          Sequence: {fileID: 0}
-          TrackID: 0
-          Quantized: 0
-          TargetBPM: 120
-        AutomatedTargetAcquisition:
-          Mode: 0
-          ChildIndex: 0
-        RandomizeOutput: 0
-        RandomMultiplier: {x: 0.8, y: 1}
-        RandomizeDuration: 0
-        RandomDurationMultiplier: {x: 0.5, y: 2}
-        UseRange: 0
-        RangeDistance: 5
-        UseRangeFalloff: 0
-        RangeFalloff:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        RemapRangeFalloff: {x: 0, y: 1}
-        AutomaticShakerSetupButton:
-          ButtonText: Automatic Shaker Setup
-        Owner: {fileID: 2140951438}
-        DebugActive: 0
-        Mode: 1
-        TimeScale: 1
-        TimeScaleDuration: 1
-        ResetTimescaleOnStop: 0
-        TimeScaleLerp: 0
-        TimescaleLerpMode: 0
-        TimeScaleLerpSpeed: 1
-        TimescaleLerpCurve:
-          MMTweenDefinitionType: 1
-          MMTweenCurve: 4
-          Curve:
-            serializedVersion: 2
-            m_Curve:
-            - serializedVersion: 3
-              time: 0
-              value: 0
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
-              time: 1
-              value: 1
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-          Initialized: 0
-          ConditionPropertyName: 
-          EnumConditionPropertyName: TimescaleLerpMode
-          EnumConditions: 0001000000000000000000000000000000000000000000000000000000000000
-        TimescaleLerpDuration: 1
-        TimeScaleLerpOnReset: 0
-        TimescaleLerpCurveOnReset:
-          MMTweenDefinitionType: 1
-          MMTweenCurve: 4
-          Curve:
-            serializedVersion: 2
-            m_Curve:
-            - serializedVersion: 3
-              time: 0
-              value: 0
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            - serializedVersion: 3
-              time: 1
-              value: 1
-              inSlope: 0
-              outSlope: 0
-              tangentMode: 0
-              weightedMode: 0
-              inWeight: 0
-              outWeight: 0
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-          Initialized: 0
-          ConditionPropertyName: 
-          EnumConditionPropertyName: TimescaleLerpMode
-          EnumConditions: 0001000000000000000000000000000000000000000000000000000000000000
-        TimescaleLerpDurationOnReset: 1
     - rid: 9217333628104867903
       type: {class: MMF_CinemachineTransition, ns: MoreMountains.FeedbacksForThirdParty, asm: MoreMountains.Tools}
       data:
