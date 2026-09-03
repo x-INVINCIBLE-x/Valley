@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 868f35bd175044f9cb3021d1792e57c9, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMask:
@@ -40,9 +40,9 @@ Material:
     - _SrcFactor: 5
     - _Transparency: 0
     m_Colors:
-    - _BaseColor: {r: 0.0009544516, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmisionColor: {r: 0.09276962, g: 0, b: 1, a: 1}
     - _FresnelColor: {r: 4, g: 2.4368312, b: 0, a: 1}
-    - _ScrollDir: {r: 0.2, g: 0, b: 0, a: 0}
+    - _ScrollDir: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
