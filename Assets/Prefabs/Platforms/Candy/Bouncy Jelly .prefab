@@ -291,7 +291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4670072063055006989}
+  - {fileID: 664281704911368354}
   m_Father: {fileID: 1854534901079598520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7694034587839099030
@@ -482,7 +482,7 @@ MonoBehaviour:
         DebugActive: 0
         Mode: 0
         EmitCount: 100
-        BoundParticleSystem: {fileID: 3437478025798908236}
+        BoundParticleSystem: {fileID: 7368748198571181283}
         RandomParticleSystems: []
         MoveToPosition: 1
         ActivateOnPlay: 0
@@ -623,7 +623,7 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: acac702dc9bcd0a4e98acb61df270e7c, type: 2}
   collisionFeedback: {fileID: 4014704883400544213}
   pointCollisionFeedback: {fileID: 7694034587839099030}
---- !u!1001 &1456210662217751558
+--- !u!1001 &6755982858448724393
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -636,16 +636,28 @@ PrefabInstance:
       value: Jelly Hit Vfx
       objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0016997164
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.011331437
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0024281673
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0028631666
       objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.004286351
       objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.010000391
       objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -680,13 +692,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
---- !u!198 &3437478025798908236 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4287743421077284170, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
-  m_PrefabInstance: {fileID: 1456210662217751558}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4670072063055006989 stripped
+--- !u!4 &664281704911368354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
-  m_PrefabInstance: {fileID: 1456210662217751558}
+  m_PrefabInstance: {fileID: 6755982858448724393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7368748198571181283 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4287743421077284170, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+  m_PrefabInstance: {fileID: 6755982858448724393}
   m_PrefabAsset: {fileID: 0}

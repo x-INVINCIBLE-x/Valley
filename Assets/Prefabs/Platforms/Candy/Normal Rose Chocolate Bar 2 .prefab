@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7444158825877971714}
+  - {fileID: 8592041082574253382}
   m_Father: {fileID: 3951620715945584800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6956292659648990713
@@ -221,7 +221,7 @@ MonoBehaviour:
         DebugActive: 0
         Mode: 0
         EmitCount: 100
-        BoundParticleSystem: {fileID: 2037798292916380150}
+        BoundParticleSystem: {fileID: 879413680540790706}
         RandomParticleSystems: []
         MoveToPosition: 1
         ActivateOnPlay: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: 02f62f6f92220154e8218afd132eabad, type: 2}
   collisionFeedback: {fileID: 0}
   pointCollisionFeedback: {fileID: 6956292659648990713}
---- !u!1001 &8474911710983489494
+--- !u!1001 &7345115467349297554
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -370,35 +370,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.0023781213
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.013254955
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.004734741
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0023805343
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0016805113
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.012647326
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.7072302
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.7069834
       objectReference: {fileID: 0}
     - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_LocalRotation.y
@@ -420,10 +420,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8132899923424496572, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
       propertyPath: m_Name
       value: Rose Chocolate Splash
@@ -433,13 +429,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
---- !u!198 &2037798292916380150 stripped
+--- !u!198 &879413680540790706 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7627788854914033184, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
-  m_PrefabInstance: {fileID: 8474911710983489494}
+  m_PrefabInstance: {fileID: 7345115467349297554}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7444158825877971714 stripped
+--- !u!4 &8592041082574253382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1356173163090912468, guid: edf708f55eea42045b5d1e3ebe68014f, type: 3}
-  m_PrefabInstance: {fileID: 8474911710983489494}
+  m_PrefabInstance: {fileID: 7345115467349297554}
   m_PrefabAsset: {fileID: 0}

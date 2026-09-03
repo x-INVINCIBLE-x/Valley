@@ -68,8 +68,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: 62a56a7cd5c7b4c48b15fc653b194162, type: 3}
-  - {fileID: -6629797300637803691, guid: 62a56a7cd5c7b4c48b15fc653b194162, type: 3}
+  - {fileID: 2100000, guid: b06c6d1b95e0b9a46b9acb319bdfe353, type: 2}
+  - {fileID: 2100000, guid: 2c7e5ad7cd0b29d42b35c4240a65b165, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,3 +128,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
   profile: {fileID: 11400000, guid: b86b0f75394122344b14df6d079c17ab, type: 2}
   collisionFeedback: {fileID: 0}
+  pointCollisionFeedback: {fileID: 0}
