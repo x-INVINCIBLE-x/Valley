@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1288763793992716653}
   - component: {fileID: 5175056568956966812}
   - component: {fileID: 6954214024198748363}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Electricity (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4922,7 +4922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3474198669710392947}
   - component: {fileID: 3028422711587212691}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5549,6 +5549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
   profile: {fileID: 11400000, guid: b86b0f75394122344b14df6d079c17ab, type: 2}
   collisionFeedback: {fileID: 0}
+  pointCollisionFeedback: {fileID: 0}
 --- !u!65 &2975116960936287143
 BoxCollider:
   m_ObjectHideFlags: 0

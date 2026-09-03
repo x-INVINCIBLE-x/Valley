@@ -63,6 +63,8 @@ namespace Valley.Level.Generation
         [Header("Vertical Band (Mid Layer)")]
         [Tooltip("Platforms never generate above (player's current Y + this offset). Re-evaluated on every spawn, so it tracks the player instead of trapping them under a fixed ceiling.")]
         public float upperBoundOffset = 6f;
+        [Tooltip("Platforms never generate below (player's current Y - this offset). Re-evaluated on every spawn.")]
+        public float lowerBoundOffset = 6f;
         [Tooltip("Max |change in edge height| allowed between two consecutive mid-layer platforms. There is deliberately no matching lower clamp.")]
         public float maxVerticalStep = 3f;
 
@@ -431,6 +433,7 @@ namespace Valley.Level.Generation
             despawnBehindDistance = profile.despawnBehindDistance;
 
             upperBoundOffset = profile.upperBoundOffset;
+            lowerBoundOffset = profile.lowerBoundOffset;
             maxVerticalStep = profile.maxVerticalStep;
 
             minGapX = profile.minGapX;
@@ -787,11 +790,21 @@ namespace Valley.Level.Generation
                 r.consecutiveSticks = 0;
 
                 float dynamicCeiling = player.position.y + upperBoundOffset;
-                float minY = prev.rightEdgeY - maxVerticalStep;
-                float maxY = Mathf.Min(prev.rightEdgeY + maxVerticalStep, dynamicCeiling);
-                if (maxY < minY) maxY = minY;
+                float dynamicFloor = player.position.y - lowerBoundOffset;
 
-                float rawTarget = forceSafe ? prev.rightEdgeY : Random.Range(minY, maxY);
+                float minY = Mathf.Max(prev.rightEdgeY - maxVerticalStep, dynamicFloor);
+                float maxY = Mathf.Min(prev.rightEdgeY + maxVerticalStep, dynamicCeiling);
+
+                if (maxY < minY)
+                {
+                    float clampedY = Mathf.Clamp(prev.rightEdgeY, dynamicFloor, dynamicCeiling);
+                    minY = clampedY;
+                    maxY = clampedY;
+                }
+
+                float rawTarget = forceSafe
+                    ? Mathf.Clamp(prev.rightEdgeY, dynamicFloor, dynamicCeiling)
+                    : Random.Range(minY, maxY);
 
                 float maxReachableY = prev.rightEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
                 targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);

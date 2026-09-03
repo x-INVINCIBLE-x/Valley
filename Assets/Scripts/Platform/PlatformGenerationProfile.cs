@@ -85,6 +85,8 @@ namespace Valley.Level.Generation
         [Header("Vertical Band (Mid Layer)")]
         [Tooltip("Platforms never generate above (player's current Y + this offset).")]
         public float upperBoundOffset = 6f;
+        [Tooltip("Platforms never generate below (player's current Y - this offset).")]
+        public float lowerBoundOffset = 6f;
         [Tooltip("Max |change in edge height| allowed between two consecutive mid-layer platforms. There is deliberately no matching lower clamp.")]
         public float maxVerticalStep = 3f;
 
