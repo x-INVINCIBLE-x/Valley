@@ -1206,6 +1206,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 0
   minGapX: 0
   maxGapX: 0
@@ -5161,6 +5162,7 @@ MonoBehaviour:
   despawnBehindDistance: 150
   startingOffsetX: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100
@@ -6596,7 +6598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504125023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021677431, y: -0.5769057, z: 0.000000015310567, w: 0.8168107}
+  m_LocalRotation: {x: -0.000000020380291, y: -0.6031549, z: -0.00000001541136, w: 0.7976241}
   m_LocalPosition: {x: 20, y: 15, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6972,6 +6974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6391cf2f0107a34ba65cfd453965d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  saveLoad: {fileID: 0}
 --- !u!1 &580839186
 GameObject:
   m_ObjectHideFlags: 0
@@ -9168,6 +9171,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 10
   maxGapX: 10
@@ -21038,7 +21042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: -3.012873e-16, y: 0.20271458, z: 5.987779e-17, w: 0.9792379}
+  m_LocalRotation: {x: -0.0000000049159947, y: 0.12779413, z: 6.334289e-10, w: 0.9918007}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27925,6 +27929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Revive.PlayerReviveController
   reviveHealthAmount: 50
   offerDuration: 8
+  maxRevives: 2
   adProvider: {fileID: 1706527593}
 --- !u!1 &1236906144
 GameObject:
@@ -28663,6 +28668,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 10
   maxGapX: 10
@@ -31463,6 +31469,7 @@ MonoBehaviour:
   despawnBehindDistance: 1000
   startingOffsetX: 0
   upperBoundOffset: 0
+  lowerBoundOffset: 6
   maxVerticalStep: 0
   minGapX: 0
   maxGapX: 0
@@ -32770,6 +32777,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100
@@ -61517,6 +61525,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4769346986549593515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4324562499028083726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1328904495360060761, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_Name
+      value: Galaxy Chaser
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 41.04619
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -63.476498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2382058004118076953, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aaa7211084ad13a4a9b4f20b5e74e661, type: 3}
 --- !u!1 &4334603266555236246
 GameObject:
   m_ObjectHideFlags: 0
@@ -73762,3 +73827,4 @@ SceneRoots:
   - {fileID: 6634681859009390674}
   - {fileID: 1810293056029387386}
   - {fileID: 8887128628696985172}
+  - {fileID: 4324562499028083726}

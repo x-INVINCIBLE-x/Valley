@@ -1319,6 +1319,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 0
   minGapX: 0
   maxGapX: 0
@@ -5162,6 +5163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
   profile: {fileID: 11400000, guid: 02f62f6f92220154e8218afd132eabad, type: 2}
   collisionFeedback: {fileID: 0}
+  pointCollisionFeedback: {fileID: 0}
 --- !u!64 &394196596
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5593,6 +5595,7 @@ MonoBehaviour:
   despawnBehindDistance: 150
   startingOffsetX: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100
@@ -7028,7 +7031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504125023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000020331723, y: -0.57690567, z: 0.0000000014360103, w: 0.8168108}
+  m_LocalRotation: {x: -0.0000000015882364, y: -0.6031549, z: -0.0000000012010076, w: 0.7976241}
   m_LocalPosition: {x: 20, y: 15, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7404,6 +7407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6391cf2f0107a34ba65cfd453965d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  saveLoad: {fileID: 0}
 --- !u!1 &580839186
 GameObject:
   m_ObjectHideFlags: 0
@@ -9600,6 +9604,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 10
   maxGapX: 10
@@ -21610,7 +21615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000115900685, y: 0.20271458, z: 0.0000000023992903, w: 0.97923785}
+  m_LocalRotation: {x: 0.000000020912067, y: 0.12779413, z: -0.0000000026945326, w: 0.9918007}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28703,6 +28708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Revive.PlayerReviveController
   reviveHealthAmount: 50
   offerDuration: 8
+  maxRevives: 2
   adProvider: {fileID: 1706527593}
 --- !u!1 &1236906144
 GameObject:
@@ -29498,6 +29504,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 10
   maxGapX: 10
@@ -32364,6 +32371,7 @@ MonoBehaviour:
   despawnBehindDistance: 1000
   startingOffsetX: 0
   upperBoundOffset: 0
+  lowerBoundOffset: 6
   maxVerticalStep: 0
   minGapX: 0
   maxGapX: 0
@@ -33728,6 +33736,7 @@ MonoBehaviour:
   despawnBehindDistance: 30
   startingOffsetX: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100
@@ -71726,6 +71735,63 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4267421088105943213, guid: 97e6914e40271a44ba946de949636aae, type: 3}
+--- !u!1001 &7536797634411966693
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 86.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000004126632
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 487.127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905037481704064997, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518700225415753146, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
+      propertyPath: m_Name
+      value: Neon chaser
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c18d1d2e02e0bfe4e9c3b8b0319b3834, type: 3}
 --- !u!23 &7544827794610276603
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -77639,3 +77705,4 @@ SceneRoots:
   - {fileID: 543450653648036187}
   - {fileID: 7155332068626909703}
   - {fileID: 1007733649}
+  - {fileID: 7536797634411966693}
