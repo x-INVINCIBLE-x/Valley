@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 384
     height: 466
-  m_MinSize: {x: 202, y: 226}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1495,9 +1495,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 912.32684, y: 521.8936, z: 56.304073}
+    m_Target: {x: 751.7593, y: 356.39438, z: 46.59753}
     speed: 2
-    m_Value: {x: 912.32684, y: 521.8936, z: 56.304073}
+    m_Value: {x: 751.7593, y: 356.39438, z: 46.59753}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1547,9 +1547,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.025807869, y: 0.0035964306, z: -0.00010608619, w: -0.99966043}
   m_Size:
-    m_Target: 377.36514
+    m_Target: 536.65125
     speed: 2
-    m_Value: 377.36514
+    m_Value: 536.65125
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1856,14 +1856,22 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -16960
-      - m_Data: -16616
-      - m_Data: -14626
-      - m_Data: -13192
+      - m_Data: -22796
+      - m_Data: -22452
+      - m_Data: -20458
+      - m_Data: -19004
+      - m_Data: -12534
+      - m_Data: -12190
+      - m_Data: -10196
+      - m_Data: -8742
+      - m_Data: -5532
       - m_Data: -1300
-      - m_Data: 97362
-      - m_Data: 97864
-      - m_Data: 111516
+      - m_Data: 63852
+      - m_Data: 64248
+      - m_Data: 64262
+      - m_Data: 64314
+      - m_Data: 114550
+      - m_Data: 116858
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1961,6 +1969,8 @@ MonoBehaviour:
       m_Data: 71362
     m_ExpandedIDs:
     - m_Data: 0
+    - m_Data: 81738
+    - m_Data: 81740
     - m_Data: 81742
     - m_Data: 81744
     - m_Data: 81746
@@ -1996,7 +2006,6 @@ MonoBehaviour:
     - m_Data: 81806
     - m_Data: 81808
     - m_Data: 81810
-    - m_Data: 81812
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2023,12 +2032,14 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 1156}
+    scrollPos: {x: 0, y: 989}
     m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
+    - m_Data: 81738
+    - m_Data: 81740
     - m_Data: 81742
     - m_Data: 81744
     - m_Data: 81746
@@ -2057,19 +2068,14 @@ MonoBehaviour:
     - m_Data: 81792
     - m_Data: 81794
     - m_Data: 81796
-    - m_Data: 81798
     - m_Data: 81800
     - m_Data: 81802
     - m_Data: 81804
-    - m_Data: 81806
     - m_Data: 81808
-    - m_Data: 81810
-    - m_Data: 81812
-    - m_Data: 82286
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: LeaderboardUI
+      m_OriginalName: LeaderboardUI
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -2077,10 +2083,10 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 0
+        m_Data: 88620
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}

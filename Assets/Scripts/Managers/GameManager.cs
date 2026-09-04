@@ -3,14 +3,16 @@ using MoreMountains.Feedbacks;
 using System;
 using UnityEngine;
 using Valley.Aiming;
+using Valley.Leaderboard;
 using Valley.Revive;
+using Valley.Scoring;
 using Valley.Theming;
 
 public class GameManager : MonoBehaviour, IAimBlocker
 {
     public static GameManager Instance { get; private set; }
-
-    [SerializeField]
+    
+    [SerializeField] private PlayerScoreData playerScoreData;
     private SaveLoad saveLoad;
 
     private MMF_Player resetFeedback;
@@ -90,6 +92,12 @@ public class GameManager : MonoBehaviour, IAimBlocker
             return;
 
         saveLoad.SaveGameToCloud();
+        UpdateLeaderboard();
+    }
+
+    private void UpdateLeaderboard()
+    {
+        GooglePlayLeaderboard.Instance.SubmitScore((long)playerScoreData.Best.Score);
     }
 
     // ==================================================

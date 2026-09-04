@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Valley.Leaderboard;
 
 namespace Valley.Scoring
 {
