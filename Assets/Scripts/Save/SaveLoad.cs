@@ -12,9 +12,16 @@ public class SaveLoad : MonoBehaviour
     private const string CurrentThemeDataKey = "CurrentTheme";
     private const string BoughtThemesDataKey = "BoughtThemes";
 
-    // Tracks whether this Google Play account has already completed
-    // its initial cloud synchronization on this device.
-    private const string CloudInitializedKeyPrefix =
+    private const string TemporaryThemeIdDataKey =
+        "TemporaryTheme_Id";
+
+    private const string TemporaryThemeExpiryDataKey =
+        "TemporaryTheme_Expiry";
+
+    private const string TemporaryThemePreviousIdDataKey =
+        "TemporaryTheme_PreviousId";
+
+    private const string CloudSaveInitializedKeyPrefix =
         "CloudSaveInitialized_";
 
     private SaveFile saveFile;
@@ -26,22 +33,23 @@ public class SaveLoad : MonoBehaviour
     private class CloudSaveData
     {
         public int currency;
-        public string currentTheme;
         public string boughtThemes;
     }
 
     private void Awake()
     {
-        SaveFileSetup setup = GetComponent<SaveFileSetup>();
-        saveFile = setup.GetSaveFile();
+        SaveFileSetup setup =
+            GetComponent<SaveFileSetup>();
+
+        saveFile =
+            setup.GetSaveFile();
     }
 
     private void OnEnable()
     {
-        GooglePlaySaveManager.CloudSaveReady += HandleCloudSaveReady;
+        GooglePlaySaveManager.CloudSaveReady +=
+            HandleCloudSaveReady;
 
-        // Handles the case where authentication already completed
-        // before this object became enabled.
         if (GooglePlaySaveManager.Instance != null &&
             GooglePlaySaveManager.Instance.IsReady)
         {
@@ -51,7 +59,8 @@ public class SaveLoad : MonoBehaviour
 
     private void OnDisable()
     {
-        GooglePlaySaveManager.CloudSaveReady -= HandleCloudSaveReady;
+        GooglePlaySaveManager.CloudSaveReady -=
+            HandleCloudSaveReady;
     }
 
     // ==================================================
@@ -62,20 +71,31 @@ public class SaveLoad : MonoBehaviour
     {
         if (saveFile == null)
         {
-            Debug.LogError("SaveLoad: SaveFile is not initialized.");
+            Debug.LogError(
+                "SaveLoad: SaveFile is not initialized."
+            );
+
             return;
         }
 
         SaveCurrency();
         SaveThemes();
+        SaveTemporaryTheme();
 
         saveFile.Save();
 
-        Debug.Log("Game saved locally.");
+        Debug.Log(
+            "Game saved locally."
+        );
     }
 
     public void SaveGameToCloud()
     {
+        /*
+         * Save everything locally first.
+         *
+         * Temporary theme state remains local only.
+         */
         SaveGame();
 
         if (GooglePlaySaveManager.Instance == null)
@@ -83,17 +103,23 @@ public class SaveLoad : MonoBehaviour
             Debug.LogWarning(
                 "SaveLoad: GooglePlaySaveManager is missing."
             );
+
             return;
         }
 
-        CloudSaveData data = CreateCloudSaveData();
+        CloudSaveData data =
+            CreateCloudSaveData();
 
         GooglePlaySaveManager.Instance.Save(
             data,
             success =>
             {
                 if (success)
-                    Debug.Log("Game saved locally and to Google Play.");
+                {
+                    Debug.Log(
+                        "Game saved locally and to Google Play."
+                    );
+                }
             });
     }
 
@@ -105,11 +131,13 @@ public class SaveLoad : MonoBehaviour
     {
         if (saveFile == null)
         {
-            Debug.LogError("SaveLoad: SaveFile is not initialized.");
+            Debug.LogError(
+                "SaveLoad: SaveFile is not initialized."
+            );
+
             return;
         }
 
-        // Google Play is already authenticated.
         if (GooglePlaySaveManager.Instance != null &&
             GooglePlaySaveManager.Instance.IsReady)
         {
@@ -136,12 +164,16 @@ public class SaveLoad : MonoBehaviour
 
         m_WaitingForCloudLoad = true;
     }
+
     private void LoadLocalGameTemporary()
     {
         LoadCurrency();
         LoadThemes();
+        LoadTemporaryTheme();
 
-        Debug.Log("Game loaded from local save temporarily.");
+        Debug.Log(
+            "Game loaded from local save temporarily."
+        );
     }
 
     private void HandleCloudSaveReady()
@@ -149,7 +181,9 @@ public class SaveLoad : MonoBehaviour
         if (m_LoadCompleted)
             return;
 
-        Debug.Log("Google Play cloud save is ready.");
+        Debug.Log(
+            "Google Play cloud save is ready."
+        );
 
         HandleCloudSaveLoad();
     }
@@ -168,10 +202,6 @@ public class SaveLoad : MonoBehaviour
 
         m_WaitingForCloudLoad = false;
 
-        // --------------------------------------------------
-        // FIRST CLOUD LOAD FOR THIS GOOGLE ACCOUNT
-        // --------------------------------------------------
-
         if (IsFirstCloudLoadForAccount())
         {
             Debug.Log(
@@ -183,17 +213,12 @@ public class SaveLoad : MonoBehaviour
             return;
         }
 
-        // --------------------------------------------------
-        // SUBSEQUENT STARTUPS
-        // --------------------------------------------------
-
         if (HasLocalSave())
         {
             LoadLocalGameFinal();
             return;
         }
 
-        // No local cache available.
         LoadCloudGame();
     }
 
@@ -204,10 +229,13 @@ public class SaveLoad : MonoBehaviour
 
         LoadCurrency();
         LoadThemes();
+        LoadTemporaryTheme();
 
         m_LoadCompleted = true;
 
-        Debug.Log("Game loaded from local save.");
+        Debug.Log(
+            "Game loaded from local save."
+        );
     }
 
     private void LoadCloudGame()
@@ -217,6 +245,7 @@ public class SaveLoad : MonoBehaviour
             Debug.LogError(
                 "SaveLoad: GooglePlaySaveManager is missing."
             );
+
             return;
         }
 
@@ -274,7 +303,8 @@ public class SaveLoad : MonoBehaviour
             return true;
 
         string key =
-            CloudInitializedKeyPrefix + googleUserId;
+            CloudSaveInitializedKeyPrefix +
+            googleUserId;
 
         return !PlayerPrefs.HasKey(key);
 
@@ -299,7 +329,8 @@ public class SaveLoad : MonoBehaviour
             return;
 
         string key =
-            CloudInitializedKeyPrefix + googleUserId;
+            CloudSaveInitializedKeyPrefix +
+            googleUserId;
 
         PlayerPrefs.SetInt(key, 1);
         PlayerPrefs.Save();
@@ -315,7 +346,10 @@ public class SaveLoad : MonoBehaviour
     {
         return saveFile.HasData(CurrencyDataKey) ||
                saveFile.HasData(CurrentThemeDataKey) ||
-               saveFile.HasData(BoughtThemesDataKey);
+               saveFile.HasData(BoughtThemesDataKey) ||
+               saveFile.HasData(TemporaryThemeIdDataKey) ||
+               saveFile.HasData(TemporaryThemeExpiryDataKey) ||
+               saveFile.HasData(TemporaryThemePreviousIdDataKey);
     }
 
     // ==================================================
@@ -337,12 +371,18 @@ public class SaveLoad : MonoBehaviour
     {
         if (CurrencyWallet.Instance == null ||
             !saveFile.HasData(CurrencyDataKey))
+        {
             return;
+        }
 
         int balance =
-            saveFile.GetData<int>(CurrencyDataKey);
+            saveFile.GetData<int>(
+                CurrencyDataKey
+            );
 
-        CurrencyWallet.Instance.SetBalance(balance);
+        CurrencyWallet.Instance.SetBalance(
+            balance
+        );
     }
 
     // ==================================================
@@ -357,11 +397,21 @@ public class SaveLoad : MonoBehaviour
         ThemeManager manager =
             ThemeManager.Instance;
 
-        if (manager.CurrentTheme != null)
+        /*
+         * CurrentTheme is saved locally only.
+         *
+         * If a temporary theme is active,
+         * GetCurrentThemeIdForSave() returns the
+         * permanent theme instead.
+         */
+        string currentThemeId =
+            manager.GetCurrentThemeIdForSave();
+
+        if (!string.IsNullOrEmpty(currentThemeId))
         {
             saveFile.AddOrUpdateData(
                 CurrentThemeDataKey,
-                manager.CurrentTheme.SaveId
+                currentThemeId
             );
         }
 
@@ -371,7 +421,9 @@ public class SaveLoad : MonoBehaviour
         {
             if (theme == null ||
                 string.IsNullOrEmpty(theme.SaveId))
+            {
                 continue;
+            }
 
             if (!string.IsNullOrEmpty(boughtThemes))
                 boughtThemes += ",";
@@ -411,10 +463,14 @@ public class SaveLoad : MonoBehaviour
                         continue;
 
                     ThemeDefinition theme =
-                        manager.GetThemeById(themeId);
+                        manager.GetThemeById(
+                            themeId
+                        );
 
                     if (theme != null)
-                        manager.MarkThemeOwned(theme);
+                        manager.MarkThemeOwned(
+                            theme
+                        );
                 }
             }
         }
@@ -427,11 +483,99 @@ public class SaveLoad : MonoBehaviour
                 );
 
             ThemeDefinition theme =
-                manager.GetThemeById(currentThemeId);
+                manager.GetThemeById(
+                    currentThemeId
+                );
 
-            if (theme != null)
+            if (theme != null &&
+                manager.IsPermanentlyOwned(theme))
+            {
                 manager.SetTheme(theme);
+            }
         }
+    }
+
+    // ==================================================
+    // TEMPORARY THEME
+    // ==================================================
+
+    private void SaveTemporaryTheme()
+    {
+        if (ThemeManager.Instance == null)
+            return;
+
+        ThemeManager manager =
+            ThemeManager.Instance;
+
+        string temporaryThemeId =
+            manager.GetTemporaryThemeIdForSave();
+
+        long expiryTicks =
+            manager.GetTemporaryThemeExpiryTicksForSave();
+
+        string previousThemeId =
+            manager.GetPreviousThemeIdForSave();
+
+        saveFile.AddOrUpdateData(
+            TemporaryThemeIdDataKey,
+            temporaryThemeId
+        );
+
+        saveFile.AddOrUpdateData(
+            TemporaryThemeExpiryDataKey,
+            expiryTicks
+        );
+
+        saveFile.AddOrUpdateData(
+            TemporaryThemePreviousIdDataKey,
+            previousThemeId
+        );
+    }
+
+    private void LoadTemporaryTheme()
+    {
+        if (ThemeManager.Instance == null)
+            return;
+
+        if (!saveFile.HasData(
+                TemporaryThemeIdDataKey))
+        {
+            return;
+        }
+
+        if (!saveFile.HasData(
+                TemporaryThemeExpiryDataKey))
+        {
+            return;
+        }
+
+        string temporaryThemeId =
+            saveFile.GetData<string>(
+                TemporaryThemeIdDataKey
+            );
+
+        long expiryTicks =
+            saveFile.GetData<long>(
+                TemporaryThemeExpiryDataKey
+            );
+
+        string previousThemeId =
+            string.Empty;
+
+        if (saveFile.HasData(
+                TemporaryThemePreviousIdDataKey))
+        {
+            previousThemeId =
+                saveFile.GetData<string>(
+                    TemporaryThemePreviousIdDataKey
+                );
+        }
+
+        ThemeManager.Instance.RestoreTemporaryUnlock(
+            temporaryThemeId,
+            expiryTicks,
+            previousThemeId
+        );
     }
 
     // ==================================================
@@ -454,19 +598,15 @@ public class SaveLoad : MonoBehaviour
             ThemeManager manager =
                 ThemeManager.Instance;
 
-            if (manager.CurrentTheme != null)
-            {
-                data.currentTheme =
-                    manager.CurrentTheme.SaveId;
-            }
-
             string boughtThemes = string.Empty;
 
             foreach (ThemeDefinition theme in manager.OwnedThemes)
             {
                 if (theme == null ||
                     string.IsNullOrEmpty(theme.SaveId))
+                {
                     continue;
+                }
 
                 if (!string.IsNullOrEmpty(boughtThemes))
                     boughtThemes += ",";
@@ -477,6 +617,20 @@ public class SaveLoad : MonoBehaviour
             data.boughtThemes =
                 boughtThemes;
         }
+
+        /*
+         * IMPORTANT:
+         *
+         * CurrentTheme is NOT included.
+         *
+         * TemporaryTheme is NOT included.
+         *
+         * Temporary expiry is NOT included.
+         *
+         * Previous temporary theme is NOT included.
+         *
+         * Only permanent data is synchronized to cloud.
+         */
 
         return data;
     }
@@ -511,27 +665,18 @@ public class SaveLoad : MonoBehaviour
                         continue;
 
                     ThemeDefinition theme =
-                        manager.GetThemeById(themeId);
+                        manager.GetThemeById(
+                            themeId
+                        );
 
                     if (theme != null)
-                        manager.MarkThemeOwned(theme);
+                        manager.MarkThemeOwned(
+                            theme
+                        );
                 }
-            }
-
-            if (!string.IsNullOrEmpty(
-                    data.currentTheme))
-            {
-                ThemeDefinition theme =
-                    manager.GetThemeById(
-                        data.currentTheme
-                    );
-
-                if (theme != null)
-                    manager.SetTheme(theme);
             }
         }
 
-        // Cloud becomes the local cache.
         SaveGame();
     }
 }

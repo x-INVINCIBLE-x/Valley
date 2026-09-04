@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Valley.Aiming;
 using Valley.Revive;
+using Valley.Theming;
 
 public class GameManager : MonoBehaviour, IAimBlocker
 {
@@ -97,6 +98,13 @@ public class GameManager : MonoBehaviour, IAimBlocker
     private void HandleGameOver()
     {
         Debug.Log("Match ended. Saving game.");
+
+        ThemeManager themeManager = ThemeManager.Instance;
+
+        if (themeManager != null)
+        {
+            themeManager.RevertExpiredTemporaryTheme();
+        }
 
         SaveGame();
     }

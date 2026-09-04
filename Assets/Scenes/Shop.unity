@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Shop.ThemeShopController
   wallet: {fileID: 416952815}
+  temporaryUnlockDurationMinutes: 15
 --- !u!4 &258226637
 Transform:
   m_ObjectHideFlags: 0
@@ -2985,6 +2986,7 @@ MonoBehaviour:
   despawnBehindDistance: 50
   startingOffsetX: 0
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100
