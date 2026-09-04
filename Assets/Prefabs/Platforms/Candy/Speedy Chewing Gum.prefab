@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5749425992600587797}
   - component: {fileID: 5293844562132612530}
   - component: {fileID: 5898208948834935361}
+  - component: {fileID: -7999081283943365918}
   m_Layer: 7
   m_Name: Speedy Chewing Gum
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7598802711810759272}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
-  m_LocalPosition: {x: 201.62, y: -5.71, z: 556.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2463.6, y: 825.929, z: 236.33179}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -129,3 +130,17 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: b86b0f75394122344b14df6d079c17ab, type: 2}
   collisionFeedback: {fileID: 0}
   pointCollisionFeedback: {fileID: 0}
+--- !u!114 &-7999081283943365918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598802711810759272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152cc93d6776cda44b08dc22eb2f6108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PushOnCollision
+  pushForce: 2500
+  forceMode: 5

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 233082924903056522}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 743.6, y: -3.9, z: -129.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 13.19, y: 7.2, z: 3.77}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
   profile: {fileID: 11400000, guid: 02f62f6f92220154e8218afd132eabad, type: 2}
   collisionFeedback: {fileID: 0}
+  pointCollisionFeedback: {fileID: 0}
 --- !u!65 &6102716035211191888
 BoxCollider:
   m_ObjectHideFlags: 0
