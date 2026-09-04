@@ -3,52 +3,58 @@ using System;
 using UnityEngine;
 using Valley;
 using Valley.Economy;
+using Valley.Scoring;
 using Valley.Theming;
 
 [RequireComponent(typeof(SaveFileSetup))]
 public class SaveLoad : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerScoreData playerScoreData;
+
     private const string CurrencyDataKey = "Currency";
     private const string CurrentThemeDataKey = "CurrentTheme";
     private const string BoughtThemesDataKey = "BoughtThemes";
 
-    private const string TemporaryThemeIdDataKey =
-        "TemporaryTheme_Id";
+    private const string HighScoreDataKey = "HighScore";
+    private const string HighDistanceDataKey = "HighDistance";
 
-    private const string TemporaryThemeExpiryDataKey =
-        "TemporaryTheme_Expiry";
-
-    private const string TemporaryThemePreviousIdDataKey =
-        "TemporaryTheme_PreviousId";
-
-    private const string CloudSaveInitializedKeyPrefix =
-        "CloudSaveInitialized_";
+    private const string TemporaryThemeIdDataKey = "TemporaryTheme_Id";
+    private const string TemporaryThemeExpiryDataKey = "TemporaryTheme_Expiry";
+    private const string TemporaryThemePreviousIdDataKey = "TemporaryTheme_PreviousId";
 
     private SaveFile saveFile;
 
-    private bool m_WaitingForCloudLoad;
     private bool m_LoadCompleted;
+    private bool m_CloudLoadStarted;
+
+    private bool m_CloudSaveInProgress;
+    private CloudSaveData m_PendingCloudSave;
+    private Action<bool> m_PendingCloudSaveCallback;
 
     [Serializable]
     private class CloudSaveData
     {
         public int currency;
         public string boughtThemes;
+        public float highScore;
+        public float highDistance;
     }
 
     private void Awake()
     {
-        SaveFileSetup setup =
-            GetComponent<SaveFileSetup>();
+        SaveFileSetup setup = GetComponent<SaveFileSetup>();
+        saveFile = setup.GetSaveFile();
 
-        saveFile =
-            setup.GetSaveFile();
+        if (playerScoreData == null)
+        {
+            Debug.LogError("SaveLoad: PlayerScoreData is missing.");
+        }
     }
 
     private void OnEnable()
     {
-        GooglePlaySaveManager.CloudSaveReady +=
-            HandleCloudSaveReady;
+        GooglePlaySaveManager.CloudSaveReady += HandleCloudSaveReady;
 
         if (GooglePlaySaveManager.Instance != null &&
             GooglePlaySaveManager.Instance.IsReady)
@@ -59,8 +65,7 @@ public class SaveLoad : MonoBehaviour
 
     private void OnDisable()
     {
-        GooglePlaySaveManager.CloudSaveReady -=
-            HandleCloudSaveReady;
+        GooglePlaySaveManager.CloudSaveReady -= HandleCloudSaveReady;
     }
 
     // ==================================================
@@ -71,32 +76,42 @@ public class SaveLoad : MonoBehaviour
     {
         if (saveFile == null)
         {
-            Debug.LogError(
-                "SaveLoad: SaveFile is not initialized."
-            );
-
+            Debug.LogError("SaveLoad: SaveFile is not initialized.");
             return;
         }
 
         SaveCurrency();
         SaveThemes();
         SaveTemporaryTheme();
+        SaveHighScore();
 
         saveFile.Save();
 
-        Debug.Log(
-            "Game saved locally."
-        );
+        Debug.Log("Game saved locally.");
     }
 
-    public void SaveGameToCloud()
+    public void SaveGameToCloud(Action<bool> onComplete = null)
     {
-        /*
-         * Save everything locally first.
-         *
-         * Temporary theme state remains local only.
-         */
-        SaveGame();
+        if (saveFile == null)
+        {
+            Debug.LogError(
+                "SaveLoad: SaveFile is not initialized."
+            );
+
+            onComplete?.Invoke(false);
+            return;
+        }
+
+        if (!m_LoadCompleted)
+        {
+            Debug.LogWarning(
+                "SaveLoad: Initial cloud load has not completed. " +
+                "Cloud save skipped."
+            );
+
+            onComplete?.Invoke(false);
+            return;
+        }
 
         if (GooglePlaySaveManager.Instance == null)
         {
@@ -104,23 +119,119 @@ public class SaveLoad : MonoBehaviour
                 "SaveLoad: GooglePlaySaveManager is missing."
             );
 
+            onComplete?.Invoke(false);
             return;
         }
 
+        if (!GooglePlaySaveManager.Instance.IsReady)
+        {
+            Debug.LogWarning(
+                "SaveLoad: Google Play cloud save is not ready."
+            );
+
+            onComplete?.Invoke(false);
+            return;
+        }
+
+        SaveGame();
+
         CloudSaveData data =
             CreateCloudSaveData();
+
+        Debug.Log(
+            $"[Score Cloud Save Request] " +
+            $"HighScore={data.highScore}, " +
+            $"HighDistance={data.highDistance}"
+        );
+
+        if (m_CloudSaveInProgress)
+        {
+            m_PendingCloudSave = data;
+            m_PendingCloudSaveCallback = onComplete;
+
+            Debug.Log(
+                "[Cloud Save] Save already in progress. " +
+                "Latest state queued."
+            );
+
+            return;
+        }
+
+        StartCloudSave(
+            data,
+            onComplete
+        );
+    }
+
+    private void StartCloudSave(
+    CloudSaveData data,
+    Action<bool> onComplete)
+    {
+        if (data == null)
+        {
+            Debug.LogWarning(
+                "[Cloud Save] Cannot save null data."
+            );
+
+            m_CloudSaveInProgress = false;
+
+            onComplete?.Invoke(false);
+            return;
+        }
+
+        if (GooglePlaySaveManager.Instance == null ||
+            !GooglePlaySaveManager.Instance.IsReady)
+        {
+            Debug.LogWarning(
+                "[Cloud Save] Google Play cloud save is not ready."
+            );
+
+            m_CloudSaveInProgress = false;
+
+            onComplete?.Invoke(false);
+            return;
+        }
+
+        m_CloudSaveInProgress = true;
 
         GooglePlaySaveManager.Instance.Save(
             data,
             success =>
             {
-                if (success)
-                {
-                    Debug.Log(
-                        "Game saved locally and to Google Play."
-                    );
-                }
-            });
+                Debug.Log(
+                    $"[Cloud Save Result] Success={success}, " +
+                    $"HighScore={data.highScore}, " +
+                    $"HighDistance={data.highDistance}"
+                );
+
+                m_CloudSaveInProgress = false;
+
+                onComplete?.Invoke(success);
+
+                if (m_PendingCloudSave == null)
+                    return;
+
+                CloudSaveData pendingData =
+                    m_PendingCloudSave;
+
+                Action<bool> pendingCallback =
+                    m_PendingCloudSaveCallback;
+
+                m_PendingCloudSave = null;
+                m_PendingCloudSaveCallback = null;
+
+                Debug.Log(
+                    $"[Cloud Save] Processing queued save. " +
+                    $"HighScore={pendingData.highScore}, " +
+                    $"HighDistance={pendingData.highDistance}"
+                );
+
+                StartCloudSave(
+                    pendingData,
+                    pendingCallback
+                );
+            }
+        );
     }
 
     // ==================================================
@@ -138,6 +249,9 @@ public class SaveLoad : MonoBehaviour
             return;
         }
 
+        m_LoadCompleted = false;
+        m_CloudLoadStarted = false;
+
         if (GooglePlaySaveManager.Instance != null &&
             GooglePlaySaveManager.Instance.IsReady)
         {
@@ -151,18 +265,16 @@ public class SaveLoad : MonoBehaviour
 
             Debug.Log(
                 "Loaded local save temporarily. " +
-                "Waiting for Google Play authentication."
+                "Waiting for Google Play cloud load."
             );
         }
         else
         {
             Debug.Log(
                 "No local save available. " +
-                "Waiting for Google Play authentication."
+                "Waiting for Google Play cloud load."
             );
         }
-
-        m_WaitingForCloudLoad = true;
     }
 
     private void LoadLocalGameTemporary()
@@ -170,6 +282,7 @@ public class SaveLoad : MonoBehaviour
         LoadCurrency();
         LoadThemes();
         LoadTemporaryTheme();
+        LoadHighScore();
 
         Debug.Log(
             "Game loaded from local save temporarily."
@@ -190,52 +303,25 @@ public class SaveLoad : MonoBehaviour
 
     private void HandleCloudSaveLoad()
     {
-        if (m_LoadCompleted)
+        if (m_LoadCompleted ||
+            m_CloudLoadStarted)
+        {
             return;
+        }
 
         if (GooglePlaySaveManager.Instance == null ||
             !GooglePlaySaveManager.Instance.IsReady)
         {
-            m_WaitingForCloudLoad = true;
             return;
         }
 
-        m_WaitingForCloudLoad = false;
-
-        if (IsFirstCloudLoadForAccount())
-        {
-            Debug.Log(
-                "First Google Play sign-in detected. " +
-                "Cloud data will override local data."
-            );
-
-            LoadCloudGame();
-            return;
-        }
-
-        if (HasLocalSave())
-        {
-            LoadLocalGameFinal();
-            return;
-        }
-
-        LoadCloudGame();
-    }
-
-    private void LoadLocalGameFinal()
-    {
-        if (m_LoadCompleted)
-            return;
-
-        LoadCurrency();
-        LoadThemes();
-        LoadTemporaryTheme();
-
-        m_LoadCompleted = true;
+        m_CloudLoadStarted = true;
 
         Debug.Log(
-            "Game loaded from local save."
+            "Starting initial Google Play cloud load."
         );
+
+        LoadCloudGame();
     }
 
     private void LoadCloudGame()
@@ -246,6 +332,7 @@ public class SaveLoad : MonoBehaviour
                 "SaveLoad: GooglePlaySaveManager is missing."
             );
 
+            m_CloudLoadStarted = false;
             return;
         }
 
@@ -259,83 +346,40 @@ public class SaveLoad : MonoBehaviour
                 {
                     Debug.Log(
                         "No cloud save found. " +
-                        "Starting with default data."
+                        "Keeping current/default score values."
                     );
 
-                    MarkCloudLoadInitialized();
-
                     m_LoadCompleted = true;
+
+                    SaveGame();
+
+                    Debug.Log(
+                        "Initial cloud load completed with no cloud data."
+                    );
+
                     return;
                 }
 
                 Debug.Log(
-                    "Cloud save found. " +
-                    "Applying cloud data over local data."
+                    $"[Cloud Load] HighScore={data.highScore}, " +
+                    $"HighDistance={data.highDistance}"
                 );
 
                 ApplyCloudSaveData(data);
 
-                MarkCloudLoadInitialized();
-
                 m_LoadCompleted = true;
+
+                Debug.Log(
+                    $"[Cloud Load] Final local score - " +
+                    $"HighScore={playerScoreData?.HighScore}, " +
+                    $"HighDistance={playerScoreData?.HighDistance}"
+                );
 
                 Debug.Log(
                     "Game loaded from Google Play cloud."
                 );
-            });
-    }
-
-    // ==================================================
-    // FIRST CLOUD LOAD
-    // ==================================================
-
-    private bool IsFirstCloudLoadForAccount()
-    {
-#if UNITY_ANDROID
-
-        if (LoginManager.Instance == null)
-            return true;
-
-        string googleUserId =
-            LoginManager.Instance.GooglePlayGamesUserId;
-
-        if (string.IsNullOrEmpty(googleUserId))
-            return true;
-
-        string key =
-            CloudSaveInitializedKeyPrefix +
-            googleUserId;
-
-        return !PlayerPrefs.HasKey(key);
-
-#else
-
-        return true;
-
-#endif
-    }
-
-    private void MarkCloudLoadInitialized()
-    {
-#if UNITY_ANDROID
-
-        if (LoginManager.Instance == null)
-            return;
-
-        string googleUserId =
-            LoginManager.Instance.GooglePlayGamesUserId;
-
-        if (string.IsNullOrEmpty(googleUserId))
-            return;
-
-        string key =
-            CloudSaveInitializedKeyPrefix +
-            googleUserId;
-
-        PlayerPrefs.SetInt(key, 1);
-        PlayerPrefs.Save();
-
-#endif
+            }
+        );
     }
 
     // ==================================================
@@ -347,6 +391,8 @@ public class SaveLoad : MonoBehaviour
         return saveFile.HasData(CurrencyDataKey) ||
                saveFile.HasData(CurrentThemeDataKey) ||
                saveFile.HasData(BoughtThemesDataKey) ||
+               saveFile.HasData(HighScoreDataKey) ||
+               saveFile.HasData(HighDistanceDataKey) ||
                saveFile.HasData(TemporaryThemeIdDataKey) ||
                saveFile.HasData(TemporaryThemeExpiryDataKey) ||
                saveFile.HasData(TemporaryThemePreviousIdDataKey);
@@ -380,9 +426,7 @@ public class SaveLoad : MonoBehaviour
                 CurrencyDataKey
             );
 
-        CurrencyWallet.Instance.SetBalance(
-            balance
-        );
+        CurrencyWallet.Instance.SetBalance(balance);
     }
 
     // ==================================================
@@ -397,13 +441,6 @@ public class SaveLoad : MonoBehaviour
         ThemeManager manager =
             ThemeManager.Instance;
 
-        /*
-         * CurrentTheme is saved locally only.
-         *
-         * If a temporary theme is active,
-         * GetCurrentThemeIdForSave() returns the
-         * permanent theme instead.
-         */
         string currentThemeId =
             manager.GetCurrentThemeIdForSave();
 
@@ -463,14 +500,12 @@ public class SaveLoad : MonoBehaviour
                         continue;
 
                     ThemeDefinition theme =
-                        manager.GetThemeById(
-                            themeId
-                        );
+                        manager.GetThemeById(themeId);
 
                     if (theme != null)
-                        manager.MarkThemeOwned(
-                            theme
-                        );
+                    {
+                        manager.MarkThemeOwned(theme);
+                    }
                 }
             }
         }
@@ -483,9 +518,7 @@ public class SaveLoad : MonoBehaviour
                 );
 
             ThemeDefinition theme =
-                manager.GetThemeById(
-                    currentThemeId
-                );
+                manager.GetThemeById(currentThemeId);
 
             if (theme != null &&
                 manager.IsPermanentlyOwned(theme))
@@ -493,6 +526,87 @@ public class SaveLoad : MonoBehaviour
                 manager.SetTheme(theme);
             }
         }
+    }
+
+    // ==================================================
+    // HIGH SCORE
+    // ==================================================
+
+    private void SaveHighScore()
+    {
+        if (playerScoreData == null)
+            return;
+
+        float highScore =
+            playerScoreData.HighScore;
+
+        float highDistance =
+            playerScoreData.HighDistance;
+
+        saveFile.AddOrUpdateData(
+            HighScoreDataKey,
+            highScore
+        );
+
+        saveFile.AddOrUpdateData(
+            HighDistanceDataKey,
+            highDistance
+        );
+
+        Debug.Log(
+            $"[Score] High Score: {highScore}, " +
+            $"High Distance: {highDistance}"
+        );
+    }
+
+    private void LoadHighScore()
+    {
+        if (playerScoreData == null)
+            return;
+
+        bool hasHighScore =
+            saveFile.HasData(HighScoreDataKey);
+
+        bool hasHighDistance =
+            saveFile.HasData(HighDistanceDataKey);
+
+        if (!hasHighScore && !hasHighDistance)
+            return;
+
+        float highScore = 0f;
+        float highDistance = 0f;
+
+        if (hasHighScore)
+        {
+            highScore =
+                saveFile.GetData<float>(
+                    HighScoreDataKey
+                );
+        }
+
+        if (hasHighDistance)
+        {
+            highDistance =
+                saveFile.GetData<float>(
+                    HighDistanceDataKey
+                );
+        }
+
+        Debug.Log(
+            $"[Score Local Load] HighScore={highScore}, " +
+            $"HighDistance={highDistance}"
+        );
+
+        playerScoreData.RestoreBest(
+            highScore,
+            highDistance
+        );
+
+        Debug.Log(
+            $"[Score Local Load] Result - " +
+            $"HighScore={playerScoreData.HighScore}, " +
+            $"HighDistance={playerScoreData.HighDistance}"
+        );
     }
 
     // ==================================================
@@ -537,14 +651,8 @@ public class SaveLoad : MonoBehaviour
         if (ThemeManager.Instance == null)
             return;
 
-        if (!saveFile.HasData(
-                TemporaryThemeIdDataKey))
-        {
-            return;
-        }
-
-        if (!saveFile.HasData(
-                TemporaryThemeExpiryDataKey))
+        if (!saveFile.HasData(TemporaryThemeIdDataKey) ||
+            !saveFile.HasData(TemporaryThemeExpiryDataKey))
         {
             return;
         }
@@ -559,8 +667,7 @@ public class SaveLoad : MonoBehaviour
                 TemporaryThemeExpiryDataKey
             );
 
-        string previousThemeId =
-            string.Empty;
+        string previousThemeId = string.Empty;
 
         if (saveFile.HasData(
                 TemporaryThemePreviousIdDataKey))
@@ -618,25 +725,19 @@ public class SaveLoad : MonoBehaviour
                 boughtThemes;
         }
 
-        /*
-         * IMPORTANT:
-         *
-         * CurrentTheme is NOT included.
-         *
-         * TemporaryTheme is NOT included.
-         *
-         * Temporary expiry is NOT included.
-         *
-         * Previous temporary theme is NOT included.
-         *
-         * Only permanent data is synchronized to cloud.
-         */
+        if (playerScoreData != null)
+        {
+            data.highScore =
+                playerScoreData.HighScore;
+
+            data.highDistance =
+                playerScoreData.HighDistance;
+        }
 
         return data;
     }
 
-    private void ApplyCloudSaveData(
-        CloudSaveData data)
+    private void ApplyCloudSaveData(CloudSaveData data)
     {
         if (data == null)
             return;
@@ -653,8 +754,7 @@ public class SaveLoad : MonoBehaviour
             ThemeManager manager =
                 ThemeManager.Instance;
 
-            if (!string.IsNullOrEmpty(
-                    data.boughtThemes))
+            if (!string.IsNullOrEmpty(data.boughtThemes))
             {
                 string[] themeIds =
                     data.boughtThemes.Split(',');
@@ -665,16 +765,37 @@ public class SaveLoad : MonoBehaviour
                         continue;
 
                     ThemeDefinition theme =
-                        manager.GetThemeById(
-                            themeId
-                        );
+                        manager.GetThemeById(themeId);
 
                     if (theme != null)
-                        manager.MarkThemeOwned(
-                            theme
-                        );
+                    {
+                        manager.MarkThemeOwned(theme);
+                    }
                 }
             }
+        }
+
+        if (playerScoreData != null)
+        {
+            Debug.Log(
+                $"[Score Cloud] Before restore - " +
+                $"Current={playerScoreData.Current.Score}, " +
+                $"RunPeak={playerScoreData.RunPeak.Score}, " +
+                $"Best={playerScoreData.Best.Score}, " +
+                $"CloudScore={data.highScore}, " +
+                $"CloudDistance={data.highDistance}"
+            );
+
+            playerScoreData.RestoreBest(
+                data.highScore,
+                data.highDistance
+            );
+
+            Debug.Log(
+                $"[Score Cloud] After restore - " +
+                $"Best={playerScoreData.Best.Score}, " +
+                $"BestDistance={playerScoreData.Best.Distance}"
+            );
         }
 
         SaveGame();

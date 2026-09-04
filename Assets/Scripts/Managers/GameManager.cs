@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
     public bool CanAim => !isPaused;
 
-    private bool isPaused = false;
+    private bool isPaused;
+
+    private bool m_ExitRequested;
 
     private void Awake()
     {
@@ -51,7 +53,6 @@ public class GameManager : MonoBehaviour, IAimBlocker
     private void Start()
     {
         InputController.OnPaused += TogglePause;
-
         PlayerReviveController.OnGameOver += HandleGameOver;
 
         LoadGame();
@@ -106,16 +107,41 @@ public class GameManager : MonoBehaviour, IAimBlocker
             themeManager.RevertExpiredTemporaryTheme();
         }
 
-        SaveGame();
+        SaveGameToCloud();
     }
 
     // ==================================================
     // APPLICATION
     // ==================================================
 
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (!pauseStatus)
+            return;
+
+        if (m_ExitRequested)
+            return;
+
+        Debug.Log(
+            "Application paused. Saving game to local and cloud."
+        );
+
+        SaveGameToCloud();
+    }
+
     private void OnApplicationQuit()
     {
-        SaveGameToCloud();
+        /*
+         * Do not start an asynchronous Google Play save here.
+         * Unity may terminate before CommitUpdate finishes.
+         *
+         * Local SaveFile.Save() is synchronous and safe here.
+         */
+        Debug.Log(
+            "Application quitting. Saving game locally."
+        );
+
+        SaveGame();
     }
 
     // ==================================================
@@ -154,8 +180,30 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
     public void Exit()
     {
-        SaveGameToCloud();
+        if (m_ExitRequested)
+            return;
 
-        Application.Quit();
+        m_ExitRequested = true;
+
+        if (saveLoad == null)
+        {
+            Application.Quit();
+            return;
+        }
+
+        Debug.Log(
+            "Exit requested. Waiting for cloud save to complete."
+        );
+
+        saveLoad.SaveGameToCloud(
+            success =>
+            {
+                Debug.Log(
+                    $"Exit cloud save completed. Success={success}"
+                );
+
+                Application.Quit();
+            }
+        );
     }
 }

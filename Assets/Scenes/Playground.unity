@@ -34896,6 +34896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e2977479b9af441b4584bdf64d67c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveLoad
+  playerScoreData: {fileID: 11400000, guid: f534c057db2e6f74f8f314e06a3c670e, type: 2}
 --- !u!114 &1671445226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35029,7 +35030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf15692c943568c4a98a2a64dce533bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Ads.InterstitialAdScheduler
-  playsPerAd: 1
+  playsPerAd: 3
   adProvider: {fileID: 1706527594}
   _playsSinceLastAd: 0
 --- !u!114 &1706527593

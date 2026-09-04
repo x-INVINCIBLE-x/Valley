@@ -46,10 +46,6 @@ namespace Valley.Economy
 
             Balance -= amount;
             OnBalanceChanged?.Invoke(Balance);
-
-            if (GameManager.Instance != null)
-                GameManager.Instance.SaveGame();
-
             return true;
         }
 

@@ -51,7 +51,9 @@ namespace Valley
 #if UNITY_ANDROID
             IsReady = true;
 
-            Log("Google Play Games authentication is ready.");
+            Log(
+                "Google Play Games authentication is ready."
+            );
 
             CloudSaveReady?.Invoke();
 #endif
@@ -61,7 +63,9 @@ namespace Valley
         // SAVE
         // ==================================================
 
-        public void Save<T>(T data, Action<bool> onComplete = null)
+        public void Save<T>(
+            T data,
+            Action<bool> onComplete = null)
         {
 #if UNITY_ANDROID
             bool googleSignedIn =
@@ -77,7 +81,8 @@ namespace Valley
             if (!IsReady || !googleSignedIn)
             {
                 LogWarning(
-                    "Cannot save to Google Play. Google Play Games is not signed in."
+                    "Cannot save to Google Play. " +
+                    "Google Play Games is not signed in."
                 );
 
                 onComplete?.Invoke(false);
@@ -86,15 +91,28 @@ namespace Valley
 
             if (data == null)
             {
-                LogWarning("Cannot save null data.");
+                LogWarning(
+                    "Cannot save null data."
+                );
+
                 onComplete?.Invoke(false);
                 return;
             }
 
-            string json = JsonUtility.ToJson(data);
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
+            string json =
+                JsonUtility.ToJson(data);
 
-            Log("Opening cloud save for writing.");
+            byte[] bytes =
+                Encoding.UTF8.GetBytes(json);
+
+            Log(
+                $"Opening cloud save for writing. " +
+                $"Bytes={bytes.Length}"
+            );
+
+            Log(
+                $"Cloud JSON being written: {json}"
+            );
 
             PlayGamesPlatform.Instance.SavedGame
                 .OpenWithAutomaticConflictResolution(
@@ -105,7 +123,21 @@ namespace Valley
                     {
                         if (status != SavedGameRequestStatus.Success)
                         {
-                            LogError($"Failed to open cloud save: {status}");
+                            LogError(
+                                $"Failed to open cloud save: {status}"
+                            );
+
+                            onComplete?.Invoke(false);
+                            return;
+                        }
+
+                        if (game == null)
+                        {
+                            LogError(
+                                "Cloud save opened successfully " +
+                                "but returned null metadata."
+                            );
+
                             onComplete?.Invoke(false);
                             return;
                         }
@@ -116,24 +148,51 @@ namespace Valley
                                     $"Saved {DateTime.Now:G}")
                                 .Build();
 
-                        PlayGamesPlatform.Instance.SavedGame.CommitUpdate(
-                            game,
-                            metadata,
-                            bytes,
-                            (saveStatus, savedGame) =>
-                            {
-                                bool success =
-                                    saveStatus == SavedGameRequestStatus.Success;
+                        PlayGamesPlatform.Instance.SavedGame
+                            .CommitUpdate(
+                                game,
+                                metadata,
+                                bytes,
+                                (saveStatus, savedGame) =>
+                                {
+                                    bool success =
+                                        saveStatus ==
+                                        SavedGameRequestStatus.Success;
 
-                                if (success)
-                                    Log("Cloud save completed.");
-                                else
-                                    LogError(
-                                        $"Cloud save failed: {saveStatus}");
+                                    Log(
+                                        $"Cloud save CommitUpdate result: " +
+                                        $"Status={saveStatus}, " +
+                                        $"Success={success}"
+                                    );
 
-                                onComplete?.Invoke(success);
-                            });
-                    });
+                                    if (savedGame != null)
+                                    {
+                                        Log(
+                                            $"Cloud save AFTER commit: " +
+                                            $"Filename={savedGame.Filename}, " +
+                                            $"Description={savedGame.Description}, " +
+                                            $"LastModified={savedGame.LastModifiedTimestamp}"
+                                        );
+                                    }
+
+                                    if (success)
+                                    {
+                                        Log(
+                                            "Cloud save completed."
+                                        );
+                                    }
+                                    else
+                                    {
+                                        LogError(
+                                            $"Cloud save failed: {saveStatus}"
+                                        );
+                                    }
+
+                                    onComplete?.Invoke(success);
+                                }
+                            );
+                    }
+                );
 #else
             onComplete?.Invoke(false);
 #endif
@@ -147,72 +206,136 @@ namespace Valley
         {
 #if UNITY_ANDROID
             if (!IsReady ||
+                PlayGamesPlatform.Instance == null ||
                 !PlayGamesPlatform.Instance.IsAuthenticated())
             {
-                LogWarning("Cannot load from Google Play. Player is not signed in.");
+                LogWarning(
+                    "Cannot load from Google Play. " +
+                    "Player is not signed in."
+                );
+
                 onComplete?.Invoke(default);
                 return;
             }
 
-            Log("Opening cloud save for reading.");
+            Log(
+                $"Opening cloud save for NETWORK READ. " +
+                $"File={saveFileName}"
+            );
 
             PlayGamesPlatform.Instance.SavedGame
                 .OpenWithAutomaticConflictResolution(
                     saveFileName,
-                    DataSource.ReadCacheOrNetwork,
+                    DataSource.ReadNetworkOnly,
                     ConflictResolutionStrategy.UseMostRecentlySaved,
                     (status, game) =>
                     {
                         if (status != SavedGameRequestStatus.Success)
                         {
                             LogWarning(
-                                $"Cloud save could not be opened: {status}");
+                                $"Cloud save could not be opened: {status}"
+                            );
 
                             onComplete?.Invoke(default);
                             return;
                         }
 
-                        PlayGamesPlatform.Instance.SavedGame.ReadBinaryData(
-                            game,
-                            (readStatus, data) =>
-                            {
-                                if (readStatus != SavedGameRequestStatus.Success)
+                        if (game == null)
+                        {
+                            LogWarning(
+                                "Cloud save opened successfully " +
+                                "but metadata is null."
+                            );
+
+                            onComplete?.Invoke(default);
+                            return;
+                        }
+
+                        Log(
+                            $"Cloud save opened successfully. " +
+                            $"Filename={game.Filename}, " +
+                            $"Description={game.Description}, " +
+                            $"LastModified={game.LastModifiedTimestamp}"
+                        );
+
+                        PlayGamesPlatform.Instance.SavedGame
+                            .ReadBinaryData(
+                                game,
+                                (readStatus, data) =>
                                 {
-                                    LogWarning(
-                                        $"Cloud save could not be read: {readStatus}");
+                                    if (readStatus != SavedGameRequestStatus.Success)
+                                    {
+                                        LogWarning(
+                                            $"Cloud save could not be read: " +
+                                            $"{readStatus}"
+                                        );
 
-                                    onComplete?.Invoke(default);
-                                    return;
+                                        onComplete?.Invoke(default);
+                                        return;
+                                    }
+
+                                    if (data == null ||
+                                        data.Length == 0)
+                                    {
+                                        Log(
+                                            "No cloud save data exists."
+                                        );
+
+                                        onComplete?.Invoke(default);
+                                        return;
+                                    }
+
+                                    Log(
+                                        $"Cloud save binary data received. " +
+                                        $"Bytes={data.Length}"
+                                    );
+
+                                    try
+                                    {
+                                        string json =
+                                            Encoding.UTF8.GetString(data);
+
+                                        Log(
+                                            $"Cloud JSON: {json}"
+                                        );
+
+                                        T saveData =
+                                            JsonUtility.FromJson<T>(
+                                                json
+                                            );
+
+                                        if (saveData == null)
+                                        {
+                                            LogWarning(
+                                                "Cloud save JSON " +
+                                                "deserialized to null."
+                                            );
+
+                                            onComplete?.Invoke(default);
+                                            return;
+                                        }
+
+                                        Log(
+                                            "Cloud save loaded successfully."
+                                        );
+
+                                        onComplete?.Invoke(
+                                            saveData
+                                        );
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogError(
+                                            "Cloud save deserialization " +
+                                            $"failed: {ex.Message}"
+                                        );
+
+                                        onComplete?.Invoke(default);
+                                    }
                                 }
-
-                                if (data == null || data.Length == 0)
-                                {
-                                    Log("No cloud save data exists.");
-                                    onComplete?.Invoke(default);
-                                    return;
-                                }
-
-                                try
-                                {
-                                    string json =
-                                        Encoding.UTF8.GetString(data);
-
-                                    T saveData =
-                                        JsonUtility.FromJson<T>(json);
-
-                                    Log("Cloud save loaded.");
-
-                                    onComplete?.Invoke(saveData);
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogError(
-                                        $"Cloud save deserialization failed: {ex.Message}");
-
-                                    onComplete?.Invoke(default);
-                                }
-                            });
-                    });
+                            );
+                    }
+                );
 #else
             onComplete?.Invoke(default);
 #endif
@@ -225,18 +348,28 @@ namespace Valley
         private void Log(string message)
         {
             if (debugLogs)
-                Debug.Log($"[GooglePlaySaveManager] {message}");
+            {
+                Debug.Log(
+                    $"[GooglePlaySaveManager] {message}"
+                );
+            }
         }
 
         private void LogWarning(string message)
         {
             if (debugLogs)
-                Debug.LogWarning($"[GooglePlaySaveManager] {message}");
+            {
+                Debug.LogWarning(
+                    $"[GooglePlaySaveManager] {message}"
+                );
+            }
         }
 
         private void LogError(string message)
         {
-            Debug.LogError($"[GooglePlaySaveManager] {message}");
+            Debug.LogError(
+                $"[GooglePlaySaveManager] {message}"
+            );
         }
     }
 }
