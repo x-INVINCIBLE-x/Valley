@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5235aa89a9d747934207d1f7bec10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Generation.PlatformBlock
+  enableRuntimeBoundsUpdate: 1
+  detectBoundsFromLayer: 1
+  boundsLayer:
+    serializedVersion: 2
+    m_Bits: 0
   boundsCenter: {x: 14.833862, y: 0, z: -556.4359}
   boundsSize: {x: 1484.96, y: 332.59778, z: 1523.6545}
   leftAnchor: {fileID: 0}
@@ -80,6 +85,8 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
     - prefab: {fileID: 2031140700123147619, guid: c6b775eecccf4cc43b57ec95a16e5592, type: 3}
+      weight: 6
+    - prefab: {fileID: 5289021476003079174, guid: 204549deb30f0b14f8a1aca0f5d0319e, type: 3}
       weight: 6
   - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     prefabs:
