@@ -23,7 +23,8 @@ MonoBehaviour:
   reachabilitySafetyMargin: 0.5
   spawnAheadDistance: 300
   despawnBehindDistance: 200
-  upperBoundOffset: 6
+  upperBoundOffset: 150
+  lowerBoundOffset: -150
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 60
@@ -36,7 +37,7 @@ MonoBehaviour:
   guaranteedSafetyInterval: 8
   sideLayers:
   - label: Above
-    verticalOffset: 75
+    verticalOffset: 100
     verticalJitter: 24
     gapMultiplier: 1.2
     stickChanceBonus: 0.4

@@ -61,11 +61,11 @@ namespace Valley.Level.Generation
         public float startingOffsetX = 0f;
 
         [Header("Vertical Band (Mid Layer)")]
-        [Tooltip("Platforms never generate above (player's current Y + this offset). Re-evaluated on every spawn, so it tracks the player instead of trapping them under a fixed ceiling.")]
+        [Tooltip("Maximum Y offset above the fixed MID-layer base Y. The base Y is captured when ResetAndSeed runs; it does NOT follow the player.")]
         public float upperBoundOffset = 6f;
-        [Tooltip("Platforms never generate below (player's current Y - this offset). Re-evaluated on every spawn.")]
+        [Tooltip("Maximum Y offset below the fixed MID-layer base Y. The base Y is captured when ResetAndSeed runs; it does NOT follow the player.")]
         public float lowerBoundOffset = 6f;
-        [Tooltip("Max |change in edge height| allowed between two consecutive mid-layer platforms. There is deliberately no matching lower clamp.")]
+        [Tooltip("Maximum |change in edge height| allowed between two consecutive mid-layer platforms.")]
         public float maxVerticalStep = 3f;
 
         [Header("Gap Control (base values, scaled per layer)")]
@@ -134,6 +134,9 @@ namespace Valley.Level.Generation
 
         float worldShiftOffset;
         float originAtReset;
+
+        // Fixed Y anchor for the MID layer. Platform generation never follows the player's Y after seeding.
+        float midBaseY;
 
         float distanceOriginX;
         int nextProgressionStageIndex;
@@ -334,6 +337,10 @@ namespace Valley.Level.Generation
 
             distanceOriginX = PlayerProgressX;
 
+            // Capture the MID layer's fixed vertical origin once per reset. From this point onward
+            // platform Y placement is independent of player.position.y.
+            midBaseY = player.position.y - 0.1f;
+
             SeedMid();
             foreach (var layer in sideLayers)
             {
@@ -346,7 +353,7 @@ namespace Valley.Level.Generation
         {
             PlatformBlock prefab = platformPrefabs[0];
             float startLeftX = PlayerProgressX + startingOffsetX - prefab.Width * 0.5f;
-            float startLeftY = player.position.y - 0.1f;
+            float startLeftY = midBaseY;
             midRuntime.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = startLeftX, leftEdgeY = startLeftY, rotationZ = 0f, zOffset = RollZNoise() });
             MaterializeAppend(midRuntime, midRuntime.LastGlobalIndex);
         }
@@ -789,21 +796,23 @@ namespace Valley.Level.Generation
             {
                 r.consecutiveSticks = 0;
 
-                float dynamicCeiling = player.position.y + upperBoundOffset;
-                float dynamicFloor = player.position.y - lowerBoundOffset;
+                // The MID layer uses a fixed vertical band captured at ResetAndSeed.
+                // It never follows the player's current Y position.
+                float fixedCeiling = midBaseY + Mathf.Max(0f, upperBoundOffset);
+                float fixedFloor = midBaseY - Mathf.Max(0f, lowerBoundOffset);
 
-                float minY = Mathf.Max(prev.rightEdgeY - maxVerticalStep, dynamicFloor);
-                float maxY = Mathf.Min(prev.rightEdgeY + maxVerticalStep, dynamicCeiling);
+                float minY = Mathf.Max(prev.rightEdgeY - maxVerticalStep, fixedFloor);
+                float maxY = Mathf.Min(prev.rightEdgeY + maxVerticalStep, fixedCeiling);
 
                 if (maxY < minY)
                 {
-                    float clampedY = Mathf.Clamp(prev.rightEdgeY, dynamicFloor, dynamicCeiling);
+                    float clampedY = Mathf.Clamp(prev.rightEdgeY, fixedFloor, fixedCeiling);
                     minY = clampedY;
                     maxY = clampedY;
                 }
 
                 float rawTarget = forceSafe
-                    ? Mathf.Clamp(prev.rightEdgeY, dynamicFloor, dynamicCeiling)
+                    ? Mathf.Clamp(prev.rightEdgeY, fixedFloor, fixedCeiling)
                     : Random.Range(minY, maxY);
 
                 float maxReachableY = prev.rightEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
@@ -846,9 +855,17 @@ namespace Valley.Level.Generation
             float targetLeftEdgeY;
             float gapX;
 
+            // Side layers are anchored to the MID layer, never to the player's Y.
+            // The layer offset is applied first, then the layer's own jitter.
+            float midBaselineY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
+            float jitteredTargetY = Random.Range(
+                midBaselineY - Mathf.Abs(layer.verticalJitter),
+                midBaselineY + Mathf.Abs(layer.verticalJitter));
+
             if (stick)
             {
-                targetLeftEdgeY = prev.rightEdgeY;
+                // Keep the stick's X behavior, but keep the side layer vertically anchored to MID.
+                targetLeftEdgeY = jitteredTargetY;
                 gapX = 0f;
                 r.consecutiveSticks++;
             }
@@ -856,16 +873,13 @@ namespace Valley.Level.Generation
             {
                 r.consecutiveSticks = 0;
 
-                float baselineY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
-                float rawTarget = Random.Range(baselineY - layer.verticalJitter, baselineY + layer.verticalJitter);
-
                 float scaledMin = Mathf.Max(0.05f, minGapX * layer.gapMultiplier);
                 float scaledMax;
 
                 if (layer.clampToReachability)
                 {
                     float maxReachableY = prev.rightEdgeY + Mathf.Max(0f, envelope.maxUpwardHeight - reachabilitySafetyMargin);
-                    targetLeftEdgeY = Mathf.Min(rawTarget, maxReachableY);
+                    targetLeftEdgeY = Mathf.Min(jitteredTargetY, maxReachableY);
 
                     float heightDelta = targetLeftEdgeY - prev.rightEdgeY;
                     float safeGap = Mathf.Max(minGapX, ComputeSafeGap(heightDelta) - reachabilitySafetyMargin);
@@ -873,7 +887,7 @@ namespace Valley.Level.Generation
                 }
                 else
                 {
-                    targetLeftEdgeY = rawTarget;
+                    targetLeftEdgeY = jitteredTargetY;
                     scaledMax = Mathf.Max(scaledMin, maxGapX * layer.gapMultiplier);
                 }
 
@@ -988,7 +1002,10 @@ namespace Valley.Level.Generation
             Gizmos.DrawLine(new Vector3(px - despawnBehindDistance, py - h, 0f), new Vector3(px - despawnBehindDistance, py + h, 0f));
 
             Gizmos.color = ceilingColor;
-            Gizmos.DrawLine(new Vector3(px, py + upperBoundOffset, 0f), new Vector3(px + spawnAheadDistance, py + upperBoundOffset, 0f));
+            float gizmoMidBaseY = Application.isPlaying ? midBaseY : (py - 0.1f);
+            Gizmos.DrawLine(
+                new Vector3(px, gizmoMidBaseY + Mathf.Max(0f, upperBoundOffset), 0f),
+                new Vector3(px + spawnAheadDistance, gizmoMidBaseY + Mathf.Max(0f, upperBoundOffset), 0f));
 
             DrawLayerGizmo(midRuntime, lastEdgeColor, maxVerticalStep);
 
