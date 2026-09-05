@@ -163,7 +163,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20.3, y: 0.3, z: 1.3}
+  m_Size: {x: 210, y: 0.3, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &7939343101203989846
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2
@@ -488,7 +488,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20.3, y: 0.3, z: 1.3}
+  m_Size: {x: 210, y: 0.3, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &7979670525176512088
 MonoBehaviour:
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2
@@ -1503,7 +1503,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20.3, y: 0.3, z: 1.3}
+  m_Size: {x: 210, y: 0.3, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &5552064347113610112
 MonoBehaviour:
@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2
@@ -1905,7 +1905,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20.3, y: 0.3, z: 1.3}
+  m_Size: {x: 210, y: 0.3, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &1429056229165575742
 MonoBehaviour:
@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2

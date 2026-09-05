@@ -10,13 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 7600358685662391122}
   - component: {fileID: 1584609513150987024}
+  - component: {fileID: 4622999987916839124}
+  - component: {fileID: 7423523301403302360}
   m_Layer: 0
   m_Name: Anticipation Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7600358685662391122
 Transform:
   m_ObjectHideFlags: 0
@@ -142,6 +144,45 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!65 &4622999987916839124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655466372560097985}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 210, y: 0.3, z: 1.3}
+  m_Center: {x: 0, y: 0, z: 0.5}
+--- !u!114 &7423523301403302360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655466372560097985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
+  instantKill: 1
+  damage: 50
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  destroySelfOnHit: 0
 --- !u!1 &4999475814127123334
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2
@@ -497,7 +538,8 @@ MonoBehaviour:
     deployOffset: {x: 100, y: 0, z: 0}
     initialLocalPos: {x: 0, y: 0, z: 0}
   actionVisual: {fileID: 4999475814127123334}
-  damageColliders: []
+  damageColliders:
+  - {fileID: 4622999987916839124}
   anticipationDuration: 2
   actionDuration: 0.5
   recoveryDuration: 1
