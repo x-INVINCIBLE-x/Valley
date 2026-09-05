@@ -21,9 +21,10 @@ MonoBehaviour:
   gravity: 20
   maxLaunches: 2
   reachabilitySafetyMargin: 0.5
-  spawnAheadDistance: 300
+  spawnAheadDistance: 400
   despawnBehindDistance: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 0.5
   maxGapX: 4
