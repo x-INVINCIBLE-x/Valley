@@ -41,4 +41,14 @@ public class PauseUI : MonoBehaviour
     {
         GameManager.Instance.SetPause(false);
     }
+
+    public void PauseSwitch()
+    {
+        GameManager.Instance.SetPause(!GameManager.Instance.IsPaused);
+    }
+
+    public void Exit()
+    {
+        GameManager.Instance.Exit();
+    }
 }
