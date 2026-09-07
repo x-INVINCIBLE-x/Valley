@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2196384832229793805}
   - component: {fileID: 3390093467320885124}
   - component: {fileID: 2671041552391859507}
+  - component: {fileID: 6187416311066761092}
   m_Layer: 8
   m_Name: QTE Obstacle
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6165517727704490597}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -110,7 +111,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Obstacles.ChaserObstacle
   player: {fileID: 0}
+  IsPositionRoot: 1
   anticipationVisual: {fileID: 0}
   actionVisual: {fileID: 0}
   anticipationDuration: 0
@@ -144,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6165517727704490597}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bbc45895018fc4286360b5e68ad3d8, type: 3}
   m_Name: 
@@ -155,3 +157,37 @@ MonoBehaviour:
     m_Bits: 64
   disableAfterTrigger: 0
   _hasTriggered: 0
+--- !u!114 &6187416311066761092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165517727704490597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  mode: 0
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefabs:
+    - prefab: {fileID: 3690103487071651307, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 8677816065087946049, guid: 5999e7701faf36a4992611522730e0ce, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 9044708149509343742, guid: d4cbd59ae486de74894941b7973b8663, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 2081413402521930683, guid: 3517044a435ae874d9376fe4912769b0, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    prefabs:
+    - prefab: {fileID: 3730803556666646771, guid: d89ab65c8bbe2554fa873d7021c3a182, type: 3}
+      weight: 5

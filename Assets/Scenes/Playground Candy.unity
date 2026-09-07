@@ -7372,7 +7372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6391cf2f0107a34ba65cfd453965d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  saveLoad: {fileID: 0}
+  playerScoreData: {fileID: 0}
 --- !u!1 &580839186
 GameObject:
   m_ObjectHideFlags: 0
@@ -28370,6 +28370,63 @@ MonoBehaviour:
   maxActiveCategories: 2
   categoryActivationDelayRange: {x: 8, y: 15}
   showGizmos: 1
+--- !u!1001 &1217299726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3690103487071651307, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_Name
+      value: HoneyComb QTE enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 73.3343
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3890381
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 417.1399
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681914305893956423, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
 --- !u!4 &1224916880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1726765245084926877, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
@@ -74216,3 +74273,4 @@ SceneRoots:
   - {fileID: 9199600846453645615}
   - {fileID: 234487911}
   - {fileID: 1691362466}
+  - {fileID: 1217299726}
