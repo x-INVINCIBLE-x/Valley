@@ -1,3 +1,5 @@
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,9 +9,10 @@ public class DailyRewardUI : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Button rewardButton;
     [SerializeField] private TMP_Text rewardProgressText;
+    [SerializeField] private MMF_Player rewardFeedback;
 
     private DailyReward _dailyReward;
-
+    
     public void Initialize(DailyReward dailyReward)
     {
         if (_dailyReward != null)
@@ -60,6 +63,10 @@ public class DailyRewardUI : MonoBehaviour
 
     private void HandleRewardSuccess()
     {
+        if (rewardFeedback != null)
+        {
+            rewardFeedback.PlayFeedbacks();
+        }
         UpdateButtonState();
     }
 
