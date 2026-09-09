@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 19028
+  controlID: 23599
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 18951
+  controlID: 23600
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -177,8 +177,8 @@ MonoBehaviour:
     y: 0
     width: 998
     height: 483
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -990,9 +990,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 3.9899442, y: 15.055296, z: 0}
+    m_Target: {x: 2092.6099, y: 991.3597, z: 0}
     speed: 2
-    m_Value: {x: 3.9899442, y: 15.055296, z: 0}
+    m_Value: {x: 2092.6099, y: 991.3597, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1040,11 +1040,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: -0, y: 0, z: -0, w: -1}
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 8.2874
+    m_Target: 49.452694
     speed: 2
-    m_Value: 8.2874
+    m_Value: 49.452694
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 19029
+  controlID: 23647
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -1378,8 +1378,8 @@ MonoBehaviour:
     y: 0
     width: 395
     height: 466
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -1425,13 +1425,21 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 173}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-      - m_Data: 125908
-      - m_Data: 126770
+      - m_Data: 351862
       m_LastClickedID:
-        m_Data: 126770
+        m_Data: 351862
       m_ExpandedIDs:
+      - m_Data: -144308
+      - m_Data: -143964
+      - m_Data: -141966
+      - m_Data: -140410
+      - m_Data: -130052
+      - m_Data: -129708
+      - m_Data: -127720
+      - m_Data: -126170
+      - m_Data: -124262
       - m_Data: -27692
       - m_Data: -27348
       - m_Data: -25350
@@ -1453,6 +1461,16 @@ MonoBehaviour:
       - m_Data: 126902
       - m_Data: 128188
       - m_Data: 132490
+      - m_Data: 316708
+      - m_Data: 316714
+      - m_Data: 317126
+      - m_Data: 317486
+      - m_Data: 317634
+      - m_Data: 351756
+      - m_Data: 351862
+      - m_Data: 352522
+      - m_Data: 353588
+      - m_Data: 354356
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1552,8 +1570,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/UI/Gold Theme
+    m_Folders: []
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1657,8 +1674,7 @@ MonoBehaviour:
   m_AssetTreeState:
     scrollPos: {x: 0, y: 3372}
     m_SelectedIDs:
-    - m_Data: 125908
-    - m_Data: 126770
+    - m_Data: 351862
     m_LastClickedID:
       m_Data: 0
     m_ExpandedIDs:
@@ -1742,9 +1758,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 125908
-    - m_Data: 126770
-    m_LastClickedInstanceID: 125908
+    - m_Data: 351862
+    m_LastClickedInstanceID: 351862
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
