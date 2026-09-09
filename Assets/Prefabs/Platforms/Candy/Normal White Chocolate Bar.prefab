@@ -429,9 +429,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: White Chocolate Splash
       objectReference: {fileID: 0}
+    - target: {fileID: 5300068523408832799, guid: 78a7ce54c5996a443ae53760c0579bd4, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5432220832030013000, guid: 78a7ce54c5996a443ae53760c0579bd4, type: 3}
       propertyPath: scalingMode
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436562444326998175, guid: 78a7ce54c5996a443ae53760c0579bd4, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531925336704411959, guid: 78a7ce54c5996a443ae53760c0579bd4, type: 3}
+      propertyPath: scalingMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

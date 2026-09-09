@@ -635,6 +635,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jelly Hit Vfx
       objectReference: {fileID: 0}
+    - target: {fileID: 1614100113230758285, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2847754282487434249, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277954408267886892, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287743421077284170, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.000944287
@@ -689,6 +705,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123226630505533707, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577051736012585492, guid: db76de7cdcfeb6546a216477b015423b, type: 3}
+      propertyPath: scalingMode
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

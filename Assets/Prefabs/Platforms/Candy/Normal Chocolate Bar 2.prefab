@@ -368,6 +368,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4724151313452991975}
     m_Modifications:
+    - target: {fileID: 614132691177795441, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141105257191285903, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4234896221932286271, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
       propertyPath: m_Name
       value: Dark Chocolate Splash (1)
@@ -423,6 +431,18 @@ PrefabInstance:
     - target: {fileID: 5038612557511557158, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574168904850992859, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880481304767599356, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690882284092485352, guid: e314a4824a9611b42b2727f5a0b5f8a2, type: 3}
+      propertyPath: scalingMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
