@@ -6133,7 +6133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &449032342
 Transform:
   m_ObjectHideFlags: 0
@@ -34867,54 +34867,6 @@ Transform:
   - {fileID: 1105873440}
   - {fileID: 905383735}
   m_Father: {fileID: 469040788}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1467010579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1467010581}
-  - component: {fileID: 1467010580}
-  m_Layer: 0
-  m_Name: Mouse Raycast
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1467010580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467010579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc174d2137f7fa842b8da98f7aaf3de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MouseRaycast
-  mainCamera: {fileID: 330585545}
-  raycastLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!4 &1467010581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467010579}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 119.22891, y: 773.8603, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471139621
 GameObject:
@@ -73485,6 +73437,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 559b64bd645a099438051eb29e2fadec, type: 3}
     - target: {fileID: 3457541322395049050, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457541322395049050, guid: d8b2643f4bd12c648b3d2cd29bdc0455, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
@@ -109713,7 +109669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 959289109831160357, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1208964110092416383, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -109862,11 +109818,31 @@ PrefabInstance:
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[0].premadeLevel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: progressionStages.Array.data[1].premadeLevel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8902247037256730875, guid: 61e585b3dcc863542a537aef4d8a4624, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[2].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: d22842b17924c0343996f4fd4724f1af, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[3].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: 8e7d7dd44173aa24bae77f95a58e09d9, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[4].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[5].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: fb9eb7940540e694b80bdb8053d95e29, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[6].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: a752012888c61234a8cdf757d4b40fd7, type: 3}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].clampToReachability
       value: 0
@@ -115945,4 +115921,3 @@ SceneRoots:
   - {fileID: 181319924}
   - {fileID: 1394336435}
   - {fileID: 1047505146194626983}
-  - {fileID: 1467010581}
