@@ -19,12 +19,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 36
-    width: 1536
-    height: 812.8
+    width: 1920
+    height: 1053
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 26226
+  controlID: 2010
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -2060,10 +2060,10 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SplitView
   m_Children:
   - {fileID: 4}
   - {fileID: 10}
@@ -2071,12 +2071,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1148
-    height: 812.8
-  m_MinSize: {x: 200, y: 112}
-  m_MaxSize: {x: 16192, y: 16192}
+    width: 998
+    height: 1053
+  m_MinSize: {x: 100, y: 112}
+  m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 26227
+  controlID: 2011
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -2114,7 +2114,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -2127,10 +2127,11 @@ MonoBehaviour:
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 6}
   m_Panes:
+  - {fileID: 5}
   - {fileID: 6}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &6
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2247,7 +2248,7 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Scene
-    m_Image: {fileID: 8634526014445323508, guid: 0000000000000000d000000000000000, type: 0}
+    m_Image: {fileID: 2593428753322112591, guid: 0000000000000000d000000000000000, type: 0}
     m_Tooltip: 
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
@@ -2326,12 +2327,12 @@ MonoBehaviour:
       displayed: 1
       id: unity-transform-toolbar
       index: 0
-      contents: '{"m_Layout":2,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":-116.6666259765625,"y":25.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":1,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":2,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":-116.6666259765625,"y":-227.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
-      snapOffset: {x: -116.666626, y: 25}
+      snapOffset: {x: -116.666626, y: -227}
       snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 1
+      snapCorner: 3
       layout: 2
       size: {x: 0, y: 0}
       sizeOverridden: 0
@@ -3028,7 +3029,7 @@ MonoBehaviour:
   m_WindowGUID: eb14c0dd49c9d3949996ef7b3876b77c
   m_Gizmos: 1
   m_OverrideSceneCullingMask: 6917529027641081856
-  m_SceneIsLit: 1
+  m_SceneIsLit: 0
   m_SceneLighting: 1
   m_2DMode: 0
   m_isRotationLocked: 0
@@ -3036,9 +3037,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 370.35107, y: 386.63153, z: 0}
+    m_Target: {x: 2054.4937, y: -351.68246, z: 3758.7166}
     speed: 2
-    m_Value: {x: 370.35107, y: 386.63153, z: 0}
+    m_Value: {x: 8.450498, y: -15.70612, z: -2.0394344}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -3071,7 +3072,7 @@ MonoBehaviour:
         m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0.5, y: 0.5}
+      m_Size: {x: 1, y: 1}
     zGrid:
       m_Fade:
         m_Target: 0
@@ -3088,9 +3089,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.0023059724, y: 0.9977129, z: 0.056328557, w: -0.039539803}
   m_Size:
-    m_Target: 104.566734
+    m_Target: 1906.3542
     speed: 2
-    m_Value: 109.493965
+    m_Value: 164.16513
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -3111,7 +3112,7 @@ MonoBehaviour:
   m_LastSceneViewRotation: {x: 0.046503697, y: 0.38413727, z: -0.019376317, w: 0.921906}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
-    m_SceneView: {fileID: 8}
+    m_SceneView: {fileID: 5}
     m_CameraOverscanSettings:
       m_Opacity: 50
       m_Scale: 1
@@ -3330,9 +3331,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 483
+    y: 457
     width: 998
-    height: 570
+    height: 596
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 2}
@@ -3403,7 +3404,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 26267
+  controlID: 2051
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -3415,7 +3416,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: SceneHierarchyWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -3472,151 +3473,12 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 708576
+      scrollPos: {x: 0, y: 109}
+      m_SelectedIDs: []
       m_LastClickedID:
-        m_Data: 708576
+        m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -388478
-      - m_Data: -330980
-      - m_Data: -330896
-      - m_Data: -330216
-      - m_Data: -325074
-      - m_Data: -312908
-      - m_Data: -293538
-      - m_Data: -290856
-      - m_Data: -284192
-      - m_Data: -280172
-      - m_Data: -271024
-      - m_Data: -266324
-      - m_Data: -265980
-      - m_Data: -264076
-      - m_Data: -262524
-      - m_Data: -257156
-      - m_Data: -256812
-      - m_Data: -254814
-      - m_Data: -253256
-      - m_Data: -235912
-      - m_Data: -235568
-      - m_Data: -233570
-      - m_Data: -232012
-      - m_Data: -218612
-      - m_Data: -218268
-      - m_Data: -216270
-      - m_Data: -214712
-      - m_Data: -195144
-      - m_Data: -194800
-      - m_Data: -192886
-      - m_Data: -191328
-      - m_Data: -186182
-      - m_Data: -185838
-      - m_Data: -183840
-      - m_Data: -182282
-      - m_Data: -178414
-      - m_Data: -178410
-      - m_Data: -178408
-      - m_Data: -178406
-      - m_Data: -167562
-      - m_Data: -167218
-      - m_Data: -165220
-      - m_Data: -163664
-      - m_Data: -144308
-      - m_Data: -143964
-      - m_Data: -141966
-      - m_Data: -140410
-      - m_Data: -130052
-      - m_Data: -129708
-      - m_Data: -127720
-      - m_Data: -126170
-      - m_Data: -124262
-      - m_Data: -27692
-      - m_Data: -27348
-      - m_Data: -25350
-      - m_Data: -23794
       - m_Data: -1300
-      - m_Data: 63740
-      - m_Data: 63756
-      - m_Data: 64328
-      - m_Data: 64594
-      - m_Data: 64748
-      - m_Data: 64840
-      - m_Data: 64892
-      - m_Data: 125668
-      - m_Data: 125700
-      - m_Data: 125714
-      - m_Data: 126014
-      - m_Data: 126082
-      - m_Data: 126488
-      - m_Data: 126902
-      - m_Data: 128188
-      - m_Data: 132490
-      - m_Data: 316708
-      - m_Data: 316714
-      - m_Data: 317126
-      - m_Data: 317486
-      - m_Data: 317634
-      - m_Data: 351756
-      - m_Data: 351862
-      - m_Data: 352522
-      - m_Data: 353588
-      - m_Data: 354356
-      - m_Data: 393908
-      - m_Data: 393968
-      - m_Data: 395308
-      - m_Data: 395468
-      - m_Data: 396434
-      - m_Data: 434568
-      - m_Data: 434628
-      - m_Data: 435994
-      - m_Data: 436162
-      - m_Data: 461804
-      - m_Data: 461864
-      - m_Data: 462324
-      - m_Data: 463230
-      - m_Data: 463398
-      - m_Data: 464378
-      - m_Data: 465084
-      - m_Data: 503870
-      - m_Data: 503940
-      - m_Data: 504008
-      - m_Data: 504068
-      - m_Data: 504528
-      - m_Data: 505434
-      - m_Data: 505602
-      - m_Data: 506512
-      - m_Data: 507288
-      - m_Data: 507744
-      - m_Data: 544670
-      - m_Data: 544776
-      - m_Data: 546940
-      - m_Data: 579654
-      - m_Data: 579714
-      - m_Data: 581080
-      - m_Data: 581248
-      - m_Data: 582228
-      - m_Data: 617224
-      - m_Data: 617246
-      - m_Data: 617250
-      - m_Data: 617270
-      - m_Data: 631648
-      - m_Data: 631670
-      - m_Data: 631674
-      - m_Data: 631694
-      - m_Data: 631762
-      - m_Data: 631776
-      - m_Data: 631860
-      - m_Data: 631872
-      - m_Data: 631882
-      - m_Data: 631886
-      - m_Data: 631906
-      - m_Data: 668452
-      - m_Data: 668536
-      - m_Data: 668548
-      - m_Data: 668562
-      - m_Data: 668582
-      - m_Data: 708554
-      - m_Data: 708576
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -3679,12 +3541,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 12014, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.ProjectBrowser
   m_MinSize: {x: 230, y: 250}
   m_MaxSize: {x: 10000, y: 10000}
   m_TitleContent:
     m_Text: Project
-    m_Image: {fileID: -5179483145760003458, guid: 0000000000000000d000000000000000, type: 0}
+    m_Image: {fileID: -5467254957812901981, guid: 0000000000000000d000000000000000, type: 0}
     m_Tooltip: 
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
@@ -3717,7 +3579,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/UI/Shop
+    - Assets/Prefabs/Platforms/Challenges
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -3734,7 +3596,7 @@ MonoBehaviour:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 95}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
     - m_Data: 80354
     m_LastClickedID:
@@ -3851,75 +3713,67 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 2877}
-    m_SelectedIDs:
-    - m_Data: 708576
+    scrollPos: {x: 0, y: 397}
+    m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 70240
-    - m_Data: 70322
-    - m_Data: 70372
-    - m_Data: 70374
-    - m_Data: 82510
-    - m_Data: 82512
-    - m_Data: 82514
-    - m_Data: 82516
-    - m_Data: 82518
-    - m_Data: 82520
-    - m_Data: 82522
-    - m_Data: 82524
-    - m_Data: 82526
-    - m_Data: 82528
-    - m_Data: 82530
-    - m_Data: 82532
-    - m_Data: 82534
-    - m_Data: 82536
-    - m_Data: 82538
-    - m_Data: 82540
-    - m_Data: 82542
-    - m_Data: 82544
-    - m_Data: 82546
-    - m_Data: 82548
-    - m_Data: 82550
-    - m_Data: 82552
-    - m_Data: 82554
-    - m_Data: 82556
-    - m_Data: 82558
-    - m_Data: 82560
-    - m_Data: 82562
-    - m_Data: 82564
-    - m_Data: 82566
-    - m_Data: 82568
-    - m_Data: 82570
-    - m_Data: 82572
-    - m_Data: 82574
-    - m_Data: 82576
-    - m_Data: 82578
-    - m_Data: 82580
-    - m_Data: 82582
-    - m_Data: 82584
-    - m_Data: 82586
-    - m_Data: 82588
-    - m_Data: 82590
-    - m_Data: 82592
-    - m_Data: 82594
-    - m_Data: 82596
-    - m_Data: 83060
-    - m_Data: 83062
-    - m_Data: 83134
-    - m_Data: 83142
-    - m_Data: 83170
-    - m_Data: 83190
-    - m_Data: 83224
-    - m_Data: 155992
-    - m_Data: 155994
-    - m_Data: 155996
-    - m_Data: 552110
-    - m_Data: 552112
-    - m_Data: 616440
-    - m_Data: 631950
+    - m_Data: 70386
+    - m_Data: 70434
+    - m_Data: 70440
+    - m_Data: 92136
+    - m_Data: 92736
+    - m_Data: 92738
+    - m_Data: 92740
+    - m_Data: 92742
+    - m_Data: 92744
+    - m_Data: 92746
+    - m_Data: 92748
+    - m_Data: 92750
+    - m_Data: 92752
+    - m_Data: 92754
+    - m_Data: 92756
+    - m_Data: 92758
+    - m_Data: 92760
+    - m_Data: 92762
+    - m_Data: 92764
+    - m_Data: 92766
+    - m_Data: 92768
+    - m_Data: 92770
+    - m_Data: 92772
+    - m_Data: 92774
+    - m_Data: 92776
+    - m_Data: 92778
+    - m_Data: 92780
+    - m_Data: 92782
+    - m_Data: 92784
+    - m_Data: 92786
+    - m_Data: 92788
+    - m_Data: 92790
+    - m_Data: 92792
+    - m_Data: 92794
+    - m_Data: 92796
+    - m_Data: 92798
+    - m_Data: 92800
+    - m_Data: 92802
+    - m_Data: 92804
+    - m_Data: 92806
+    - m_Data: 92808
+    - m_Data: 92810
+    - m_Data: 92812
+    - m_Data: 92814
+    - m_Data: 92816
+    - m_Data: 92818
+    - m_Data: 92820
+    - m_Data: 92822
+    - m_Data: 92824
+    - m_Data: 92826
+    - m_Data: 92828
+    - m_Data: 92830
+    - m_Data: 92832
+    - m_Data: 92834
+    - m_Data: 92836
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3937,7 +3791,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -4036,7 +3890,7 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1148
+    x: 1393
     y: 0
     width: 388
     height: 812.8
@@ -4064,15 +3918,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Inspector
-    m_Image: {fileID: -440750813802333266, guid: 0000000000000000d000000000000000, type: 0}
+    m_Image: {fileID: -2667387946076563598, guid: 0000000000000000d000000000000000, type: 0}
     m_Tooltip: 
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1148
-    y: 79.200005
-    width: 387
-    height: 786.8
+    x: 1393
+    y: 79
+    width: 526
+    height: 1027
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -4089,7 +3943,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: 160
+    m_CachedPref: -324
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
@@ -4115,15 +3969,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Lighting
-    m_Image: {fileID: -1477008817101679558, guid: 0000000000000000d000000000000000, type: 0}
+    m_Image: {fileID: -1347227620855488341, guid: 0000000000000000d000000000000000, type: 0}
     m_Tooltip: 
     m_TextWithWhitespace: "Lighting\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1191.2001
-    y: 79.200005
-    width: 343.80005
-    height: 786.8
+    x: 1393
+    y: 79
+    width: 526
+    height: 1027
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
