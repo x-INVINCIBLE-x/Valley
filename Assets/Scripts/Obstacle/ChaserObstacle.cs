@@ -37,6 +37,9 @@ namespace Valley.Level.Obstacles
         public float chaseSpeed = 8f;
         [Tooltip("Despawns once the straight-line distance to the player reaches this value.")]
         public float despawnDistance = 15f;
+        [Header("Rotation")]
+        [Tooltip("How quickly the obstacle flips to face its movement direction.")]
+        public float rotationSpeed = 360f;
 
         [Header("Player Detection")]
         [Tooltip("Requires a trigger collider on this GameObject. Only objects on these layers count as the player for pausing movement while overlapped.")]
@@ -96,6 +99,25 @@ namespace Valley.Level.Obstacles
             if (playerInsideCollider) return;
 
             Vector3 direction = distance > 0.0001f ? toPlayer / distance : Vector3.zero;
+
+            // Smoothly flip based on horizontal movement direction.
+            if (Mathf.Abs(direction.x) > 0.0001f)
+            {
+                float targetY = direction.x > 0f ? 180f : 0f;
+
+                Quaternion targetRotation = Quaternion.Euler(
+                    transform.eulerAngles.x,
+                    targetY,
+                    transform.eulerAngles.z
+                );
+
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+
             transform.position += direction * chaseSpeed * Time.deltaTime;
         }
 
