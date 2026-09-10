@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4085474063315848417}
   - component: {fileID: 8902247037256730875}
   - component: {fileID: 2068904647597741447}
-  - component: {fileID: -7707033292321820486}
+  - component: {fileID: 4628403350953923453}
   m_Layer: 7
   m_Name: Rectangle
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8122842394199844381}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 20, z: 10}
   m_ConstrainProportionsScale: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
     m_Bits: 384
   showGizmos: 1
   gizmoRadius: 0.12
---- !u!114 &-7707033292321820486
+--- !u!114 &4628403350953923453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,8 +223,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8122842394199844381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b531f317b92a7449a7698f24bfd3d71, type: 3}
+  m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemeMaterialSwap
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
   mode: 0
-  entries: []
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefabs:
+    - prefab: {fileID: 4410521079987504959, guid: 3dd877644de0ee944882af30b82aeae2, type: 3}
+      weight: 5
+    - prefab: {fileID: 2195320573419533651, guid: 1253ab2558db4574c9e09497836c6b1f, type: 3}
+      weight: 5
+    - prefab: {fileID: 4049245420377929641, guid: 72458d415e6bd394d934951b31647b12, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    prefabs:
+    - prefab: {fileID: 1671103198309927090, guid: 0aa5935f6d3850542afe30a3048805be, type: 3}
+      weight: 5
+    - prefab: {fileID: 392136110605266924, guid: a824fc9c67a9a5345b898c6b2f285e99, type: 3}
+      weight: 5
+    - prefab: {fileID: 7139494476138279052, guid: 51ce66bb874c40043ae8746c691b0cd1, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 3890838910924094561, guid: e1a64fad4563a144ba82fe095ab55860, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 6492803120206420214, guid: 4a83711556f897844b0b3a5cbe8c6c47, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 3080639312114462065, guid: f4ef4873c2115374998abf1c2f93198c, type: 3}
+      weight: 5
