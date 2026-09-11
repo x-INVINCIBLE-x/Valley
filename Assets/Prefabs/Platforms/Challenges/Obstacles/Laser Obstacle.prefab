@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 0
+  instantKill: 1
   damage: 50
   targetMask:
     serializedVersion: 2
