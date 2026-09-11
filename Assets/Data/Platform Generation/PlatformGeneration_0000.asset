@@ -25,20 +25,20 @@ MonoBehaviour:
   despawnBehindDistance: 200
   upperBoundOffset: 150
   lowerBoundOffset: -150
-  maxVerticalStep: 3
-  minGapX: 40
-  maxGapX: 60
+  maxVerticalStep: 0
+  minGapX: 20
+  maxGapX: 40
   gapChance: 0
   zNoiseMin: -0.1
   zNoiseMax: 0.1
   maxSpawnChanceAttempts: 4
   maxConsecutiveSticks: 5
-  maxConsecutiveHardGaps: 2
-  guaranteedSafetyInterval: 8
+  maxConsecutiveHardGaps: 1
+  guaranteedSafetyInterval: 4
   sideLayers:
   - label: Above
     verticalOffset: 100
-    verticalJitter: 24
+    verticalJitter: 0
     gapMultiplier: 1.2
     stickChanceBonus: 0.4
     maxConsecutiveSticks: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
   - label: Below
     verticalOffset: -75
-    verticalJitter: 10
+    verticalJitter: 0
     gapMultiplier: 0.1
     stickChanceBonus: 0.8
     maxConsecutiveSticks: 0

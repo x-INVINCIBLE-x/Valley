@@ -45,6 +45,15 @@ namespace Valley.Core
             OnChargesChanged?.Invoke(Remaining, maxCharges);
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!IsInLayerMask(other.gameObject.layer, groundMask)) return;
+            if (Remaining == maxCharges) return;
+
+            Remaining = maxCharges;
+            OnChargesChanged?.Invoke(Remaining, maxCharges);
+        }
+
         private static bool IsInLayerMask(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0;
     }
 }

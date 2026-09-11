@@ -17357,6 +17357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c406d1dfc96e24ca8da4253c97a736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerHealth
+  OnDeathFeedback: {fileID: 0}
+  OnReviveFeedback: {fileID: 0}
 --- !u!114 &7939011809350793629
 MonoBehaviour:
   m_ObjectHideFlags: 0
