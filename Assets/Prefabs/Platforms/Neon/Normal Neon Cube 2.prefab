@@ -223,8 +223,8 @@ MonoBehaviour:
           m_PersistentCalls:
             m_Calls:
             - m_Target: {fileID: 8934179967947947135}
-              m_TargetAssemblyTypeName: EmissionBoost, Assembly-CSharp
-              m_MethodName: TriggerEmissionBoost
+              m_TargetAssemblyTypeName: MaterialColorBoost, Assembly-CSharp
+              m_MethodName: TriggerBoost
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
@@ -256,8 +256,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmissionBoost
   targetRenderer: {fileID: 7451546297538502442}
-  emissionMultiplier: 2
-  duration: 1
+  materialIndex: 0
+  boostColor: {r: 1, g: 1, b: 1, a: 1}
+  emissionMultiplier: 5
+  duration: 0.75
 --- !u!1 &6103267840260991108
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Platforms.PlatformEffectZone
   profile: {fileID: 11400000, guid: 02f62f6f92220154e8218afd132eabad, type: 2}
-  collisionFeedback: {fileID: 0}
+  collisionFeedback: {fileID: 4511114714540562070}
   pointCollisionFeedback: {fileID: 0}
 --- !u!65 &848970870087938710
 BoxCollider:
