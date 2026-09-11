@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 11184
+  controlID: 25
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 11185
+  controlID: 26
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -177,8 +177,8 @@ MonoBehaviour:
     y: 0
     width: 998
     height: 458
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -991,9 +991,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 616.6827, y: -41.83665, z: 128.23557}
+    m_Target: {x: 1656.1028, y: -58.56621, z: 284.04315}
     speed: 2
-    m_Value: {x: 616.6827, y: -41.83665, z: 128.23557}
+    m_Value: {x: 1656.1028, y: -58.56621, z: 284.04315}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1043,9 +1043,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.16229028, y: 0.07599054, z: -0.012531836, w: -0.9837328}
   m_Size:
-    m_Target: 71.58602
+    m_Target: 395.7959
     speed: 2
-    m_Value: 71.58602
+    m_Value: 395.7959
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -3113,8 +3113,8 @@ MonoBehaviour:
     y: 458
     width: 998
     height: 595
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 9}
@@ -3183,7 +3183,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 11225
+  controlID: 50
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -3251,32 +3251,25 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 301}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -478322
-      - m_Data: -239972
-      - m_Data: -239964
-      - m_Data: -239946
-      - m_Data: -239932
-      - m_Data: -237070
-      - m_Data: -201376
-      - m_Data: -201358
-      - m_Data: -195814
-      - m_Data: -58774
-      - m_Data: -49530
-      - m_Data: -35912
-      - m_Data: -13436
-      - m_Data: -2458
-      - m_Data: -1300
-      - m_Data: 63802
-      - m_Data: 63940
-      - m_Data: 245426
-      - m_Data: 245700
-      - m_Data: 246576
-      - m_Data: 247308
+      - m_Data: -41560
+      - m_Data: -41212
+      - m_Data: -39204
+      - m_Data: -37634
+      - m_Data: -15406
+      - m_Data: -15258
+      - m_Data: -15056
+      - m_Data: -8452
+      - m_Data: -8104
+      - m_Data: -6088
+      - m_Data: -4518
+      - m_Data: -1578
+      - m_Data: 105836
+      - m_Data: 107074
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -3294,7 +3287,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 11}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -3376,8 +3369,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Prefabs/Platforms/Pixelated/Currency
+    m_Folders: []
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -3402,60 +3394,63 @@ MonoBehaviour:
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 822
-    - m_Data: 67088
-    - m_Data: 67136
-    - m_Data: 67142
-    - m_Data: 78972
-    - m_Data: 93532
-    - m_Data: 93534
-    - m_Data: 93536
-    - m_Data: 93538
-    - m_Data: 93540
-    - m_Data: 93542
-    - m_Data: 93544
-    - m_Data: 93546
-    - m_Data: 93548
-    - m_Data: 93550
-    - m_Data: 93552
-    - m_Data: 93554
-    - m_Data: 93556
-    - m_Data: 93558
-    - m_Data: 93560
-    - m_Data: 93562
-    - m_Data: 93564
-    - m_Data: 93566
-    - m_Data: 93568
-    - m_Data: 93570
-    - m_Data: 93572
-    - m_Data: 93574
-    - m_Data: 93576
-    - m_Data: 93578
-    - m_Data: 93580
-    - m_Data: 93582
-    - m_Data: 93584
-    - m_Data: 93586
-    - m_Data: 93588
-    - m_Data: 93590
-    - m_Data: 93592
-    - m_Data: 93594
-    - m_Data: 93596
-    - m_Data: 93598
-    - m_Data: 93600
-    - m_Data: 93602
-    - m_Data: 93604
-    - m_Data: 93606
-    - m_Data: 93608
-    - m_Data: 93610
-    - m_Data: 93612
-    - m_Data: 93614
-    - m_Data: 93616
-    - m_Data: 93618
-    - m_Data: 93624
-    - m_Data: 94056
-    - m_Data: 94090
-    - m_Data: 94246
-    - m_Data: 94306
-    - m_Data: 289786
+    - m_Data: 67464
+    - m_Data: 67512
+    - m_Data: 67518
+    - m_Data: 92974
+    - m_Data: 93918
+    - m_Data: 93920
+    - m_Data: 93922
+    - m_Data: 93924
+    - m_Data: 93926
+    - m_Data: 93928
+    - m_Data: 93930
+    - m_Data: 93932
+    - m_Data: 93934
+    - m_Data: 93936
+    - m_Data: 93938
+    - m_Data: 93940
+    - m_Data: 93942
+    - m_Data: 93944
+    - m_Data: 93946
+    - m_Data: 93948
+    - m_Data: 93950
+    - m_Data: 93952
+    - m_Data: 93954
+    - m_Data: 93956
+    - m_Data: 93958
+    - m_Data: 93960
+    - m_Data: 93962
+    - m_Data: 93964
+    - m_Data: 93966
+    - m_Data: 93968
+    - m_Data: 93970
+    - m_Data: 93972
+    - m_Data: 93974
+    - m_Data: 93976
+    - m_Data: 93978
+    - m_Data: 93980
+    - m_Data: 93982
+    - m_Data: 93984
+    - m_Data: 93986
+    - m_Data: 93988
+    - m_Data: 93990
+    - m_Data: 93992
+    - m_Data: 93994
+    - m_Data: 93996
+    - m_Data: 93998
+    - m_Data: 94000
+    - m_Data: 94002
+    - m_Data: 94004
+    - m_Data: 94006
+    - m_Data: 94008
+    - m_Data: 94010
+    - m_Data: 94012
+    - m_Data: 94014
+    - m_Data: 94016
+    - m_Data: 94018
+    - m_Data: 94020
+    - m_Data: 94022
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3482,74 +3477,76 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 401}
+    scrollPos: {x: 0, y: 1501}
     m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 822
-    - m_Data: 67088
-    - m_Data: 67136
-    - m_Data: 67142
-    - m_Data: 78972
-    - m_Data: 93532
-    - m_Data: 93534
-    - m_Data: 93536
-    - m_Data: 93538
-    - m_Data: 93540
-    - m_Data: 93542
-    - m_Data: 93544
-    - m_Data: 93546
-    - m_Data: 93548
-    - m_Data: 93550
-    - m_Data: 93552
-    - m_Data: 93554
-    - m_Data: 93556
-    - m_Data: 93558
-    - m_Data: 93560
-    - m_Data: 93562
-    - m_Data: 93564
-    - m_Data: 93566
-    - m_Data: 93568
-    - m_Data: 93570
-    - m_Data: 93572
-    - m_Data: 93574
-    - m_Data: 93576
-    - m_Data: 93578
-    - m_Data: 93580
-    - m_Data: 93582
-    - m_Data: 93584
-    - m_Data: 93586
-    - m_Data: 93588
-    - m_Data: 93590
-    - m_Data: 93592
-    - m_Data: 93594
-    - m_Data: 93596
-    - m_Data: 93598
-    - m_Data: 93600
-    - m_Data: 93602
-    - m_Data: 93604
-    - m_Data: 93606
-    - m_Data: 93608
-    - m_Data: 93610
-    - m_Data: 93612
-    - m_Data: 93614
-    - m_Data: 93616
-    - m_Data: 93618
-    - m_Data: 93624
-    - m_Data: 94056
-    - m_Data: 94090
-    - m_Data: 94246
-    - m_Data: 94318
-    - m_Data: 289786
-    - m_Data: 326516
-    - m_Data: 326832
-    - m_Data: 327206
+    - m_Data: 67464
+    - m_Data: 67512
+    - m_Data: 67518
+    - m_Data: 92974
+    - m_Data: 93918
+    - m_Data: 93920
+    - m_Data: 93922
+    - m_Data: 93924
+    - m_Data: 93926
+    - m_Data: 93928
+    - m_Data: 93930
+    - m_Data: 93932
+    - m_Data: 93934
+    - m_Data: 93936
+    - m_Data: 93938
+    - m_Data: 93940
+    - m_Data: 93942
+    - m_Data: 93944
+    - m_Data: 93946
+    - m_Data: 93948
+    - m_Data: 93950
+    - m_Data: 93952
+    - m_Data: 93954
+    - m_Data: 93956
+    - m_Data: 93958
+    - m_Data: 93960
+    - m_Data: 93962
+    - m_Data: 93964
+    - m_Data: 93966
+    - m_Data: 93968
+    - m_Data: 93970
+    - m_Data: 93972
+    - m_Data: 93974
+    - m_Data: 93976
+    - m_Data: 93978
+    - m_Data: 93980
+    - m_Data: 93982
+    - m_Data: 93984
+    - m_Data: 93986
+    - m_Data: 93988
+    - m_Data: 93990
+    - m_Data: 93992
+    - m_Data: 93994
+    - m_Data: 93996
+    - m_Data: 93998
+    - m_Data: 94000
+    - m_Data: 94002
+    - m_Data: 94004
+    - m_Data: 94006
+    - m_Data: 94008
+    - m_Data: 94010
+    - m_Data: 94012
+    - m_Data: 94014
+    - m_Data: 94016
+    - m_Data: 94018
+    - m_Data: 94020
+    - m_Data: 94022
+    - m_Data: 94570
+    - m_Data: 94588
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Pixelated Currency
-      m_OriginalName: Pixelated Currency
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -3557,13 +3554,13 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 69184
+        m_Data: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 13}
+      m_ClientGUIView: {fileID: 0}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}

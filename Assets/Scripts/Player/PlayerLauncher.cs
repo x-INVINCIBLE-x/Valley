@@ -13,6 +13,8 @@ namespace Valley.Player
 
         private Rigidbody _rb;
 
+        public float LastLaunchForce { get; private set; }
+
         private void Awake() => _rb = GetComponent<Rigidbody>();
 
         private void OnEnable() => InputController.OnAimReleased += Launch;
@@ -28,6 +30,9 @@ namespace Valley.Player
                 : 1f;
 
             float force = profile.EvaluateForce(charge) * speedMultiplier;
+
+            LastLaunchForce = force;
+
             _rb.linearVelocity *= profile.previousVelocityRetention;
             _rb.AddForce(direction * force, ForceMode.Impulse);
         }

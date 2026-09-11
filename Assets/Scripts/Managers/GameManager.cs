@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour, IAimBlocker
                 "GameManager: SaveLoad is missing."
             );
         }
+
+        Application.targetFrameRate = 60;
     }
 
     private void Start()
