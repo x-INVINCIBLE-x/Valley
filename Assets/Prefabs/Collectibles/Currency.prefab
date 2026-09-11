@@ -118,7 +118,15 @@ MonoBehaviour:
       weight: 1
   - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
     prefabs:
-    - prefab: {fileID: 306700866205418467, guid: 224518c371289a1419334262615241b5, type: 3}
+    - prefab: {fileID: 1764391508474530593, guid: 1715c2ab8f0fbe74fa02cc96f129f407, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    prefabs:
+    - prefab: {fileID: 5426106695751267701, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 5426106695751267701, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
       weight: 5
 --- !u!114 &-6607678068641846427
 MonoBehaviour:

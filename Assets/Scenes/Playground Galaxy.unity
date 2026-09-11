@@ -8071,10 +8071,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 368707967089562527, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ac7b31193640b0a4ea9be79801c37c1c, type: 2}
     - target: {fileID: 577898815848801657, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2233.7273
@@ -8115,26 +8111,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 32.083
       objectReference: {fileID: 0}
-    - target: {fileID: 1547861142169181042, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ac7b31193640b0a4ea9be79801c37c1c, type: 2}
-    - target: {fileID: 1693077895203722641, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ac7b31193640b0a4ea9be79801c37c1c, type: 2}
-    - target: {fileID: 5114818412858976647, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ac7b31193640b0a4ea9be79801c37c1c, type: 2}
     - target: {fileID: 5426106695751267701, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
       propertyPath: m_Name
       value: Galaxy currency
       objectReference: {fileID: 0}
-    - target: {fileID: 6268319144049062966, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ac7b31193640b0a4ea9be79801c37c1c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
