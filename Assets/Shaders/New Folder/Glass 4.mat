@@ -65,6 +65,7 @@ Material:
     - _DisortStrenght: 3
     - _DisortStrength: 0.01
     - _DistortionOnTexture: 0
+    - _Fresnel_Effect: 2
     - _Metalic: 0.246
     - _Metallic: 0
     - _NormalStrenght: 0.01
@@ -79,6 +80,7 @@ Material:
     - _Tiling: 400
     - _XRMotionVectorsPass: 1
     m_Colors:
+    - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _TintColor: {r: 1.1999998, g: 0, b: 1.099476, a: 1}
