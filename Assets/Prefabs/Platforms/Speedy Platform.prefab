@@ -673,22 +673,8 @@ MonoBehaviour:
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   categories:
-  - categoryName: Obstacles
-    prefabs:
-    - {fileID: 5683537784595061676, guid: b5a667bc2e99ea54cbcaf8f9c4c67c9a, type: 3}
-    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
-    autoPointCount: 3
-    positionJitter: {x: 0, y: 0}
-    zRange: {x: 0, y: 0}
-    points:
-    - localPosition: {x: -0.4, y: 0.5, z: 0}
-    - localPosition: {x: 0, y: 0.5, z: 0}
-    - localPosition: {x: 0.4, y: 0.5, z: 0}
-    activeCount: 1
-    activationProbability: 0.2
   - categoryName: Powerups
     prefabs:
-    - {fileID: 2057388557567417013, guid: f06fa6b25bbc20c49985bedad9235236, type: 3}
     - {fileID: 6465671983180393810, guid: 690f51913db761a4d946f4dec6bd7e2f, type: 3}
     - {fileID: 1752992023889638160, guid: 2c1c8d5ac1788f3458b112f582a9eca8, type: 3}
     gizmoColor: {r: 0, g: 1, b: 0.11940789, a: 1}
@@ -700,7 +686,7 @@ MonoBehaviour:
     - localPosition: {x: 0, y: 0.7, z: 0}
     - localPosition: {x: 0.4, y: 0.7, z: 0}
     activeCount: 1
-    activationProbability: 0.01
+    activationProbability: 0.05
   overlapCheckRadius: 0.25
   obstructionLayers:
     serializedVersion: 2

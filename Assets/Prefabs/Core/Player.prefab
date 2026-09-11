@@ -17311,8 +17311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba4795b5d8437f4aaa2e5bb4b8c226f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Player.PlayerVerticalWrap
-  wrapBelowY: -200
-  wrapToY: 150
+  wrapBelowY: -150
+  wrapToY: 175
   preserveVelocityOnWrap: 1
 --- !u!114 &7368794356948607061
 MonoBehaviour:

@@ -5486,7 +5486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +10
+  m_text: +25
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7cf2bc8733f6c0468062c8e95e84690, type: 2}
   m_sharedMaterial: {fileID: -7371932871882357731, guid: a7cf2bc8733f6c0468062c8e95e84690, type: 2}
@@ -5523,7 +5523,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 7
   m_characterHorizontalScale: 1
   m_wordSpacing: 25
   m_lineSpacing: 0
@@ -10360,7 +10360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailyRewardController
   rewardedAdProvider: {fileID: 1706527594}
-  rewardAmount: 10
+  rewardAmount: 25
   maxRewardsPerDay: 4
   rewardUI: {fileID: 197912650}
 --- !u!1 &700710174
@@ -59866,10 +59866,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Theme Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 2371570750767009559, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
-      propertyPath: initialTheme
-      value: 
-      objectReference: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     - target: {fileID: 4146147813003455412, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

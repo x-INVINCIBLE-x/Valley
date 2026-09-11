@@ -142,22 +142,8 @@ MonoBehaviour:
   leftAnchor: {fileID: 0}
   rightAnchor: {fileID: 0}
   categories:
-  - categoryName: Obstacles
-    prefabs:
-    - {fileID: 5683537784595061676, guid: b5a667bc2e99ea54cbcaf8f9c4c67c9a, type: 3}
-    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
-    autoPointCount: 3
-    positionJitter: {x: 0, y: 0}
-    zRange: {x: 0, y: 0}
-    points:
-    - localPosition: {x: -20, y: 10, z: 0}
-    - localPosition: {x: 0, y: 10, z: 0}
-    - localPosition: {x: 20, y: 10, z: 0}
-    activeCount: 1
-    activationProbability: 0.2
   - categoryName: Powerups
     prefabs:
-    - {fileID: 2057388557567417013, guid: f06fa6b25bbc20c49985bedad9235236, type: 3}
     - {fileID: 6465671983180393810, guid: 690f51913db761a4d946f4dec6bd7e2f, type: 3}
     - {fileID: 1752992023889638160, guid: 2c1c8d5ac1788f3458b112f582a9eca8, type: 3}
     gizmoColor: {r: 0, g: 1, b: 0.11940789, a: 1}
@@ -169,7 +155,22 @@ MonoBehaviour:
     - localPosition: {x: 1.0856113, y: 9.150796, z: 0}
     - localPosition: {x: 19.270277, y: 10.492493, z: 0}
     activeCount: 1
-    activationProbability: 0.01
+    activationProbability: 0.03
+  - categoryName: Collectibles
+    prefabs:
+    - {fileID: -6607678068641846427, guid: 8c7dee6464be0ae48bad30da21012e74, type: 3}
+    gizmoColor: {r: 1, g: 0.89338535, b: 0, a: 1}
+    autoPointCount: 5
+    positionJitter: {x: 2, y: 0}
+    zRange: {x: 0, y: 0}
+    points:
+    - localPosition: {x: -20.391735, y: 10, z: 0}
+    - localPosition: {x: -10.034469, y: 10, z: 0}
+    - localPosition: {x: -1.8934522, y: 10, z: 0}
+    - localPosition: {x: 11.130225, y: 10, z: 0}
+    - localPosition: {x: 19.74681, y: 10, z: 0}
+    activeCount: 3
+    activationProbability: 0.1
   overlapCheckRadius: 0.25
   obstructionLayers:
     serializedVersion: 2
