@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7302576150677264855}
-  m_Layer: 0
+  - component: {fileID: 3717037423442895363}
+  - component: {fileID: 6351888435663372402}
+  m_Layer: 9
   m_Name: Candy Cane Collectible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +34,44 @@ Transform:
   - {fileID: 7898698792179493366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3717037423442895363
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460407875784521774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4.5653315
+  m_Center: {x: 0, y: 6.4, z: 0}
+--- !u!114 &6351888435663372402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460407875784521774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6334482355204a4478b1fcb977f01183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyProvider
+  onTrigger: 1
+  collectorLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  amt: 15
 --- !u!1 &8637402043199409528
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,8 +83,6 @@ GameObject:
   - component: {fileID: 7898698792179493366}
   - component: {fileID: 5280763554690353061}
   - component: {fileID: 8052043446821042946}
-  - component: {fileID: 7946901047242485261}
-  - component: {fileID: 5360905010982732848}
   m_Layer: 9
   m_Name: Candy Cane
   m_TagString: Untagged
@@ -100,7 +138,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 62a56a7cd5c7b4c48b15fc653b194162, type: 3}
+  - {fileID: 2100000, guid: 73828bcf5fb671d4baa635450c6f995d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,41 +162,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7946901047242485261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637402043199409528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334482355204a4478b1fcb977f01183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CurrencyProvider
-  onTrigger: 1
-  collectorLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  amt: 15
---- !u!135 &5360905010982732848
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637402043199409528}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.01
-  m_Center: {x: 0, y: 0, z: 0}

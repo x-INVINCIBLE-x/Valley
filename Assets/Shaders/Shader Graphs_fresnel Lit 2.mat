@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_fresnel Lit 1
+  m_Name: Shader Graphs_fresnel Lit 2
   m_Shader: {fileID: -6465566751694194690, guid: 12940fef333d98c499a0013917198ad8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,11 +38,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Base_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2a9043e9872c64d4e926d1c75bf03a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2a9043e9872c64d4e926d1c75bf03a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -59,15 +59,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fresnel_Power: 0.82
+    - _Fresnel_Power: 1.5
     - _Metallic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
     - _XRMotionVectorsPass: 1
     m_Colors:
-    - _Base_Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Emission_Color: {r: 3.0708885, g: 2.2972684, b: 1.0603255, a: 1}
-    - _Fresnel_Color: {r: 0.19752216, g: 1, b: 0, a: 1}
+    - _Base_Color: {r: 0, g: 0.36108923, b: 1, a: 1}
+    - _Emission_Color: {r: 0, g: 0.11878872, b: 2, a: 1}
+    - _Fresnel_Color: {r: 0.16792929, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
