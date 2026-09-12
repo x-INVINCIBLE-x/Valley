@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4460407875784521774
+--- !u!1 &29743304030755571
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,84 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7302576150677264855}
-  - component: {fileID: 3717037423442895363}
-  - component: {fileID: 6351888435663372402}
-  m_Layer: 9
-  m_Name: Candy Cane Collectible
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7302576150677264855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460407875784521774}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 7898698792179493366}
-  - {fileID: 6274801959872533771}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3717037423442895363
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460407875784521774}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 4.5653315
-  m_Center: {x: 0, y: 6.4, z: 0}
---- !u!114 &6351888435663372402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460407875784521774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334482355204a4478b1fcb977f01183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CurrencyProvider
-  collectorLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  amt: 15
-  onTrigger: 1
-  disableOnTrigger: 0
-  restoreInitialScale: 1
-  collectFeedback: {fileID: 2145995584693010742}
---- !u!1 &8169044513528487970
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6274801959872533771}
-  - component: {fileID: 2145995584693010742}
+  - component: {fileID: 9142120416778050610}
+  - component: {fileID: 3646044353899145767}
   m_Layer: 0
   m_Name: Feedback
   m_TagString: Untagged
@@ -93,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6274801959872533771
+--- !u!4 &9142120416778050610
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169044513528487970}
+  m_GameObject: {fileID: 29743304030755571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.8912697, y: 0.04, z: 19.369995}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.208508, y: 0, z: 233.03287}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7302576150677264855}
+  m_Father: {fileID: 5969748188495152824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2145995584693010742
+--- !u!114 &3646044353899145767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169044513528487970}
+  m_GameObject: {fileID: 29743304030755571}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
@@ -214,8 +138,8 @@ MonoBehaviour:
   - rid: 1176045598230970475
   - rid: 1176045598230970474
   - rid: 1176045598230970473
-  - rid: 1176045598230970483
-  - rid: 1176045598230970484
+  - rid: 1176045598230970477
+  - rid: 1176045598230970478
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -296,9 +220,9 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 2145995584693010742}
+        Owner: {fileID: 3646044353899145767}
         DebugActive: 0
-        AnimateScaleTarget: {fileID: 7898698792179493366}
+        AnimateScaleTarget: {fileID: 5969748188495152824}
         DeclaredDuration: 0
         DampingX: 0.4
         FrequencyX: 6
@@ -307,8 +231,8 @@ MonoBehaviour:
         DampingZ: 0.4
         FrequencyZ: 6
         Mode: 0
-        MoveToScaleMin: {x: 1, y: 1, z: 1}
-        MoveToScaleMax: {x: 2, y: 2, z: 2}
+        MoveToScaleMin: {x: 0.1, y: 0.1, z: 0.1}
+        MoveToScaleMax: {x: 0.2, y: 0.2, z: 0.2}
         BumpScaleMin: {x: 20, y: 20, z: 20}
         BumpScaleMax: {x: 30, y: 30, z: 30}
     - rid: 1176045598230970474
@@ -383,7 +307,7 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 2145995584693010742}
+        Owner: {fileID: 3646044353899145767}
         DebugActive: 0
         PauseDuration: 0.2
         RandomizePauseDuration: 0
@@ -465,9 +389,9 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 2145995584693010742}
+        Owner: {fileID: 3646044353899145767}
         DebugActive: 0
-        SquashAndStretchTarget: {fileID: 7898698792179493366}
+        SquashAndStretchTarget: {fileID: 5969748188495152824}
         Mode: 0
         Axis: 6
         AnimateScaleDuration: 0.2
@@ -510,11 +434,11 @@ MonoBehaviour:
         AllowAdditivePlays: 0
         DetermineScaleOnPlay: 0
         DestinationScale: 2
-    - rid: 1176045598230970483
+    - rid: 1176045598230970477
       type: {class: MMF_Pause, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
         Active: 1
-        UniqueID: 1680507646
+        UniqueID: 846597398
         Label: Pause
         OriginalLabel: Pause
         ChannelMode: 0
@@ -582,9 +506,9 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 2145995584693010742}
+        Owner: {fileID: 3646044353899145767}
         DebugActive: 0
-        PauseDuration: 0.1
+        PauseDuration: 0.2
         RandomizePauseDuration: 0
         MinPauseDuration: 1
         MaxPauseDuration: 3
@@ -592,11 +516,11 @@ MonoBehaviour:
         ScriptDriven: 0
         AutoResume: 0
         AutoResumeAfter: 0.25
-    - rid: 1176045598230970484
+    - rid: 1176045598230970478
       type: {class: MMF_SetActive, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
         Active: 1
-        UniqueID: -116941318
+        UniqueID: -1173859611
         Label: Set Active
         OriginalLabel: Set Active
         ChannelMode: 0
@@ -664,9 +588,9 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 2145995584693010742}
+        Owner: {fileID: 3646044353899145767}
         DebugActive: 0
-        TargetGameObject: {fileID: 4460407875784521774}
+        TargetGameObject: {fileID: 6072176162331941028}
         ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0
@@ -681,7 +605,7 @@ MonoBehaviour:
         StateOnSkip: 1
         SetStateOnPlayerComplete: 0
         StateOnPlayerComplete: 1
---- !u!1 &8637402043199409528
+--- !u!1 &6072176162331941028
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -689,46 +613,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7898698792179493366}
-  - component: {fileID: 5280763554690353061}
-  - component: {fileID: 8052043446821042946}
+  - component: {fileID: 5969748188495152824}
+  - component: {fileID: 6655251356508841486}
+  - component: {fileID: 1665146749427315384}
+  - component: {fileID: 5769991998207542815}
+  - component: {fileID: 2027810772938520202}
   m_Layer: 9
-  m_Name: Candy Cane
+  m_Name: Neon currency Tier 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7898698792179493366
+--- !u!4 &5969748188495152824
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637402043199409528}
+  m_GameObject: {fileID: 6072176162331941028}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 5.16, z: -0}
-  m_LocalScale: {x: 40.000004, y: 40.000004, z: 400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 7302576150677264855}
+  m_Children:
+  - {fileID: 9142120416778050610}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5280763554690353061
+--- !u!33 &6655251356508841486
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637402043199409528}
-  m_Mesh: {fileID: 6255687079079774844, guid: 62a56a7cd5c7b4c48b15fc653b194162, type: 3}
---- !u!23 &8052043446821042946
+  m_GameObject: {fileID: 6072176162331941028}
+  m_Mesh: {fileID: 8385836491182413749, guid: d7e8528480d43d847bc04b198d909e41, type: 3}
+--- !u!23 &1665146749427315384
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637402043199409528}
+  m_GameObject: {fileID: 6072176162331941028}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -747,7 +674,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73828bcf5fb671d4baa635450c6f995d, type: 2}
+  - {fileID: 2100000, guid: 1df122cac6058d042a90f2676907b284, type: 2}
+  - {fileID: 2100000, guid: b1319fc3605f54f4f992f4567e52c95f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -771,3 +699,44 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5769991998207542815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072176162331941028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6334482355204a4478b1fcb977f01183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyProvider
+  collectorLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  amt: 20
+  onTrigger: 1
+  disableOnTrigger: 0
+  restoreInitialScale: 1
+  collectFeedback: {fileID: 3646044353899145767}
+--- !u!135 &2027810772938520202
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072176162331941028}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.646051
+  m_Center: {x: 0, y: 0, z: 0}

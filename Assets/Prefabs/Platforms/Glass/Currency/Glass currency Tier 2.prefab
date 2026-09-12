@@ -671,7 +671,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 7385477484835465017}
   - component: {fileID: 16200731320972827}
   m_Layer: 9
-  m_Name: Glass collectible
+  m_Name: Glass currency Tier 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,7 +750,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 2.7825315
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.52, z: 0}
 --- !u!114 &16200731320972827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,7 +837,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -927,7 +927,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1017,7 +1017,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1107,7 +1107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1197,7 +1197,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1328,7 +1328,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1418,7 +1418,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1508,7 +1508,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1598,7 +1598,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9178e14a4264bb5429890049df766ea8, type: 2}
+  - {fileID: 2100000, guid: 8d2cb705a6725ea44adc865643c465eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

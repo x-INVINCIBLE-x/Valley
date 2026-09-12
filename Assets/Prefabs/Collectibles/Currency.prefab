@@ -109,30 +109,47 @@ MonoBehaviour:
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
-    - prefab: {fileID: 306700866205418467, guid: 224518c371289a1419334262615241b5, type: 3}
-      weight: 5
     - prefab: {fileID: 7178389527394821171, guid: 0768af028bc73a549b71b00ad0033bd4, type: 3}
       weight: 5
     - prefab: {fileID: 4460407875784521774, guid: bf4b1b398efc2a64f80bf9e68b090239, type: 3}
+      weight: 5
+    - prefab: {fileID: 306700866205418467, guid: 224518c371289a1419334262615241b5, type: 3}
       weight: 3
     - prefab: {fileID: 6661490808417169621, guid: 0e17b68e077d51042afb2f86b5bfb342, type: 3}
       weight: 1
   - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
     prefabs:
-    - prefab: {fileID: 1764391508474530593, guid: 1715c2ab8f0fbe74fa02cc96f129f407, type: 3}
+    - prefab: {fileID: 1764391508474530593, guid: f3c8917fe513cba4e962bed8ea7e037f, type: 3}
       weight: 5
+    - prefab: {fileID: 1764391508474530593, guid: 8fbabaf5f25bfb24b8796a674850ddb9, type: 3}
+      weight: 3
+    - prefab: {fileID: 1764391508474530593, guid: 1715c2ab8f0fbe74fa02cc96f129f407, type: 3}
+      weight: 1
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
-    - prefab: {fileID: 5426106695751267701, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
+    - prefab: {fileID: 5426106695751267701, guid: 63ed16a293e5ccb40a4b719c071121b9, type: 3}
       weight: 5
+    - prefab: {fileID: 5426106695751267701, guid: f1e5dba3596849f428a53edb69df79f3, type: 3}
+      weight: 3
+    - prefab: {fileID: 5426106695751267701, guid: 75b1bb0cd50bc8b4487ebb679893541e, type: 3}
+      weight: 1
   - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     prefabs:
     - prefab: {fileID: 6072176162331941028, guid: 42d35b12be009bf4189718d0902bb8e0, type: 3}
       weight: 5
+    - prefab: {fileID: 6072176162331941028, guid: aa0aa0dba5505ba4fad2aedb2b671971, type: 3}
+      weight: 3
+    - prefab: {fileID: 6072176162331941028, guid: e717a471fe5d5b245a11862cbe41326b, type: 3}
+      weight: 1
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 3787646603594034776, guid: ed9fb728908d0f0499fea1532d509063, type: 3}
+    - prefab: {fileID: 3787646603594034776, guid: cd81ba04367541a458b904ef839bdd50, type: 3}
       weight: 5
+    - prefab: {fileID: 3787646603594034776, guid: e6b901d2d8739fd489cf472dfac98219, type: 3}
+      weight: 3
+    - prefab: {fileID: 3787646603594034776, guid: ed9fb728908d0f0499fea1532d509063, type: 3}
+      weight: 1
+  resetPositionOnSpawn: 1
 --- !u!114 &-6607678068641846427
 MonoBehaviour:
   m_ObjectHideFlags: 0
