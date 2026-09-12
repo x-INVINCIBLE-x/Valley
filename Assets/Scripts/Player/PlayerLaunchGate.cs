@@ -36,6 +36,26 @@ namespace Valley.Core
             OnChargesChanged?.Invoke(Remaining, maxCharges);
         }
 
+        public void IncreaseMaxCharges(int amount)
+        {
+            if (amount <= 0) return;
+
+            maxCharges += amount;
+            Remaining += amount;
+
+            OnChargesChanged?.Invoke(Remaining, maxCharges);
+        }
+
+        public void DecreaseMaxCharges(int amount)
+        {
+            if (amount <= 0) return;
+
+            maxCharges = Mathf.Max(1, maxCharges - amount);
+            Remaining = Mathf.Min(Remaining, maxCharges);
+
+            OnChargesChanged?.Invoke(Remaining, maxCharges);
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if (!IsInLayerMask(collision.gameObject.layer, groundMask)) return;

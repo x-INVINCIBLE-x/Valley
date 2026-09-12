@@ -146,6 +146,7 @@ MonoBehaviour:
     prefabs:
     - {fileID: 6465671983180393810, guid: 690f51913db761a4d946f4dec6bd7e2f, type: 3}
     - {fileID: 1752992023889638160, guid: 2c1c8d5ac1788f3458b112f582a9eca8, type: 3}
+    - {fileID: 2057388557567417013, guid: 40b3a10c5d8fd2f4997457871572c868, type: 3}
     gizmoColor: {r: 0, g: 1, b: 0.11940789, a: 1}
     autoPointCount: 3
     positionJitter: {x: 2, y: 1}
@@ -196,3 +197,4 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 5853255471664473526, guid: 0a6b4361022eb7748aaefe7bf1278780, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
