@@ -50,8 +50,9 @@ public class GameManager : MonoBehaviour, IAimBlocker
                 "GameManager: SaveLoad is missing."
             );
         }
-
+#if PLATFORM_ANDROID
         Application.targetFrameRate = 60;
+#endif
     }
 
     private void Start()

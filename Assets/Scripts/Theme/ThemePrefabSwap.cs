@@ -28,6 +28,7 @@ namespace Valley.Theming
 
         [Tooltip("One entry per theme this object cares about. A weighted-random prefab is picked from the matching entry, and the spawned instance replaces whatever this script previously spawned, as a child of this transform.")]
         [SerializeField] private Entry[] entries;
+        [SerializeField] private bool resetPositionOnSpawn = true;
 
         private GameObject _spawnedInstance;
 
@@ -45,8 +46,11 @@ namespace Valley.Theming
                 }
 
                 if (_spawnedInstance != null) Destroy(_spawnedInstance);
+
+                Vector3 position = resetPositionOnSpawn ? transform.position : prefab.transform.position;
+
                 _spawnedInstance = Instantiate(prefab,
-                                               transform.position,
+                                               position,
                                                prefab.transform.rotation,
                                                transform);
                 return;
