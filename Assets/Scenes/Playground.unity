@@ -35770,9 +35770,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Valley.UI.EndUI
   scoreData: {fileID: 11400000, guid: f534c057db2e6f74f8f314e06a3c670e, type: 2}
   scoreText: {fileID: 966852674}
-  distanceText: {fileID: 0}
-  highScoreText: {fileID: 0}
-  highDistanceText: {fileID: 0}
+  distanceText: {fileID: 1923502252}
+  highScoreText: {fileID: 361030435}
+  highDistanceText: {fileID: 1867301235}
   newHighScoreBadge: {fileID: 0}
 --- !u!1 &1375138122
 GameObject:
@@ -41398,7 +41398,7 @@ GameObject:
   - component: {fileID: 1867301236}
   - component: {fileID: 1867301235}
   m_Layer: 5
-  m_Name: High Score
+  m_Name: High Distance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48239,7 +48239,7 @@ GameObject:
   - component: {fileID: 1923502253}
   - component: {fileID: 1923502252}
   m_Layer: 5
-  m_Name: High Score
+  m_Name: Distance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
