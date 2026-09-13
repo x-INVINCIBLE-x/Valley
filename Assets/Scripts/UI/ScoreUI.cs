@@ -111,11 +111,11 @@ namespace Valley.UI
 
                 int cycle = Mathf.Max(0, (_currentProgress - 1) / iconCount);
 
-                if (cycle != _currentCycle)
-                {
+                //if (cycle != _currentCycle)
+                //{
                     yield return AnimateColorChange(cycle);
                     _currentCycle = cycle;
-                }
+                //}
 
                 ApplyInstant(_currentProgress);
 

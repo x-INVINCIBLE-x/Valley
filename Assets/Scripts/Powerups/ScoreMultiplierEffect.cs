@@ -8,7 +8,8 @@ namespace Valley.Powerups
     {
         [Header("Score Multiplier")]
         [Tooltip("Added on top of the tracker's base multiplier and any other active sources.")]
-        [SerializeField] private float multiplierBonus = 1f;
+        [SerializeField] private int minMultiplierBonus = 2;
+        [SerializeField] private int maxMultiplierBonus = 5;
 
         private DistanceScoreTracker targetTracker = null;
 
@@ -17,6 +18,7 @@ namespace Valley.Powerups
             targetTracker = DistanceScoreTracker.Instance;
             if (targetTracker == null) return;
 
+            int multiplierBonus = Random.Range(minMultiplierBonus, maxMultiplierBonus + 1);
             targetTracker.SetMultiplierContribution(this, multiplierBonus);
         }
 
