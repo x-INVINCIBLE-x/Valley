@@ -7,6 +7,9 @@ namespace Valley.Core
     public class PlayerLaunchGate : MonoBehaviour, IAimBlocker
     {
         public static event Action<int, int> OnChargesChanged;
+        
+        // <Previous Charges, New Max Charges>
+        public static event Action<int, int> OnMaxChargesChanged;
 
         [SerializeField] private int maxCharges = 1;
         [SerializeField] private LayerMask groundMask;
@@ -40,20 +43,24 @@ namespace Valley.Core
         {
             if (amount <= 0) return;
 
+            int prevCharges = maxCharges;
             maxCharges += amount;
             Remaining += amount;
 
             OnChargesChanged?.Invoke(Remaining, maxCharges);
+            OnMaxChargesChanged?.Invoke(prevCharges, maxCharges);
         }
 
         public void DecreaseMaxCharges(int amount)
         {
             if (amount <= 0) return;
 
+            int prevCharges = maxCharges;
             maxCharges = Mathf.Max(1, maxCharges - amount);
             Remaining = Mathf.Min(Remaining, maxCharges);
 
             OnChargesChanged?.Invoke(Remaining, maxCharges);
+            OnMaxChargesChanged?.Invoke(prevCharges, maxCharges);
         }
 
         private void OnCollisionEnter(Collision collision)

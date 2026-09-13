@@ -15,4 +15,5 @@ MonoBehaviour:
   icon: {fileID: -122496617620796665, guid: fe42c8b526e77e54ab91d0590272d9e8, type: 3}
   isTimed: 1
   duration: 5
-  multiplierBonus: 12
+  minMultiplierBonus: 1
+  maxMultiplierBonus: 4
