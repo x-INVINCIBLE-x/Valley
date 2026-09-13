@@ -17,8 +17,8 @@ namespace Valley.Player
 
         private void Awake() => _rb = GetComponent<Rigidbody>();
 
-        private void OnEnable() => InputController.OnAimReleased += Launch;
-        private void OnDisable() => InputController.OnAimReleased -= Launch;
+        private void Start() => InputController.OnAimReleased += Launch;
+        private void OnDestroy() => InputController.OnAimReleased -= Launch;
 
         private void Launch(Vector3 direction, float charge)
         {
@@ -28,7 +28,7 @@ namespace Valley.Player
             float speedMultiplier = platformEffects != null && platformEffects.Current != null
                 ? platformEffects.Current.speedMultiplier
                 : 1f;
-
+            Debug.Log($"Launch: Direction={direction}, Charge={charge}, SpeedMultiplier={speedMultiplier}");
             float force = profile.EvaluateForce(charge) * speedMultiplier;
 
             LastLaunchForce = force;

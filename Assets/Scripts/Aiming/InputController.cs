@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,7 @@ namespace Valley.Aiming
         [SerializeField] private float maxChargeTime = 1f;
         [Tooltip("Each entry must implement IAimBlocker. Aiming is blocked if any of them reports CanAim == false." +
             " Add new blocking systems here instead of adding new checks to this script.")]
-        [SerializeField] private MonoBehaviour[] aimBlockers;
+        [SerializeField] private List<MonoBehaviour> aimBlockers;
 
         private PlayerControls _controls;
         private float _currentAngleDeg;
@@ -29,6 +30,11 @@ namespace Valley.Aiming
         {
             _controls = new PlayerControls();
             _controls.Gameplay.SetCallbacks(this);
+        }
+
+        private void Start()
+        {
+            aimBlockers.Add(GameManager.Instance);
         }
 
         private void OnEnable() => _controls.Gameplay.Enable();
@@ -74,6 +80,8 @@ namespace Valley.Aiming
         {
             foreach (var blocker in aimBlockers)
             {
+                if (blocker == null) continue;
+
                 if (blocker is IAimBlocker aimBlocker && !aimBlocker.CanAim) return false;
             }
             return true;
