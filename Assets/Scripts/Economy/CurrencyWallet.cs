@@ -9,6 +9,9 @@ namespace Valley.Economy
 
         public static event Action<int> OnBalanceChanged;
 
+        // <AmountAdded, NewBalance>
+        public static event Action<int, int> OnBalanceAdded;
+
         [SerializeField] private int startingBalance;
 
         public int Balance { get; private set; }
@@ -37,6 +40,7 @@ namespace Valley.Economy
 
             Balance += amount;
             OnBalanceChanged?.Invoke(Balance);
+            OnBalanceAdded?.Invoke(amount, Balance);
         }
 
         public bool TrySpend(int amount)

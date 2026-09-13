@@ -1,12 +1,12 @@
 using MoreMountains.Feedbacks;
-using System;
 using TMPro;
 using UnityEngine;
 using Valley.Economy;
 
 public class WalletUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI amtText;
+    [SerializeField] private TextMeshProUGUI finalAmtText;
+    [SerializeField] private TextMeshProUGUI deltaAmtText;
     [SerializeField] private MMF_Player updateFeedback;
 
     private CurrencyWallet wallet;
@@ -14,19 +14,20 @@ public class WalletUI : MonoBehaviour
     private void Start()
     {
         wallet = CurrencyWallet.Instance;
-        CurrencyWallet.OnBalanceChanged += UpdateUI;
+        CurrencyWallet.OnBalanceAdded += UpdateUI;
 
-        UpdateUI(wallet.Balance);
+        UpdateUI(0, wallet.Balance);
     }
 
     private void OnDestroy()
     {
-        CurrencyWallet.OnBalanceChanged -= UpdateUI;
+        CurrencyWallet.OnBalanceAdded -= UpdateUI;
     }
 
-    private void UpdateUI(int amt)
+    private void UpdateUI(int amt, int newBalance)
     {
-        amtText.text = amt.ToString();
+        finalAmtText.text = newBalance.ToString();
+        deltaAmtText.text = $"+{amt}";
 
         if (updateFeedback != null)
         {
