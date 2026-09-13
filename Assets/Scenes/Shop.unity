@@ -388,7 +388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18f200ab8d2c4042a96f0d961bb9703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalletUI
-  amtText: {fileID: 1608563292}
+  finalAmtText: {fileID: 1608563292}
+  deltaAmtText: {fileID: 0}
   updateFeedback: {fileID: 0}
 --- !u!1 &234764032
 GameObject:
@@ -425,7 +426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -961.0497, y: 0}
+  m_AnchoredPosition: {x: -1079.9999, y: 0}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234764034
