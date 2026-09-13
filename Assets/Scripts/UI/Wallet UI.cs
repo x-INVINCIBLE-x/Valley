@@ -27,7 +27,11 @@ public class WalletUI : MonoBehaviour
     private void UpdateUI(int amt, int newBalance)
     {
         finalAmtText.text = newBalance.ToString();
-        deltaAmtText.text = $"+{amt}";
+
+        if (deltaAmtText != null)
+        {
+            deltaAmtText.text = $"+{amt}";
+        }
 
         if (updateFeedback != null)
         {

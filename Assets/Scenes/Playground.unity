@@ -1594,8 +1594,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159846829}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0696766, y: 0.70366555, z: -0.06967661, w: 0.7036655}
-  m_LocalPosition: {x: 43.74094, y: 14.911739, z: -0.02462}
+  m_LocalRotation: {x: 0.0352236, y: 0.706229, z: -0.035223603, w: 0.7062289}
+  m_LocalPosition: {x: 43.74094, y: 13.911739, z: -0.02462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1648,7 +1648,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: -10, y: 2, z: 0}
+  FollowOffset: {x: -10, y: 1, z: 0}
 --- !u!114 &159846833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5553,8 +5553,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0696766, y: 0.70366555, z: -0.06967661, w: 0.7036655}
-  m_LocalPosition: {x: 43.74094, y: 14.911739, z: -0.02462}
+  m_LocalRotation: {x: 0.0352236, y: 0.70622903, z: -0.035223607, w: 0.7062289}
+  m_LocalPosition: {x: 43.74094, y: 13.911739, z: -0.02462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11142,7 +11142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &700710175
 Transform:
   m_ObjectHideFlags: 0
@@ -77344,10 +77344,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 49769248}
     m_Modifications:
-    - target: {fileID: 1364939214938642550, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
-      propertyPath: mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1448222984558551584, guid: f82b6a70cb703ed4ba8d5163878da90a, type: 3}
       propertyPath: m_Name
       value: Theme Manager
