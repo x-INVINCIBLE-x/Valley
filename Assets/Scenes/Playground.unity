@@ -3328,7 +3328,7 @@ MonoBehaviour:
     - rid: 9217333693710598238
       type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 912998750
         Label: Particles Play
         OriginalLabel: Particles Play
@@ -7597,7 +7597,7 @@ MonoBehaviour:
     - rid: 9217333693710598238
       type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 912998750
         Label: Particles Play
         OriginalLabel: Particles Play
@@ -18836,7 +18836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!198 &909098364
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -19092,7 +19092,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.002
-      minScalar: 0.1
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19555,7 +19555,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 2
+      value: 0.8
       mode: 0
       spread: 0
       speed:
@@ -27057,7 +27057,7 @@ MonoBehaviour:
     - rid: 9217333666378940526
       type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: 271501585
         Label: Particles Play
         OriginalLabel: Particles Play
