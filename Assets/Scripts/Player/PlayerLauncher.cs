@@ -28,7 +28,7 @@ namespace Valley.Player
             float speedMultiplier = platformEffects != null && platformEffects.Current != null
                 ? platformEffects.Current.speedMultiplier
                 : 1f;
-            Debug.Log($"Launch: Direction={direction}, Charge={charge}, SpeedMultiplier={speedMultiplier}");
+
             float force = profile.EvaluateForce(charge) * speedMultiplier;
 
             LastLaunchForce = force;

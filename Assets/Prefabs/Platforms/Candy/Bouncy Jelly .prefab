@@ -136,6 +136,7 @@ MonoBehaviour:
   InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 9217333642811670594
+  - rid: 1176045643354079328
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -144,10 +145,97 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1176045643354079328
+      type: {class: MMF_ScaleSpring, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: 1316510079
+        Label: Scale Spring
+        OriginalLabel: Scale Spring
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 45
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 1
+        RandomDurationMultiplier: {x: 3, y: 4}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: 
+        Owner: {fileID: 4014704883400544213}
+        DebugActive: 0
+        AnimateScaleTarget: {fileID: 1854534901079598520}
+        DeclaredDuration: 0
+        DampingX: 0.1
+        FrequencyX: 4
+        DampingY: 0.1
+        FrequencyY: 4
+        DampingZ: 0.1
+        FrequencyZ: 4
+        Mode: 2
+        MoveToScaleMin: {x: 1, y: 1, z: 1}
+        MoveToScaleMax: {x: 2, y: 2, z: 2}
+        BumpScaleMin: {x: 2000, y: 2000, z: 2000}
+        BumpScaleMax: {x: 2500, y: 2500, z: 2500}
     - rid: 9217333642811670594
       type: {class: MMF_SquashAndStretch, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
-        Active: 1
+        Active: 0
         UniqueID: -1625951307
         Label: Squash and Stretch
         OriginalLabel: Squash and Stretch

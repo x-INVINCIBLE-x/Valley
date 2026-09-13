@@ -8971,6 +8971,7 @@ GameObject:
   - component: {fileID: 579868107}
   - component: {fileID: 579868109}
   - component: {fileID: 579868108}
+  - component: {fileID: 579868110}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -9097,6 +9098,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579868106}
   m_CullTransparentMesh: 1
+--- !u!114 &579868110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579868106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f15eeefe7d0814fb3741a238a26700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemeTextColorSwap
+  mode: 0
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    color: {r: 1, g: 0, b: 0.5135951, a: 1}
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    color: {r: 0, g: 0.65882355, b: 1, a: 1}
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    color: {r: 1, g: 0, b: 0, a: 1}
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    color: {r: 0.07066631, g: 1, b: 0, a: 1}
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    color: {r: 1, g: 0.7466017, b: 0, a: 1}
 --- !u!1 &580839186
 GameObject:
   m_ObjectHideFlags: 0
@@ -41338,7 +41363,7 @@ MonoBehaviour:
   - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
     color: {r: 0.07066631, g: 1, b: 0, a: 1}
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
-    color: {r: 1, g: 0.7466017, b: 0, a: 1}
+    color: {r: 0, g: 0.8, b: 1, a: 1}
 --- !u!1 &1368546123
 GameObject:
   m_ObjectHideFlags: 0
