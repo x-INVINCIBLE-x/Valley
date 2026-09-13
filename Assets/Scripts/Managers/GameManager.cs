@@ -189,6 +189,11 @@ public class GameManager : MonoBehaviour, IAimBlocker
         }
     }
 
+    public void GameReset()
+    {
+        isPaused = false;
+    }
+
     // ==================================================
     // EXIT
     // ==================================================
