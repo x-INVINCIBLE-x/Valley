@@ -136,6 +136,7 @@ MonoBehaviour:
   spawnYOffsetRange: {x: -25, y: 25}
   chaseSpeed: 25
   despawnDistance: 200
+  rotationSpeed: 360
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -173,7 +174,7 @@ MonoBehaviour:
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
-    - prefab: {fileID: 3690103487071651307, guid: a1a75ba4c37f28d4a9d414c592f0d935, type: 3}
+    - prefab: {fileID: 2563960765096067039, guid: 62cb15f7cac46fe4c90a4ed0622880e5, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
     prefabs:
@@ -191,3 +192,4 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 3730803556666646771, guid: d89ab65c8bbe2554fa873d7021c3a182, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1

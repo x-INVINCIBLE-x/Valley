@@ -84,9 +84,9 @@ MonoBehaviour:
   entries:
   - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
     prefabs:
-    - prefab: {fileID: 2031140700123147619, guid: c6b775eecccf4cc43b57ec95a16e5592, type: 3}
+    - prefab: {fileID: 8191043611680829078, guid: 73f4c75c5bc8cd74fbd99b63778e543d, type: 3}
       weight: 6
-    - prefab: {fileID: 5289021476003079174, guid: 204549deb30f0b14f8a1aca0f5d0319e, type: 3}
+    - prefab: {fileID: 3798829201039549616, guid: 58300375eda77d04f8cbb95289ad5ea2, type: 3}
       weight: 6
   - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
     prefabs:
@@ -100,6 +100,7 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 5958431407309792636, guid: 80682eefdb849b14887f346b31b0b9e6, type: 3}
       weight: 6
+  resetPositionOnSpawn: 1
 --- !u!33 &1284512800617320652
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -115,7 +116,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005655924565791146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

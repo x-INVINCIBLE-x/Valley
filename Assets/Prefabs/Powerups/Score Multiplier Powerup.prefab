@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1566275255656833833}
   - component: {fileID: 9080038951970000403}
   - component: {fileID: 7427710236704358779}
-  - component: {fileID: 2421739558746090554}
-  - component: {fileID: 8862266358271463025}
   - component: {fileID: 6465671983180393810}
+  - component: {fileID: 6970947021997577834}
   m_Layer: 0
   m_Name: Score Multiplier Powerup
   m_TagString: Untagged
@@ -51,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6456416397175252255}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -93,46 +92,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2421739558746090554
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6456416397175252255}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8862266358271463025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6456416397175252255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d7afff72e9c544889ed6840caaae1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Powerups.Powerup
-  effect: {fileID: 11400000, guid: 8e3e546494362ef4aafc1c7bf8515241, type: 2}
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 64
-  destroyOnPickup: 1
 --- !u!114 &6465671983180393810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +104,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2633fa8dc87b830449fc664ec82217e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Spawning.SpawnedEntity
+--- !u!114 &6970947021997577834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456416397175252255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338f794d87765db449e1c511c6b7981a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Valley.Theming.ThemePrefabSwap
+  mode: 0
+  entries:
+  - theme: {fileID: 11400000, guid: 4ef6b02740d08fd498ee4346640d7abd, type: 2}
+    prefabs:
+    - prefab: {fileID: 7265104246416676410, guid: 6dcf0c1763e42704288889afd8e1f86b, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
+    prefabs:
+    - prefab: {fileID: 7265104246416676410, guid: 6dcf0c1763e42704288889afd8e1f86b, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 9ff29e7c47bd6ab4ca434cd10cef5f3a, type: 2}
+    prefabs:
+    - prefab: {fileID: 7265104246416676410, guid: 6dcf0c1763e42704288889afd8e1f86b, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 668f0dbc9b0bf87469e88a3f5fcacbf6, type: 2}
+    prefabs:
+    - prefab: {fileID: 7265104246416676410, guid: 6dcf0c1763e42704288889afd8e1f86b, type: 3}
+      weight: 5
+  - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
+    prefabs:
+    - prefab: {fileID: 7265104246416676410, guid: 6dcf0c1763e42704288889afd8e1f86b, type: 3}
+      weight: 5
+  resetPositionOnSpawn: 1
