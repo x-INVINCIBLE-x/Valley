@@ -56672,7 +56672,7 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 1911536908}
         DebugActive: 0
-        TargetGameObject: {fileID: 1441645504}
+        TargetGameObject: {fileID: 1920901011}
         ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0
@@ -56761,7 +56761,7 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 1911536908}
         DebugActive: 0
-        PauseDuration: 3
+        PauseDuration: 5
         RandomizePauseDuration: 0
         MinPauseDuration: 1
         MaxPauseDuration: 3
@@ -56843,7 +56843,7 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 1911536908}
         DebugActive: 0
-        TargetGameObject: {fileID: 1441645504}
+        TargetGameObject: {fileID: 1920901011}
         ExtraTargetGameObjects: []
         IgnorePlayDirection: 0
         SetStateOnInit: 0
@@ -57030,9 +57030,9 @@ MonoBehaviour:
           ButtonText: 
         Owner: {fileID: 1911536908}
         DebugActive: 0
-        AnimatePositionTarget: {fileID: 1441645504}
+        AnimatePositionTarget: {fileID: 1920901011}
         Mode: 2
-        Space: 0
+        Space: 3
         RandomizeRemap: 0
         MovementMode: 0
         AnimatePositionDuration: 0.2
@@ -57224,9 +57224,9 @@ MonoBehaviour:
           EnumConditions: 0000000000000000000000000000000000000000000000000000000000000000
         AllowAdditivePlays: 0
         RelativePosition: 1
-        DeterminePositionsOnPlay: 0
+        DeterminePositionsOnPlay: 1
         InitialPosition: {x: 0, y: 0, z: 0}
-        DestinationPosition: {x: -20, y: 0, z: 0}
+        DestinationPosition: {x: -100, y: 0, z: 0}
         InitialPositionTransform: {fileID: 0}
         DestinationPositionTransform: {fileID: 0}
         AnimatePositionCurveX:
@@ -57461,6 +57461,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914480745}
   m_CullTransparentMesh: 1
+--- !u!1 &1920901011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7871692670544356112, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
+  m_PrefabInstance: {fileID: 1245205333}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1923502250
 GameObject:
   m_ObjectHideFlags: 0
