@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
     private void UpdateLeaderboard()
     {
         GooglePlayLeaderboard.Instance.SubmitScore((long)playerScoreData.Best.Score);
+        GooglePlayLeaderboard.Instance.SubmitDistance((long)playerScoreData.Best.Distance);
     }
 
     // ==================================================
