@@ -17,9 +17,11 @@ namespace Valley.Core
         public int Remaining { get; private set; }
         public bool CanLaunch => Remaining > 0;
         bool IAimBlocker.CanAim => CanLaunch;
+        private int initialMaxCharges;
 
         private void Awake()
         {
+            initialMaxCharges = maxCharges;
             Remaining = maxCharges;
             OnChargesChanged?.Invoke(Remaining, maxCharges);
         }
@@ -57,6 +59,16 @@ namespace Valley.Core
 
             int prevCharges = maxCharges;
             maxCharges = Mathf.Max(1, maxCharges - amount);
+            Remaining = Mathf.Min(Remaining, maxCharges);
+
+            OnChargesChanged?.Invoke(Remaining, maxCharges);
+            OnMaxChargesChanged?.Invoke(prevCharges, maxCharges);
+        }
+
+        public void ResetMaxCharges()
+        {
+            int prevCharges = maxCharges;
+            maxCharges = initialMaxCharges;
             Remaining = Mathf.Min(Remaining, maxCharges);
 
             OnChargesChanged?.Invoke(Remaining, maxCharges);

@@ -26,7 +26,7 @@ namespace Valley.Powerups
             var launchGate = target.GetComponent<PlayerLaunchGate>();
             if (launchGate == null) return;
 
-            launchGate.DecreaseMaxCharges(amount);
+            launchGate.ResetMaxCharges();
         }
     }
 }
