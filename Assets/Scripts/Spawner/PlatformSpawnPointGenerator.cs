@@ -87,7 +87,7 @@ namespace Valley.Level.Spawning
             SpawnedEntity prefab = category.prefabs[Random.Range(0, category.prefabs.Length)];
             SpawnedEntity instance = pool.Get(prefab);
 
-            instance.transform.SetPositionAndRotation(transform.TransformPoint(point.localPosition), transform.rotation);
+            instance.transform.SetPositionAndRotation(transform.TransformPoint(point.localPosition), Quaternion.identity);
             //instance.transform.SetParent(null);
 
             if (IsBlockedByForeignCollider(instance))
