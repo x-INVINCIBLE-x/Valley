@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glass 8
-  m_Shader: {fileID: -6465566751694194690, guid: 2440ea2f82afb6446927c5edd5e1c78a, type: 3}
+  m_Name: Shader Graphs_fresnel UnLit 1
+  m_Shader: {fileID: -6465566751694194690, guid: 12940fef333d98c499a0013917198ad8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,30 +24,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _GlassRefractionMap:
-        m_Texture: {fileID: 2800000, guid: 2b9d47b972c60a54b871a79ac33e122d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _Base_Tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: 7aebad99ce25be74fb0e35147ae68dd5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2DLOD_33e650cf57364e1fb8f2422e1e238bef_Texture_1:
+    - _Emission_Tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_810a0837398a4e329cb4ab11e7d6d816_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 7aebad99ce25be74fb0e35147ae68dd5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TintTexture:
-        m_Texture: {fileID: 2800000, guid: f1d51ed493a42ad4789ff2be401e8b43, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0.53, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,31 +46,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisortStrenght: 3
-    - _DisortStrength: 2
-    - _DistortionOnTexture: 0.369
-    - _Fresnel_Effect: 2
-    - _Metalic: 0.246
-    - _Metallic: 0.534
-    - _NormalStrenght: 0.01
-    - _NormalStrength: 0.1
+    - _Fresnel_Power: 4
+    - _Metallic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReflectionStrenght: 0.05
-    - _ReflectionStrength: 0
-    - _RefractionStrenght: 1.15
-    - _Smoothness: 1
-    - _Strenght: 0.12
-    - _Tiling: 400
+    - _Smoothness: 0
     - _XRMotionVectorsPass: 1
+    - _alpha: 0.2
+    - _fresnel_intensity: 1.2
     m_Colors:
-    - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Tiling: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _TintColor: {r: 23.968628, g: 0, b: 8.176321, a: 1}
+    - _Base_Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Emission_Color: {r: 5.3403134, g: 5.3403134, b: 5.3403134, a: 1}
+    - _Fresnel_Color: {r: 2.828427, g: 0, b: 2.4734871, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1748688521998277390
+--- !u!114 &3800339521510834169
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,5 +71,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
   version: 10

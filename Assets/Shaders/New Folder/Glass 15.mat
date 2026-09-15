@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glass 8
+  m_Name: Glass 15
   m_Shader: {fileID: -6465566751694194690, guid: 2440ea2f82afb6446927c5edd5e1c78a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -45,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TintTexture:
-        m_Texture: {fileID: 2800000, guid: f1d51ed493a42ad4789ff2be401e8b43, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0.53, y: 0}
     - unity_Lightmaps:
@@ -63,27 +63,27 @@ Material:
     m_Ints: []
     m_Floats:
     - _DisortStrenght: 3
-    - _DisortStrength: 2
-    - _DistortionOnTexture: 0.369
-    - _Fresnel_Effect: 2
+    - _DisortStrength: 0.01
+    - _DistortionOnTexture: 0
+    - _Fresnel_Effect: 1
     - _Metalic: 0.246
-    - _Metallic: 0.534
+    - _Metallic: 0
     - _NormalStrenght: 0.01
-    - _NormalStrength: 0.1
+    - _NormalStrength: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReflectionStrenght: 0.05
     - _ReflectionStrength: 0
     - _RefractionStrenght: 1.15
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _Strenght: 0.12
-    - _Tiling: 400
+    - _Tiling: 0.01
     - _XRMotionVectorsPass: 1
     m_Colors:
-    - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Fresnel_Color: {r: 0.9908829, g: 16, b: 0, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _TintColor: {r: 23.968628, g: 0, b: 8.176321, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1748688521998277390
