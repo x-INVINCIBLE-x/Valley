@@ -7874,8 +7874,8 @@ RectTransform:
   m_GameObject: {fileID: 428209918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 508051368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9125,7 +9125,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 380797319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9154,12 +9154,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2657873270443967794, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea579184be3210e458d3beef7ebe7fe0, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -21510,7 +21510,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.8
+      value: 1
       mode: 0
       spread: 0
       speed:
@@ -27424,7 +27424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000003518713, y: 0.15007491, z: 5.341197e-10, w: 0.98867464}
+  m_LocalRotation: {x: 0.0000000115521805, y: 0.18772124, z: -0.0000000022078395, w: 0.9822224}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -94594,6 +94594,22 @@ PrefabInstance:
       propertyPath: adProvider
       value: 
       objectReference: {fileID: 1706527594}
+    - target: {fileID: 9042380643555055587, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042380643555055587, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042380643555055587, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042380643555055587, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
