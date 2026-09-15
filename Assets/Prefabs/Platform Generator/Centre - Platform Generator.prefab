@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
   - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 3
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -63,6 +64,7 @@ MonoBehaviour:
   despawnBehindDistance: 50
   startingOffsetX: 200
   upperBoundOffset: 6
+  lowerBoundOffset: 6
   maxVerticalStep: 3
   minGapX: 40
   maxGapX: 100

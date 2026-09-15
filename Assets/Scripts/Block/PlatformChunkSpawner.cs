@@ -44,6 +44,12 @@ namespace Valley.Level.Generation
         [Tooltip("Fallback weight shared by every layer, used for any prefab that has no entry in that layer's own weight table. Mid layer: the active profile's prefabWeights, then a runtime override via SetPrefabWeight(prefab, weight). Side layers: that PlatformLayer's own prefabWeights array, then a runtime override via SetPrefabWeight(layer, prefab, weight). Each layer's weighting is fully independent - the same prefab can be common in one layer and rare in another.")]
         public float defaultPrefabWeight = 1f;
 
+        [Header("Generation Performance")]
+        [Tooltip("Maximum number of NEW platform records that can be generated per frame. " +
+         "Existing history records can still be materialized without consuming this budget.")]
+        [Min(1)]
+        public int maxGeneratedBlocksPerFrame = 2;
+
         [Header("Reachability")]
         [Tooltip("Should mirror the player's actual forward-run speed.")]
         public float forwardSpeed = 6f;
@@ -141,6 +147,7 @@ namespace Valley.Level.Generation
         float distanceOriginX;
         int nextProgressionStageIndex;
         PlatformBlock pendingPremadeBlock;
+        int remainingGenerationBudget;
 
         /// <summary>
         /// Right edge (logical X) of the most recently materialized premade level. Side-layer generation
@@ -287,14 +294,21 @@ namespace Valley.Level.Generation
 
         void Update()
         {
-            if (player == null || platformPrefabs == null || platformPrefabs.Length == 0) return;
+            if (player == null || platformPrefabs == null || platformPrefabs.Length == 0)
+                return;
+
+            // Reset the generation budget for this frame.
+            remainingGenerationBudget = Mathf.Max(1, maxGeneratedBlocksPerFrame);
 
             CheckProgressionStages();
 
             AdvanceWindow(midRuntime, true, null);
+
             foreach (var layer in sideLayers)
             {
-                if (layer == null) continue;
+                if (layer == null)
+                    continue;
+
                 AdvanceWindow(layer.runtime, false, layer);
             }
         }
@@ -617,16 +631,32 @@ namespace Valley.Level.Generation
             // once the recorded frontier itself falls short of the ahead boundary.
             while (true)
             {
-                int nextIndex = r.liveInstances.Count == 0 ? r.liveStartIndex : r.liveStartIndex + r.liveInstances.Count;
+                int nextIndex = r.liveInstances.Count == 0
+                    ? r.liveStartIndex
+                    : r.liveStartIndex + r.liveInstances.Count;
 
                 if (nextIndex > r.LastGlobalIndex)
                 {
                     float frontierRight = r.GetRecord(r.LastGlobalIndex).rightEdgeX;
-                    if (frontierRight >= aheadBound) break;
-                    if (isMid) GenerateMidRecord(r); else GenerateSideRecord(r, layer);
+
+                    if (frontierRight >= aheadBound)
+                        break;
+
+                    // Don't generate more new blocks this frame.
+                    if (remainingGenerationBudget <= 0)
+                        break;
+
+                    if (isMid)
+                        GenerateMidRecord(r);
+                    else
+                        GenerateSideRecord(r, layer);
+
+                    remainingGenerationBudget--;
                 }
 
-                if (r.GetRecord(nextIndex).leftEdgeX >= aheadBound) break;
+                if (r.GetRecord(nextIndex).leftEdgeX >= aheadBound)
+                    break;
+
                 MaterializeAppend(r, nextIndex);
             }
 

@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -21,6 +22,10 @@ namespace Valley.Shop
         [SerializeField] private Button watchAdButton;
         [SerializeField] private TextMeshProUGUI temporaryUnlockText;
         [SerializeField] private GameObject temporaryUnlockObject;
+
+        [Header("Feedback")]
+        [SerializeField] private MMF_Player successFeedback;
+        [SerializeField] private MMF_Player failFeedback;
 
         [Header("Interaction")]
         [SerializeField] private float holdDurationToBuy = 0.8f;
@@ -252,7 +257,14 @@ namespace Valley.Shop
             if (!alreadyUnlocked)
             {
                 if (_controller.TryPurchase(_theme))
+                {
                     Refresh();
+                    successFeedback?.PlayFeedbacks();
+                }
+                else
+                {
+                    failFeedback?.PlayFeedbacks();
+                }
             }
 
             if (holdProgressImage != null)

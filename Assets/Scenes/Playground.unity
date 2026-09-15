@@ -1092,6 +1092,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -7903,7 +7904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2657873270443967794, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccd3c6eb8020e97489da396bf552b3ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8005,6 +8006,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -9765,7 +9767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504125023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000025092046, y: -0.5769057, z: 0.000000017722275, w: 0.8168108}
+  m_LocalRotation: {x: -2.6063225e-16, y: -0.582093, z: 1.2925267e-16, w: 0.8131223}
   m_LocalPosition: {x: 20, y: 15, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13576,6 +13578,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -27262,7 +27265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 0.00024414062}
   m_SizeDelta: {x: 0, y: 320}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &969734451
@@ -27421,7 +27424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000012197765, y: 0.20271459, z: -0.0000000025250906, w: 0.9792379}
+  m_LocalRotation: {x: 0.0000000059121406, y: 0.18772124, z: -0.0000000011299216, w: 0.9822224}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41023,6 +41026,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -47500,10 +47504,10 @@ RectTransform:
   - {fileID: 782459907}
   m_Father: {fileID: 1368882221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 90, y: 0}
-  m_SizeDelta: {x: 720, y: 0}
+  m_SizeDelta: {x: 720, y: 1004}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1619379070
 MonoBehaviour:
@@ -47597,6 +47601,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
   - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -48020,7 +48025,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
