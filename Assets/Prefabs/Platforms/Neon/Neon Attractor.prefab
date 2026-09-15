@@ -112,7 +112,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6584756208747163076
 MonoBehaviour:
@@ -129,7 +129,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
-  radius: 4
+  radius: 0.5
   maxStrength: 200
   strengthCurve:
     serializedVersion: 2
