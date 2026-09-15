@@ -118,29 +118,29 @@ MonoBehaviour:
     prefabOverride: []
     prefabWeights: []
     gizmoColor: {r: 0.5202284, g: 0, b: 1, a: 1}
-  initialProfile: {fileID: 0}
+  initialProfile: {fileID: 11400000, guid: d4772f942496f5e4d980e9ac81ded89c, type: 2}
   progressionStages:
-  - distanceThreshold: 1500
+  - distanceThreshold: 2000
     profile: {fileID: 11400000, guid: 81191c6758f10d4489aad45c4f735c72, type: 2}
-    premadeLevel: {fileID: 0}
-  - distanceThreshold: 3000
-    profile: {fileID: 11400000, guid: 187f51d7d973f7f42bd146df73094580, type: 2}
-    premadeLevel: {fileID: 0}
+    premadeLevel: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
   - distanceThreshold: 5000
-    profile: {fileID: 11400000, guid: 6b23ed444fec54744a21415d2676130f, type: 2}
-    premadeLevel: {fileID: 0}
-  - distanceThreshold: 7000
+    profile: {fileID: 11400000, guid: 187f51d7d973f7f42bd146df73094580, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: 61e585b3dcc863542a537aef4d8a4624, type: 3}
+  - distanceThreshold: 8000
+    profile: {fileID: 11400000, guid: 7b49fb40ff02d2943899f1a2ced52790, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: d22842b17924c0343996f4fd4724f1af, type: 3}
+  - distanceThreshold: 11000
     profile: {fileID: 11400000, guid: 194d9883f5b2f1f489f7d9a3bcef1d5a, type: 2}
-    premadeLevel: {fileID: 0}
-  - distanceThreshold: 10000
-    profile: {fileID: 11400000, guid: a41bf7f4b9a85e043a1834219860e7e9, type: 2}
-    premadeLevel: {fileID: 0}
-  - distanceThreshold: 12000
-    profile: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
-    premadeLevel: {fileID: 0}
+    premadeLevel: {fileID: 8902247037256730875, guid: 8e7d7dd44173aa24bae77f95a58e09d9, type: 3}
   - distanceThreshold: 15000
-    profile: {fileID: 11400000, guid: 7ec8e2a8c2166774196ebaa907e4f839, type: 2}
-    premadeLevel: {fileID: 0}
+    profile: {fileID: 11400000, guid: a41bf7f4b9a85e043a1834219860e7e9, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+  - distanceThreshold: 20000
+    profile: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: fb9eb7940540e694b80bdb8053d95e29, type: 3}
+  - distanceThreshold: 25000
+    profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: a752012888c61234a8cdf757d4b40fd7, type: 3}
   premadeLevelGap: 0
   distanceSource: {fileID: 0}
   testProfile: {fileID: 0}
