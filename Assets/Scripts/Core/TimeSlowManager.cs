@@ -29,12 +29,14 @@ namespace Valley.Core
         {
             InputController.OnAimStarted += SlowDown;
             InputController.OnAimReleased += HandleAimReleased;
+            GameManager.Instance.OnPaused += OnPause;
         }
 
         private void OnDisable()
         {
             InputController.OnAimStarted -= SlowDown;
             InputController.OnAimReleased -= HandleAimReleased;
+            GameManager.Instance.OnPaused -= OnPause;
         }
 
         private void HandleAimReleased(Vector3 direction, float charge) => ResumeNormal();
@@ -47,6 +49,14 @@ namespace Valley.Core
             _targetScale = target;
             if (_routine != null) StopCoroutine(_routine);
             _routine = StartCoroutine(TransitionRoutine());
+        }
+
+        private void OnPause(bool isPaused)
+        {
+            if (!isPaused) return;
+
+            if (_routine != null) StopCoroutine(_routine);
+            Time.timeScale = isPaused ? 0f : 1f;
         }
 
         private IEnumerator TransitionRoutine()
