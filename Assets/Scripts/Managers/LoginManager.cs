@@ -237,6 +237,10 @@ namespace Valley
                 {
                     SignInFailed?.Invoke(status.ToString());
                 }
+
+                Debug.Log($"[GPGS DEBUG] Package: {Application.identifier}");
+                Debug.Log($"[GPGS DEBUG] IsAuthenticated: {PlayGamesPlatform.Instance.IsAuthenticated()}");
+                Debug.Log($"[GPGS DEBUG] Platform: {Application.platform}");
             });
 #else
     SignInFailed?.Invoke("Google Play Games is only available on Android.");

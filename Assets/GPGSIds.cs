@@ -24,6 +24,7 @@
 
 public static class GPGSIds
 {
+        public const string leaderboard_high_distance = "CgkIqPrVirsJEAIQAw"; // <GPGSID>
         public const string leaderboard_high_score = "CgkIqPrVirsJEAIQAg"; // <GPGSID>
 
 }
