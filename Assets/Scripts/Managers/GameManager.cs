@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
     private bool isPaused;
 
     private bool m_ExitRequested;
+    private bool autoPlay;
 
     private void Awake()
     {
@@ -193,6 +194,16 @@ public class GameManager : MonoBehaviour, IAimBlocker
     public void GameReset()
     {
         isPaused = false;
+    }
+
+    public bool IsAutoPlayEnabled()
+    {
+        return autoPlay;
+    }
+
+    public void SetAutoPlayEnabled(bool enabled)
+    {
+        autoPlay = enabled;
     }
 
     // ==================================================
