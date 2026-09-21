@@ -14158,7 +14158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &742202501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41247,7 +41247,7 @@ PrefabInstance:
       objectReference: {fileID: 1224916880}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: baseSpeed
-      value: 35
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: m_Enabled
@@ -41255,7 +41255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: closeSpeed
-      value: 35
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: catchUpSpeed
@@ -41267,7 +41267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: closeDistance
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: m_LocalScale.y
