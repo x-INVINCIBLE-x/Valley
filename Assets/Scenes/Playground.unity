@@ -101019,6 +101019,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].label
       value: Ceil
       objectReference: {fileID: 0}
@@ -101067,6 +101071,18 @@ PrefabInstance:
       value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[7].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[8].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[9].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].verticalOffset
       value: 137
       objectReference: {fileID: 0}
@@ -101075,8 +101091,72 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[10].profile
+      value: 
+      objectReference: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[0].premadeLevel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[1].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[2].premadeLevel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[3].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: 61e585b3dcc863542a537aef4d8a4624, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[4].premadeLevel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[5].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: d22842b17924c0343996f4fd4724f1af, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[6].premadeLevel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[7].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: 8e7d7dd44173aa24bae77f95a58e09d9, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[8].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[9].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: fb9eb7940540e694b80bdb8053d95e29, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].clampToReachability
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[10].premadeLevel
+      value: 
+      objectReference: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[7].distanceThreshold
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[8].distanceThreshold
+      value: 40000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[9].distanceThreshold
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: progressionStages.Array.data[10].distanceThreshold
+      value: 40000
       objectReference: {fileID: 0}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: sideLayers.Array.data[0].prefabOverride.Array.size

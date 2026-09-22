@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1109
   m_ShowMode: 4
-  m_Title: Build Profiles
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 4283
+  controlID: 25
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 4284
+  controlID: 26
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: BuildProfileWindow
+  m_Name: GameView
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.DockArea
   m_Children: []
   m_Position:
@@ -193,14 +193,14 @@ MonoBehaviour:
     y: 446
     width: 1069
     height: 607
-  m_MinSize: {x: 726, y: 426}
+  m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 16}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 16}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 4294
+  controlID: 83
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 525
+    y: 470
     width: 1068
     height: 581
   m_SerializedDataModeController:
@@ -1485,7 +1485,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
     m_DynamicPanelBehavior: 0
   m_WindowGUID: 5b0767317b596be4097e273886f9d1cd
-  m_Gizmos: 0
+  m_Gizmos: 1
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
@@ -1495,9 +1495,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 11.177702, y: 14.647404, z: 0}
+    m_Target: {x: 2236.887, y: -117.87224, z: 91.150795}
     speed: 2
-    m_Value: {x: 11.177702, y: 14.647404, z: 0}
+    m_Value: {x: 2236.887, y: -117.87224, z: 91.150795}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1543,13 +1543,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0, y: 0, z: 0, w: 1}
+    m_Target: {x: 0.2916934, y: -0.07736912, z: 0.023678998, w: 0.9530838}
     speed: 2
-    m_Value: {x: -0, y: 0, z: -0, w: -1}
+    m_Value: {x: -0.29169336, y: 0.07736912, z: -0.023678998, w: -0.95308375}
   m_Size:
-    m_Target: 4.0189104
+    m_Target: 67.99635
     speed: 2
-    m_Value: 4.0189104
+    m_Value: 67.99635
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1605,7 +1605,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 470
+    y: 525
     width: 1068
     height: 581
   m_SerializedDataModeController:
@@ -1661,23 +1661,12 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 193}
       m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -99268
-      - m_Data: -98920
-      - m_Data: -96866
-      - m_Data: -95026
-      - m_Data: -2500
       - m_Data: -1300
-      - m_Data: 64880
-      - m_Data: 64934
-      - m_Data: 65522
-      - m_Data: 66018
-      - m_Data: 66080
-      - m_Data: 66454
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1751,7 +1740,8 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders: []
+    m_Folders:
+    - Assets/Data/Platform Generation
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1779,19 +1769,19 @@ MonoBehaviour:
     - m_Data: 61422
     - m_Data: 64094
     - m_Data: 64398
-    - m_Data: 68708
-    - m_Data: 68748
-    - m_Data: 68750
-    - m_Data: 68756
-    - m_Data: 68790
-    - m_Data: 68826
-    - m_Data: 68828
-    - m_Data: 68846
-    - m_Data: 68852
-    - m_Data: 81046
-    - m_Data: 81144
-    - m_Data: 81196
-    - m_Data: 81304
+    - m_Data: 68720
+    - m_Data: 68760
+    - m_Data: 68762
+    - m_Data: 68768
+    - m_Data: 68802
+    - m_Data: 68838
+    - m_Data: 68840
+    - m_Data: 68858
+    - m_Data: 68864
+    - m_Data: 81058
+    - m_Data: 81156
+    - m_Data: 81208
+    - m_Data: 81316
     - m_Data: 97066
     - m_Data: 97068
     - m_Data: 97070
@@ -1870,6 +1860,8 @@ MonoBehaviour:
     - m_Data: 97216
     - m_Data: 97218
     - m_Data: 97220
+    - m_Data: 97222
+    - m_Data: 97224
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1896,29 +1888,30 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: []
+    scrollPos: {x: 0, y: 2105}
+    m_SelectedIDs:
+    - m_Data: 63574
     m_LastClickedID:
-      m_Data: 0
+      m_Data: 63574
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 822
     - m_Data: 61422
     - m_Data: 64094
     - m_Data: 64398
-    - m_Data: 68708
-    - m_Data: 68748
-    - m_Data: 68750
-    - m_Data: 68756
-    - m_Data: 68790
-    - m_Data: 68826
-    - m_Data: 68828
-    - m_Data: 68846
-    - m_Data: 68852
-    - m_Data: 81046
-    - m_Data: 81144
-    - m_Data: 81196
-    - m_Data: 81304
+    - m_Data: 68720
+    - m_Data: 68760
+    - m_Data: 68762
+    - m_Data: 68768
+    - m_Data: 68802
+    - m_Data: 68838
+    - m_Data: 68840
+    - m_Data: 68858
+    - m_Data: 68864
+    - m_Data: 81058
+    - m_Data: 81156
+    - m_Data: 81208
+    - m_Data: 81316
     - m_Data: 97066
     - m_Data: 97068
     - m_Data: 97070
@@ -1997,6 +1990,8 @@ MonoBehaviour:
     - m_Data: 97216
     - m_Data: 97218
     - m_Data: 97220
+    - m_Data: 97222
+    - m_Data: 97224
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2023,8 +2018,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs:
+    - m_Data: 63574
+    m_LastClickedInstanceID: 63574
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
