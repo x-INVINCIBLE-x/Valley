@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de56b5c94f77c48ba4572bfd444acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.DamageOnTouch
-  instantKill: 1
+  instantKill: 0
   damage: 50
   targetMask:
     serializedVersion: 2
@@ -513,6 +513,7 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
 --- !u!1 &7153751660954690581
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,3 +732,4 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1

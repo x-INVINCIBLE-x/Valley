@@ -6,13 +6,16 @@ using Valley.Combat;
 
 public class HealthUI : MonoBehaviour
 {
-    [SerializeField] private Health health;
+    private Health health;
+    
     [SerializeField] private MMProgressBar[] healthBars;
     [SerializeField] private MMF_Player[] healFeedbacks;
     [SerializeField] private MMF_Player[] damageFeedbacks;
 
-    private void OnEnable()
+    private void Start()
     {
+        health = PlayerContext.Instance.PlayerHealth;
+
         health.OnHealthUpdated += HandleHealthUpdate;
         health.OnDamaged += HandleDamage;
         health.OnHeal += HandleHeal;
@@ -20,7 +23,7 @@ public class HealthUI : MonoBehaviour
         Initialize();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         health.OnHealthUpdated -= HandleHealthUpdate;
         health.OnDamaged -= HandleDamage;

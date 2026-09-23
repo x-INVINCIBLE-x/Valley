@@ -92,6 +92,9 @@ namespace Valley.Revive
 
         public void RequestRevive()
         {
+#if UNITY_EDITOR
+            GrantRevive();
+#else
             if (!_offerActive || _adInFlight)
                 return;
 
@@ -125,6 +128,8 @@ namespace Valley.Revive
                     _adInFlight = false;
                     HandleAdUnavailableOrDeclined();
                 });
+
+#endif
         }
 
         public void DeclineRevive()
