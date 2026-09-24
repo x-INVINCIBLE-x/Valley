@@ -40175,7 +40175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: catchUpSpeed
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: _currentSpeed
@@ -40183,7 +40183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: closeDistance
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7609238401382636052, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: m_LocalScale.y
@@ -99945,6 +99945,10 @@ PrefabInstance:
       propertyPath: distanceSource
       value: 
       objectReference: {fileID: 2060574091}
+    - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
+      propertyPath: initialProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 187f51d7d973f7f42bd146df73094580, type: 2}
     - target: {fileID: 7295319984269486695, guid: 42a506d31f6e6d6448503580c5dd9e3a, type: 3}
       propertyPath: premadeLevelGap
       value: 20

@@ -9,6 +9,7 @@ public class PushOnCollision : MonoBehaviour
     {
         if (collision.transform.TryGetComponent(out Rigidbody rb))
         {
+            Debug.Log($"Pushing {collision.transform.name} with force {pushForce}");
             Vector3 force = transform.right * pushForce;
             rb.AddForce(force, forceMode);
         }
