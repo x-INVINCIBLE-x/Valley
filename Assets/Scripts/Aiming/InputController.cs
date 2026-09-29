@@ -12,6 +12,7 @@ namespace Valley.Aiming
         public static event Action<Vector3, float> OnAimReleased;
         public static event Action OnAimCancelled;
         public static event Action OnPaused;
+        public static event Action NoAim;
 
         [SerializeField] private float rotationSpeedDegPerSec = 220f;
         [SerializeField] private float startAngleDeg = 90f;
@@ -82,7 +83,11 @@ namespace Valley.Aiming
             {
                 if (blocker == null) continue;
 
-                if (blocker is IAimBlocker aimBlocker && !aimBlocker.CanAim) return false;
+                if (blocker is IAimBlocker aimBlocker && !aimBlocker.CanAim)
+                {
+                    NoAim?.Invoke();
+                    return false;
+                }
             }
             return true;
         }
