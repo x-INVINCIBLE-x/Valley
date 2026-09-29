@@ -14955,7 +14955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61995624c055b84691324e41e694365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthUI
-  health: {fileID: 1224916895}
   healthBars:
   - {fileID: 1664334801}
   - {fileID: 1571566063}
@@ -33728,17 +33727,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1726765245084926877, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
   m_PrefabInstance: {fileID: 6955682837850707794}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1224916895 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2388871879384369395, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
-  m_PrefabInstance: {fileID: 6955682837850707794}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866938804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf007461f39d6940b34c480f021fb1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.Health
 --- !u!114 &1224916899 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7368794356948607061, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
@@ -78603,6 +78591,63 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2926942048297632113, guid: 97e6914e40271a44ba946de949636aae, type: 3}
+--- !u!1001 &8752987789448308558
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8045015000428681145, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_Name
+      value: Wrap Fog
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -235.02484
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 477.42667
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086834024588192892, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fc8894805e9f6d43ad7926b88d437d9, type: 3}
 --- !u!4 &8765783503754197906
 Transform:
   m_ObjectHideFlags: 0
@@ -80700,3 +80745,4 @@ SceneRoots:
   - {fileID: 898380397}
   - {fileID: 7088407534592065263}
   - {fileID: 82662909}
+  - {fileID: 8752987789448308558}
