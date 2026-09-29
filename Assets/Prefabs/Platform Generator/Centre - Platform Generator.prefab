@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959289109831160357}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78,7 +78,17 @@ MonoBehaviour:
   guaranteedSafetyInterval: 8
   layerSpacing: 4
   sideLayers:
-  - label: 
+  - label: Ceil
+    verticalOffset: 137
+    verticalJitter: 24
+    gapMultiplier: 1.1
+    stickChanceBonus: 0.4
+    maxConsecutiveSticks: 0
+    clampToReachability: 0
+    prefabOverride: []
+    prefabWeights: []
+    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  - label: Above
     verticalOffset: 50
     verticalJitter: 24
     gapMultiplier: 1.2
@@ -88,17 +98,7 @@ MonoBehaviour:
     prefabOverride: []
     prefabWeights: []
     gizmoColor: {r: 0, g: 1, b: 0.5935607, a: 1}
-  - label: 
-    verticalOffset: 100
-    verticalJitter: 24
-    gapMultiplier: 1.1
-    stickChanceBonus: 0.4
-    maxConsecutiveSticks: 0
-    clampToReachability: 0
-    prefabOverride: []
-    prefabWeights: []
-    gizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  - label: 
+  - label: Below
     verticalOffset: -50
     verticalJitter: 24
     gapMultiplier: 0.1
@@ -108,7 +108,7 @@ MonoBehaviour:
     prefabOverride: []
     prefabWeights: []
     gizmoColor: {r: 1, g: 0, b: 0.78535175, a: 1}
-  - label: 
+  - label: Floor
     verticalOffset: -100
     verticalJitter: 24
     gapMultiplier: 0
@@ -122,26 +122,38 @@ MonoBehaviour:
   progressionStages:
   - distanceThreshold: 2000
     profile: {fileID: 11400000, guid: 81191c6758f10d4489aad45c4f735c72, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
+    premadeLevel: {fileID: 0}
   - distanceThreshold: 5000
     profile: {fileID: 11400000, guid: 187f51d7d973f7f42bd146df73094580, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: 61e585b3dcc863542a537aef4d8a4624, type: 3}
+    premadeLevel: {fileID: 8902247037256730875, guid: b765998ada32a734aba8bc6ec1be3f7c, type: 3}
   - distanceThreshold: 8000
     profile: {fileID: 11400000, guid: 7b49fb40ff02d2943899f1a2ced52790, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: d22842b17924c0343996f4fd4724f1af, type: 3}
+    premadeLevel: {fileID: 0}
   - distanceThreshold: 11000
     profile: {fileID: 11400000, guid: 194d9883f5b2f1f489f7d9a3bcef1d5a, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: 8e7d7dd44173aa24bae77f95a58e09d9, type: 3}
+    premadeLevel: {fileID: 8902247037256730875, guid: 61e585b3dcc863542a537aef4d8a4624, type: 3}
   - distanceThreshold: 15000
     profile: {fileID: 11400000, guid: a41bf7f4b9a85e043a1834219860e7e9, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+    premadeLevel: {fileID: 0}
   - distanceThreshold: 20000
     profile: {fileID: 11400000, guid: 3cbc7292e862ba74dbebf35f1f2153bc, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: fb9eb7940540e694b80bdb8053d95e29, type: 3}
+    premadeLevel: {fileID: 8902247037256730875, guid: d22842b17924c0343996f4fd4724f1af, type: 3}
   - distanceThreshold: 25000
     profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
-    premadeLevel: {fileID: 8902247037256730875, guid: a752012888c61234a8cdf757d4b40fd7, type: 3}
-  premadeLevelGap: 0
+    premadeLevel: {fileID: 0}
+  - distanceThreshold: 30000
+    profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: 8e7d7dd44173aa24bae77f95a58e09d9, type: 3}
+  - distanceThreshold: 40000
+    profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+  - distanceThreshold: 50000
+    profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: fb9eb7940540e694b80bdb8053d95e29, type: 3}
+  - distanceThreshold: 40000
+    profile: {fileID: 11400000, guid: c7e9fdc779b9ce347a4824ba6ec3076d, type: 2}
+    premadeLevel: {fileID: 8902247037256730875, guid: bbcc87ae29034d946a4d21aa1f1bb2cd, type: 3}
+  premadeLevelGap: 20
   distanceSource: {fileID: 0}
   testProfile: {fileID: 0}
   showDebugGizmos: 1
