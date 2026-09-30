@@ -1333,6 +1333,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 0
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -5953,6 +5954,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers:
   - label: 
     verticalOffset: 50
@@ -10227,6 +10229,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -30555,6 +30558,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -33484,6 +33488,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -35021,6 +35026,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers:
   - label: 
     verticalOffset: 50

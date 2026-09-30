@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.114012085, g: 0.7200696, b: 0.90188676, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.0003
+  m_FogDensity: 0.028
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -1277,6 +1277,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 0
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -5467,6 +5468,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers:
   - label: 
     verticalOffset: 50
@@ -9798,6 +9800,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -29552,6 +29555,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 0
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -32525,6 +32529,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers: []
   initialProfile: {fileID: 0}
   progressionStages: []
@@ -33948,6 +33953,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers:
   - label: 
     verticalOffset: 50

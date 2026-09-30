@@ -394,13 +394,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110513177498433099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -6, y: 0, z: 0.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5861796681501461586}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!33 &7278687464500749354
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -507,7 +507,7 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
@@ -726,7 +726,7 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:

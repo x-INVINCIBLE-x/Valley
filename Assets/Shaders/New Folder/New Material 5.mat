@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New Material 5
-  m_Shader: {fileID: -6465566751694194690, guid: b1260081babb356419dc32ac12d21eff, type: 3}
+  m_Shader: {fileID: 4800000, guid: 796b87e08e0aeaf48b1ffe22ae017f17, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -49,8 +49,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMask:
-        m_Texture: {fileID: 2800000, guid: 872f6fde400d1bb409d394f4382cdf91, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 08fbde810873fcb4094fdfacdfdf01ae, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
@@ -136,12 +136,12 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmisionColor: {r: 2, g: 1.1551477, b: 0, a: 1}
+    - _EmisionColor: {r: 0.91225237, g: 2, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0.061437607, g: 1, b: 0, a: 1}
     - _Fresnel_Color: {r: 0.022885311, g: 0, b: 1.5058824, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _ScrollDir: {r: 0, g: 0.2, b: 0, a: 0}
+    - _ScrollDir: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TintColor: {r: 4.1411805, g: 23.96863, b: 0, a: 1}
   m_BuildTextureStacks: []

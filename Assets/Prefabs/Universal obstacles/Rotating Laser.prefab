@@ -1009,6 +1009,7 @@ MonoBehaviour:
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
 --- !u!1 &5790103042027806607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,12 +1151,13 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
 --- !u!1 &6110513177498433099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,13 +1186,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110513177498433099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5861796681501461586}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!33 &7278687464500749354
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1297,12 +1299,13 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
 --- !u!1 &6848926865611790904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,12 +1879,13 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
 --- !u!1 &8577350613817689006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,13 +2097,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8725429330616073995}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5861796681501461586}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6679974127751964905
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2206,9 +2210,10 @@ MonoBehaviour:
       weight: 5
   - theme: {fileID: 11400000, guid: 25ece8388fe3d064d8e875c11c94ffa9, type: 2}
     prefabs:
-    - prefab: {fileID: 2478908645851554347, guid: 6065267a8269ce242a76df79e2f1cd7a, type: 3}
+    - prefab: {fileID: 4399507262086368989, guid: c8117076d080cbb46a27889b678dfbe1, type: 3}
       weight: 5
   - theme: {fileID: 11400000, guid: 01c48922f729f3944ba32fd1fb93c6c9, type: 2}
     prefabs:
     - prefab: {fileID: 8470913725399185696, guid: f2e4d2850a857d242975678cfeb2280b, type: 3}
       weight: 5
+  resetPositionOnSpawn: 1
