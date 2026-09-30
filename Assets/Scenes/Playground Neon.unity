@@ -1310,6 +1310,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -5929,6 +5930,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: 0ee0162adc6a1e8468f3889f2504ed88, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -7374,7 +7376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504125023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000025077279, y: -0.57758564, z: 0.00000001774316, w: 0.81633013}
+  m_LocalRotation: {x: 2.1744547e-15, y: -0.582093, z: -4.0537303e-16, w: 0.8131222}
   m_LocalPosition: {x: 20, y: 15, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10202,6 +10204,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -10434,7 +10437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61995624c055b84691324e41e694365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthUI
-  health: {fileID: 1224916895}
   healthBars:
   - {fileID: 1664334801}
   - {fileID: 1571566063}
@@ -22490,7 +22492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000020697444, y: 0.20074628, z: 4.241274e-10, w: 0.9796433}
+  m_LocalRotation: {x: 0.000000027270781, y: 0.18772124, z: -0.000000005211961, w: 0.9822224}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29718,17 +29720,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1726765245084926877, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
   m_PrefabInstance: {fileID: 6955682837850707794}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1224916895 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2388871879384369395, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
-  m_PrefabInstance: {fileID: 6955682837850707794}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866938804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf007461f39d6940b34c480f021fb1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Combat.Health
 --- !u!114 &1224916899 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7368794356948607061, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
@@ -30541,6 +30532,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 8902247037256730875, guid: dcbdfb8f9440981428880f3ef804a780, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -33469,6 +33461,7 @@ MonoBehaviour:
   platformPrefabs:
   - {fileID: 1330894729458914102, guid: f6a646da4c11fac4698a54c7832b77fd, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
@@ -35005,6 +34998,7 @@ MonoBehaviour:
   - {fileID: 8902247037256730875, guid: 5549e14d1e0aa9a40b81f920e44dfc88, type: 3}
   - {fileID: 6490484633219819576, guid: d47a37c1f48154649b1fd15089723627, type: 3}
   defaultPrefabWeight: 1
+  maxGeneratedBlocksPerFrame: 2
   forwardSpeed: 6
   launchProfile: {fileID: 11400000, guid: 96aa8b856d349214484bb8d0ddd13a1d, type: 2}
   gravity: 20
