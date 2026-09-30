@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valley.Core;
 using Valley.Core.Pooling;
+using Valley.Level.Spawning;
 using Valley.Scoring;
 
 namespace Valley.Level.Generation
@@ -104,6 +105,8 @@ namespace Valley.Level.Generation
         [Header("Side Layers (2 up, 2 down)")]
         [Tooltip("Vertical spacing used by 'Build Default Side Layers' to auto-populate the array below.")]
         public float layerSpacing = 4f;
+        [Tooltip("How far (beyond the layer's verticalJitter) a side layer's previous right edge may sit from its mid-anchored baseline and still flush-stick. Sticks stay perfectly flush; once the layer has drifted further than this, the next platform is placed with a gap so it re-anchors to the mid layer. Raise it for longer unbroken stick chains.")]
+        public float sideStickDriftTolerance = 3f;
         public PlatformLayer[] sideLayers = new PlatformLayer[0];
 
         [Header("Distance-Based Progression")]
@@ -695,6 +698,16 @@ namespace Valley.Level.Generation
 
             r.TrimFront(excess);
         }
+        static readonly List<PlatformSpawnPointGenerator> spawnGeneratorBuffer = new List<PlatformSpawnPointGenerator>();
+
+        /// <summary>Spawns traps/collectibles on the block and any nested generators, once the block is in its final place.</summary>
+        void PopulateSpawnPoints(PlatformBlock instance)
+        {
+            instance.GetComponentsInChildren(spawnGeneratorBuffer);
+            foreach (var generator in spawnGeneratorBuffer)
+                generator.SpawnAll();
+            spawnGeneratorBuffer.Clear();
+        }
 
         void MaterializeAppend(PlatformLayerRuntime r, int index)
         {
@@ -703,6 +716,7 @@ namespace Valley.Level.Generation
             instance.RecalculateBoundsFromRenderers();
 
             PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
+            PopulateSpawnPoints(instance);
 
             Vector3 rightEdge = instance.GetRightEdgeWorld();
             record.rightEdgeX = WorldToRecordX(rightEdge.x);
@@ -726,12 +740,13 @@ namespace Valley.Level.Generation
         {
             PlatformRecord record = r.GetRecord(index);
             PlatformBlock instance = objectPool.Get(record.prefab);
-            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
+            instance.RecalculateBoundsFromRenderers();
 
-            Vector3 rightEdge = instance.GetRightEdgeWorld();
-            record.rightEdgeX = WorldToRecordX(rightEdge.x);
-            record.rightEdgeY = rightEdge.y;
-            r.SetRecord(index, record);
+            PositionPlatform(instance, RecordToWorldX(record.leftEdgeX), record.leftEdgeY, record.zOffset, record.rotationZ);
+            PopulateSpawnPoints(instance);
+
+            // Don't re-measure/overwrite rightEdgeX/Y here: the record's edges were fixed when it was first
+            // materialized, and neighbouring records were generated against those exact values.
 
             r.liveInstances.Insert(0, instance);
         }
@@ -875,28 +890,35 @@ namespace Valley.Level.Generation
             PlatformBlock[] pool = layer.ResolvePrefabPool(platformPrefabs);
             PlatformBlock prefab = ChooseSpawnablePrefab(pool, layer, out float missedGap);
 
-            bool canStick = prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
+            // Side layers are anchored to the MID layer, never to the player's Y.
+            float midBaselineY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
+
+            // A flush stick keeps prev's edge height, so only allow it while that height is still close
+            // enough to the layer's mid-anchored baseline. Otherwise fall through to the gap path to re-anchor.
+            float drift = Mathf.Abs(prev.rightEdgeY - midBaselineY);
+            bool withinAnchorBand = drift <= Mathf.Abs(layer.verticalJitter) + Mathf.Max(0f, sideStickDriftTolerance);
+
+            bool canStick = withinAnchorBand
+                             && prev.prefab.rightAttach.allowed && prefab.leftAttach.allowed
                              && r.consecutiveSticks < layer.maxConsecutiveSticks;
             float stickRoll = canStick
                 ? Mathf.Min(prev.prefab.rightAttach.successRate, prefab.leftAttach.successRate) + layer.stickChanceBonus
                 : 0f;
             bool stick = canStick && Random.value <= Mathf.Clamp01(stickRoll);
 
-            float targetLeftEdgeY;
-            float gapX;
-
-            // Side layers are anchored to the MID layer, never to the player's Y.
-            // The layer offset is applied first, then the layer's own jitter.
-            float midBaselineY = midRuntime.GetRecord(midRuntime.LastGlobalIndex).rightEdgeY + layer.verticalOffset;
             float jitteredTargetY = Random.Range(
                 midBaselineY - Mathf.Abs(layer.verticalJitter),
                 midBaselineY + Mathf.Abs(layer.verticalJitter));
 
+            float targetLeftEdgeY;
+            float gapX;
+
             if (stick)
             {
-                // Keep the stick's X behavior, but keep the side layer vertically anchored to MID.
-                targetLeftEdgeY = jitteredTargetY;
+                // Truly flush: same Y as prev's right edge, zero gap (including no skipped-candidate gap).
+                targetLeftEdgeY = prev.rightEdgeY;
                 gapX = 0f;
+                missedGap = 0f;
                 r.consecutiveSticks++;
             }
             else
@@ -924,11 +946,6 @@ namespace Valley.Level.Generation
                 gapX = Random.Range(scaledMin, scaledMax);
             }
 
-            // Clamp against any premade level currently occupying the mid layer: side layers roll their
-            // own independent gap/stick logic and have no other way to know that X-range is spoken for.
-            // Mathf.Max is a no-op once the premade's footprint has been passed (sideLayerClearanceRightX
-            // stays behind prev.rightEdgeX from then on), so ordinary generation is unaffected outside of
-            // an active premade segment.
             float spawnLeftEdgeX = Mathf.Max(prev.rightEdgeX + gapX + missedGap, sideLayerClearanceRightX);
             float rotationZ = prefab.rotation.allowRotation
                 ? Random.Range(prefab.rotation.minAngleDegrees, prefab.rotation.maxAngleDegrees)
@@ -936,7 +953,6 @@ namespace Valley.Level.Generation
 
             r.AddRecord(new PlatformRecord { prefab = prefab, leftEdgeX = spawnLeftEdgeX, leftEdgeY = targetLeftEdgeY, rotationZ = rotationZ, zOffset = RollZNoise() });
         }
-
         float ComputeSafeGap(float heightDelta)
         {
             if (heightDelta <= 0.05f)

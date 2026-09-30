@@ -36,23 +36,33 @@ namespace Valley.Theming
         {
             foreach (var entry in entries)
             {
-                if (entry.theme != theme) continue;
+                if (entry.theme != theme)
+                    continue;
 
                 var prefab = PickWeightedPrefab(entry.prefabs);
+
                 if (prefab == null)
                 {
-                    Debug.LogWarning($"[{nameof(ThemePrefabSwap)}] No valid prefab candidates for theme '{theme}' on '{name}'.", this);
+                    Debug.LogWarning(
+                        $"[{nameof(ThemePrefabSwap)}] No valid prefab candidates for theme '{theme}' on '{name}'.",
+                        this);
+
                     return;
                 }
 
-                if (_spawnedInstance != null) Destroy(_spawnedInstance);
+                if (_spawnedInstance != null)
+                {
+                    Destroy(_spawnedInstance);
+                    _spawnedInstance = null;
+                }
 
-                Vector3 position = resetPositionOnSpawn ? transform.position : prefab.transform.position;
+                _spawnedInstance = Instantiate(
+                    prefab,
+                    resetPositionOnSpawn ? transform.position : prefab.transform.position,
+                    prefab.transform.rotation,
+                    transform
+                );
 
-                _spawnedInstance = Instantiate(prefab,
-                                               position,
-                                               prefab.transform.rotation,
-                                               transform);
                 return;
             }
         }

@@ -12,6 +12,9 @@ namespace Valley.Theming
 
         [SerializeField] private ThemingMode mode = ThemingMode.Enable;
 
+        private bool _isSubscribed;
+        private ThemeDefinition _appliedTheme;
+
         protected virtual void OnEnable()
         {
             if (mode == ThemingMode.Enable)
@@ -26,24 +29,52 @@ namespace Valley.Theming
 
         private void Setup()
         {
-            ThemeManager.OnThemeChanged += ApplyTheme;
-
-            if (ThemeManager.Instance != null && ThemeManager.Instance.CurrentTheme != null)
+            if (!_isSubscribed)
             {
-                ApplyTheme(ThemeManager.Instance.CurrentTheme);
+                ThemeManager.OnThemeChanged += HandleThemeChanged;
+                _isSubscribed = true;
             }
+
+            ThemeDefinition currentTheme = ThemeManager.Instance != null
+                ? ThemeManager.Instance.CurrentTheme
+                : null;
+
+            if (currentTheme != null &&
+                _appliedTheme != currentTheme)
+            {
+                ApplyTheme(currentTheme);
+                _appliedTheme = currentTheme;
+            }
+        }
+
+        private void HandleThemeChanged(ThemeDefinition theme)
+        {
+            if (theme == null)
+                return;
+
+            if (_appliedTheme == theme)
+                return;
+
+            ApplyTheme(theme);
+            _appliedTheme = theme;
         }
 
         protected virtual void OnDisable()
         {
-            if (mode == ThemingMode.Enable)
-                ThemeManager.OnThemeChanged -= ApplyTheme;
+            if (!_isSubscribed)
+                return;
+
+            ThemeManager.OnThemeChanged -= HandleThemeChanged;
+            _isSubscribed = false;
         }
 
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
-            if (mode == ThemingMode.Start)
-                ThemeManager.OnThemeChanged -= ApplyTheme;
+            if (!_isSubscribed)
+                return;
+
+            ThemeManager.OnThemeChanged -= HandleThemeChanged;
+            _isSubscribed = false;
         }
 
         protected abstract void ApplyTheme(ThemeDefinition theme);

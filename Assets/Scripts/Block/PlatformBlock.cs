@@ -95,16 +95,20 @@ namespace Valley.Level.Generation
 
             Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
+            // Renderer.bounds is a world-space AABB, so it inflates whenever this block is rotated
+            // (pooled instances keep their previous rotation). Measure with rotation removed so the
+            // resulting local box is independent of the block's current orientation.
+            Quaternion savedRotation = transform.rotation;
+            transform.rotation = Quaternion.identity;
+
             Bounds worldBounds = default;
             bool foundRenderer = false;
 
             foreach (Renderer renderer in renderers)
             {
-                // Only filter by layer when requested.
                 if (detectBoundsFromLayer)
                 {
                     int rendererLayer = renderer.gameObject.layer;
-
                     if ((boundsLayer.value & (1 << rendererLayer)) == 0)
                         continue;
                 }
@@ -122,20 +126,22 @@ namespace Valley.Level.Generation
 
             if (!foundRenderer)
             {
+                transform.rotation = savedRotation;
                 Debug.LogWarning(
                     $"[{nameof(PlatformBlock)}] No matching Renderers found for '{name}'. " +
                     $"Bounds were not recalculated.",
                     this);
-
                 return;
             }
 
+            // Convert while still un-rotated, so InverseTransformPoint / lossyScale are accurate.
             boundsCenter = transform.InverseTransformPoint(worldBounds.center);
-
             boundsSize = new Vector3(
                 worldBounds.size.x / Mathf.Max(transform.lossyScale.x, 0.0001f),
                 worldBounds.size.y / Mathf.Max(transform.lossyScale.y, 0.0001f),
                 worldBounds.size.z / Mathf.Max(transform.lossyScale.z, 0.0001f));
+
+            transform.rotation = savedRotation;
         }
 
         public Vector3 GetLeftEdgeWorld() =>

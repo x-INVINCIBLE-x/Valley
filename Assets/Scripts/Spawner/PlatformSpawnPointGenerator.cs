@@ -16,6 +16,10 @@ namespace Valley.Level.Spawning
     [DisallowMultipleComponent]
     public class PlatformSpawnPointGenerator : MonoBehaviour
     {
+        [Header("Spawn Timing")]
+        [Tooltip("If true, spawns as soon as the component is enabled (old behavior). Leave FALSE for blocks driven by PlatformChunkSpawner, which calls SpawnAll() after the block has been positioned. Spawning in OnEnable runs before the block is moved, so points are converted with a stale transform.")]
+        public bool spawnOnEnable = false;
+
         [Header("Anchor Source")]
         [Tooltip("If assigned, Auto-Generate distributes points using this PlatformBlock's computed left/right/surface points, which stay correct even when the platform is rotated. 'Auto-Fill Anchors From PlatformBlock' grabs a sibling PlatformBlock automatically.")]
         public PlatformBlock sourcePlatformBlock;
@@ -42,13 +46,34 @@ namespace Valley.Level.Spawning
 
         void OnEnable()
         {
-            if (pool == null) pool = new PrefabPoolGroup<SpawnedEntity>(transform);
-            RerollAndSpawnAll();
+            EnsurePool();
+            if (spawnOnEnable) SpawnAll();
         }
 
         void OnDisable()
         {
             DespawnAll();
+        }
+
+        void EnsurePool()
+        {
+            if (pool == null) pool = new PrefabPoolGroup<SpawnedEntity>(transform);
+        }
+
+        /// <summary>
+        /// Re-rolls and spawns every category. Call this AFTER the platform has its final position and
+        /// rotation - spawn points are local-space, so they're only converted correctly once the transform is final.
+        /// </summary>
+        public void SpawnAll()
+        {
+            EnsurePool();
+            DespawnAll();               // safe if called twice
+
+            // Colliders must reflect the block's new transform or the overlap check tests stale positions.
+            Physics.SyncTransforms();
+
+            foreach (var category in categories)
+                RerollAndSpawnCategory(category);
         }
 
         void RerollAndSpawnAll()
