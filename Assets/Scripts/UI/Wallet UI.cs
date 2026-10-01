@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using System;
 using TMPro;
 using UnityEngine;
 using Valley.Economy;
@@ -15,6 +16,7 @@ public class WalletUI : MonoBehaviour
     {
         wallet = CurrencyWallet.Instance;
         CurrencyWallet.OnBalanceAdded += UpdateUI;
+        CurrencyWallet.OnBalanceChanged += UpdateCurrencyChange;
 
         UpdateUI(0, wallet.Balance);
     }
@@ -22,6 +24,7 @@ public class WalletUI : MonoBehaviour
     private void OnDestroy()
     {
         CurrencyWallet.OnBalanceAdded -= UpdateUI;
+        CurrencyWallet.OnBalanceChanged -= UpdateCurrencyChange;
     }
 
     private void UpdateUI(int amt, int newBalance)
@@ -31,6 +34,21 @@ public class WalletUI : MonoBehaviour
         if (deltaAmtText != null)
         {
             deltaAmtText.text = $"+{amt}";
+        }
+
+        if (updateFeedback != null)
+        {
+            updateFeedback.PlayFeedbacks();
+        }
+    }
+
+    private void UpdateCurrencyChange(int newBalance)
+    {
+        finalAmtText.text = newBalance.ToString();
+
+        if (deltaAmtText != null)
+        {
+            deltaAmtText.text = "";
         }
 
         if (updateFeedback != null)
