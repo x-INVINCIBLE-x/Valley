@@ -254,8 +254,6 @@ namespace Esper.ESave
                         break;
                 }
             }
-
-            Debug.Log($"Save Path: {fullPath}");
 #endif
         }
 
