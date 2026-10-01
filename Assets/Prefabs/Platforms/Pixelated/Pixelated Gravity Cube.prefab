@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 6877600386663520334}
   - component: {fileID: 3939615833356838752}
   - component: {fileID: 8370432413486686285}
+  - component: {fileID: 98513300494786006}
   m_Layer: 0
   m_Name: Magic Circle Gravity
   m_TagString: Untagged
@@ -890,6 +891,21 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &98513300494786006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769539831956144112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56b82bd22d74de42b794fee23c19c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaterialAlphaTrigger
+  targetRenderer: {fileID: 0}
+  targetAlpha: 0.2
+  fadeDuration: 1
 --- !u!1 &8865822806442200405
 GameObject:
   m_ObjectHideFlags: 0
