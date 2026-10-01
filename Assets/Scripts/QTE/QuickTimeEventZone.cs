@@ -13,6 +13,11 @@ namespace Valley.QTE
 
         [SerializeField] private bool _hasTriggered;
 
+        private void OnEnable()
+        {
+            _hasTriggered = false;
+        }
+
         private void OnTriggerEnter(Collider other) => TryTrigger(other.gameObject);
         private void OnCollisionEnter(Collision collision) => TryTrigger(collision.gameObject);
 

@@ -12,7 +12,8 @@ public class PowerupUI : MonoBehaviour
 
     private readonly Queue<RadialBarUI> _pool = new Queue<RadialBarUI>();
     private readonly Dictionary<PowerupEffect, RadialBarUI> _activeBars = new Dictionary<PowerupEffect, RadialBarUI>();
-    private readonly Dictionary<PowerupEffect, Coroutine> _flashRoutines = new Dictionary<PowerupEffect, Coroutine>();
+    private readonly Dictionary<PowerupEffect, (Coroutine routine, RadialBarUI bar)> _flashRoutines =
+        new Dictionary<PowerupEffect, (Coroutine, RadialBarUI)>();
 
     private WaitForSeconds _waitForDisplayDuration;
 
@@ -42,10 +43,15 @@ public class PowerupUI : MonoBehaviour
         PowerupReceiver.OnPowerupExpired -= HandlePowerupExpired;
 
         StopAllCoroutines();
+
+        foreach (var flash in _flashRoutines.Values)
+            ReturnToPool(flash.bar);
+
         _flashRoutines.Clear();
 
         foreach (var bar in _activeBars.Values)
             ReturnToPool(bar);
+
         _activeBars.Clear();
     }
 
@@ -66,14 +72,27 @@ public class PowerupUI : MonoBehaviour
             bar.UpdateIcon(effect.icon);
             bar.UpdateRadialBar(1f, 1f);
             bar.gameObject.SetActive(true);
+
             _activeBars[effect] = bar;
         }
         else
         {
-            if (_flashRoutines.TryGetValue(effect, out Coroutine running))
-                StopCoroutine(running);
+            if (_flashRoutines.TryGetValue(effect, out var existing))
+            {
+                StopCoroutine(existing.routine);
+                ReturnToPool(existing.bar);
+                _flashRoutines.Remove(effect);
+            }
 
-            _flashRoutines[effect] = StartCoroutine(FlashRoutine(effect));
+            RadialBarUI bar = GetFromPool();
+            if (bar == null) return;
+
+            bar.UpdateIcon(effect.icon);
+            bar.UpdateRadialBar(1f, 1f);
+            bar.gameObject.SetActive(true);
+
+            Coroutine routine = StartCoroutine(FlashRoutine(effect, bar));
+            _flashRoutines[effect] = (routine, bar);
         }
     }
 
@@ -94,15 +113,8 @@ public class PowerupUI : MonoBehaviour
         }
     }
 
-    private IEnumerator FlashRoutine(PowerupEffect effect)
+    private IEnumerator FlashRoutine(PowerupEffect effect, RadialBarUI bar)
     {
-        RadialBarUI bar = GetFromPool();
-        if (bar == null) yield break;
-
-        bar.UpdateIcon(effect.icon);
-        bar.UpdateRadialBar(1f, 1f);
-        bar.gameObject.SetActive(true);
-
         yield return _waitForDisplayDuration;
 
         ReturnToPool(bar);
