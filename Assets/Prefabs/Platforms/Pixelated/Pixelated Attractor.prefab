@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5064204722087173489}
   - component: {fileID: 4347178370969930896}
   - component: {fileID: 5443396830246272902}
-  - component: {fileID: 4082325223636719265}
   - component: {fileID: 8162978770702423185}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Pixel Attractor Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,49 +114,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0.00000035762784, y: -0.018552542, z: 0}
---- !u!114 &4082325223636719265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750676494619286030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400b0fcefc1ce9a4cb6f315f53add35e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Obstacles.Attractor
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 64
-  radius: 5
-  maxStrength: 200
-  strengthCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0000145
-      value: 0.504717
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  activateFeedback: {fileID: 0}
-  deactivateFeedback: {fileID: 0}
 --- !u!65 &8162978770702423185
 BoxCollider:
   m_ObjectHideFlags: 0
