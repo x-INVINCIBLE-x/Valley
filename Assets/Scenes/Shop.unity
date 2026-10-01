@@ -501,7 +501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1110.0001, y: 0}
+  m_AnchoredPosition: {x: -1080, y: 0}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234764034
@@ -1493,14 +1493,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3623146952935749585, guid: 7b1b0595dff4c5747ab49936f1073fd7, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3623146952935749585, guid: 7b1b0595dff4c5747ab49936f1073fd7, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1ad88c9c9b62b4e40af9d2d3db57588d, type: 3}
     - target: {fileID: 4925752900709675796, guid: 7b1b0595dff4c5747ab49936f1073fd7, type: 3}
       propertyPath: m_Name
       value: Selection Slot
@@ -3395,6 +3387,7 @@ MonoBehaviour:
   maxConsecutiveHardGaps: 2
   guaranteedSafetyInterval: 8
   layerSpacing: 4
+  sideStickDriftTolerance: 3
   sideLayers:
   - label: 
     verticalOffset: 50
