@@ -41899,11 +41899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295f853b97adbb44aae9b3329184a6b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Aiming.AimInputController
---- !u!114 &1224916952
+--- !u!114 &1224916952 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6964670434113816751, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
+  m_PrefabInstance: {fileID: 6955682837850707794}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866938804}
   m_Enabled: 1
@@ -41911,7 +41910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf575832d0deea488c0f17d16946fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChallengeZoneDetector
-  challengeTagName: ChallengeZone
 --- !u!1 &1238200037
 GameObject:
   m_ObjectHideFlags: 0
@@ -96415,10 +96413,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4368308482900420421, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1224916952}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86b7d475dea59f14ea8e864ecea4435c, type: 3}
 --- !u!1 &6967989736524486690
 GameObject:

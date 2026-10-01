@@ -540,7 +540,6 @@ GameObject:
   - component: {fileID: 2239101901520903585}
   - component: {fileID: 803982929547054200}
   - component: {fileID: 8902247037256730875}
-  - component: {fileID: 8568519369255158485}
   - component: {fileID: 1415932178603386777}
   - component: {fileID: 1627509048350144745}
   m_Layer: 7
@@ -656,44 +655,6 @@ MonoBehaviour:
     minAngleDegrees: -15
     maxAngleDegrees: 15
   spawnChance: 1
---- !u!114 &8568519369255158485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122842394199844381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5cec933144a7b48ac406ce127c8279, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Valley.Level.Spawning.PlatformSpawnPointGenerator
-  sourcePlatformBlock: {fileID: 8902247037256730875}
-  leftAnchor: {fileID: 0}
-  rightAnchor: {fileID: 0}
-  categories:
-  - categoryName: Powerups
-    prefabs:
-    - {fileID: 6465671983180393810, guid: 690f51913db761a4d946f4dec6bd7e2f, type: 3}
-    - {fileID: 1752992023889638160, guid: 2c1c8d5ac1788f3458b112f582a9eca8, type: 3}
-    - {fileID: 2057388557567417013, guid: 40b3a10c5d8fd2f4997457871572c868, type: 3}
-    - {fileID: 2057388557567417013, guid: f06fa6b25bbc20c49985bedad9235236, type: 3}
-    gizmoColor: {r: 0, g: 1, b: 0.11940789, a: 1}
-    autoPointCount: 3
-    positionJitter: {x: 2, y: 1}
-    zRange: {x: 0, y: 0}
-    points:
-    - localPosition: {x: -0.4, y: 0.7, z: 0}
-    - localPosition: {x: 0, y: 0.7, z: 0}
-    - localPosition: {x: 0.4, y: 0.7, z: 0}
-    activeCount: 1
-    activationProbability: 0.05
-  overlapCheckRadius: 0.25
-  obstructionLayers:
-    serializedVersion: 2
-    m_Bits: 384
-  showGizmos: 1
-  gizmoRadius: 0.12
 --- !u!114 &1415932178603386777
 MonoBehaviour:
   m_ObjectHideFlags: 0
