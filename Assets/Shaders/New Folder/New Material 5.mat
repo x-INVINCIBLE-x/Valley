@@ -55,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 39eaebd3354551f41885eaca75ab5309, type: 3}
+        m_Texture: {fileID: 2800000, guid: 769922401eb34494ebc5a9f9e24b2191, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMask:
@@ -153,11 +153,11 @@ Material:
     - _alpha: 1
     - _fresnel_intensity: 2
     m_Colors:
-    - _BaseColor: {r: 0.72739923, g: 1, b: 0.19182372, a: 1}
+    - _BaseColor: {r: 1, g: 0.19215685, b: 0.36731166, a: 1}
     - _Base_Color: {r: 0.47462583, g: 1, b: 0, a: 1}
-    - _Color: {r: 0.72739923, g: 1, b: 0.19182369, a: 1}
+    - _Color: {r: 1, g: 0.19215682, b: 0.36731163, a: 1}
     - _EmisionColor: {r: 0.91225237, g: 2, b: 0, a: 1}
-    - _EmissionColor: {r: 0.3622909, g: 1, b: 0.003144443, a: 1}
+    - _EmissionColor: {r: 0, g: 0.4251926, b: 0.5019608, a: 1}
     - _Emission_Color: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0.061437607, g: 1, b: 0, a: 1}
     - _Fresnel_Color: {r: 0.022885311, g: 0, b: 1.5058824, a: 1}

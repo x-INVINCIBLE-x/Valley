@@ -9773,7 +9773,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504125023}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000006067062, y: -0.580434, z: -0.0000000043245705, w: 0.8143073}
+  m_LocalRotation: {x: 7.2219766e-16, y: -0.582093, z: 5.1700244e-16, w: 0.8131223}
   m_LocalPosition: {x: 20, y: 15, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27430,7 +27430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992243505}
   serializedVersion: 2
-  m_LocalRotation: {x: -9.496718e-10, y: 0.19251023, z: 1.8630657e-10, w: 0.981295}
+  m_LocalRotation: {x: 0.0000000064290355, y: 0.18772125, z: -0.0000000012287101, w: 0.9822224}
   m_LocalPosition: {x: 3, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -40417,7 +40417,7 @@ MonoBehaviour:
   - categoryName: Lasers
     categoryWeight: 2
     obstacles:
-    - prefab: {fileID: 590318742647772891, guid: d0f48cc4250060d43b299271335e0ed1, type: 3}
+    - prefab: {fileID: 3390093467320885124, guid: 89dc55d9518449e4ba5b8cb6cc6df203, type: 3}
       weight: 1
       maxSpawnsBeforeReset: 3
       maxActiveInstances: 1
