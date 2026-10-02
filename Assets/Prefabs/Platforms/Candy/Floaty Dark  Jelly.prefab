@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 880515665517393161}
   - component: {fileID: 560314877945960226}
   m_Layer: 7
-  m_Name: Floaty Cotton Candy
+  m_Name: Floaty Dark  Jelly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4aa2d4547443384699e2e1cd11490ac, type: 2}
+  - {fileID: 2100000, guid: 346ba881107108a4dbe3bad0e76f96d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -369,6 +369,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 629744401173542726}
     m_Modifications:
+    - target: {fileID: 195359074120923897, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488978908457596459, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969351234189831164, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 969351234189831164, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8282346695813739815, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.002
@@ -391,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8282346695813739815, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0452
       objectReference: {fileID: 0}
     - target: {fileID: 8282346695813739815, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
       propertyPath: m_LocalRotation.w
@@ -424,6 +440,18 @@ PrefabInstance:
     - target: {fileID: 8416085426316769210, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
       propertyPath: m_Name
       value: Cotton candy hit vfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173754037154701485, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173754037154701485, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173754037154701485, guid: a8d153cf1d8109a4f8a569a261f1b562, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5998437463185699419}
   - component: {fileID: 3805354333962532265}
   - component: {fileID: 5626277654157813956}
-  m_Layer: 8
+  - component: {fileID: 2521325616490454935}
+  m_Layer: 7
   m_Name: Candy Attractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +92,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2521325616490454935
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083512603715910091}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 196288640622949635, guid: 62a56a7cd5c7b4c48b15fc653b194162, type: 3}
 --- !u!1 &9057136640518155973
 GameObject:
   m_ObjectHideFlags: 0

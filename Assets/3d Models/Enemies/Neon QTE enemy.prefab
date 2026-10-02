@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4347906740195184441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.44, y: -1.09, z: -0.082}
+  m_LocalRotation: {x: -0.0062391646, y: 0.45287487, z: 0.0031739709, w: 0.8915466}
+  m_LocalPosition: {x: -0.53515625, y: -0.085, z: -0.155447}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &9044708149509343742
+--- !u!1 &8602603264271716212
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,49 +135,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2758748248725124750}
-  - component: {fileID: 4232835504675420647}
-  - component: {fileID: 7396806480733503377}
-  - component: {fileID: 3382770522417057318}
-  - component: {fileID: 4774761828408177339}
+  - component: {fileID: 6056407333905774898}
+  - component: {fileID: 3114199679992763814}
+  - component: {fileID: 4923651357705157827}
+  - component: {fileID: 2891443316786134887}
+  - component: {fileID: 8003721522801689556}
   m_Layer: 8
-  m_Name: Neon QTE enemy
+  m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2758748248725124750
+--- !u!4 &6056407333905774898
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044708149509343742}
+  m_GameObject: {fileID: 8602603264271716212}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.023398979, y: -0.92215085, z: 0.38196737, w: 0.056490134}
-  m_LocalPosition: {x: 163.32898, y: 9.302038, z: 44.946358}
-  m_LocalScale: {x: 0.10103625, y: 0.052010875, z: 0.69087255}
+  m_LocalRotation: {x: 0.36588442, y: -0.27072707, z: 0.11213877, w: 0.88332355}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.10103621, y: 0.052010864, z: 0.6908724}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6486651232124775839}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45, y: -172.989, z: 0}
---- !u!33 &4232835504675420647
+  m_Children: []
+  m_Father: {fileID: 2758748248725124750}
+  m_LocalEulerAnglesHint: {x: 45, y: -34.079, z: 0}
+--- !u!33 &3114199679992763814
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044708149509343742}
+  m_GameObject: {fileID: 8602603264271716212}
   m_Mesh: {fileID: 8552134717624371188, guid: 106b7ea2bf211f247aeee0d63fb537b1, type: 3}
---- !u!23 &7396806480733503377
+--- !u!23 &4923651357705157827
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044708149509343742}
+  m_GameObject: {fileID: 8602603264271716212}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -221,13 +220,13 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3382770522417057318
+--- !u!64 &2891443316786134887
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044708149509343742}
+  m_GameObject: {fileID: 8602603264271716212}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -243,13 +242,13 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8552134717624371188, guid: 106b7ea2bf211f247aeee0d63fb537b1, type: 3}
---- !u!114 &4774761828408177339
+--- !u!114 &8003721522801689556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044708149509343742}
+  m_GameObject: {fileID: 8602603264271716212}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bbc45895018fc4286360b5e68ad3d8, type: 3}
@@ -261,3 +260,36 @@ MonoBehaviour:
     m_Bits: 64
   disableAfterTrigger: 0
   _hasTriggered: 0
+--- !u!1 &9044708149509343742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2758748248725124750}
+  m_Layer: 8
+  m_Name: Neon QTE enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2758748248725124750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044708149509343742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.023398979, y: -0.92215085, z: 0.38196737, w: 0.056490134}
+  m_LocalPosition: {x: 163.32898, y: 9.302038, z: 44.946358}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6056407333905774898}
+  - {fileID: 6486651232124775839}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -172.989, z: 0}
