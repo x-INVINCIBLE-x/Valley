@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d25009a1ed8641a363397dae86a5e, type: 3}
   m_Name: LaunchProfile
   m_EditorClassIdentifier: Assembly-CSharp::Valley.Core.LaunchProfile
-  minLaunchForce: 50
-  maxLaunchForce: 70
+  minLaunchForce: 60
+  maxLaunchForce: 75
   forceCurve:
     serializedVersion: 2
     m_Curve:

@@ -26827,11 +26827,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1.25, y: 0, z: 1}
+    PositionDamping: {x: 1.1, y: 0, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -30}
+  FollowOffset: {x: 0, y: 0, z: -35}
 --- !u!114 &909296679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42661,7 +42661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: catchUpSpeed
-      value: 60
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 5726534739610166607, guid: 1b813d33051a9b147ac80b20152acaf5, type: 3}
       propertyPath: _currentSpeed
