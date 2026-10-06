@@ -1,4 +1,5 @@
 using System;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 namespace Valley.Powerups
@@ -15,6 +16,7 @@ namespace Valley.Powerups
         [Header("Pickup")]
         [SerializeField] private LayerMask targetMask;
         [SerializeField] private bool destroyOnPickup = true;
+        [SerializeField] private MMF_Player feedback;
 
         private void OnTriggerEnter(Collider other) => TryCollect(other.gameObject);
         private void OnCollisionEnter(Collision collision) => TryCollect(collision.gameObject);
@@ -26,6 +28,9 @@ namespace Valley.Powerups
 
             effect.Apply(target, transform);
             OnPowerupCollected?.Invoke(effect, target);
+
+            if(feedback)
+                feedback.PlayFeedbacks();
 
             if (destroyOnPickup) Destroy(gameObject);
         }
