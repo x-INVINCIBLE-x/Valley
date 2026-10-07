@@ -87,7 +87,7 @@ public class SaveLoad : MonoBehaviour
 
         saveFile.Save();
 
-        Debug.Log("Game saved locally.");
+        //Debug.Log("Game saved locally.");
     }
 
     public void SaveGameToCloud(Action<bool> onComplete = null)
@@ -138,21 +138,21 @@ public class SaveLoad : MonoBehaviour
         CloudSaveData data =
             CreateCloudSaveData();
 
-        Debug.Log(
-            $"[Score Cloud Save Request] " +
-            $"HighScore={data.highScore}, " +
-            $"HighDistance={data.highDistance}"
-        );
+        //Debug.Log(
+        //    $"[Score Cloud Save Request] " +
+        //    $"HighScore={data.highScore}, " +
+        //    $"HighDistance={data.highDistance}"
+        //);
 
         if (m_CloudSaveInProgress)
         {
             m_PendingCloudSave = data;
             m_PendingCloudSaveCallback = onComplete;
 
-            Debug.Log(
-                "[Cloud Save] Save already in progress. " +
-                "Latest state queued."
-            );
+            //Debug.Log(
+            //    "[Cloud Save] Save already in progress. " +
+            //    "Latest state queued."
+            //);
 
             return;
         }
@@ -198,11 +198,11 @@ public class SaveLoad : MonoBehaviour
             data,
             success =>
             {
-                Debug.Log(
-                    $"[Cloud Save Result] Success={success}, " +
-                    $"HighScore={data.highScore}, " +
-                    $"HighDistance={data.highDistance}"
-                );
+                //Debug.Log(
+                //    $"[Cloud Save Result] Success={success}, " +
+                //    $"HighScore={data.highScore}, " +
+                //    $"HighDistance={data.highDistance}"
+                //);
 
                 m_CloudSaveInProgress = false;
 
@@ -220,11 +220,11 @@ public class SaveLoad : MonoBehaviour
                 m_PendingCloudSave = null;
                 m_PendingCloudSaveCallback = null;
 
-                Debug.Log(
-                    $"[Cloud Save] Processing queued save. " +
-                    $"HighScore={pendingData.highScore}, " +
-                    $"HighDistance={pendingData.highDistance}"
-                );
+                //Debug.Log(
+                //    $"[Cloud Save] Processing queued save. " +
+                //    $"HighScore={pendingData.highScore}, " +
+                //    $"HighDistance={pendingData.highDistance}"
+                //);
 
                 StartCloudSave(
                     pendingData,
@@ -263,17 +263,17 @@ public class SaveLoad : MonoBehaviour
         {
             LoadLocalGameTemporary();
 
-            Debug.Log(
-                "Loaded local save temporarily. " +
-                "Waiting for Google Play cloud load."
-            );
+            //Debug.Log(
+            //    "Loaded local save temporarily. " +
+            //    "Waiting for Google Play cloud load."
+            //);
         }
         else
         {
-            Debug.Log(
-                "No local save available. " +
-                "Waiting for Google Play cloud load."
-            );
+            //Debug.Log(
+            //    "No local save available. " +
+            //    "Waiting for Google Play cloud load."
+            //);
         }
     }
 
@@ -284,9 +284,9 @@ public class SaveLoad : MonoBehaviour
         LoadTemporaryTheme();
         LoadHighScore();
 
-        Debug.Log(
-            "Game loaded from local save temporarily."
-        );
+        //Debug.Log(
+        //    "Game loaded from local save temporarily."
+        //);
     }
 
     private void HandleCloudSaveReady()
@@ -294,9 +294,9 @@ public class SaveLoad : MonoBehaviour
         if (m_LoadCompleted)
             return;
 
-        Debug.Log(
-            "Google Play cloud save is ready."
-        );
+        //Debug.Log(
+        //    "Google Play cloud save is ready."
+        //);
 
         HandleCloudSaveLoad();
     }
@@ -317,9 +317,9 @@ public class SaveLoad : MonoBehaviour
 
         m_CloudLoadStarted = true;
 
-        Debug.Log(
-            "Starting initial Google Play cloud load."
-        );
+        //Debug.Log(
+        //    "Starting initial Google Play cloud load."
+        //);
 
         LoadCloudGame();
     }
@@ -328,9 +328,9 @@ public class SaveLoad : MonoBehaviour
     {
         if (GooglePlaySaveManager.Instance == null)
         {
-            Debug.LogError(
-                "SaveLoad: GooglePlaySaveManager is missing."
-            );
+            //Debug.LogError(
+            //    "SaveLoad: GooglePlaySaveManager is missing."
+            //);
 
             m_CloudLoadStarted = false;
             return;
@@ -344,40 +344,40 @@ public class SaveLoad : MonoBehaviour
 
                 if (data == null)
                 {
-                    Debug.Log(
-                        "No cloud save found. " +
-                        "Keeping current/default score values."
-                    );
+                    //Debug.Log(
+                    //    "No cloud save found. " +
+                    //    "Keeping current/default score values."
+                    //);
 
                     m_LoadCompleted = true;
 
                     SaveGame();
 
-                    Debug.Log(
-                        "Initial cloud load completed with no cloud data."
-                    );
+                    //Debug.Log(
+                    //    "Initial cloud load completed with no cloud data."
+                    //);
 
                     return;
                 }
 
-                Debug.Log(
-                    $"[Cloud Load] HighScore={data.highScore}, " +
-                    $"HighDistance={data.highDistance}"
-                );
+                //Debug.Log(
+                //    $"[Cloud Load] HighScore={data.highScore}, " +
+                //    $"HighDistance={data.highDistance}"
+                //);
 
                 ApplyCloudSaveData(data);
 
                 m_LoadCompleted = true;
 
-                Debug.Log(
-                    $"[Cloud Load] Final local score - " +
-                    $"HighScore={playerScoreData?.HighScore}, " +
-                    $"HighDistance={playerScoreData?.HighDistance}"
-                );
+                //Debug.Log(
+                //    $"[Cloud Load] Final local score - " +
+                //    $"HighScore={playerScoreData?.HighScore}, " +
+                //    $"HighDistance={playerScoreData?.HighDistance}"
+                //);
 
-                Debug.Log(
-                    "Game loaded from Google Play cloud."
-                );
+                //Debug.Log(
+                //    "Game loaded from Google Play cloud."
+                //);
             }
         );
     }
@@ -553,10 +553,10 @@ public class SaveLoad : MonoBehaviour
             highDistance
         );
 
-        Debug.Log(
-            $"[Score] High Score: {highScore}, " +
-            $"High Distance: {highDistance}"
-        );
+        //Debug.Log(
+        //    $"[Score] High Score: {highScore}, " +
+        //    $"High Distance: {highDistance}"
+        //);
     }
 
     private void LoadHighScore()
@@ -592,21 +592,21 @@ public class SaveLoad : MonoBehaviour
                 );
         }
 
-        Debug.Log(
-            $"[Score Local Load] HighScore={highScore}, " +
-            $"HighDistance={highDistance}"
-        );
+        //Debug.Log(
+        //    $"[Score Local Load] HighScore={highScore}, " +
+        //    $"HighDistance={highDistance}"
+        //);
 
         playerScoreData.RestoreBest(
             highScore,
             highDistance
         );
 
-        Debug.Log(
-            $"[Score Local Load] Result - " +
-            $"HighScore={playerScoreData.HighScore}, " +
-            $"HighDistance={playerScoreData.HighDistance}"
-        );
+        //Debug.Log(
+        //    $"[Score Local Load] Result - " +
+        //    $"HighScore={playerScoreData.HighScore}, " +
+        //    $"HighDistance={playerScoreData.HighDistance}"
+        //);
     }
 
     // ==================================================

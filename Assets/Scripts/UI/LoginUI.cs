@@ -29,7 +29,7 @@ namespace Valley
         private void Awake()
         {
             loginManager = LoginManager.Instance;
-            Debug.Log("[LoginUI] Awake");
+            //Debug.Log("[LoginUI] Awake");
             if (loginButton == null)
             {
                 Debug.LogError(

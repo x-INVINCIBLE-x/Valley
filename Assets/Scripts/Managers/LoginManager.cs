@@ -469,7 +469,7 @@ namespace Valley
         {
             if (enableDebugLog)
             {
-                Debug.Log($"[LoginManager] {message}");
+                //Debug.Log($"[LoginManager] {message}");
             }
         }
 
@@ -477,13 +477,13 @@ namespace Valley
         {
             if (enableDebugLog)
             {
-                Debug.LogWarning($"[LoginManager] {message}");
+                //Debug.LogWarning($"[LoginManager] {message}");
             }
         }
 
         private void LogError(string message)
         {
-            Debug.LogError($"[LoginManager] {message}");
+            //Debug.LogError($"[LoginManager] {message}");
         }
     }
 }

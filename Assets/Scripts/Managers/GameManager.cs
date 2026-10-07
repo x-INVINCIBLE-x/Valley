@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour, IAimBlocker
 
     private void HandleGameOver()
     {
-        Debug.Log("Match ended. Saving game.");
+        //Debug.Log("Match ended. Saving game.");
 
         ThemeManager themeManager = ThemeManager.Instance;
 
@@ -139,9 +139,9 @@ public class GameManager : MonoBehaviour, IAimBlocker
         if (m_ExitRequested)
             return;
 
-        Debug.Log(
-            "Application paused. Saving game to local and cloud."
-        );
+        //Debug.Log(
+        //    "Application paused. Saving game to local and cloud."
+        //);
 
         SaveGameToCloud();
     }
@@ -154,9 +154,9 @@ public class GameManager : MonoBehaviour, IAimBlocker
          *
          * Local SaveFile.Save() is synchronous and safe here.
          */
-        Debug.Log(
-            "Application quitting. Saving game locally."
-        );
+        //Debug.Log(
+        //    "Application quitting. Saving game locally."
+        //);
 
         SaveGame();
     }
@@ -223,16 +223,16 @@ public class GameManager : MonoBehaviour, IAimBlocker
             return;
         }
 
-        Debug.Log(
-            "Exit requested. Waiting for cloud save to complete."
-        );
+        //Debug.Log(
+        //    "Exit requested. Waiting for cloud save to complete."
+        //);
 
         saveLoad.SaveGameToCloud(
             success =>
             {
-                Debug.Log(
-                    $"Exit cloud save completed. Success={success}"
-                );
+                //Debug.Log(
+                //    $"Exit cloud save completed. Success={success}"
+                //);
 
                 Application.Quit();
             }
