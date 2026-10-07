@@ -6,21 +6,28 @@ namespace Valley.Theming
     {
         [SerializeField] private ThemeDefinition[] activeForThemes;
 
+        [Tooltip("GameObject to enable/disable. If empty, this GameObject will be used.")]
+        [SerializeField] private GameObject targetGameObject;
+
         protected override void ApplyTheme(ThemeDefinition theme)
         {
             if (theme == null)
                 return;
 
+            GameObject target = targetGameObject != null
+                ? targetGameObject
+                : gameObject;
+
             for (int i = 0; i < activeForThemes.Length; i++)
             {
                 if (activeForThemes[i] == theme)
                 {
-                    gameObject.SetActive(true);
+                    target.SetActive(true);
                     return;
                 }
             }
 
-            gameObject.SetActive(false);
+            target.SetActive(false);
         }
     }
 }

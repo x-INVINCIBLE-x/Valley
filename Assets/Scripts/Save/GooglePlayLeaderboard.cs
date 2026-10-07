@@ -166,11 +166,11 @@ namespace Valley.Leaderboard
                 m_PendingScore = score;
                 m_HasPendingScore = true;
 
-                Debug.Log(
-                    "[Google Play Leaderboard] " +
-                    "Player is not authenticated. " +
-                    "Score queued."
-                );
+                //Debug.Log(
+                //    "[Google Play Leaderboard] " +
+                //    "Player is not authenticated. " +
+                //    "Score queued."
+                //);
 
                 Authenticate();
 
@@ -189,11 +189,11 @@ namespace Valley.Leaderboard
                 {
                     if (success)
                     {
-                        Debug.Log(
-                            "[Google Play Leaderboard] " +
-                            "High score submitted: " +
-                            score
-                        );
+                        //Debug.Log(
+                        //    "[Google Play Leaderboard] " +
+                        //    "High score submitted: " +
+                        //    score
+                        //);
                     }
                     else
                     {
@@ -265,11 +265,11 @@ namespace Valley.Leaderboard
                 {
                     if (success)
                     {
-                        Debug.Log(
-                            "[Google Play Leaderboard] " +
-                            "High distance submitted: " +
-                            distance
-                        );
+                        //Debug.Log(
+                        //    "[Google Play Leaderboard] " +
+                        //    "High distance submitted: " +
+                        //    distance
+                        //);
                     }
                     else
                     {
@@ -393,10 +393,10 @@ namespace Valley.Leaderboard
                 {
                     if (data.Status == ResponseStatus.Success)
                     {
-                        Debug.Log(
-                            "[Google Play Leaderboard] " +
-                            "Loaded top scores."
-                        );
+                        //Debug.Log(
+                        //    "[Google Play Leaderboard] " +
+                        //    "Loaded top scores."
+                        //);
                     }
                     else
                     {
@@ -457,10 +457,10 @@ namespace Valley.Leaderboard
                 {
                     if (data.Status == ResponseStatus.Success)
                     {
-                        Debug.Log(
-                            "[Google Play Leaderboard] " +
-                            "Loaded player-centered scores."
-                        );
+                        //Debug.Log(
+                        //    "[Google Play Leaderboard] " +
+                        //    "Loaded player-centered scores."
+                        //);
                     }
                     else
                     {

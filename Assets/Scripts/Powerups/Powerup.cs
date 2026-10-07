@@ -18,6 +18,13 @@ namespace Valley.Powerups
         [SerializeField] private bool destroyOnPickup = true;
         [SerializeField] private MMF_Player feedback;
 
+        private bool applied = false;
+
+        private void OnEnable()
+        {
+            applied = false;
+        }
+
         private void OnTriggerEnter(Collider other) => TryCollect(other.gameObject);
         private void OnCollisionEnter(Collision collision) => TryCollect(collision.gameObject);
 
@@ -26,8 +33,11 @@ namespace Valley.Powerups
             if (effect == null) return;
             if (!IsInLayerMask(target.layer, targetMask)) return;
 
+            if (applied) return;
+
             effect.Apply(target, transform);
             OnPowerupCollected?.Invoke(effect, target);
+            applied = true;
 
             if(feedback)
                 feedback.PlayFeedbacks();
