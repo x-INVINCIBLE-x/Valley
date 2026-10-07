@@ -32,7 +32,7 @@ namespace Valley.Powerups
             if(feedback)
                 feedback.PlayFeedbacks();
 
-            if (destroyOnPickup) Destroy(gameObject);
+            if (destroyOnPickup) Destroy(gameObject,1f);
         }
 
         private static bool IsInLayerMask(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0;
