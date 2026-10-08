@@ -10048,7 +10048,7 @@ MonoBehaviour:
         BoundParticleSystem: {fileID: 801127075585964601}
         RandomParticleSystems: []
         MoveToPosition: 1
-        ActivateOnPlay: 0
+        ActivateOnPlay: 1
         StopSystemOnInit: 1
         StopSystemOnReset: 1
         StopSystemOnStopFeedback: 1
@@ -25280,7 +25280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3151453693285177643
 Transform:
   m_ObjectHideFlags: 0
